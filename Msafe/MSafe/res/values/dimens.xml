@@ -4,6 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 	<!-- 系统字大小 -->
+	  <dimen name="textsize_circle_cache">35sp</dimen>
     <dimen name="textsize_mainactiviy_top">24sp</dimen>
     <dimen name="textsize_breathecircle">18sp</dimen>
      <dimen name="textsize_mainactivity_btn">10sp</dimen>

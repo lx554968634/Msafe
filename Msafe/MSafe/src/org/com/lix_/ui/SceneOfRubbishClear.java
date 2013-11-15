@@ -32,6 +32,8 @@ public class SceneOfRubbishClear extends BaseActivity {
 	private AListView m_pGridView;
 
 	private AutodrawCircleView m_pTargetCircle;
+	
+	private TextView m_pCacheTextView ;
 
 	private EnableOfRubbishClear m_pEnable;
 
@@ -80,6 +82,9 @@ public class SceneOfRubbishClear extends BaseActivity {
 		public void callback(Object... obj) {
 			Integer pNum = new Integer(obj[0].toString());
 			switch (pNum) {
+			case EnableOfRubbishClear.RAM_SHOW:
+				pNum = new Integer(obj[1].toString()); //ÄÚ´æÔö¼Ó
+				break ;
 			case EnableOfRubbishClear.FINSH_SD_RUBBISH:
 				if(m_pTargetCircle != null)
 					m_pTargetCircle.m_nTargetNum = 2 ;

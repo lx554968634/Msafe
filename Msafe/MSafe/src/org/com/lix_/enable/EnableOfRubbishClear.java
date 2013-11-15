@@ -48,9 +48,15 @@ public class EnableOfRubbishClear extends Enable {
 
 	public static final int FIND_START_SCANCACHE = 6;
 
+	public static final int RAM_SHOW = 8;
+	public static final int READY2CHECK_RUBBISHSERVICE = 9;
+
 	private int m_nScanPckCacheCount = 0;
 
 	private int m_nScanCount;
+
+	private boolean m_bCacheReady = false;
+	private boolean m_bPropScanReady = false;
 
 	/**
 	 * 处理器
@@ -66,11 +72,15 @@ public class EnableOfRubbishClear extends Enable {
 				Debug.i(TAG, "FIND_CACHE_SYSTEMPCK :" + m_nScanCount + ":"
 						+ msg.obj);
 				if (m_nScanPckCacheCount == m_nScanCount) {
-					checkService();
+					msg = Message.obtain() ;
+					msg.what = READY2CHECK_RUBBISHSERVICE;
+					sendMessage(msg);
 				}
 				break;
 			case FIND_START_SCANCACHE:
 				m_nScanPckCacheCount = msg.arg1;
+				m_bCacheReady = false;
+				m_bPropScanReady = false;
 				Debug.i(TAG, "开始扫描缓存:" + m_nScanPckCacheCount);
 				m_nScanCount = 0;
 				break;
@@ -79,14 +89,31 @@ public class EnableOfRubbishClear extends Enable {
 				Debug.i(TAG, "FIND_CACHE_USERPCK :" + m_nScanCount + ":"
 						+ msg.obj);
 				if (m_nScanPckCacheCount == m_nScanCount) {
-					checkService();
+					msg = Message.obtain() ;
+					msg.what = READY2CHECK_RUBBISHSERVICE;
+					sendMessage(msg);
 				}
+				break;
+			case READY2CHECK_RUBBISHSERVICE:
+				if (!m_bCacheReady && m_nScanPckCacheCount == m_nScanCount)
+				{
+					Debug.i(TAG, "扫描所有缓存");
+					m_bCacheReady = true;
+				}
+				if (!m_bPropScanReady) {
+					Debug.i(TAG, "扫描垃圾进程");
+					m_bPropScanReady = true;
+				}
+				if (m_bCacheReady && m_bPropScanReady)
+					checkService();
 				break;
 			case FIND_CACHE_NO:
 				m_nScanCount++;
 				Debug.i(TAG, "FIND_CACHE_NO :" + m_nScanCount);
 				if (m_nScanPckCacheCount == m_nScanCount) {
-					checkService();
+					msg = Message.obtain() ;
+					msg.what = READY2CHECK_RUBBISHSERVICE;
+					sendMessage(msg);
 				}
 				break;
 			case FINSH_SD_RUBBISH:
@@ -158,7 +185,6 @@ public class EnableOfRubbishClear extends Enable {
 		pMsg = Message.obtain();
 		pMsg.what = PREPARE_FINISH;
 		m_pRubbishHandler.sendMessage(pMsg);
-
 		if (nTag == 1 && Debug.DEBUG_STR != null) {
 			Debug.i(TAG, "根目录："
 					+ Environment.getRootDirectory().getAbsolutePath());
@@ -169,20 +195,8 @@ public class EnableOfRubbishClear extends Enable {
 			HashMap<String, ArrayList<String>> szDetailCache = new HashMap<String, ArrayList<String>>();
 			m_pFileEngine.readFile(Environment.getExternalStorageDirectory(),
 					szBlackDir, szDetailCache);
-			StringBuffer sb = new StringBuffer();
-			for (String sInfo : szBlackDir) {
-				sb.append(sInfo);
-			}
-			// Debug.DEBUG_STR = sb.toString();
-			sb = new StringBuffer();
-			for (String pSet : szDetailCache.keySet()) {
-				ArrayList pArr = szDetailCache.get(pSet);
-				for (int i = 0; i < pArr.size(); i++) {
-					sb.append("pSet[" + pArr.get(i) + "]");
-				}
-			}
 			pMsg = Message.obtain();
-			pMsg.arg1 = FINSH_SD_RUBBISH;
+			pMsg.what = FINSH_SD_RUBBISH;
 			m_pRubbishHandler.sendMessage(pMsg);
 		}
 	}
@@ -197,12 +211,7 @@ public class EnableOfRubbishClear extends Enable {
 		ArrayList<AppInfo> szRubbishTask = m_pTaskWorkEngine.checkRubbish(
 				m_szRubbishProp, szRubbishService);
 		Debug.i(TAG, "checkRubbish over!:" + szRubbishTask.size());
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < szRubbishTask.size(); i++) {
-			sb.append(szRubbishTask.get(i).toString());
-		}
 		Debug.DEBUG_STR = "开始记录";
-		Debug.logFile(sb.toString(), false);
 		Debug.DEBUG_STR = "文件记录完毕";
 		finishScan();
 	}
@@ -225,7 +234,7 @@ public class EnableOfRubbishClear extends Enable {
 				.getRunningTask();
 		m_szRubbishProp = m_pTaskWorkEngine.getRunningRubbishInfo(m_szAppInfos,
 				szTotal);
-		Debug.i(TAG, "checkProp over:" + (m_szRubbishProp == null));
+		Debug.i(TAG, "checkProp over:" + (m_szRubbishProp.size()));
 	}
 
 }

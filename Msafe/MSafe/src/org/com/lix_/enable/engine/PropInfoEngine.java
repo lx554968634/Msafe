@@ -256,7 +256,7 @@ public class PropInfoEngine {
 	public ArrayList<AppInfo> checkRubbish(Map<String, AppInfo> szRubbishProp,
 			ArrayList<RunningServiceInfo> szRubbishService) {
 		Debug.i(TAG, "checkRubbish-对比扫描所有的垃圾进程:"
-				+ (szRubbishProp.keySet() == null));
+				+ (szRubbishProp == null));
 		ArrayList<AppInfo> szArr = new ArrayList<AppInfo>();
 		int nCount = szRubbishService.size();
 		String sPckName = null;
