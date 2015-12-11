@@ -10,5 +10,7 @@
     <color name="rubbishclear_bg">#aaf49c</color>
     <color name="radar_outcircle_color">#D1FFD4</color>
     <color name="radar_inner_color">#C9FFCC</color>
+    <color name="black">#000000</color>
+    <color name="tab_textcolor_selected">#81fa87</color>
 
 </resources>
