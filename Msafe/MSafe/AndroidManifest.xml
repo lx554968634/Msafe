@@ -43,6 +43,9 @@
           <activity
             android:name="org.com.lix_.ui.SceneOfRootAdmin"
             android:label="@string/app_name" />
+            <activity
+            android:name="org.com.lix_.ui.SceneOfPowerAdmin"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

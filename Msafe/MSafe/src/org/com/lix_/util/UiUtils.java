@@ -44,4 +44,13 @@ public class UiUtils {
 		return pPaint ;
 	}
 
+	public static float sin(int i) {
+		// TODO Auto-generated method stub
+		return (float)(Math.sin(i * Math.PI *2 / 360));
+	}
+
+	public static float cos(int i) {
+		return (float)(Math.cos(i * Math.PI *2 / 360));
+	}
+
 }
