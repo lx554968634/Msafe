@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="titles_rubbishclear_array">
+        <item>内存加速</item>
+        <item>系统及应用缓存</item>
+        <item>垃圾文件</item>
+        <item>多余安装包</item>
+        <item>应用卸载残余</item>
+    </string-array> 
+</resources> 

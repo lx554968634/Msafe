@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/org.com.lix_.ui"
+    android:id="@+id/total_runbishclear"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/green_breathecircleview_background"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/title_clearrubbish_btn_mainlayout"
+            android:textColor="@color/white_textcolor"
+            android:textSize="@dimen/textsize_mainactiviy_top" />
+
+        <org.com.lix_.plugin.RadarCircleView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:stokeSize="10dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@null"
+        android:visibility="visible" >
+
+     
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,270 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/org.com.lix_.ui"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/green_mainlayout_background"
+    android:orientation="vertical" >
+
+    <!-- 首页的安全中心和一键检测 附带呼吸圈效果 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/green_mainlayout_background"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/saftytitle_mainlayout_background_up"
+            android:textColor="@color/white_textcolor"
+            android:textSize="@dimen/textsize_mainactiviy_top" />
+
+        <org.com.lix_.plugin.BreatheCircleView
+            android:id="@+id/title_btn_mainlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:backgroundcolor="@color/green_breathecircleview_background"
+            app:textColor="@color/white_textcolor"
+            app:textSize="@dimen/textsize_breathecircle"
+            app:txt="@string/title_breathecircle" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <GridView
+            android:id="@+id/list_mainactivity"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+        <!-- 下面的按钮  垃圾清理，大文件管理，应用清理，流量管理，病毒检测，权限管理，省电模式，额外 -->
+
+        <LinearLayout
+            android:id="@+id/btns_mainactivity"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_mainlayout_background"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:id="@+id/btn_rubbishclear_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_clearrubbish_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_fileadmin_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_fileadmin_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_apkadmin_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_apkrubbish_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_wapadmin_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_wrapadmin_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:id="@+id/btn_virusadmin_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_virusclear_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_rootadmin_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_rootadmin_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_poweradmin_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_lowpower_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_extrafuction_mainacitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:src="@drawable/main_clear_title" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="true"
+                        android:text="@string/title_extra_btn_mainlayout"
+                        android:textSize="@dimen/textsize_mainactivity_btn" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

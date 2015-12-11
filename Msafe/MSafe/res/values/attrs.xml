@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 呼吸灯按钮的属性 -->
+    <declare-styleable name="BreatheCircleView">
+        <attr name="textColor" format="reference|color" />
+        <attr name="textSize" format="dimension|reference" />
+        <attr name="backgroundcolor" format="color|reference" />
+        <attr name="txt" format="string|reference"></attr>
+    </declare-styleable>
+    
+    <!-- 垃圾清理圈圈 -->
+    <declare-styleable name="AutodrawCircleView">
+        <attr name="stokeSize" format="dimension|reference" />
+    </declare-styleable>
+</resources>

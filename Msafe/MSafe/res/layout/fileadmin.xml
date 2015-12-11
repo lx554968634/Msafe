@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_list" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_list"
+            android:text="@string/title_fileadmin_btn_mainlayout"
+            android:textSize="@dimen/textsize_mainactiviy_top" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/green_breathecircleview_background" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list" 
+        android:paddingRight="@dimen/padding_list" >
+
+        <TextView
+            android:id="@+id/fileadmin_filesizetotalnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_list"
+            android:text="3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/fileadmin_filesizetotalnum"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingTop="@dimen/padding_list"
+            android:text="@string/des_filenum" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/padding_list"
+            android:text="@string/totalsize_des_exp_fileadmin" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_below="@id/fileadmin_filesizetotalnum"
+            android:background="@color/gray_mainactivity_btn_press"
+            android:paddingLeft="@dimen/padding_list"
+            android:paddingRight="@dimen/padding_list" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/fileadmin_btn_clear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/gray_mainactivity_btn_press" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingTop="@dimen/padding_list"
+                android:text="@string/clear" />
+        </LinearLayout>
+
+        <org.com.lix_.plugin.AListView
+            android:id="@+id/fileadmin_detail_list"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/fileadmin_btn_clear"
+            android:paddingLeft="@dimen/padding_list"
+            android:paddingRight="@dimen/padding_list" />
+    </RelativeLayout>
+
+</LinearLayout>

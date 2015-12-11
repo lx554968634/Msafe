@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MSafe</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- mainactiviy主页背景上面的文字 -->
+    <string name="saftytitle_mainlayout_background_up">安全中心</string>
+    <string name="title_breathecircle">一键检测</string>
+    <string name="title_clearrubbish_btn_mainlayout">垃圾清理</string>
+     <string name="title_fileadmin_btn_mainlayout">大文件管理</string>
+     <string name="title_apkrubbish_btn_mainlayout">应用清理</string>
+      <string name="title_wrapadmin_btn_mainlayout">流量管理</string>
+       <string name="title_virusclear_btn_mainlayout">病毒查杀</string>
+        <string name="title_rootadmin_btn_mainlayout">权限管理</string>
+        <string name="title_lowpower_btn_mainlayout">省电模式</string>
+        <string name="title_extra_btn_mainlayout">额外</string>
+        <string name="grid_item_check0">正在检查</string>
+        <string name="clear">清理</string>
+        <string name="des_filenum">个大文件</string>
+        <string name="totalsize_des_exp_fileadmin">共323M</string>
+</resources>

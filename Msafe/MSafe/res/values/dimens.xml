@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	<!-- 系统字大小 -->
+    <dimen name="textsize_mainactiviy_top">24sp</dimen>
+    <dimen name="textsize_breathecircle">20sp</dimen>
+     <dimen name="textsize_mainactivity_btn">10sp</dimen>
+     <dimen name="txtpaddingbottom_mainactivity_grid">10dp</dimen>
+     <dimen name="stroke_circle">10dp</dimen>
+     <dimen name="clear_btn_size">20dp</dimen>
+     <dimen name="padding_list">10dp</dimen>
+     <dimen name="line_height">1dp</dimen>
+</resources>
