@@ -1,7 +1,9 @@
 package org.com.lix_.ui;
 
 import org.com.lix_.plugin.AListView;
+import org.com.lix_.plugin.AutodrawCircleView;
 import org.com.lix_.ui.MainActivity.Adapter.ViewHolder;
+import org.com.lix_.util.Debug;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +26,9 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 	private String[] m_szTitles;
 
-	private ListView m_pGridView;
+	private org.com.lix_.plugin.AListView m_pGridView;
+
+	private AutodrawCircleView m_pTargetCircle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +40,20 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 	@Override
 	public void init() {
-		moveQuick() ;
+		moveQuick();
 		m_szTitles = getResources().getStringArray(
 				R.array.titles_rubbishclear_array);
 		COUNT_GRID_ITEMS = m_szTitles.length;
-		m_pGridView = (ListView) findViewById(R.id.list_rubbishactivity);
+		m_pGridView = (org.com.lix_.plugin.AListView) findViewById(R.id.list_rubbishactivity);
+		m_pGridView.setScrollenable(false);
 		m_pGridView.setAdapter(new Adapter());
+		m_pTargetCircle = (AutodrawCircleView) findViewById(R.id.circle_target);
 		m_pGridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				startActivity(new Intent(SceneOfRubbishClear.this,SceneOfShowRubbish.class));
+				startActivity(new Intent(SceneOfRubbishClear.this,
+						SceneOfShowRubbish.class));
 			}
 		});
 	}
@@ -90,6 +97,14 @@ public class SceneOfRubbishClear extends BaseActivity {
 			} else {
 				pHolder = (ViewHolder) convertView.getTag();
 			}
+			Debug.e(TAG, "position : "+position);
+			if (position == COUNT_GRID_ITEMS - 1) {
+				convertView.findViewById(R.id.grid_item_div).setVisibility(
+						View.GONE);
+			}
+			else
+				convertView.findViewById(R.id.grid_item_div).setVisibility(
+						View.VISIBLE);
 			pHolder.m_pTextView.setText(m_szTitles[position]);
 			return convertView;
 		}

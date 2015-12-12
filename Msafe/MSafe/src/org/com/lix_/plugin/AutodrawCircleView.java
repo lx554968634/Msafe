@@ -60,21 +60,11 @@ public class AutodrawCircleView extends View {
 
 	private long m_nTestTime;
 
-	private void test() {
-		if(m_nClearCount == 11) 
-			return ;
-		if (m_nTestTime == 0)
-			m_nTestTime = System.currentTimeMillis();
-		if (System.currentTimeMillis() - m_nTestTime >= 10) {
-			m_nClearCount++;
-		}
-	}
-
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
-		test() ;
-		drawSector(canvas, m_pRadioLen / 100 * 60, 135, (m_nClearCount >= 11 ? 10 : m_nClearCount) * 27, false);
+		drawSector(canvas, m_pRadioLen / 100 * 60, 135,
+				(m_nClearCount >= 11 ? 10 : m_nClearCount) * 27, false);
 		postInvalidate();
 	}
 }

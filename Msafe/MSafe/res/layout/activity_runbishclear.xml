@@ -22,6 +22,7 @@
             android:textSize="@dimen/textsize_mainactiviy_top" />
 
         <org.com.lix_.plugin.AutodrawCircleView
+            android:id="@+id/circle_target"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:stokeSize="10dp" />
@@ -39,10 +40,17 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:padding="@dimen/clear_btn_size"
-            android:visibility="gone" >
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_mainactivity_btn_press" />
 
             <TextView
+                android:paddingTop="@dimen/padding_list"
+                android:paddingBottom="@dimen/padding_list"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -50,12 +58,13 @@
         </LinearLayout>
 
         <org.com.lix_.plugin.AListView
-            android:layoutAnimation="@anim/list_anim_layout"
             android:id="@+id/list_rubbishactivity"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/clear_btn_rubbish"
-            android:background="@color/white" />
+            android:listSelector="@android:color/transparent"
+            android:background="@color/white"
+            android:divider="@null"
+            android:layoutAnimation="@anim/list_anim_layout" />
     </RelativeLayout>
 
 </LinearLayout>

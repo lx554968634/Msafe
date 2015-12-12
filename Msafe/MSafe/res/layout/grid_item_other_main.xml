@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:paddingLeft="80dp"
-    android:layout_marginBottom="20dp"
-    android:orientation="horizontal" >
- 
+    android:paddingLeft="@dimen/padding_list"
+    android:paddingRight="@dimen/padding_list" >
+
     <ImageView
         android:id="@+id/grid_item_image"
-        android:src="@drawable/image_exclam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name" />
+        android:contentDescription="@string/app_name"
+        android:layout_marginTop="@dimen/padding_list3"
+        android:paddingLeft="@dimen/padding_list"
+        android:src="@drawable/image_exclam" />
 
     <TextView
         android:id="@+id/itemImage"
-        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/grid_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/grid_item_check0" />
+        android:layout_marginTop="@dimen/padding_list3"
+        android:paddingLeft="@dimen/padding_list"
+        android:text="@string/grid_item_check0"
+        android:textSize="@dimen/textsize_breathecircle" />
 
-</LinearLayout>
+    <View
+        android:id="@+id/grid_item_div"
+        android:layout_below="@id/itemImage"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+		android:layout_marginTop="@dimen/padding_list3"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+</RelativeLayout>

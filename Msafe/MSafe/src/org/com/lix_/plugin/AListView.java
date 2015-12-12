@@ -55,6 +55,10 @@ public class AListView extends ListView {
 			m_bCheckValue = 0;
 			break;
 		case MotionEvent.ACTION_MOVE:
+			if(!m_bScrollenabled)
+			{
+				return false ;
+			}
 			if (!m_bCanMove) {
 				ev.setAction(MotionEvent.ACTION_DOWN);
 				dispatchTouchEvent(ev);
@@ -66,6 +70,13 @@ public class AListView extends ListView {
 		}
 
 		return super.onTouchEvent(ev);
+	}
+	
+	private boolean m_bScrollenabled = true ;
+
+	public void setScrollenable(boolean b) {
+		m_bScrollenabled = b ;		
+		setVerticalScrollBarEnabled(b);
 	}
 
 }
