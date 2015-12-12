@@ -1,8 +1,8 @@
 package org.com.lix_.ui;
 
+import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.plugin.AutodrawCircleView;
-import org.com.lix_.ui.MainActivity.Adapter.ViewHolder;
 import org.com.lix_.util.Debug;
 
 import android.content.Intent;
@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.support.v4.widget.AutoScrollHelper;
 import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,9 +28,11 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 	private String[] m_szTitles;
 
-	private org.com.lix_.plugin.AListView m_pGridView;
+	private AListView m_pGridView;
 
 	private AutodrawCircleView m_pTargetCircle;
+	
+	private EnableOfRubbishClear m_pEnable ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 		m_szTitles = getResources().getStringArray(
 				R.array.titles_rubbishclear_array);
 		COUNT_GRID_ITEMS = m_szTitles.length;
-		m_pGridView = (org.com.lix_.plugin.AListView) findViewById(R.id.list_rubbishactivity);
+		m_pGridView = (AListView) findViewById(R.id.list_rubbishactivity);
 		m_pGridView.setScrollenable(false);
 		m_pGridView.setAdapter(new Adapter());
 		m_pTargetCircle = (AutodrawCircleView) findViewById(R.id.circle_target);
@@ -56,6 +60,18 @@ public class SceneOfRubbishClear extends BaseActivity {
 						SceneOfShowRubbish.class));
 			}
 		});
+		m_pEnable = new EnableOfRubbishClear(this) ;
+	}
+	
+	
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		if(m_pGridView != null && hasFocus)
+		{
+			m_pGridView.setVisibility(View.VISIBLE );
+		}
 	}
 
 	class Adapter extends BaseAdapter {
@@ -97,7 +113,6 @@ public class SceneOfRubbishClear extends BaseActivity {
 			} else {
 				pHolder = (ViewHolder) convertView.getTag();
 			}
-			Debug.e(TAG, "position : "+position);
 			if (position == COUNT_GRID_ITEMS - 1) {
 				convertView.findViewById(R.id.grid_item_div).setVisibility(
 						View.GONE);

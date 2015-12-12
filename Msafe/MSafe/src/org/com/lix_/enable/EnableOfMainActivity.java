@@ -66,4 +66,10 @@ public class EnableOfMainActivity extends Enable {
 		}
 	}
 
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

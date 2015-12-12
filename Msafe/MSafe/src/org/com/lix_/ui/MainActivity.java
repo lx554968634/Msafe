@@ -229,7 +229,6 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 			m_pHiddenAnimation.setAnimationListener(this);
 		}
 		m_pBtns.startAnimation(m_pHiddenAnimation);
-
 	}
 
 	/**

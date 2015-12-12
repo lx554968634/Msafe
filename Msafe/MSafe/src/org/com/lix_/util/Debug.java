@@ -11,6 +11,8 @@ import android.util.Log;
  */
 public class Debug {
 	
+	public static final String SPLIT_STR = "@@@@";
+	public static String DEBUG_STR = "";
 	public static void i(Object sTag, Object sInfo) {
 		if (Define.DEBUG)
 			Log.i(sTag.toString(), sInfo.toString());

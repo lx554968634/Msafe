@@ -14,6 +14,6 @@ public abstract class Enable {
 	public Enable(Context pContext) {
 		m_pContext = pContext;
 	}
-
+	public abstract void finish();
 	public abstract void onViewClick(int nId);
 }
