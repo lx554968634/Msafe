@@ -35,8 +35,6 @@
         android:background="@color/white"
         android:visibility="visible" >
 
-      
-
         <LinearLayout
             android:id="@+id/clear_btn_rubbish"
             android:layout_width="fill_parent"
@@ -69,10 +67,11 @@
             android:layoutAnimation="@anim/list_anim_layout"
             android:listSelector="@android:color/transparent"
             android:visibility="gone" />
-          <org.com.lix_.plugin.DebugView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@android:color/black" />
+
+        <org.com.lix_.plugin.DebugView
+            android:background="#b0000000"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
 </LinearLayout>

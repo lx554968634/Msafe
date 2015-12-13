@@ -1,6 +1,10 @@
 package org.com.lix_.enable;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.UiUtils;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -56,11 +60,14 @@ public class EnableOfRubbishClear extends Enable {
 	};
 
 	AsyncTask m_pRubbishTask = new AsyncTask() {
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			Debug.e(TAG, "开始准备扫描sd卡");
+		}
 
 		@Override
-		protected void onPostExecute(Object result) {
-			super.onPostExecute(result);
-			Debug.e(TAG, "开始准备扫描sd卡");
+		protected Object doInBackground(Object... params) {
 			String nStatus = Environment.getExternalStorageState();
 			String sTag = "";
 			int nTag = 0;
@@ -87,19 +94,14 @@ public class EnableOfRubbishClear extends Enable {
 				Debug.e(TAG, "extr目录："
 						+ Environment.getExternalStorageDirectory()
 								.getAbsolutePath());
-				Debug.DEBUG_STR = Environment.getRootDirectory().getAbsolutePath()+Debug.SPLIT_STR
-						+ Environment.getExternalStorageDirectory()
-								.getAbsolutePath();
+				ArrayList<String> szContents = new ArrayList<String>() ;
+				UiUtils.readFile(Environment.getExternalStorageDirectory() ,szContents) ;
+				Debug.DEBUG_STR += Environment.getExternalStorageDirectory().getAbsolutePath()  ;
+				for(String sInfo:szContents)
+				{
+					Debug.DEBUG_STR +=szContents ;
+				}
 			}
-		}
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Object doInBackground(Object... params) {
 			return null;
 		}
 	};

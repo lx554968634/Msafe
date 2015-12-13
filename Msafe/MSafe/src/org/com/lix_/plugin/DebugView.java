@@ -1,7 +1,10 @@
 package org.com.lix_.plugin;
 
+import java.util.ArrayList;
+
 import org.com.lix_.ui.R;
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.UiUtils;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,8 +22,6 @@ public class DebugView extends View {
 
 	private void init() {
 		m_pPaint = new Paint();
-		m_pPaint.setStrokeWidth(getResources().getDimension(
-				R.dimen.circle2line_stroke));
 		m_pPaint.setColor(getResources().getColor(R.color.white));
 	}
 
@@ -30,18 +31,37 @@ public class DebugView extends View {
 		drawString(canvas);
 	}
 
-	private String[] m_szInfos;
+	private ArrayList<String> plamformString(String sInfos) {
+		String sTmp = sInfos + "";
+		int nSize = (int) (UiUtils.px2dip(getContext(), getWidth()) / m_pPaint.getTextSize() ) * 3;
+		ArrayList<String> szContents = new ArrayList<String>();
+		StringBuffer sb = new StringBuffer();
+		int nCount = 0;
+		for (int i = 0; i < sTmp.length(); i++) {
+			if (nCount == nSize) {
+				szContents.add(sb.toString());
+				nCount = 0 ;
+				sb = new StringBuffer();
+			}
+			sb.append(sTmp.charAt(i) + "");
+			nCount++;
+		}
+		return szContents;
+	}
+	
+	private String TAG = "DebugView" ;
 
 	private void drawString(Canvas pCanvas) {
-		m_szInfos = Debug.DEBUG_STR.split(Debug.SPLIT_STR);
-		if (m_szInfos.length == 0)
+
+		ArrayList<String> m_szInfos = plamformString(Debug.DEBUG_STR);
+		if (m_szInfos == null || m_szInfos.size() == 0)
 			pCanvas.drawText(Debug.DEBUG_STR, 20, 20, m_pPaint);
 		else {
-			for (int i = 0; i < m_szInfos.length; i++) {
-				pCanvas.drawText(m_szInfos[i], 20, 10 * i + 20, m_pPaint);
+			for (int i = 0; i < m_szInfos.size(); i++) {
+				pCanvas.drawText(m_szInfos.get(i), 20, 10 * i + 20, m_pPaint);
 			}
 		}
-		postInvalidateDelayed(20);
+		postInvalidateDelayed(1000);
 	}
 
 }
