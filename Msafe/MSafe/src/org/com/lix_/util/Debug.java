@@ -30,19 +30,13 @@ public class Debug {
 			Log.e(sTag.toString(), sInfo.toString());
 	}
 
-	public static void logFile(Object sInfo) {
+	public static void logFile(Object sInfo,boolean bFlag) {
 		if (Define.DEBUG
 				&& Environment.getExternalStorageState().equals(
 						Environment.MEDIA_MOUNTED))
 			try {
-				File pFile = new File(Environment.getExternalStorageDirectory() + "/"
-								+ DEBUG_FILENAME) ;
-				if(pFile!=null && pFile.exists())
-				{
-					pFile.delete() ;
-				}
 				FileOutputStream fout = new FileOutputStream(Environment.getExternalStorageDirectory() + "/"
-						+ DEBUG_FILENAME);
+						+ DEBUG_FILENAME,bFlag);
 
 				byte[] bytes = sInfo.toString().getBytes();
 
@@ -51,7 +45,7 @@ public class Debug {
 				fout.close();
 
 			} catch (Exception e) {
-
+				DEBUG_STR = e.getMessage() ;
 				e.printStackTrace();
 
 			}

@@ -199,6 +199,7 @@ public class EnableOfRubbishClear extends Enable {
 	}
 
 	private void checkProps() {
+		Debug.DEBUG_STR = "准备分析进程" ;
 		// 开始扫描系统进程 ,区分了系统进程和用户进程，前者不管，后者干
 		Map<String, AppInfo> szAppInfos = getAllAppInfo();
 		ActivityManager am = (ActivityManager) m_pContext
@@ -208,10 +209,6 @@ public class EnableOfRubbishClear extends Enable {
 		int[] szPid = null;
 		// 获取了正在运行的包名以及内存占用
 		for (RunningAppProcessInfo pProp : run) {
-			if (pProp.processName.equals("system")
-					|| pProp.processName.equals("com.Android.phone")) {
-				continue;
-			}
 			int nPid = pProp.pid;
 			szPid = new int[] { nPid };
 			Debug.i(TAG,
@@ -228,24 +225,35 @@ public class EnableOfRubbishClear extends Enable {
 		for (String str : szTotal.keySet()) {
 			pTmp = szAppInfos.get(str);
 			if (pTmp == null) {
-				Debug.i(TAG, "pck:"+str+"在程序列表中不存在!");
+				Debug.i(TAG, "pck:" + str + "在程序列表中不存在!");
 			} else {
 				if (pTmp.isSystemApp()) {
-					Debug.i(TAG, "pck:"+str+"是系统程序不记录");
+					Debug.i(TAG, "pck:" + str + "是系统程序不记录");
 				} else {
-					Debug.i(TAG, "pck:"+str+"是可以删除的垃圾!~");
-					pTmp.setM_nRam(szTotal.get(str));
-					szRubbishProp.add(pTmp);
+					Debug.i(TAG, "pck:" + str + "是可以删除的垃圾!~");
+					
 				}
+				pTmp.setM_nRam(szTotal.get(str));
+				szRubbishProp.add(pTmp);
 			}
 		}
-		StringBuffer sb = new StringBuffer() ;
-		for(AppInfo pTmp1 : szRubbishProp)
-		{
-			sb.append(pTmp1.toString()) ;
+		StringBuffer sb = new StringBuffer();
+		for (AppInfo pTmp1 : szRubbishProp) {
+			sb.append(pTmp1.toString());
 		}
-		Debug.DEBUG_STR = sb.toString() ;
-		Debug.logFile(Debug.DEBUG_STR);
+		Debug.DEBUG_STR = "准备写入文件" ;
+		Debug.logFile(sb.toString(),false);
+		Debug.DEBUG_STR = "计算服务数据" ;
+		List<ActivityManager.RunningServiceInfo> szServices =
+				am.getRunningServices(50) ;
+		sb = new StringBuffer() ;
+		for(ActivityManager.RunningServiceInfo pService : szServices)
+		{
+			Debug.i(TAG, "pService.process:"+pService.process);
+			sb.append(pService.process) ;
+		}
+		Debug.logFile(sb.toString(),true);
+		
 		Message pMsg = null;
 		pMsg = Message.obtain();
 		pMsg.arg1 = FINSH_INNER_PROP;
