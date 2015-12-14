@@ -2,6 +2,7 @@ package org.com.lix_.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -61,39 +62,6 @@ public class UiUtils {
 
 	public static float cos(int i) {
 		return (float) (Math.cos(i * Math.PI * 2 / 360));
-	}
-
-	public static void readFile(File pFile, ArrayList<String> szContents) {
-		File[] szFiles = null;
-		int i = 0;
-		if (pFile == null)
-			Debug.e(TAG, "这个文件 为null");
-		else {
-			if (pFile.isDirectory()) {
-				szFiles = pFile.listFiles();
-				Debug.i(TAG, "找到文件夹:" + pFile.getName());
-				if (szFiles == null || szFiles.length == 0) {
-					szContents
-							.add(pFile.getName()
-									+ ":"
-									+ (szFiles == null ? "为null"
-											: "szFiles.length = 0"));
-					Debug.i(TAG,
-							pFile.getName()
-									+ ":"
-									+ (szFiles == null ? "为null"
-											: "szFiles.length = 0"));
-					return;
-				}
-				szContents.add(pFile.getAbsolutePath()+":");
-				for (i = 0; i < szFiles.length; i++) {
-					readFile(szFiles[i], szContents);
-				}
-			} else {
-				szContents.add(pFile.getAbsolutePath()+":");
-				Debug.i(TAG, pFile.getName());
-			}
-		}
 	}
 
 }

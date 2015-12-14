@@ -1,5 +1,6 @@
 package org.com.lix_.ui;
 
+import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.plugin.AutodrawCircleView;
@@ -31,8 +32,10 @@ public class SceneOfRubbishClear extends BaseActivity {
 	private AListView m_pGridView;
 
 	private AutodrawCircleView m_pTargetCircle;
-	
-	private EnableOfRubbishClear m_pEnable ;
+
+	private EnableOfRubbishClear m_pEnable;
+
+	private EnableCallback pCallback;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,26 +55,51 @@ public class SceneOfRubbishClear extends BaseActivity {
 		m_pGridView.setScrollenable(false);
 		m_pGridView.setAdapter(new Adapter());
 		m_pTargetCircle = (AutodrawCircleView) findViewById(R.id.circle_target);
-		m_pGridView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				startActivity(new Intent(SceneOfRubbishClear.this,
-						SceneOfShowRubbish.class));
-			}
-		});
-		m_pEnable = new EnableOfRubbishClear(this) ;
+		m_pEnable = new EnableOfRubbishClear(this);
+		pCallback = new CallbackImpl();
+		m_pEnable.setCallback(pCallback);
 	}
-	
-	
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
-		if(m_pGridView != null && hasFocus)
-		{
-			m_pGridView.setVisibility(View.VISIBLE );
+		if (m_pGridView != null && hasFocus) {
+			m_pGridView.setVisibility(View.VISIBLE);
 		}
+	}
+
+	class CallbackImpl implements EnableCallback {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.com.lix_.enable.EnableCallback#callback(java.lang.Object[])
+		 * 第一个完成项目的tag。后面跟着数据信息
+		 */
+		@Override
+		public void callback(Object... obj) {
+			Integer pNum = new Integer(obj[0].toString());
+			switch (pNum) {
+			case EnableOfRubbishClear.FINSH_SD_RUBBISH:
+				if(m_pTargetCircle != null)
+					m_pTargetCircle.m_nTargetNum = 2 ;
+				Debug.i(TAG, "callback : FINSH_SD_RUBBISH ");
+				break;
+			case EnableOfRubbishClear.FINSH_INNER_PROP:
+				if(m_pTargetCircle != null)
+					m_pTargetCircle.m_nTargetNum = 11 ;
+				Debug.i(TAG, "callback : FINSH_INNER_PROP ");
+				break ;
+			case EnableOfRubbishClear.PREPARE_FINISH:
+				if(m_pTargetCircle != null)
+					m_pTargetCircle.m_nTargetNum = 2 ;
+				Debug.i(TAG, "callback : PREPARE_FINISH ");
+				break ;
+			default:
+				break;
+			}
+		}
+
 	}
 
 	class Adapter extends BaseAdapter {
@@ -116,8 +144,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 			if (position == COUNT_GRID_ITEMS - 1) {
 				convertView.findViewById(R.id.grid_item_div).setVisibility(
 						View.GONE);
-			}
-			else
+			} else
 				convertView.findViewById(R.id.grid_item_div).setVisibility(
 						View.VISIBLE);
 			pHolder.m_pTextView.setText(m_szTitles[position]);

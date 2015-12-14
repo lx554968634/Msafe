@@ -33,7 +33,7 @@ public class DebugView extends View {
 
 	private ArrayList<String> plamformString(String sInfos) {
 		String sTmp = sInfos + "";
-		int nSize = (int) (UiUtils.px2dip(getContext(), getWidth()) / m_pPaint.getTextSize() ) * 3;
+		int nSize = (int) (UiUtils.px2dip(getContext(), getWidth()) / m_pPaint.getTextSize() ) * 4;
 		ArrayList<String> szContents = new ArrayList<String>();
 		StringBuffer sb = new StringBuffer();
 		int nCount = 0;

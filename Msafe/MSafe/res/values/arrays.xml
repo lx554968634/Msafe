@@ -6,5 +6,17 @@
         <item>垃圾文件</item>
         <item>多余安装包</item>
         <item>应用卸载残余</item>
+    </string-array>
+     <string-array name="type_rubbishclear_array">
+        <item>tmp</item>
+        <item>log</item>
+        <item>logs</item>
+        <item>cache</item>
+    </string-array>  
+     <string-array name="typename_rubbishclear_array">
+        <item>临时文件</item>
+        <item>log记录</item>
+        <item>log记录</item>
+        <item>缓存文件</item>
     </string-array> 
 </resources> 

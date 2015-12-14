@@ -23,7 +23,9 @@ public class AutodrawCircleView extends View {
 	private int m_nCircleY;
 	private int m_pRadioLen;
 	private Paint m_pWaterPaint;
-	public int m_nClearCount;
+	private int m_nClearCount;
+	private Paint m_pInnerPaint ;
+	private float m_nStokeCircle ;
 
 	public AutodrawCircleView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -36,6 +38,7 @@ public class AutodrawCircleView extends View {
 				R.styleable.AutodrawCircleView);
 		float nStokeCircle = (float) pTypeAttri.getDimension(
 				R.styleable.AutodrawCircleView_stokeSize, 5);
+		m_nStokeCircle = nStokeCircle ;
 		m_pWaterPaint.setStrokeWidth(nStokeCircle);
 		pTypeAttri.recycle();
 	}
@@ -48,23 +51,35 @@ public class AutodrawCircleView extends View {
 		m_pWaterPaint.setAntiAlias(true);
 		;
 		m_pWaterPaint.setStyle(Paint.Style.STROKE);
+		m_pInnerPaint = new Paint () ;
+		m_pInnerPaint.setColor(getResources().getColor(R.color.white));
+		m_pInnerPaint.setStyle(Paint.Style.STROKE);
+		m_pInnerPaint.setAntiAlias(true);
+		m_nTargetNum = 0 ;
+		m_nClearCount = 0 ;
 		m_pWaterPaint.setColor(getResources().getColor(R.color.white));
 	}
 
 	private void drawSector(Canvas pCanvas, float radius, float nStart,
-			float nEnd, boolean bStroke) {
+			float nEnd, boolean bStroke,Paint pPaint) {
 		RectF pRect = new RectF(m_nCircleX - radius, m_nCircleY - radius,
 				m_nCircleX + radius, m_nCircleY + radius);
-		pCanvas.drawArc(pRect, nStart, nEnd, bStroke, m_pWaterPaint);
+		pCanvas.drawArc(pRect, nStart, nEnd, bStroke, pPaint);
 	}
 
-	private long m_nTestTime;
+	public int m_nTargetNum ;
 
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
+		if(m_nTargetNum > m_nClearCount)
+		{
+			m_nClearCount ++ ;
+		}
 		drawSector(canvas, m_pRadioLen / 100 * 60, 135,
-				(m_nClearCount >= 11 ? 10 : m_nClearCount) * 27, false);
-		postInvalidate();
+				(m_nClearCount >= 11 ? 10 : m_nClearCount) * 27, false,m_pWaterPaint);
+		drawSector(canvas, m_pRadioLen / 100 * 60 - m_nStokeCircle / 2, 135,
+				10 * 27, false,m_pInnerPaint);
+		postInvalidateDelayed(500);;
 	}
 }
