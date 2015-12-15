@@ -152,6 +152,10 @@ public class PropInfoEngine {
 							Debug.i(TAG, "这个进程是用户进程，可干掉:" + sTmp);
 							szPid = new int[] { pInfo.pid };
 							pAppInfo.setM_nRam(am.getProcessMemoryInfo(szPid)[0].dalvikPrivateDirty);
+							msg = Message.obtain() ;
+							msg.what = EnableOfRubbishClear.RAM_SHOW ;
+							msg.obj = am.getProcessMemoryInfo(szPid)[0].dalvikPrivateDirty+"" ;
+							m_pHandler.sendMessage(msg) ;
 							szRubbishProp.put(pAppInfo.getPackageName(),
 									pAppInfo);
 							String packname = pAppInfo.getPackageName();
@@ -209,8 +213,11 @@ public class PropInfoEngine {
 					pInfo.setPackageName(pStats.packageName);
 					pInfo.setmCache(cache);
 					msg.obj = pInfo;
-					Debug.i(TAG, "obserse:" + pStats.packageName + ":" + cache);
 					m_pHandler.sendMessage(msg);
+					msg = Message.obtain() ;
+					msg.what = EnableOfRubbishClear.RAM_SHOW ;
+					msg.obj = cache+"" ;
+					m_pHandler.sendMessage(msg) ;
 				} catch (Exception e) {
 					e.printStackTrace();
 					Debug.e(TAG,
@@ -226,7 +233,6 @@ public class PropInfoEngine {
 				m_pHandler.sendMessage(msg);
 			}
 		}
-
 	}
 
 	public void deleteTaskOrService(String sPackName) {
@@ -255,8 +261,7 @@ public class PropInfoEngine {
 
 	public ArrayList<AppInfo> checkRubbish(Map<String, AppInfo> szRubbishProp,
 			ArrayList<RunningServiceInfo> szRubbishService) {
-		Debug.i(TAG, "checkRubbish-对比扫描所有的垃圾进程:"
-				+ (szRubbishProp == null));
+		Debug.i(TAG, "checkRubbish-对比扫描所有的垃圾进程:" + (szRubbishProp == null));
 		ArrayList<AppInfo> szArr = new ArrayList<AppInfo>();
 		int nCount = szRubbishService.size();
 		String sPckName = null;
@@ -272,7 +277,6 @@ public class PropInfoEngine {
 		for (String sKey : szRubbishProp.keySet()) {
 			szArr.add(szRubbishProp.get(sKey));
 		}
-		Debug.i(TAG, "szRubbishProp.keySet():voer");
 		return szArr;
 	}
 

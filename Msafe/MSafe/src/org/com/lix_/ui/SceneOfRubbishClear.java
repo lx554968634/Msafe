@@ -1,10 +1,12 @@
 package org.com.lix_.ui;
 
 import org.com.lix_.enable.EnableCallback;
+import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.plugin.AutodrawCircleView;
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.UiUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +26,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class SceneOfRubbishClear extends BaseActivity {
+	
+	private String[] STR_STEP = new String[]{"正在扫描","扫描完毕"};
+	
+	private String[] STR_TIP = new String[]{"请稍候","建议清理"} ;
 
 	private int COUNT_GRID_ITEMS;
 
@@ -34,6 +40,12 @@ public class SceneOfRubbishClear extends BaseActivity {
 	private AutodrawCircleView m_pTargetCircle;
 	
 	private TextView m_pCacheTextView ;
+	
+	private TextView m_pStepTextView ;
+	
+	private TextView m_pTipTextView ;
+	
+	
 
 	private EnableOfRubbishClear m_pEnable;
 
@@ -52,6 +64,12 @@ public class SceneOfRubbishClear extends BaseActivity {
 		moveQuick();
 		m_szTitles = getResources().getStringArray(
 				R.array.titles_rubbishclear_array);
+		m_pTipTextView = (TextView) findViewById(R.id.rubbish_text_2) ;
+		m_pTipTextView.setText(STR_TIP[0]);
+		m_pStepTextView = (TextView) findViewById(R.id.rubbish_text_1) ;
+		m_pStepTextView.setText(STR_STEP[0]);
+		m_pCacheTextView = (TextView) findViewById(R.id.rubbish_text_0) ;
+		m_pCacheTextView .setText(UiUtils.getCacheSize(0));
 		COUNT_GRID_ITEMS = m_szTitles.length;
 		m_pGridView = (AListView) findViewById(R.id.list_rubbishactivity);
 		m_pGridView.setScrollenable(false);
@@ -69,9 +87,13 @@ public class SceneOfRubbishClear extends BaseActivity {
 			m_pGridView.setVisibility(View.VISIBLE);
 		}
 	}
+	
+	private void addCacheViewValue(long nValue)
+	{
+		m_pCacheTextView.setText(UiUtils.getCacheSize(nValue));
+	}
 
 	class CallbackImpl implements EnableCallback {
-
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -84,6 +106,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 			switch (pNum) {
 			case EnableOfRubbishClear.RAM_SHOW:
 				pNum = new Integer(obj[1].toString()); //内存增加
+				addCacheViewValue(pNum) ;
 				break ;
 			case EnableOfRubbishClear.FINSH_SD_RUBBISH:
 				if(m_pTargetCircle != null)

@@ -64,4 +64,29 @@ public class UiUtils {
 		return (float) (Math.cos(i * Math.PI * 2 / 360));
 	}
 
+	public static String getCacheSize(long i) {
+		if (i <= 0)
+			return "0B";
+		if (i < 1000) {
+			return i + "B";
+		}
+		if (i >= 1000 && i < 1000000) {
+			return i / 1000 + "." + i % 1000 % 100 % 10 + "KB";
+		} else {
+			return i / 1000000 + "." + i / 1000 % 1000 % 100 % 10 + "M";
+		}
+	}
+
+	public static long getFileSize(File pFile) {
+		long size = 0;
+		if (pFile == null)
+			return 0;
+		if (pFile.isDirectory()) {
+			size = size + getFileSize(pFile);
+		} else {
+			size = size + pFile.length();
+		}
+		return size;
+	}
+
 }

@@ -1,6 +1,5 @@
 package org.com.lix_.enable;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,20 +8,15 @@ import java.util.Map;
 import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.enable.engine.FileInfoEngine;
 import org.com.lix_.enable.engine.PropInfoEngine;
-import org.com.lix_.ui.R;
 import org.com.lix_.util.Debug;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils.StringSplitter;
 
 /**
  * 这个enable需要实现5个功能 1、内存加速，杀死进程和服务后台 2、系统应用缓存，删除/data/data/packagename/..cache
@@ -50,6 +44,7 @@ public class EnableOfRubbishClear extends Enable {
 
 	public static final int RAM_SHOW = 8;
 	public static final int READY2CHECK_RUBBISHSERVICE = 9;
+	public static final int FINISH_SCAN_RUBBISH = 10;
 
 	private int m_nScanPckCacheCount = 0;
 
@@ -72,7 +67,7 @@ public class EnableOfRubbishClear extends Enable {
 				Debug.i(TAG, "FIND_CACHE_SYSTEMPCK :" + m_nScanCount + ":"
 						+ msg.obj);
 				if (m_nScanPckCacheCount == m_nScanCount) {
-					msg = Message.obtain() ;
+					msg = Message.obtain();
 					msg.what = READY2CHECK_RUBBISHSERVICE;
 					sendMessage(msg);
 				}
@@ -89,20 +84,23 @@ public class EnableOfRubbishClear extends Enable {
 				Debug.i(TAG, "FIND_CACHE_USERPCK :" + m_nScanCount + ":"
 						+ msg.obj);
 				if (m_nScanPckCacheCount == m_nScanCount) {
-					msg = Message.obtain() ;
+					msg = Message.obtain();
 					msg.what = READY2CHECK_RUBBISHSERVICE;
 					sendMessage(msg);
 				}
 				break;
-			case READY2CHECK_RUBBISHSERVICE:
-				if (!m_bCacheReady && m_nScanPckCacheCount == m_nScanCount)
-				{
-					Debug.i(TAG, "扫描所有缓存");
-					m_bCacheReady = true;
-				}
+			case FINISH_SCAN_RUBBISH:
 				if (!m_bPropScanReady) {
 					Debug.i(TAG, "扫描垃圾进程");
 					m_bPropScanReady = true;
+				}
+				if (m_bCacheReady && m_bPropScanReady)
+					checkService();
+				break;
+			case READY2CHECK_RUBBISHSERVICE:
+				if (!m_bCacheReady && m_nScanPckCacheCount == m_nScanCount) {
+					Debug.i(TAG, "扫描所有缓存");
+					m_bCacheReady = true;
 				}
 				if (m_bCacheReady && m_bPropScanReady)
 					checkService();
@@ -111,7 +109,7 @@ public class EnableOfRubbishClear extends Enable {
 				m_nScanCount++;
 				Debug.i(TAG, "FIND_CACHE_NO :" + m_nScanCount);
 				if (m_nScanPckCacheCount == m_nScanCount) {
-					msg = Message.obtain() ;
+					msg = Message.obtain();
 					msg.what = READY2CHECK_RUBBISHSERVICE;
 					sendMessage(msg);
 				}
@@ -128,10 +126,18 @@ public class EnableOfRubbishClear extends Enable {
 				if (m_pCallback != null)
 					m_pCallback.callback(msg.what, null);
 				break;
+			case RAM_SHOW:
+				Long pValue = new Long(msg.obj.toString());
+				m_nTotalCache += pValue.longValue();
+				if (m_pCallback != null && pValue != null)
+					m_pCallback.callback(msg.what, m_nTotalCache);
+				break;
 			}
 		}
 
 	};
+
+	private int m_nTotalCache;
 	private String TAG = "EnableOfRubbishClear";
 
 	private Context m_pContext;
@@ -151,7 +157,7 @@ public class EnableOfRubbishClear extends Enable {
 
 	private void init() {
 		m_pTaskWorkEngine = new PropInfoEngine(m_pContext, m_pRubbishHandler);
-		m_pFileEngine = new FileInfoEngine(m_pContext);
+		m_pFileEngine = new FileInfoEngine(m_pContext, m_pRubbishHandler);
 		m_pRubbishTask.execute(0);
 	}
 
@@ -234,7 +240,10 @@ public class EnableOfRubbishClear extends Enable {
 				.getRunningTask();
 		m_szRubbishProp = m_pTaskWorkEngine.getRunningRubbishInfo(m_szAppInfos,
 				szTotal);
+		Message msg = Message.obtain();
+		msg.what = FINISH_SCAN_RUBBISH;
 		Debug.i(TAG, "checkProp over:" + (m_szRubbishProp.size()));
+		m_pRubbishHandler.sendMessage(msg);
 	}
 
 }

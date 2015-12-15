@@ -32,10 +32,11 @@
                 app:stokeSize="10dp" />
 
             <TextView
+                android:id="@+id/rubbish_text_0"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center"
-                android:text="382M"
+                android:text="0B"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textsize_circle_cache" />
 
@@ -104,6 +105,7 @@
         <org.com.lix_.plugin.DebugView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:background="#b0000000" />
     </RelativeLayout>
 

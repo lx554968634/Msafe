@@ -12,11 +12,13 @@
         <item>log</item>
         <item>logs</item>
         <item>cache</item>
+        <item>.apk</item>
     </string-array>  
      <string-array name="typename_rubbishclear_array">
         <item>临时文件</item>
         <item>log记录</item>
         <item>log记录</item>
         <item>缓存文件</item>
+        <item>apk文件</item>
     </string-array> 
 </resources> 
