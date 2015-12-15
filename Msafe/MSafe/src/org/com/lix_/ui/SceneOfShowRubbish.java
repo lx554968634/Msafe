@@ -3,7 +3,6 @@ package org.com.lix_.ui;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.util.Debug;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.widget.AutoScrollHelper;
 import android.support.v4.widget.ListViewAutoScrollHelper;

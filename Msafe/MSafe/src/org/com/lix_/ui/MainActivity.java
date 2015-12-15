@@ -5,7 +5,6 @@ import org.com.lix_.enable.Enable;
 import org.com.lix_.enable.EnableOfMainActivity;
 import org.com.lix_.util.Debug;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -50,7 +49,6 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 	private Enable m_pEnable;
 	private View m_pBtns;
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
