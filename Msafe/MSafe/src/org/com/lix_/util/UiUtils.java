@@ -93,4 +93,23 @@ public class UiUtils {
 		return size;
 	}
 
+	public static CharSequence getCurrentTxt(String sTxt) {
+		if (sTxt == null)
+			return "";
+		else {
+			if (sTxt.length() < 10) {
+				return sTxt;
+			} else {
+				return sTxt.substring(0, 4) + "..."
+						+ sTxt.substring(sTxt.length() - 4, sTxt.length());
+			}
+		}
+	}
+
+	public static long getLongValue(Long pLong0) {
+		if (pLong0 == null)
+			return 0;
+		return pLong0.longValue();
+	}
+
 }

@@ -1,5 +1,7 @@
 package org.com.lix_.enable;
 
+import java.io.Serializable;
+
 import android.content.Context;
 
 /**
@@ -8,7 +10,11 @@ import android.content.Context;
  * @author punsher
  *
  */
-public abstract class Enable {
+public abstract class Enable  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Context m_pContext;
 	protected EnableCallback m_pCallback;
 

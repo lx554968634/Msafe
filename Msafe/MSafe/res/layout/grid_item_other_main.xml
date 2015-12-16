@@ -3,35 +3,43 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:paddingLeft="@dimen/padding_list"
-    android:paddingRight="@dimen/padding_list" >
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin" >
 
     <ImageView
         android:id="@+id/grid_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:contentDescription="@string/app_name"
-        android:layout_marginTop="@dimen/padding_list3"
-        android:paddingLeft="@dimen/padding_list"
         android:src="@drawable/image_exclam" />
 
     <TextView
         android:id="@+id/itemImage"
-        android:layout_toRightOf="@id/grid_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/padding_list3"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_toRightOf="@id/grid_item_image"
         android:paddingLeft="@dimen/padding_list"
         android:text="@string/grid_item_check0"
         android:textSize="@dimen/textsize_breathecircle" />
 
+    <TextView
+        android:id="@+id/grid_item_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:text="0B" />
+
     <View
         android:id="@+id/grid_item_div"
-        android:layout_below="@id/itemImage"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-		android:layout_marginTop="@dimen/padding_list3"
+        android:layout_below="@id/itemImage"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:background="@color/gray_mainactivity_btn_press" />
 
 </RelativeLayout>

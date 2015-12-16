@@ -77,9 +77,9 @@ public class AutodrawCircleView extends View {
 			m_nClearCount ++ ;
 		}
 		drawSector(canvas, m_pRadioLen / 100 * 60, 135,
-				(m_nClearCount >= 11 ? 10 : m_nClearCount) * 27, false,m_pWaterPaint);
+				(m_nClearCount >= 28? 27 : m_nClearCount) * 10, false,m_pWaterPaint);
 		drawSector(canvas, m_pRadioLen / 100 * 60 - m_nStokeCircle / 2, 135,
 				10 * 27, false,m_pInnerPaint);
-		postInvalidateDelayed(500);;
+		postInvalidateDelayed(100);;
 	}
 }

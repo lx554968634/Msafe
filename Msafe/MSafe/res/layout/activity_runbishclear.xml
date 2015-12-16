@@ -45,35 +45,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:paddingBottom="@dimen/padding_list"
                 android:layout_centerHorizontal="true"
+                android:paddingBottom="@dimen/padding_list"
                 android:text="建议清理"
                 android:textColor="@color/white" />
 
             <TextView
-                  android:id="@+id/rubbish_text_2"
-                  android:layout_above="@id/rubbish_text_1"
+                android:id="@+id/rubbish_text_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/rubbish_text_1"
                 android:layout_centerHorizontal="true"
-                android:textSize="@dimen/textsize_breathecircle"
                 android:text="正在扫描"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_breathecircle" />
         </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:background="@color/white"
         android:visibility="visible" >
+
+        <org.com.lix_.plugin.AListView
+            android:id="@+id/list_rubbishactivity"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:divider="@null"
+            android:layoutAnimation="@anim/list_anim_layout"
+            android:listSelector="@android:color/transparent"
+            android:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/clear_btn_rubbish"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
             android:background="@color/white"
             android:orientation="vertical"
             android:visibility="visible" >
@@ -87,26 +99,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingBottom="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_horizontal_margin"
                 android:text="@string/clear" />
         </LinearLayout>
-
-        <org.com.lix_.plugin.AListView
-            android:id="@+id/list_rubbishactivity"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:divider="@null"
-            android:layoutAnimation="@anim/list_anim_layout"
-            android:listSelector="@android:color/transparent"
-            android:visibility="gone" />
-
-        <org.com.lix_.plugin.DebugView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:background="#b0000000" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

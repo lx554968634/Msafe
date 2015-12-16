@@ -42,7 +42,6 @@ public class PropInfoEngine {
 	}
 
 	public List<RunningAppProcessInfo> getRunningTask() {
-		Debug.i(TAG, "扫描记录所有的进程");
 		ActivityManager am = (ActivityManager) m_pContext
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		List<RunningAppProcessInfo> run = am.getRunningAppProcesses();
@@ -50,7 +49,6 @@ public class PropInfoEngine {
 	}
 
 	public HashMap<String, AppInfo> getAllAppInfo() {
-		Debug.i(TAG, "扫描并记录所有的应用");
 		PackageManager pPgeManager = m_pContext.getPackageManager();
 		HashMap<String, AppInfo> myApps = new HashMap<String, AppInfo>();
 		AppInfo myApp = null;
@@ -86,7 +84,6 @@ public class PropInfoEngine {
 
 	public ArrayList<RunningServiceInfo> getRubbishServices(
 			Map<String, AppInfo> szAppInfos, List<RunningServiceInfo> szServices) {
-		Debug.i(TAG, "对比扫描所有垃圾服务");
 		ArrayList<RunningServiceInfo> szRubbishProp = new ArrayList<RunningServiceInfo>();
 		int nCount = szServices.size();
 		String sPckName;
@@ -95,25 +92,20 @@ public class PropInfoEngine {
 			sPckName = szServices.get(i).service.getPackageName();
 			pInfo = szAppInfos.get(sPckName);
 			if (pInfo == null) {
-				Debug.e(TAG, "不知为何 开启服务" + sPckName + " 的包在所有安装程序中不存在!");
 				continue;
 			} else {
 				if (pInfo.isSystemApp()) {
-					Debug.i(TAG, "这个应用是系统应用还是别动了吧:" + sPckName);
 				} else {
-					Debug.i(TAG, "可以加入垃圾清理service:" + sPckName);
 					szRubbishProp.add(szServices.get(i));
 				}
 			}
 
 		}
-		Debug.i(TAG, "垃圾服务有:" + szRubbishProp.size());
 		return szRubbishProp;
 	}
 
 	public Map<String, AppInfo> getRunningRubbishInfo(
 			Map<String, AppInfo> szAppInfos, List<RunningAppProcessInfo> szTotal) {
-		Debug.i(TAG, "开始对比运行垃圾进程");
 		Map<String, AppInfo> szRubbishProp = new HashMap<String, AppInfo>();
 
 		int nCount = szTotal.size();
@@ -133,6 +125,7 @@ public class PropInfoEngine {
 				nTotal++;
 			}
 		}
+		Message pMsg = null ;
 		msg.arg1 = nTotal;
 		m_pHandler.sendMessage(msg);
 		for (int i = 0; i < nCount; i++) {
@@ -142,25 +135,31 @@ public class PropInfoEngine {
 				if (sTmp != null) {
 					pAppInfo = szAppInfos.get(sTmp);
 					if (pAppInfo != null) {
+						pMsg = Message.obtain();
+						pMsg.what = EnableOfRubbishClear.TXT_SHOW;
+						pMsg.obj = pAppInfo.getAppName();
+						m_pHandler.sendMessage(pMsg);
 						if (pAppInfo.isSystemApp()) {
-							Debug.i(TAG, "这个进程是系统进程:" + sTmp);
 							msg = Message.obtain();
 							msg.what = EnableOfRubbishClear.FIND_CACHE_SYSTEMPCK;
 							msg.obj = pAppInfo.getPackageName();
 							m_pHandler.sendMessage(msg);
 						} else {
-							Debug.i(TAG, "这个进程是用户进程，可干掉:" + sTmp);
 							szPid = new int[] { pInfo.pid };
-							pAppInfo.setM_nRam(am.getProcessMemoryInfo(szPid)[0].dalvikPrivateDirty);
-							msg = Message.obtain() ;
-							msg.what = EnableOfRubbishClear.RAM_SHOW ;
-							msg.obj = am.getProcessMemoryInfo(szPid)[0].dalvikPrivateDirty+"" ;
-							m_pHandler.sendMessage(msg) ;
+							pAppInfo.setM_nRam(1024 * am
+									.getProcessMemoryInfo(szPid)[0]
+									.getTotalPrivateDirty());
+							msg = Message.obtain();
+							msg.what = EnableOfRubbishClear.RAM_SHOW;
+							msg.arg1 = EnableOfRubbishClear.RAM_TYPE_PROCESS;
+							msg.obj = 1024
+									* am.getProcessMemoryInfo(szPid)[0]
+											.getTotalPrivateDirty() + "";
+							m_pHandler.sendMessage(msg);
 							szRubbishProp.put(pAppInfo.getPackageName(),
 									pAppInfo);
 							String packname = pAppInfo.getPackageName();
 							try {
-								Debug.i(TAG, "触发观察者去查看内存：" + packname);
 								Method method = PackageManager.class.getMethod(
 										"getPackageSizeInfo", String.class,
 										IPackageStatsObserver.class);
@@ -214,10 +213,11 @@ public class PropInfoEngine {
 					pInfo.setmCache(cache);
 					msg.obj = pInfo;
 					m_pHandler.sendMessage(msg);
-					msg = Message.obtain() ;
-					msg.what = EnableOfRubbishClear.RAM_SHOW ;
-					msg.obj = cache+"" ;
-					m_pHandler.sendMessage(msg) ;
+					msg = Message.obtain();
+					msg.what = EnableOfRubbishClear.RAM_SHOW;
+					msg.arg1 = EnableOfRubbishClear.RAM_TYPE_APK_CACHE;
+					msg.obj = cache + "";
+					m_pHandler.sendMessage(msg);
 				} catch (Exception e) {
 					e.printStackTrace();
 					Debug.e(TAG,
@@ -252,7 +252,6 @@ public class PropInfoEngine {
 	}
 
 	public List<RunningServiceInfo> getRunningService() {
-		Debug.i(TAG, "获取全部正在运行的启动服务");
 		ActivityManager am = (ActivityManager) m_pContext
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		List<RunningServiceInfo> szServices = am.getRunningServices(50);
@@ -261,19 +260,16 @@ public class PropInfoEngine {
 
 	public ArrayList<AppInfo> checkRubbish(Map<String, AppInfo> szRubbishProp,
 			ArrayList<RunningServiceInfo> szRubbishService) {
-		Debug.i(TAG, "checkRubbish-对比扫描所有的垃圾进程:" + (szRubbishProp == null));
 		ArrayList<AppInfo> szArr = new ArrayList<AppInfo>();
 		int nCount = szRubbishService.size();
 		String sPckName = null;
 		AppInfo pAppInfo = null;
-		Debug.i(TAG, "nCount:" + nCount);
 		for (int i = 0; i < nCount; i++) {
 			sPckName = szRubbishService.get(i).service.getPackageName();
 			pAppInfo = szRubbishProp.get(sPckName);
 			if (pAppInfo != null)
 				pAppInfo.setmServiceCount(pAppInfo.getmServiceCount() + 1);
 		}
-		Debug.i(TAG, "szRubbishProp.keySet():" + szRubbishProp.keySet().size());
 		for (String sKey : szRubbishProp.keySet()) {
 			szArr.add(szRubbishProp.get(sKey));
 		}

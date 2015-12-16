@@ -1,44 +1,56 @@
 package org.com.lix_.ui;
 
+import org.com.lix_.Define;
+import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.util.Debug;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.AutoScrollHelper;
-import android.support.v4.widget.ListViewAutoScrollHelper;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnHoverListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 public class SceneOfShowRubbish extends BaseActivity {
 	private AListView m_pGridView;
 	private int m_nListCount;
-	private String[] m_szArrString = new String[] { "内存加速", "系统以应用清理", "垃圾文件",
-			"多余安装包", "应用参与卸载", "内存加速", "系统以应用清理", "垃圾文件", "多余安装包", "应用参与卸载",
-			"内存加速", "系统以应用清理", "垃圾文件", "多余安装包", "应用参与卸载", "内存加速", "系统以应用清理",
-			"垃圾文件", "多余安装包", "应用参与卸载", "内存加速", "系统以应用清理", "垃圾文件", "多余安装包",
-			"应用参与卸载" };
+	private int m_nIndex = -1;
+	String[] m_szTitls = new String[] { "内存加速", "系统及应用缓存", "垃圾文件", "多余安装包",
+			"应用卸载残余" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.showsth_layout);
+		setContentView(R.layout.rubbish_show_itemlayout);
 		init();
 	}
 
 	@Override
 	public void init() {
+		Intent pIntent = getIntent();
+		String sNum = pIntent.getStringExtra(Define.INTENT_TAG0);
+		if (sNum == null) {
+			Debug.e(TAG, "出错了--获取m_nIndex 或pRubbish: ");
+			onBackPressed();
+			return;
+		}
+		try {
+			m_nIndex = Integer.parseInt(sNum);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			Debug.e(TAG, "出错了--NumberFormatException: " + sNum);
+			onBackPressed();
+			return;
+		}
+		((TextView) findViewById(R.id.show_title)).setText(m_szTitls[m_nIndex]);
 		m_pGridView = (AListView) findViewById(R.id.grid_view);
-		m_nListCount = m_szArrString.length;
-		m_pGridView.setAutoScroll(); 
+		m_pGridView.setAutoScroll();
 		m_pGridView.setAdapter(new Adapter());
 	}
 

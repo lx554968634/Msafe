@@ -52,7 +52,6 @@ public class FileInfoEngine {
 		} else {
 			sTag = "手机sd卡异常";
 		}
-		Debug.i(TAG, sTag);
 		return nTag;
 	}
 
@@ -96,7 +95,6 @@ public class FileInfoEngine {
 				if (szFiles == null || szFiles.length == 0) {
 					sb.append("[" + pFile.getAbsolutePath() + ":空文件夹]");
 					szContents.add("[" + pFile.getAbsolutePath() + "]");
-					Debug.i(TAG, "[空文件夹:" + pFile.getAbsolutePath() + "]");
 					return;
 				}
 			}
@@ -108,7 +106,6 @@ public class FileInfoEngine {
 					readFile(szFiles[i], szContents, szTypeCache, sb);
 				}
 			} else {
-				Debug.i(TAG, "判断文件：" + sTmpName + ":" + nType);
 				if (nType != -1) {
 					ArrayList<String> szTmp = szTypeCache
 							.get(m_szTypeName[nType]);
@@ -116,12 +113,12 @@ public class FileInfoEngine {
 						szTmp = new ArrayList<String>();
 						szTypeCache.put(m_szTypeName[nType], szTmp);
 					}
-					Debug.i(TAG, "扫描到:" + m_szTypeName[nType] + ":sTmpName");
 					long nSize = UiUtils.getFileSize(pFile);
 					sb.append("[" + sTmpName + "]:" + nSize + ">");
 					pMsg = Message.obtain();
 					pMsg.obj = nSize + "";
 					pMsg.what = EnableOfRubbishClear.RAM_SHOW;
+					pMsg.arg1 = nType ;
 					m_pHandler.sendMessage(pMsg);
 					szTmp.add(pFile.getAbsolutePath());
 				}

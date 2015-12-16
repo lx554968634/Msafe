@@ -1,28 +1,21 @@
 package org.com.lix_.ui;
 
+import java.util.Map;
+
 import org.com.lix_.enable.EnableCallback;
-import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.plugin.AutodrawCircleView;
 import org.com.lix_.util.Debug;
 import org.com.lix_.util.UiUtils;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.AutoScrollHelper;
-import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class SceneOfRubbishClear extends BaseActivity {
@@ -62,15 +55,15 @@ public class SceneOfRubbishClear extends BaseActivity {
 		moveQuick();
 		m_szTitles = getResources().getStringArray(
 				R.array.titles_rubbishclear_array);
-		m_pTipTextView = (TextView) findViewById(R.id.rubbish_text_2);
+		m_pTipTextView = (TextView) findViewById(R.id.rubbish_text_1);
 		m_pTipTextView.setText(STR_TIP[0]);
-		m_pStepTextView = (TextView) findViewById(R.id.rubbish_text_1);
+		m_pStepTextView = (TextView) findViewById(R.id.rubbish_text_2);
 		m_pStepTextView.setText(STR_STEP[0]);
 		m_pCacheTextView = (TextView) findViewById(R.id.rubbish_text_0);
 		m_pCacheTextView.setText(UiUtils.getCacheSize(0));
 		COUNT_GRID_ITEMS = m_szTitles.length;
 		m_pGridView = (AListView) findViewById(R.id.list_rubbishactivity);
-		m_pGridView.setScrollenable(false);
+//		m_pGridView.setScrollenable(false);
 		m_pGridView.setAdapter(new Adapter());
 		m_pTargetCircle = (AutodrawCircleView) findViewById(R.id.circle_target);
 		m_pEnable = new EnableOfRubbishClear(this);
@@ -105,7 +98,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 				case EnableOfRubbishClear.TXT_SHOW:
 					String sTxt = obj[1].toString();
 					if (m_pTipTextView != null) {
-						m_pTipTextView.setText(sTxt);
+						m_pTipTextView.setText(UiUtils.getCurrentTxt(sTxt));
 					}
 					break;
 				case EnableOfRubbishClear.RAM_SHOW:
@@ -114,17 +107,18 @@ public class SceneOfRubbishClear extends BaseActivity {
 					break;
 				case EnableOfRubbishClear.FINSH_SD_RUBBISH:
 					if (m_pTargetCircle != null)
-						m_pTargetCircle.m_nTargetNum = 2;
+						m_pTargetCircle.m_nTargetNum = 12;
 					Debug.i(TAG, "callback : FINSH_SD_RUBBISH ");
 					break;
 				case EnableOfRubbishClear.FINSH_INNER_PROP:
 					if (m_pTargetCircle != null)
-						m_pTargetCircle.m_nTargetNum = 11;
+						m_pTargetCircle.m_nTargetNum = 28;
 					Debug.i(TAG, "callback : FINSH_INNER_PROP ");
+					finishScan();
 					break;
 				case EnableOfRubbishClear.PREPARE_FINISH:
 					if (m_pTargetCircle != null)
-						m_pTargetCircle.m_nTargetNum = 2;
+						m_pTargetCircle.m_nTargetNum = 0;
 					Debug.i(TAG, "callback : PREPARE_FINISH ");
 					break;
 				default:
@@ -136,6 +130,28 @@ public class SceneOfRubbishClear extends BaseActivity {
 			}
 		}
 
+	}
+
+	/*
+	 * …®√ËΩ” ‹ÃÌº”º‡Ã˝
+	 */
+	private void finishScan() {
+		if (m_pTipTextView != null) {
+			m_pTipTextView.setText("");
+		}
+		if (m_pStepTextView != null) {
+			m_pStepTextView.setText("…®√ËΩ· ¯");
+		}
+		TextView pTextView;
+		for (int i = 0; i < m_pGridView.getChildCount(); i++) {
+			if (m_pGridView.getChildAt(i) != null) {
+				pTextView = (TextView) m_pGridView.getChildAt(i).findViewById(
+						R.id.grid_item_size);
+				pTextView.setText(m_pEnable.getRubbishSize(i));
+				;
+			}
+		}
+		m_pGridView.setOnItemClickListener(m_pEnable.getOnGridItemListener());
 	}
 
 	class Adapter extends BaseAdapter {
