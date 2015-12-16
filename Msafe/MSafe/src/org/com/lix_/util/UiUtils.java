@@ -81,10 +81,14 @@ public class UiUtils {
 		long size = 0;
 		if (pFile == null)
 			return 0;
-		if (pFile.isDirectory()) {
-			size = size + getFileSize(pFile);
+		if (pFile.isDirectory() && pFile.listFiles() != null
+				&& pFile.listFiles().length != 0) {
+			for (int i = 0; i < pFile.listFiles().length; i++) {
+				size = size + getFileSize(pFile.listFiles()[i]);
+			}
 		} else {
-			size = size + pFile.length();
+			if (!pFile.isDirectory())
+				size = size + pFile.length();
 		}
 		return size;
 	}

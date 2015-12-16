@@ -75,45 +75,55 @@ public class FileInfoEngine {
 	 *            缓存文件集合
 	 */
 	public void readFile(File pFile, ArrayList<String> szContents,
-			HashMap<String, ArrayList<String>> szTypeCache) {
+			HashMap<String, ArrayList<String>> szTypeCache, StringBuffer sb) {
 		File[] szFiles = null;
 		String sTmpName = "";
 		int nType = -1;
 		int i = 0;
 		Message pMsg = null;
-		if (pFile == null)
+		if (pFile == null) {
+			sb.append("这个文件夹是null");
 			Debug.e(TAG, "这个文件 为null");
-		else {
+		} else {
 			sTmpName = pFile.getName();
+			pMsg = Message.obtain();
+			pMsg.what = EnableOfRubbishClear.TXT_SHOW;
+			pMsg.obj = sTmpName;
+			m_pHandler.sendMessage(pMsg);
+			sb.append("[检查文件:" + sTmpName + "]");
 			if (pFile.isDirectory()) {
 				szFiles = pFile.listFiles();
 				if (szFiles == null || szFiles.length == 0) {
+					sb.append("[" + pFile.getAbsolutePath() + ":空文件夹]");
 					szContents.add("[" + pFile.getAbsolutePath() + "]");
 					Debug.i(TAG, "[空文件夹:" + pFile.getAbsolutePath() + "]");
 					return;
 				}
 			}
 			nType = checkFileName(sTmpName);
-			Debug.i(TAG, "判断文件：" + sTmpName + ":" + nType);
-			if (nType != -1) {
-				ArrayList<String> szTmp = szTypeCache.get(m_szTypeName[nType]);
-				if (szTmp == null) {
-					szTmp = new ArrayList<String>();
-					Debug.i(TAG, "扫描到:" + m_szTypeName[nType] + ":sTmpName");
-					pMsg = Message.obtain();
-					pMsg.what = EnableOfRubbishClear.RAM_SHOW;
-					m_pHandler.sendMessage(pMsg);
-					long nSize = UiUtils.getFileSize(pFile);
-					pMsg.obj = nSize + "";
-					szTypeCache.put(m_szTypeName[nType], szTmp);
-				}
-				szTmp.add(pFile.getAbsolutePath());
-				return;
-			}
+			sb.append("[sTmpName:" + nType + "]");
 			if (pFile.isDirectory()) {
 				szFiles = pFile.listFiles();
 				for (i = 0; i < szFiles.length; i++) {
-					readFile(szFiles[i], szContents, szTypeCache);
+					readFile(szFiles[i], szContents, szTypeCache, sb);
+				}
+			} else {
+				Debug.i(TAG, "判断文件：" + sTmpName + ":" + nType);
+				if (nType != -1) {
+					ArrayList<String> szTmp = szTypeCache
+							.get(m_szTypeName[nType]);
+					if (szTmp == null) {
+						szTmp = new ArrayList<String>();
+						szTypeCache.put(m_szTypeName[nType], szTmp);
+					}
+					Debug.i(TAG, "扫描到:" + m_szTypeName[nType] + ":sTmpName");
+					long nSize = UiUtils.getFileSize(pFile);
+					sb.append("[" + sTmpName + "]:" + nSize + ">");
+					pMsg = Message.obtain();
+					pMsg.obj = nSize + "";
+					pMsg.what = EnableOfRubbishClear.RAM_SHOW;
+					m_pHandler.sendMessage(pMsg);
+					szTmp.add(pFile.getAbsolutePath());
 				}
 			}
 		}
