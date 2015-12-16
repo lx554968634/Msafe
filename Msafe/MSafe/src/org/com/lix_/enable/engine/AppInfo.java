@@ -1,11 +1,12 @@
 package org.com.lix_.enable.engine;
 
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class AppInfo {
+public class AppInfo implements Parcelable {
 	private String appName;
 	private String packageName;
-	private Drawable icon;
 	private boolean isSystemApp;
 	private int mServiceCount;
 	private long mCache;
@@ -52,14 +53,6 @@ public class AppInfo {
 		this.packageName = packageName;
 	}
 
-	public Drawable getIcon() {
-		return icon;
-	}
-
-	public void setIcon(Drawable icon) {
-		this.icon = icon;
-	}
-
 	public boolean isSystemApp() {
 		return isSystemApp;
 	}
@@ -69,10 +62,49 @@ public class AppInfo {
 	}
 
 	@Override
-	public String toString() {
-		return "AppInfo [appName=" + appName + ", packageName=" + packageName
-				+ ", icon=" + icon + ", isSystemApp=" + isSystemApp + ",Ram:"
-				+ m_nRam + "," + mServiceCount + "]";
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeString(appName);
+		out.writeString(packageName);
+		out.writeBooleanArray(new boolean[] { isSystemApp });
+		out.writeLong(m_nRam);
+		out.writeInt(mServiceCount);
+	}
+
+	public static final Parcelable.Creator<AppInfo> CREATOR = new Creator<AppInfo>() {
+		@Override
+		public AppInfo[] newArray(int size) {
+			return new AppInfo[size];
+		}
+
+		@Override
+		public AppInfo createFromParcel(Parcel in) {
+			return new AppInfo(in);
+		}
+	};
+
+	public AppInfo() {
+	}
+
+	public AppInfo(Parcel in) {
+		appName = in.readString();
+		packageName = in.readString();
+		boolean[] pBools = new boolean[] { true };
+		in.readBooleanArray(pBools);
+		isSystemApp = pBools[0];
+		m_nRam = in.readLong();
+		mServiceCount = in.readInt();
+	}
+
+	@Override
+	public String toString() {
+		return "AppInfo [appName=" + appName + ", packageName=" + packageName
+				+ ", isSystemApp=" + isSystemApp + ",Ram:"
+				+ m_nRam + "," + mServiceCount + "]";
+	}
 }

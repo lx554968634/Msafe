@@ -111,6 +111,7 @@ public class FileInfoEngine {
 							.get(m_szTypeName[nType]);
 					if (szTmp == null) {
 						szTmp = new ArrayList<String>();
+						Debug.i(TAG, "m_szDetailCache:Ìí¼Ó:"+m_szTypeName[nType] +":"+sTmpName);
 						szTypeCache.put(m_szTypeName[nType], szTmp);
 					}
 					long nSize = UiUtils.getFileSize(pFile);

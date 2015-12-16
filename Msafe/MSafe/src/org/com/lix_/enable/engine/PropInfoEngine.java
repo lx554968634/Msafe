@@ -60,7 +60,6 @@ public class PropInfoEngine {
 			myApp.setPackageName(packageName);
 			ApplicationInfo appInfo = packageInfo.applicationInfo;
 			myApp.setAppName(appInfo.loadLabel(pPgeManager).toString());
-			myApp.setIcon(appInfo.loadIcon(pPgeManager));
 			myApp.setSystemApp(!filterApp(appInfo));
 			myApps.put(packageName, myApp);
 		}
@@ -104,9 +103,9 @@ public class PropInfoEngine {
 		return szRubbishProp;
 	}
 
-	public Map<String, AppInfo> getRunningRubbishInfo(
+	public HashMap<String, AppInfo> getRunningRubbishInfo(
 			Map<String, AppInfo> szAppInfos, List<RunningAppProcessInfo> szTotal) {
-		Map<String, AppInfo> szRubbishProp = new HashMap<String, AppInfo>();
+		HashMap<String, AppInfo> szRubbishProp = new HashMap<String, AppInfo>();
 
 		int nCount = szTotal.size();
 		String[] szPck;
@@ -156,9 +155,9 @@ public class PropInfoEngine {
 									* am.getProcessMemoryInfo(szPid)[0]
 											.getTotalPrivateDirty() + "";
 							m_pHandler.sendMessage(msg);
-							szRubbishProp.put(pAppInfo.getPackageName(),
-									pAppInfo);
 							String packname = pAppInfo.getPackageName();
+							szRubbishProp.put(packname,
+									pAppInfo);
 							try {
 								Method method = PackageManager.class.getMethod(
 										"getPackageSizeInfo", String.class,
@@ -216,7 +215,7 @@ public class PropInfoEngine {
 					msg = Message.obtain();
 					msg.what = EnableOfRubbishClear.RAM_SHOW;
 					msg.arg1 = EnableOfRubbishClear.RAM_TYPE_APK_CACHE;
-					msg.obj = cache + "";
+					msg.obj = cache + ":"+pStats.packageName;
 					m_pHandler.sendMessage(msg);
 				} catch (Exception e) {
 					e.printStackTrace();

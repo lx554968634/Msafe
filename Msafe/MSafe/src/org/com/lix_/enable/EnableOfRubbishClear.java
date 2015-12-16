@@ -9,6 +9,7 @@ import org.com.lix_.Define;
 import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.enable.engine.FileInfoEngine;
 import org.com.lix_.enable.engine.PropInfoEngine;
+import org.com.lix_.ui.R;
 import org.com.lix_.ui.SceneOfShowRubbish;
 import org.com.lix_.util.Debug;
 import org.com.lix_.util.UiUtils;
@@ -140,7 +141,20 @@ public class EnableOfRubbishClear extends Enable {
 				case RAM_SHOW:
 					if (msg.obj == null)
 						break;
-					Long pValue = new Long(msg.obj.toString());
+					Long pValue = null;
+					if (msg.arg1 == RAM_TYPE_APK_CACHE) {
+						pValue = new Long(msg.obj.toString().split(":")[0]);
+						if (m_szApkCache.get(msg.obj.toString().split(":")[1]) == null) {
+							AppInfo pAppInfo = new AppInfo();
+							pAppInfo.setPackageName(msg.obj.toString().split(
+									":")[1]);
+							pAppInfo.setM_nRam(pValue);
+							m_szApkCache.put(msg.obj.toString().split(":")[1],
+									pAppInfo);
+						}
+					} else {
+						pValue = new Long(msg.obj.toString());
+					}
 					m_nTotalCache += pValue.longValue();
 					if (m_pCallback != null && pValue != null)
 						m_pCallback.callback(msg.what, m_nTotalCache);
@@ -170,6 +184,8 @@ public class EnableOfRubbishClear extends Enable {
 
 	};
 
+	private HashMap<String, AppInfo> m_szApkCache;
+
 	private long m_nTotalCache;
 	private String TAG = "EnableOfRubbishClear";
 
@@ -190,7 +206,10 @@ public class EnableOfRubbishClear extends Enable {
 
 	private void init() {
 		try {
+			m_szBlackDir = new ArrayList<String>();
+			m_szApkCache = new HashMap<String, AppInfo>();
 			m_szRamRecord = new HashMap<String, Long>();
+			m_szDetailCache = new HashMap<String, ArrayList<String>>();
 			m_nTotalCache = 0;
 			m_pTaskWorkEngine = new PropInfoEngine(m_pContext,
 					m_pRubbishHandler);
@@ -233,6 +252,9 @@ public class EnableOfRubbishClear extends Enable {
 		}
 	};
 
+	ArrayList<String> m_szBlackDir;
+	HashMap<String, ArrayList<String>> m_szDetailCache;
+
 	private void checkSD() {
 		Message pMsg = null;
 		String nStatus = Environment.getExternalStorageState();
@@ -242,12 +264,10 @@ public class EnableOfRubbishClear extends Enable {
 		pMsg.what = PREPARE_FINISH;
 		m_pRubbishHandler.sendMessage(pMsg);
 		if (nTag == 1 && Debug.DEBUG_STR != null) {
-			ArrayList<String> szBlackDir = new ArrayList<String>();
-			HashMap<String, ArrayList<String>> szDetailCache = new HashMap<String, ArrayList<String>>();
 			StringBuffer sb = new StringBuffer();
 			m_pFileEngine.readFile(Environment.getExternalStorageDirectory(),
-					szBlackDir, szDetailCache, sb);
-			// Debug.logFile(sb.toString(), true);
+					m_szBlackDir, m_szDetailCache, sb);
+			Debug.i(TAG,"垃圾文件大小:"+m_szDetailCache.size());
 			pMsg = Message.obtain();
 			pMsg.what = FINSH_SD_RUBBISH;
 			m_pRubbishHandler.sendMessage(pMsg);
@@ -274,7 +294,7 @@ public class EnableOfRubbishClear extends Enable {
 	}
 
 	HashMap<String, AppInfo> m_szAppInfos;
-	Map<String, AppInfo> m_szRubbishProp;
+	HashMap<String, AppInfo> m_szRubbishProp;
 
 	private void checkProps() {
 		Debug.DEBUG_STR = "准备分析进程";
@@ -335,9 +355,61 @@ public class EnableOfRubbishClear extends Enable {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent pIntent = new Intent () ;
-				pIntent.putExtra(Define.INTENT_TAG0, arg2+"") ;
-				pIntent.setClass(m_pContext, SceneOfShowRubbish.class) ;
+				Intent pIntent = new Intent();
+				String[] szArray = m_pContext.getResources().getStringArray(
+						R.array.type_rubbishclear_array);
+				pIntent.putExtra(Define.INTENT_TAG0, arg2 + "");
+				switch (arg2) {
+				case 0:
+					if (m_szRubbishProp.size() == 0)
+						return;
+					Debug.i(TAG, "进程垃圾界面:" + m_szRubbishProp);
+					pIntent.putExtra(Define.RAM_STR, m_szRubbishProp);
+					break;
+				case 1:// apk缓存
+					if (m_szApkCache.size() == 0)
+					{
+						Debug.i(TAG, "m_szApkCache大小为0");
+						return ;
+					}
+					Debug.i(TAG, "apk缓存:" + m_szApkCache.size());
+					pIntent.putExtra(Define.RAM_STR, m_szApkCache);
+					break;
+				case 2:// log+logs+cache+tmp
+					if (szArray == null)
+						return;
+					int nSize = 0;
+					nSize = (m_szDetailCache.get(szArray[0]) == null ? 0
+							: m_szDetailCache.get(szArray[0]).size())
+							+ (m_szDetailCache.get(szArray[1]) == null ? 0
+									: m_szDetailCache.get(szArray[1]).size())
+							+ (m_szDetailCache.get(szArray[2]) == null ? 0
+									: m_szDetailCache.get(szArray[2]).size())
+							+ (m_szDetailCache.get(szArray[3]) == null ? 0
+									: m_szDetailCache.get(szArray[3]).size());
+					if (nSize == 0)
+						return;
+					Debug.i(TAG, "垃圾文件:" + nSize);
+					pIntent.putExtra(Define.RAM_STR, m_szDetailCache);
+					break;
+				case 3:// log+logs+cache+tmp
+					if (szArray == null)
+						return;
+					Debug.i(TAG, "m_szDetailCache:"+m_szDetailCache.size());
+					if (m_szDetailCache.get(szArray[4]) == null
+							|| m_szDetailCache.get(szArray[4]).size() == 0)
+						return;
+					Debug.i(TAG, "apk文件:" + m_szDetailCache.size());
+					pIntent.putExtra(Define.RAM_STR, m_szDetailCache);
+					break;
+				case 4:// 空文件夹
+					if (m_szBlackDir.size() == 0)
+						return;
+					Debug.i(TAG, "空文件夹:" + m_szBlackDir.size());
+					pIntent.putExtra(Define.RAM_STR, m_szBlackDir);
+					break;
+				}
+				pIntent.setClass(m_pContext, SceneOfShowRubbish.class);
 				m_pContext.startActivity(pIntent);
 			}
 		};
