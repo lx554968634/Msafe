@@ -73,12 +73,13 @@ public class FileInfoEngine {
 	 * @param szTypeCache
 	 *            缓存文件集合
 	 */
-	public void readFile(File pFile, ArrayList<String> szContents,
-			HashMap<String, ArrayList<String>> szTypeCache, StringBuffer sb) {
+	public void readFile(File pFile, ArrayList<FileInfo> szContents,
+			HashMap<String, ArrayList<FileInfo>> szTypeCache, StringBuffer sb) {
 		File[] szFiles = null;
 		String sTmpName = "";
 		int nType = -1;
 		int i = 0;
+		FileInfo pFileInfo ;
 		Message pMsg = null;
 		if (pFile == null) {
 			sb.append("这个文件夹是null");
@@ -94,7 +95,10 @@ public class FileInfoEngine {
 				szFiles = pFile.listFiles();
 				if (szFiles == null || szFiles.length == 0) {
 					sb.append("[" + pFile.getAbsolutePath() + ":空文件夹]");
-					szContents.add("[" + pFile.getAbsolutePath() + "]");
+					pFileInfo = new FileInfo() ;
+					pFileInfo.m_sFileName = pFile.getName() ;
+					pFileInfo.m_sAbFilePath = pFile.getAbsolutePath() ;
+					szContents.add(pFileInfo);
 					return;
 				}
 			}
@@ -107,13 +111,16 @@ public class FileInfoEngine {
 				}
 			} else {
 				if (nType != -1) {
-					ArrayList<String> szTmp = szTypeCache
+					ArrayList<FileInfo> szTmp = szTypeCache
 							.get(m_szTypeName[nType]);
 					if (szTmp == null) {
-						szTmp = new ArrayList<String>();
+						szTmp = new ArrayList<FileInfo>();
 						Debug.i(TAG, "m_szDetailCache:添加:"+m_szTypeName[nType] +":"+sTmpName);
 						szTypeCache.put(m_szTypeName[nType], szTmp);
 					}
+					pFileInfo = new FileInfo() ;
+					pFileInfo.m_sFileName = sTmpName ;
+					pFileInfo.m_sAbFilePath = pFile.getAbsolutePath() ;
 					long nSize = UiUtils.getFileSize(pFile);
 					sb.append("[" + sTmpName + "]:" + nSize + ">");
 					pMsg = Message.obtain();
@@ -121,7 +128,7 @@ public class FileInfoEngine {
 					pMsg.what = EnableOfRubbishClear.RAM_SHOW;
 					pMsg.arg1 = nType ;
 					m_pHandler.sendMessage(pMsg);
-					szTmp.add(pFile.getAbsolutePath());
+					szTmp.add(pFileInfo);
 				}
 			}
 		}

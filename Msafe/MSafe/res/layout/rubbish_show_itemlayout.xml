@@ -28,6 +28,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/checked"
+            android:gravity="center"
             android:text="ALL"
             android:textColor="@color/black"
             android:textSize="@dimen/textsize_title_num" />
@@ -37,8 +38,12 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@color/green_breathecircleview_background" />
-
+	<RelativeLayout android:id="@+id/null_rubbish_text" android:layout_width="fill_parent" android:layout_height="match_parent">
+	    <TextView android:layout_centerInParent="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/null_rubbish_txt"/>
+	</RelativeLayout>
     <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/grid_show_rubbish_total"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -66,7 +71,9 @@
                 android:background="@color/green_breathecircleview_background" />
 
             <TextView
+                android:id="@+id/clear_itemlayout"
                 android:layout_width="fill_parent"
+                android:clickable="true"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingBottom="@dimen/padding_list"

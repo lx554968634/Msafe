@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.com.lix_.Define;
 import org.com.lix_.enable.engine.AppInfo;
+import org.com.lix_.enable.engine.FileInfo;
 import org.com.lix_.enable.engine.FileInfoEngine;
 import org.com.lix_.enable.engine.PropInfoEngine;
 import org.com.lix_.ui.R;
@@ -206,10 +207,10 @@ public class EnableOfRubbishClear extends Enable {
 
 	private void init() {
 		try {
-			m_szBlackDir = new ArrayList<String>();
+			m_szBlackDir = new ArrayList<FileInfo>();
 			m_szApkCache = new HashMap<String, AppInfo>();
 			m_szRamRecord = new HashMap<String, Long>();
-			m_szDetailCache = new HashMap<String, ArrayList<String>>();
+			m_szDetailCache = new HashMap<String, ArrayList<FileInfo>>();
 			m_nTotalCache = 0;
 			m_pTaskWorkEngine = new PropInfoEngine(m_pContext,
 					m_pRubbishHandler);
@@ -252,8 +253,8 @@ public class EnableOfRubbishClear extends Enable {
 		}
 	};
 
-	ArrayList<String> m_szBlackDir;
-	HashMap<String, ArrayList<String>> m_szDetailCache;
+	ArrayList<FileInfo> m_szBlackDir;
+	HashMap<String, ArrayList<FileInfo>> m_szDetailCache;
 
 	private void checkSD() {
 		Message pMsg = null;
@@ -267,7 +268,7 @@ public class EnableOfRubbishClear extends Enable {
 			StringBuffer sb = new StringBuffer();
 			m_pFileEngine.readFile(Environment.getExternalStorageDirectory(),
 					m_szBlackDir, m_szDetailCache, sb);
-			Debug.i(TAG,"垃圾文件大小:"+m_szDetailCache.size());
+			Debug.i(TAG, "垃圾文件大小:" + m_szDetailCache.size());
 			pMsg = Message.obtain();
 			pMsg.what = FINSH_SD_RUBBISH;
 			m_pRubbishHandler.sendMessage(pMsg);
@@ -285,8 +286,27 @@ public class EnableOfRubbishClear extends Enable {
 		Debug.DEBUG_STR = "文件记录完毕";
 		finishScan();
 	}
-
+	
+	private HashMap<String,ArrayList<FileInfo>> m_szRubbishFlies ;
+	
+	private HashMap<String,ArrayList<FileInfo>> m_szApkFiles ;
+ 
 	private void finishScan() {
+		m_szRubbishFlies = new HashMap<String, ArrayList<FileInfo>>();
+		String[] szArray = m_pContext.getResources().getStringArray(
+				R.array.type_rubbishclear_array);
+		for (int i = 0; i < 4; i++) {
+			if (m_szDetailCache.get(szArray[i]) != null
+					&& m_szDetailCache.get(szArray[i]).size() != 0) {
+				m_szRubbishFlies.put(szArray[i],
+						m_szDetailCache.get(szArray[i]));
+			}
+		};
+		m_szApkFiles = new HashMap<String, ArrayList<FileInfo>>();
+		if (m_szDetailCache.get(szArray[4]) != null
+				&& m_szDetailCache.get(szArray[4]).size() != 0) {
+			m_szApkFiles.put(szArray[4], m_szDetailCache.get(szArray[4]));
+		}
 		Message pMsg = null;
 		pMsg = Message.obtain();
 		pMsg.what = FINSH_INNER_PROP;
@@ -361,50 +381,24 @@ public class EnableOfRubbishClear extends Enable {
 				pIntent.putExtra(Define.INTENT_TAG0, arg2 + "");
 				switch (arg2) {
 				case 0:
-					if (m_szRubbishProp.size() == 0)
-						return;
 					Debug.i(TAG, "进程垃圾界面:" + m_szRubbishProp);
 					pIntent.putExtra(Define.RAM_STR, m_szRubbishProp);
 					break;
 				case 1:// apk缓存
-					if (m_szApkCache.size() == 0)
-					{
-						Debug.i(TAG, "m_szApkCache大小为0");
-						return ;
-					}
 					Debug.i(TAG, "apk缓存:" + m_szApkCache.size());
 					pIntent.putExtra(Define.RAM_STR, m_szApkCache);
 					break;
 				case 2:// log+logs+cache+tmp
 					if (szArray == null)
 						return;
-					int nSize = 0;
-					nSize = (m_szDetailCache.get(szArray[0]) == null ? 0
-							: m_szDetailCache.get(szArray[0]).size())
-							+ (m_szDetailCache.get(szArray[1]) == null ? 0
-									: m_szDetailCache.get(szArray[1]).size())
-							+ (m_szDetailCache.get(szArray[2]) == null ? 0
-									: m_szDetailCache.get(szArray[2]).size())
-							+ (m_szDetailCache.get(szArray[3]) == null ? 0
-									: m_szDetailCache.get(szArray[3]).size());
-					if (nSize == 0)
-						return;
-					Debug.i(TAG, "垃圾文件:" + nSize);
-					pIntent.putExtra(Define.RAM_STR, m_szDetailCache);
+					pIntent.putExtra(Define.RAM_STR, m_szRubbishFlies);
 					break;
 				case 3:// log+logs+cache+tmp
 					if (szArray == null)
 						return;
-					Debug.i(TAG, "m_szDetailCache:"+m_szDetailCache.size());
-					if (m_szDetailCache.get(szArray[4]) == null
-							|| m_szDetailCache.get(szArray[4]).size() == 0)
-						return;
-					Debug.i(TAG, "apk文件:" + m_szDetailCache.size());
-					pIntent.putExtra(Define.RAM_STR, m_szDetailCache);
+					pIntent.putExtra(Define.RAM_STR, m_szApkFiles);
 					break;
 				case 4:// 空文件夹
-					if (m_szBlackDir.size() == 0)
-						return;
 					Debug.i(TAG, "空文件夹:" + m_szBlackDir.size());
 					pIntent.putExtra(Define.RAM_STR, m_szBlackDir);
 					break;

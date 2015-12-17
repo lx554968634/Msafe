@@ -1,67 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
-    android:background="@null"
+    android:background="@color/white"
     android:orientation="horizontal"
-    android:paddingLeft="80dp" >
+    android:paddingBottom="@dimen/padding_list"
+    android:paddingTop="@dimen/padding_list" >
 
     <ImageView
         android:id="@+id/grid_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
         android:layout_centerVertical="true"
-        android:src="@drawable/image_exclam" />
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         android:id="@+id/grid_item_rubbish_des"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/grid_item_image" >
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/grid_item_image"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/grid_item_check0" />
+            android:text="@string/grid_item_check0"
+            android:textSize="@dimen/gird_item_up_textsize" />
 
         <TextView
             android:id="@+id/item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/grid_item_check0" />
+            android:text="@string/grid_item_check0"
+            android:textSize="@dimen/gird_item_down_textsize" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/grid_rubbish_checkboxframe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp" >
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:src="@drawable/point" />
-
-        <CheckBox
+   <ImageView
+       		android:src="@drawable/checked"
             android:id="@+id/grid_rubbish_checkbox"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingRight="0dp"
+            android:layout_alignParentRight="true"
             android:button="@drawable/checked_style"
             android:clickable="false" />
-    </FrameLayout>
 
 </RelativeLayout>

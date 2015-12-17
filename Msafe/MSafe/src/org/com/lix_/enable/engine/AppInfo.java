@@ -1,15 +1,18 @@
 package org.com.lix_.enable.engine;
 
+import java.io.Serializable;
+
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class AppInfo implements Parcelable {
-	private String appName;
-	private String packageName;
-	private boolean isSystemApp;
-	private int mServiceCount;
-	private long mCache;
+public class AppInfo implements Serializable {
+	private static final long serialVersionUID = 8802173452293625312L;
+	private String appName = "";
+	private String packageName = "";
+	private boolean isSystemApp = false;
+	private int mServiceCount = 0;
+	private long mCache = 0;
 
 	public long getmCache() {
 		return mCache;
@@ -39,7 +42,7 @@ public class AppInfo implements Parcelable {
 		this.m_nRam = m_nRam;
 	}
 
-	private long m_nRam;
+	private long m_nRam = 0;
 
 	public void setAppName(String appName) {
 		this.appName = appName;
@@ -61,50 +64,13 @@ public class AppInfo implements Parcelable {
 		this.isSystemApp = isSystemApp;
 	}
 
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeString(appName);
-		out.writeString(packageName);
-		out.writeBooleanArray(new boolean[] { isSystemApp });
-		out.writeLong(m_nRam);
-		out.writeInt(mServiceCount);
-	}
-
-	public static final Parcelable.Creator<AppInfo> CREATOR = new Creator<AppInfo>() {
-		@Override
-		public AppInfo[] newArray(int size) {
-			return new AppInfo[size];
-		}
-
-		@Override
-		public AppInfo createFromParcel(Parcel in) {
-			return new AppInfo(in);
-		}
-	};
-
 	public AppInfo() {
-	}
-
-	public AppInfo(Parcel in) {
-		appName = in.readString();
-		packageName = in.readString();
-		boolean[] pBools = new boolean[] { true };
-		in.readBooleanArray(pBools);
-		isSystemApp = pBools[0];
-		m_nRam = in.readLong();
-		mServiceCount = in.readInt();
 	}
 
 	@Override
 	public String toString() {
 		return "AppInfo [appName=" + appName + ", packageName=" + packageName
-				+ ", isSystemApp=" + isSystemApp + ",Ram:"
-				+ m_nRam + "," + mServiceCount + "]";
+				+ ", isSystemApp=" + isSystemApp + ",Ram:" + m_nRam + ","
+				+ mServiceCount + "]";
 	}
 }
