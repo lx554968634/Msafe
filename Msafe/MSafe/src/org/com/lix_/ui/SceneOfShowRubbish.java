@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SceneOfShowRubbish extends BaseActivity {
+	
+	private String TAG = "SceneOfShowRubbish" ;
 	private AListView m_pGridView;
 	private PackageManager m_pPckManager;
 	private int m_nIndex = -1;
@@ -78,7 +80,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 			return;
 		}
 		((TextView) findViewById(R.id.show_title)).setText(m_szTitls[m_nIndex]);
-
+		Debug.i(TAG, "m_nIndex"+m_nIndex) ;
 		// 根据index获取容器
 		switch (m_nIndex) {
 		case 0:
@@ -119,7 +121,10 @@ public class SceneOfShowRubbish extends BaseActivity {
 		case 1:
 			if (m_szTargetHashMap0 == null || m_szTargetHashMap0.size() == 0) {
 			} else
+			{
+				Debug.i(TAG, m_szTargetHashMap0.size());
 				nFlag = true;
+			}
 
 			break;
 		case 2:
@@ -137,15 +142,15 @@ public class SceneOfShowRubbish extends BaseActivity {
 			break;
 		}
 		if (nFlag) {
-			findViewById(R.id.null_rubbish_text).setVisibility(View.GONE);
-			findViewById(R.id.grid_show_rubbish_total).setVisibility(
+			findViewById(R.id.no_rubbish_txt).setVisibility(View.INVISIBLE);
+			findViewById(R.id.grid_view).setVisibility(
 					View.VISIBLE);
 			m_pGridView = (AListView) findViewById(R.id.grid_view);
 			m_pGridView.setAutoScroll();
 			m_pGridView.setAdapter(new Adapter());
-		} else {
-			findViewById(R.id.null_rubbish_text).setVisibility(View.VISIBLE);
-			findViewById(R.id.grid_show_rubbish_total).setVisibility(View.GONE);
+		} else {  
+			findViewById(R.id.no_rubbish_txt).setVisibility(View.VISIBLE);
+			findViewById(R.id.grid_view).setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -232,7 +237,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 		FileInfo sName = szTmp.get(position);
 		pTextName.setText(sName.m_sFileName);
 		pRamText.setText("apk安装包大小  " + sName.getSize());
-		return null;
+		return convertView;
 	}
 
 	public View getRubbishFileView(int position, View convertView,
@@ -250,8 +255,8 @@ public class SceneOfShowRubbish extends BaseActivity {
 		TextView pRamText = (TextView) convertView.findViewById(R.id.item_desc);
 		FileInfo sName = m_szArrayList1.get(position);
 		pTextName.setText(sName.m_sFileName);
-		pRamText.setText("apk安装包大小  " + sName.getSize());
-		return null;
+		pRamText.setText("垃圾文件  " + sName.getSize());
+		return convertView;
 	}
 
 	public View getApkCacheView(int position, View convertView, ViewGroup parent) {
@@ -286,6 +291,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 
 	private View getRubbishPropView(int position, View convertView,
 			ViewGroup parent) {
+		Debug.i(TAG, "getRubbishPropView ---"+position);
 		if (convertView == null) {
 			convertView = m_pInflater.inflate(
 					R.layout.grid_item_rubbishactivity, null);
@@ -315,7 +321,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 		}
 		sDes += " " + UiUtils.getCacheSize(nRam);
 		pRamText.setText(sDes);
-		return null;
+		return convertView;
 	}
 
 	public View getBlankFileView(int position, View convertView,

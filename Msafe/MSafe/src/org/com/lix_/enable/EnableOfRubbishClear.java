@@ -363,9 +363,7 @@ public class EnableOfRubbishClear extends Enable {
 			nTarget = UiUtils.getLongValue(pLong0);
 			break;
 		case 4:
-			pLong0 = m_szRamRecord.get(Define.RAM_STR + (0 + ""));
-			nTarget = UiUtils.getLongValue(pLong0);
-			break;
+			return m_szBlackDir.size() +"¸ö";
 		}
 		return UiUtils.getCacheSize(nTarget);
 	}

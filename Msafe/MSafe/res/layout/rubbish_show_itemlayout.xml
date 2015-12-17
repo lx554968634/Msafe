@@ -38,21 +38,19 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@color/green_breathecircleview_background" />
-	<RelativeLayout android:id="@+id/null_rubbish_text" android:layout_width="fill_parent" android:layout_height="match_parent">
-	    <TextView android:layout_centerInParent="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/null_rubbish_txt"/>
-	</RelativeLayout>
+
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/grid_show_rubbish_total"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical" >
-
         <org.com.lix_.plugin.AListView
             android:id="@+id/grid_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:visibility="invisible"
             android:listSelector="@drawable/selector_highlight_button"
             android:paddingLeft="@dimen/padding_list"
             android:paddingRight="@dimen/padding_list" />
@@ -73,13 +71,21 @@
             <TextView
                 android:id="@+id/clear_itemlayout"
                 android:layout_width="fill_parent"
-                android:clickable="true"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:gravity="center"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingTop="@dimen/padding_list"
                 android:text="@string/clear" />
         </LinearLayout>
+        
+        <TextView
+            android:id="@+id/no_rubbish_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:text="@string/null_rubbish_txt" />
     </RelativeLayout>
 
 </LinearLayout>

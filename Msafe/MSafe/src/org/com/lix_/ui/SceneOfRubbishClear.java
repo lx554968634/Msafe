@@ -63,7 +63,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 		m_pCacheTextView.setText(UiUtils.getCacheSize(0));
 		COUNT_GRID_ITEMS = m_szTitles.length;
 		m_pGridView = (AListView) findViewById(R.id.list_rubbishactivity);
-//		m_pGridView.setScrollenable(false);
+		// m_pGridView.setScrollenable(false);
 		m_pGridView.setAdapter(new Adapter());
 		m_pTargetCircle = (AutodrawCircleView) findViewById(R.id.circle_target);
 		m_pEnable = new EnableOfRubbishClear(this);
@@ -147,6 +147,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 			if (m_pGridView.getChildAt(i) != null) {
 				pTextView = (TextView) m_pGridView.getChildAt(i).findViewById(
 						R.id.grid_item_size);
+				pTextView.setVisibility(View.VISIBLE);
 				pTextView.setText(m_pEnable.getRubbishSize(i));
 				;
 			}

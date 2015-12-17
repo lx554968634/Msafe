@@ -15,7 +15,7 @@ public class FileInfo implements Serializable {
 	public String getSize() {
 		if (m_nFileSize == -1) {
 			File pFile = new File(m_sAbFilePath);
-			if (pFile.exists() && pFile.isDirectory()) {
+			if (pFile.exists() ) {
 				m_nFileSize = UiUtils.getFileSize(pFile);
 			}
 		}
