@@ -1,5 +1,6 @@
 package org.com.lix_.ui;
 
+import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.util.Debug;
 
@@ -14,6 +15,8 @@ public class SceneOfFileAdmin extends BaseActivity {
 
 	private AListView m_pListView;
 
+	private EnableOfFileAdmin m_pEnable;
+
 	private String[] m_szList;
 
 	private int m_nListCount;
@@ -23,21 +26,27 @@ public class SceneOfFileAdmin extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.fileadmin);
-		init() ;
+		init();
 	}
 
 	protected String TAG = "SceneOfFileAdmin";
 
 	@Override
 	public void init() {
+
+		m_pEnable = new EnableOfFileAdmin(this);
+		m_pEnable.init() ;
+	}
+
+	private void initList() {
 		m_pListView = (AListView) findViewById(R.id.fileadmin_detail_list);
-		
+
 		m_szList = getResources().getStringArray(
 				R.array.titles_rubbishclear_array);
-		m_nListCount = m_szList.length ;
-		
-		Debug.e(TAG, "m_szList.size:"+m_szList.length);
-		
+		m_nListCount = m_szList.length;
+
+		Debug.e(TAG, "m_szList.size:" + m_szList.length);
+
 		m_pListView.setAutoScroll();
 		m_pListView.setAdapter(new Adapter());
 	}
@@ -60,7 +69,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 			return position;
 		}
 
-		@Override 
+		@Override
 		public long getItemId(int position) {
 			return position;
 		}

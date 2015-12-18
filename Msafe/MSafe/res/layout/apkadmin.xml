@@ -17,11 +17,12 @@
             android:paddingLeft="@dimen/padding_list"
             android:text="@string/title_apkrubbish_btn_mainlayout"
             android:textSize="@dimen/textsize_mainactiviy_top" />
+
         <ImageView
-            android:contentDescription="@string/title_apkrubbish_btn_mainlayout"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
+            android:contentDescription="@string/title_apkrubbish_btn_mainlayout"
             android:padding="10dp"
             android:src="@drawable/checked" />
     </RelativeLayout>
@@ -34,15 +35,32 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/padding_list" 
+        android:paddingLeft="@dimen/padding_list"
         android:paddingRight="@dimen/padding_list" >
+
+        
+
+        <TextView
+            android:id="@+id/tip_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scan_txt"
+            android:layout_centerInParent="true" />
+        <ProgressBar
+            android:id="@+id/tip_pro"
+            android:layout_toLeftOf="@id/tip_0"
+            android:layout_centerVertical="true"
+            style="?android:attr/progressBarStyleSmallInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/fileadmin_filesizetotalnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_list"
-            android:text="3" />
+            android:text="3"
+            android:visibility="invisible" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,14 +68,16 @@
             android:layout_toRightOf="@id/fileadmin_filesizetotalnum"
             android:paddingBottom="@dimen/padding_list"
             android:paddingTop="@dimen/padding_list"
-            android:text="@string/des_filenum" />
+            android:text="@string/des_filenum"
+            android:visibility="invisible" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:padding="@dimen/padding_list"
-            android:text="@string/totalsize_des_exp_fileadmin" />
+            android:text="@string/totalsize_des_exp_fileadmin"
+            android:visibility="invisible" />
 
         <View
             android:layout_width="fill_parent"
@@ -65,7 +85,8 @@
             android:layout_below="@id/fileadmin_filesizetotalnum"
             android:background="@color/gray_mainactivity_btn_press"
             android:paddingLeft="@dimen/padding_list"
-            android:paddingRight="@dimen/padding_list" />
+            android:paddingRight="@dimen/padding_list"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -78,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="invisible" >
 
             <View
                 android:layout_width="fill_parent"
@@ -100,7 +122,8 @@
             android:layout_height="match_parent"
             android:layout_above="@id/fileadmin_btn_clear"
             android:paddingLeft="@dimen/padding_list"
-            android:paddingRight="@dimen/padding_list" />
+            android:paddingRight="@dimen/padding_list"
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </LinearLayout>
