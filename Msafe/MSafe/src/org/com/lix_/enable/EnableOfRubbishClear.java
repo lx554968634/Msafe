@@ -59,6 +59,8 @@ public class EnableOfRubbishClear extends Enable {
 	public static final int FINISH_SCAN_RUBBISH = 10;
 
 	public static final int TXT_SHOW = 11;
+	
+	public static final int NONE_SDCARD = 12 ;
 
 	private int m_nScanPckCacheCount = 0;
 
@@ -83,6 +85,8 @@ public class EnableOfRubbishClear extends Enable {
 			int nTag = msg.what;
 			try {
 				switch (nTag) {
+				case NONE_SDCARD:
+					break ;
 				case FIND_CACHE_SYSTEMPCK:
 					m_nScanCount++;
 					if (m_nScanPckCacheCount == m_nScanCount) {
@@ -258,8 +262,6 @@ public class EnableOfRubbishClear extends Enable {
 
 	private void checkSD() {
 		Message pMsg = null;
-		String nStatus = Environment.getExternalStorageState();
-		String sTag = "";
 		int nTag = m_pFileEngine.retSDCardStatus();
 		pMsg = Message.obtain();
 		pMsg.what = PREPARE_FINISH;
@@ -271,6 +273,11 @@ public class EnableOfRubbishClear extends Enable {
 			Debug.i(TAG, "垃圾文件大小:" + m_szDetailCache.size());
 			pMsg = Message.obtain();
 			pMsg.what = FINSH_SD_RUBBISH;
+			m_pRubbishHandler.sendMessage(pMsg);
+		}else
+		{
+			pMsg = Message.obtain();
+			pMsg.what = NONE_SDCARD;
 			m_pRubbishHandler.sendMessage(pMsg);
 		}
 	}

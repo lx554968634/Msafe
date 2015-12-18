@@ -1,5 +1,6 @@
 package org.com.lix_.ui;
 
+import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.util.Debug;
@@ -20,6 +21,8 @@ public class SceneOfFileAdmin extends BaseActivity {
 	private String[] m_szList;
 
 	private int m_nListCount;
+	
+	private Callback m_pCallback ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.fileadmin);
 		init();
-	}
+	}   
 
 	protected String TAG = "SceneOfFileAdmin";
 
@@ -35,7 +38,35 @@ public class SceneOfFileAdmin extends BaseActivity {
 	public void init() {
 
 		m_pEnable = new EnableOfFileAdmin(this);
-		m_pEnable.init() ;
+		m_pEnable.init(m_pCallback) ;
+	}
+	
+	class Callback implements EnableCallback
+	{
+
+		@Override
+		public void callback(Object... obj) {
+			Integer pInteger  = null ;
+			try{
+				pInteger = Integer.parseInt(obj[0].toString()) ;
+			}catch(RuntimeException ee){
+				ee.printStackTrace(); 
+			}catch(Exception e)
+			{
+				e.printStackTrace(); 
+			}
+			if(null == pInteger)
+			{
+				Debug.e(TAG, "无法获得 callback tag !");
+				return ;
+			}
+			switch(pInteger.intValue())
+			{
+			case EnableOfFileAdmin.GET_LIST :
+				break ;
+			}
+		}
+		
 	}
 
 	private void initList() {

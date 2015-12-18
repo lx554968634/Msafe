@@ -21,4 +21,25 @@
         <item>缓存文件</item>
         <item>apk文件</item>
     </string-array> 
+    <!-- 这个是系统自带文件夹以及相应功能 -->
+    <string-array name="file_type_simple">
+        <item>Alarms|@|铃声文件</item>
+      	<item>DCIM|@|视频文件</item>
+      	<item>Download|@|下载文件</item>
+      	<item>LOST.DIR|@|系统恢复文件</item>
+      	<item>Movies|@|电影文件</item>
+      	<item>Music|@|音乐文件</item>
+      	<item>Notifications|@|提示音文件</item>
+      	<item>Pictures|@|照片文件</item>
+      	<item>Podcasts|@|博客缓存文件</item>
+      	<item>Ringtones|@|手机铃声文件</item>
+    </string-array>
+    
+    <!-- 这个是整理的相应文件夹以及功能 -->
+     <string-array name="file_type_tri">
+        <item>tencent/MicroMsg/|@|微信</item>
+      	<item>tencent/QQfile_recv|@|QQ接受到的文件</item>
+      	<item>autonavi/data|@|高德地图</item>
+      	<item>iReader|@|掌阅</item>
+    </string-array>
 </resources> 
