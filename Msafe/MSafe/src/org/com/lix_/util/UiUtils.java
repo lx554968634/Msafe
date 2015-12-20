@@ -3,6 +3,9 @@ package org.com.lix_.util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import org.com.lix_.enable.engine.FileInfo;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -110,6 +113,21 @@ public class UiUtils {
 		if (pLong0 == null)
 			return 0;
 		return pLong0.longValue();
+	}
+
+	public static int getHashMapSize(
+			HashMap szDatas) {
+		if(szDatas == null)
+			return 0 ;
+		else
+		{
+			int nCount = 0 ;
+			for(Object obj:szDatas.keySet())
+			{
+				nCount += ((List)szDatas.get(obj)).size();
+			}
+			return nCount = 0 ;
+		}
 	}
 
 }

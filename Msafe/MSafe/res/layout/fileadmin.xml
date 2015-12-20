@@ -80,6 +80,7 @@
             android:visibility="invisible" />
 
         <View
+            android:id="@+id/line_view"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/line_height"
             android:layout_below="@id/fileadmin_filesizetotalnum"
@@ -100,7 +101,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:orientation="vertical"
-            android:visibility="invisible" >
+            android:visibility="visible" >
 
             <View
                 android:layout_width="fill_parent"
@@ -123,7 +124,7 @@
             android:layout_above="@id/fileadmin_btn_clear"
             android:paddingLeft="@dimen/padding_list"
             android:paddingRight="@dimen/padding_list"
-            android:visibility="invisible" />
+            android:visibility="visible" />
     </RelativeLayout>
 
 </LinearLayout>
