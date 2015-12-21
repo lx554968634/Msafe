@@ -44,11 +44,14 @@ public class SceneOfApkAdmin extends BaseActivity {
 	public void init() {
 		m_pProssBar = (ProgressBar) findViewById(R.id.progress);
 		m_pEnable = new EnableOfApkAdmin(this);
+		m_pCallback = new ApkCallback();
 		m_pEnable.init(m_pCallback);
 
 	}
 
-	EnableCallback m_pCallback = new EnableCallback() {
+	private ApkCallback m_pCallback;
+
+	class ApkCallback implements EnableCallback {
 
 		@Override
 		public void callback(Object... obj) {

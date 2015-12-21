@@ -32,6 +32,7 @@ public class SceneOfWapAdmin extends BaseActivity implements
 
 	@Override
 	public void init() {
+		moveQuick(); 
 		mSinkingView = (SinkingView) findViewById(R.id.wap_sinking);
 		percent = 0.01f;
 		m_pTitleTextView = (TextView) findViewById(R.id.wap_title_des);
@@ -70,34 +71,17 @@ public class SceneOfWapAdmin extends BaseActivity implements
 	}
 
 	/**
-	 * 0 正常
-	 * 1 》0 
-	 * -1 《 0
+	 * 0 正常 1 》0 -1 《 0
 	 */
-	private int m_nRotateStatus = 0 ;
-	
+	private int m_nRotateStatus = 0;
+
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor == null) {
 			return;
 		}
-		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-			int x = (int) event.values[0];
+		if (mSinkingView != null)
+			mSinkingView.onSensorChanged(event);
 
-			if (m_pTitleTextView != null) {
-				m_pTitleTextView.setText("x:" + x);
-			}
-			if (mSinkingView != null) {
-				if (x >0){
-					m_nRotateStatus = 1 ;
-				}
-				else if(x < 0){
-					m_nRotateStatus = -1 ;
-				}
-				else {
-					m_nRotateStatus = 0 ;
-				}
-			}
-		}
 	}
 }
