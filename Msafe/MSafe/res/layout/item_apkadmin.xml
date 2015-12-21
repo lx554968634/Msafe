@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/padding_list"
+    android:paddingTop="@dimen/padding_list" >
+
+    <ImageView
+        android:id="@+id/grid_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/doc_icon" />
+
+    <LinearLayout
+        android:id="@+id/grid_item_rubbish_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/grid_item_image"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grid_item_check0"
+            android:textSize="@dimen/gird_item_up_textsize" />
+
+        <TextView
+            android:id="@+id/item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grid_item_check0"
+            android:textSize="@dimen/gird_item_down_textsize" />
+    </LinearLayout>
+
+   <ImageView
+       		android:src="@drawable/checked"
+            android:id="@+id/grid_rubbish_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingRight="0dp"
+            android:layout_alignParentRight="true"
+            android:button="@drawable/checked_style"
+            android:clickable="false" />
+
+</RelativeLayout>

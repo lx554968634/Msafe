@@ -6,7 +6,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -14,17 +15,20 @@
 
         <TextView
             android:id="@+id/wap_title_des"
+            android:padding="@dimen/padding_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/title_clearrubbish_btn_mainlayout"
+            android:layout_centerHorizontal="true"
+            android:text="@string/title_wrapadmin_btn_mainlayout"
             android:textSize="@dimen/textsize_mainactiviy_top" />
 
         <org.com.lix_.plugin.SinkingView
             android:id="@+id/wap_sinking"
+			android:layout_centerHorizontal="true"
+            android:layout_below="@id/wap_title_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"

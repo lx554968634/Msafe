@@ -13,6 +13,7 @@ public class AppInfo implements Serializable {
 	private boolean isSystemApp = false;
 	private int mServiceCount = 0;
 	private long mCache = 0;
+	private boolean m_bIsSdSaved = false ;
 
 	public long getmCache() {
 		return mCache;
@@ -72,5 +73,9 @@ public class AppInfo implements Serializable {
 		return "AppInfo [appName=" + appName + ", packageName=" + packageName
 				+ ", isSystemApp=" + isSystemApp + ",Ram:" + m_nRam + ","
 				+ mServiceCount + "]";
+	}
+
+	public void setInRom(boolean b) {
+		m_bIsSdSaved = b ;
 	}
 }

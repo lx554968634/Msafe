@@ -27,32 +27,34 @@
             android:src="@drawable/checked" />
     </RelativeLayout>
 
-    <View
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/line_height"
-        android:background="@color/green_breathecircleview_background" />
+        android:background="@drawable/shape_line"
+        android:max="0"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_line" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/padding_list"
-        android:paddingRight="@dimen/padding_list" >
-
-        
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/tip_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/scan_txt"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:text="@string/scan_txt" />
+
         <ProgressBar
             android:id="@+id/tip_pro"
-            android:layout_toLeftOf="@id/tip_0"
-            android:layout_centerVertical="true"
             style="?android:attr/progressBarStyleSmallInverse"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tip_0" />
 
         <TextView
             android:id="@+id/fileadmin_filesizetotalnum"
@@ -80,14 +82,13 @@
             android:visibility="invisible" />
 
         <View
+            android:id="@+id/view_line"
             android:layout_width="fill_parent"
             android:id="@+id/view_line"
             android:layout_height="@dimen/line_height"
             android:layout_below="@id/fileadmin_filesizetotalnum"
             android:background="@color/gray_mainactivity_btn_press"
-            android:paddingLeft="@dimen/padding_list"
-            android:paddingRight="@dimen/padding_list"
-            android:visibility="invisible" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -101,7 +102,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:orientation="vertical"
-            android:visibility="invisible" >
+            android:visibility="visible" >
 
             <View
                 android:layout_width="fill_parent"
@@ -121,10 +122,10 @@
             android:id="@+id/fileadmin_detail_list"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/padding_list"
+            android:layout_marginRight="@dimen/padding_list"
             android:layout_above="@id/fileadmin_btn_clear"
-            android:paddingLeft="@dimen/padding_list"
-            android:paddingRight="@dimen/padding_list"
-            android:visibility="invisible" />
+            android:visibility="visible" />
     </RelativeLayout>
 
 </LinearLayout>
