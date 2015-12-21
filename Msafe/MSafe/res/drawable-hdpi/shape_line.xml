@@ -1,4 +1,4 @@
 <shape android:shape="rectangle"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#ffe0e0e0" />
+    <solid android:color="@color/green_breathecircleview_background" />
 </shape>
