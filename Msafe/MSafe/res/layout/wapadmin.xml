@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/title_clearrubbish_btn_mainlayout"
+            android:text="@string/title_wrapadmin_btn_mainlayout"
             android:textSize="@dimen/textsize_mainactiviy_top" />
 
         <org.com.lix_.plugin.SinkingView
