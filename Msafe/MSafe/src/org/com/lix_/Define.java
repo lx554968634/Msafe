@@ -12,4 +12,10 @@ public class Define {
 	public static boolean DEBUG = true ;
 	public static int WIDTH = 480 ;
 	public static int HEIGHT = 800 ;
+	
+	
+	/**
+	 * action∂®“Â
+	 */
+	public static final String ACTION_ROOT_START_TABCHILD = "org.com.lix_.ui.tabchildrootstart" ;
 }
