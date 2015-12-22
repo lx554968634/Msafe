@@ -54,11 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-<<<<<<< HEAD
-                android:text="@string/virus_item_check0" />
-=======
                 android:text="@string/virus_check_txt0" />
->>>>>>> cb504493a4947fc952022816a5cfa73f3282071f
         </LinearLayout>
 
         <LinearLayout
@@ -80,11 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-<<<<<<< HEAD
-                android:text="@string/virus_item_check1" />
-=======
                 android:text="@string/virus_check_txt1" />
->>>>>>> cb504493a4947fc952022816a5cfa73f3282071f
         </LinearLayout>
 
         <LinearLayout
@@ -106,11 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-<<<<<<< HEAD
-                android:text="@string/virus_item_check2" />
-=======
                 android:text="@string/virus_check_txt2" />
->>>>>>> cb504493a4947fc952022816a5cfa73f3282071f
         </LinearLayout>
 
         <LinearLayout
@@ -132,11 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-<<<<<<< HEAD
-                android:text="@string/virus_item_check3" />
-=======
                 android:text="@string/virus_check_txt3" />
->>>>>>> cb504493a4947fc952022816a5cfa73f3282071f
         </LinearLayout>
 
         <LinearLayout
