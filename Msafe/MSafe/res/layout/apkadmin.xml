@@ -84,7 +84,6 @@
         <View
             android:id="@+id/view_line"
             android:layout_width="fill_parent"
-            android:id="@+id/view_line"
             android:layout_height="@dimen/line_height"
             android:layout_below="@id/fileadmin_filesizetotalnum"
             android:background="@color/gray_mainactivity_btn_press"
