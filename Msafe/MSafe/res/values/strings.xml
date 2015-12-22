@@ -23,4 +23,12 @@
         <string name="finish">完成</string>
         <string name="null_rubbish_txt">没有垃圾占用</string>
         <string name="scan_txt">  正在扫描轻稍后</string>
+        <string name="virus_check_txt0">恶意应用</string>
+        <string name="virus_check_txt1">隐患应用</string>
+        <string name="virus_check_txt2">支付风险</string>
+        <string name="virus_check_txt3">盗号风险</string>
+        <string name="rootamin_title0">自启动</string>
+         <string name="rootamin_title1">通知</string>
+          <string name="rootamin_title2">安全</string>
+           <string name="rootamin_title3">隐私</string>
 </resources>

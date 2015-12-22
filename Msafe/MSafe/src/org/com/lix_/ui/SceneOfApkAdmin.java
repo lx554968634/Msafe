@@ -160,7 +160,6 @@ public class SceneOfApkAdmin extends BaseActivity {
 		findViewById(R.id.tip_0).setVisibility(View.INVISIBLE);
 		findViewById(R.id.tip_pro).setVisibility(View.INVISIBLE);
 		m_pListView = (AListView) findViewById(R.id.fileadmin_detail_list);
-
 		m_pListView.setAutoScroll();
 		m_pListView.setAdapter(new Adapter());
 	}

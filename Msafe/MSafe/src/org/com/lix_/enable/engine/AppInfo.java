@@ -67,6 +67,18 @@ public class AppInfo implements Serializable {
 
 	public AppInfo() {
 	}
+	
+	private String[] szPermission ;
+	
+	
+
+	public String[] getSzPermission() {
+		return szPermission;
+	}
+
+	public void setSzPermission(String[] szPermission) {
+		this.szPermission = szPermission;
+	}
 
 	@Override
 	public String toString() {
