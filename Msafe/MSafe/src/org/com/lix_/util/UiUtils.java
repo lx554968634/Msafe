@@ -130,4 +130,16 @@ public class UiUtils {
 		}
 	}
 
+	public static void logStringArr(String[] requestedPermissions) {
+		if(requestedPermissions == null || requestedPermissions.length == 0)
+			Debug.e(TAG, "requestPermissionsΪnull~");
+			
+		StringBuffer sb = new StringBuffer() ;
+		for(String sInfo:requestedPermissions)
+		{
+			sb.append(sInfo+":") ;
+		}
+		Debug.i(TAG, sb.toString());
+	}
+
 }

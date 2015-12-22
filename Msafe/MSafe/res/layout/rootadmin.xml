@@ -4,33 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
         <TabWidget
             android:id="@android:id/tabs"
-            android:background="@null"
-            android:divider="@null"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:divider="@null" />
 
         <View
+            android:id="@+id/divde_line"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
+            android:layout_below="@android:id/tabs"
             android:background="@color/tab_textcolor_selected" />
 
+        <LinearLayout
+            android:id="@+id/fileadmin_btn_clear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/gray_mainactivity_btn_press" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingTop="@dimen/padding_list"
+                android:text="@string/clear" />
+        </LinearLayout>
+         <TextView
+             android:id="@+id/wait_for_scan"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingTop="@dimen/padding_list"
+                android:text="@string/scan_txt" />
         <FrameLayout
+            android:layout_above="@id/fileadmin_btn_clear"
             android:id="@android:id/tabcontent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_below="@id/divde_line" >
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
         </FrameLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </TabHost>

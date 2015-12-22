@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:textSize="@dimen/clear_btn_size"
         android:textColor="@drawable/selector_text_color"
-        android:text="sadfad" />
+        android:text="@string/rootamin_title0" />
     <View
         	android:id="@+id/stoke_line_indito"
         	android:layout_below="@id/title"

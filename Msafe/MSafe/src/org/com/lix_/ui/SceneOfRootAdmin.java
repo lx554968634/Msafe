@@ -1,12 +1,11 @@
 package org.com.lix_.ui;
 
-import java.util.Random;
-import java.util.zip.Inflater;
+import org.com.lix_.enable.EnableCallback;
+import org.com.lix_.enable.EnableOfRootAdmin;
+import org.com.lix_.util.Debug;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -14,21 +13,24 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
-public class SceneOfRootAdmin extends FragmentActivity {
+public class SceneOfRootAdmin extends BaseFragActivity {
 
 	private static final String TAG = "SceneOfRootAdmin";
 	private TabHost m_pTabHost;
 	private ViewPager m_pViewPager;
 	private PagerAdapter m_pPagerAdapter;
 	private String[] addresses = { "first", "second", "third", "four" };
+
+	private CallbackOfRootadmin m_pCallback;
+
+	private EnableOfRootAdmin m_pTotalEnable;
 
 	@Override
 	protected void onResume() {
@@ -44,9 +46,28 @@ public class SceneOfRootAdmin extends FragmentActivity {
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.rootadmin);
+		init();
+	}
+
+	private class MyPagerAdapter extends FragmentStatePagerAdapter {
+		public MyPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			return getFragment(position);
+		}
+
+		@Override
+		public int getCount() {
+			return addresses.length;
+		}
+	}
+
+	@Override
+	public void init() {
 		m_pViewPager = (ViewPager) findViewById(R.id.viewPager1);
-		m_pPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-		m_pViewPager.setAdapter(m_pPagerAdapter);
 		View pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator,
 				null);
 		pView.findViewById(R.id.stoke_line_indito).setVisibility(View.VISIBLE);
@@ -55,12 +76,15 @@ public class SceneOfRootAdmin extends FragmentActivity {
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("one").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator, null);
+		((TextView)pView.findViewById(R.id.title)).setText(getResources().getString(R.string.rootamin_title1));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("two").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator, null);
+		((TextView)pView.findViewById(R.id.title)).setText(getResources().getString(R.string.rootamin_title2));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("three").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator, null);
+		((TextView)pView.findViewById(R.id.title)).setText(getResources().getString(R.string.rootamin_title3));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("four").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		final TabWidget tabWidget = m_pTabHost.getTabWidget();
@@ -108,14 +132,15 @@ public class SceneOfRootAdmin extends FragmentActivity {
 				m_pTabHost.setCurrentTab(index);
 				m_pViewPager.setCurrentItem(index);
 				m_pTabHost.getCurrentTabView()
-				.findViewById(R.id.stoke_line_indito)
-				.setVisibility(View.VISIBLE);
+						.findViewById(R.id.stoke_line_indito)
+						.setVisibility(View.VISIBLE);
 			}
 		});
 		m_pViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageSelected(int arg0) {
 				m_pTabHost.setCurrentTab(arg0);
+				Debug.e(TAG, "当前点击选项--:" + arg0);
 			}
 
 			@Override
@@ -126,46 +151,45 @@ public class SceneOfRootAdmin extends FragmentActivity {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+
+		m_pCallback = new CallbackOfRootadmin();
+		m_pTotalEnable = new EnableOfRootAdmin(this, m_pCallback);
 	}
 
-	private class MyPagerAdapter extends FragmentStatePagerAdapter {
-		public MyPagerAdapter(FragmentManager fm) {
-			super(fm);
+	public Fragment getFragment(int position) {
+		switch (position) {
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
 		}
-
-		@Override
-		public Fragment getItem(int position) {
-			return MyFragment.create(addresses[position]);
-		}
-
-		@Override
-		public int getCount() {
-			return addresses.length;
-		}
+		return new FragmentOfRootStart(m_pTotalEnable.getData() );
 	}
 
-	public static class MyFragment extends Fragment {
-		public static MyFragment create(String address) {
-			MyFragment f = new MyFragment();
-			Bundle b = new Bundle();
-			b.putString("address", address);
-			f.setArguments(b);
-			return f;
-		}
+	class CallbackOfRootadmin implements EnableCallback {
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			Random r = new Random(System.currentTimeMillis());
-			Bundle b = getArguments();
-			View v = inflater.inflate(R.layout.wapadmin, null);
-			v.setBackgroundColor(r.nextInt() >> 8 | 0xFF << 24);
-			TextView txvAddress = (TextView) v.findViewById(R.id.wap_title_des);
-			txvAddress.setTextColor(r.nextInt() >> 8 | 0xFF << 24);
-			txvAddress.setBackgroundColor(r.nextInt() >> 8 | 0xFF << 24);
-			txvAddress.setText("sadfasdfasd");
-			return v;
+		public void callback(Object... obj) {
+			switch (Integer.parseInt(obj[0].toString())) {
+			case EnableOfRootAdmin.SCAN_FINISH:
+				Debug.e(TAG, "scan finish-------");
+				m_pPagerAdapter = new MyPagerAdapter(
+						getSupportFragmentManager());
+				findViewById(R.id.wait_for_scan).setVisibility(View.INVISIBLE);
+				m_pViewPager.setAdapter(m_pPagerAdapter);
+				findViewById(R.id.viewPager1).setVisibility(View.VISIBLE);
+				if (m_pViewPager != null)
+					m_pViewPager.setCurrentItem(1);
+				if (m_pViewPager != null)
+					m_pViewPager.setCurrentItem(0);
+				break;
+			}
 		}
+
 	}
 
 }

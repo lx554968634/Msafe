@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_list"
+    android:paddingRight="@dimen/padding_list"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="2款应用允许自启动" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+    <ListView
+        android:id="@+id/autostart_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="6款应用禁用自启动" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+    <ListView
+        android:id="@+id/nowaystart_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>
