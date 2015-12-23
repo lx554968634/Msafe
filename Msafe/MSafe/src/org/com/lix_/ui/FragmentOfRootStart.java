@@ -9,6 +9,7 @@ import org.com.lix_.util.Debug;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import org.com.lix_.enable.engine.AppInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

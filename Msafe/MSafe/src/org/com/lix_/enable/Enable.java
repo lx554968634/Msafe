@@ -17,7 +17,8 @@ public abstract class Enable  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Context m_pContext;
 	protected EnableCallback m_pCallback;
-
+	public Enable() {
+	}
 	public Enable(Context pContext) {
 		m_pContext = pContext;
 	}
