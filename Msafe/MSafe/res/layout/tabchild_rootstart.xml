@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/padding_list"
-    android:paddingRight="@dimen/padding_list"
-    android:orientation="vertical" >
+    android:paddingRight="@dimen/padding_list" >
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,13 +13,21 @@
         android:paddingTop="@dimen/padding_list"
         android:text="2款应用允许自启动" />
 
+    <TextView
+        android:id="@+id/tab_child0_tip0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/scan_txt"
+        android:textSize="@dimen/gird_item_down_textsize" />
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/line_height"
         android:background="@color/gray_mainactivity_btn_press" />
 
     <ListView
-        android:id="@+id/autostart_list"
+        android:id="@+id/autostart_list0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" />
@@ -31,13 +39,21 @@
         android:paddingTop="@dimen/padding_list"
         android:text="6款应用禁用自启动" />
 
+    <TextView
+        android:id="@+id/tab_child0_tip1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/scan_txt"
+        android:textSize="@dimen/gird_item_down_textsize" />
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/line_height"
         android:background="@color/gray_mainactivity_btn_press" />
 
     <ListView
-        android:id="@+id/nowaystart_list"
+        android:id="@+id/nowaystart_list1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" />

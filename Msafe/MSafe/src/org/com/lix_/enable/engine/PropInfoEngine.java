@@ -274,5 +274,4 @@ public class PropInfoEngine {
 		}
 		return szArr;
 	}
-
 }

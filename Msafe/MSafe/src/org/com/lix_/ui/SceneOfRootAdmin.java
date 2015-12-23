@@ -159,15 +159,15 @@ public class SceneOfRootAdmin extends BaseFragActivity {
 	public Fragment getFragment(int position) {
 		switch (position) {
 		case 0:
-			break;
+			return new FragmentOfRootStart(m_pTotalEnable.getRunningServers(),SceneOfRootAdmin.this);
 		case 1:
-			break;
+			return new FragmentOfAboveshow(null );
 		case 2:
-			break;
+			return new FragmentOfPhoneSeacure(null);
 		case 3:
-			break;
+			return new FragmentOfPhonePermission(null);
 		}
-		return new FragmentOfRootStart(m_pTotalEnable.getData() );
+		return new FragmentOfRootStart(null,SceneOfRootAdmin.this);
 	}
 
 	class CallbackOfRootadmin implements EnableCallback {

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_list"
+    android:paddingRight="@dimen/padding_list" >
+
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles0" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles1" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+  <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles2" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+  <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles3" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+  <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles4" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+   <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles5" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+     <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+  <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles6" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+     <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/gray_mainactivity_btn_press" />
+
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="@string/tab_child3_root_titles7" />
+       <TextView
+           android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/padding_list_helf"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:textSize="@dimen/clear_btn_size"
+        android:text="@string/tab_child_item_tag" />
+    </RelativeLayout>
+
+</LinearLayout>

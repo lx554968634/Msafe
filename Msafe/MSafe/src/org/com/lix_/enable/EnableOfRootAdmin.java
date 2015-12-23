@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.enable.engine.AppInfoEngine;
+import org.com.lix_.enable.engine.PropInfoEngine;
 
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -19,6 +21,8 @@ public class EnableOfRootAdmin extends Enable{
 	public static final int SCAN_FINISH = 3;
 	
 	private AppInfoEngine m_pEngine ;
+	
+	private PropInfoEngine m_pEngine2 ;
 
 	public EnableOfRootAdmin(Context pContext,
 			EnableCallback pCallback) {
@@ -30,10 +34,13 @@ public class EnableOfRootAdmin extends Enable{
 	private void init()
 	{
 		m_pEngine = new AppInfoEngine(m_pContext,m_pHandler) ;
+		m_pEngine2 = new PropInfoEngine(m_pContext, m_pHandler) ;
 		m_pTask.execute(0) ;
 	}
 	
 	private List<AppInfo> m_szAppInfo = null ;
+	
+	private List<RunningServiceInfo> m_szRunningService = null ;
 	
 	AsyncTask m_pTask = new AsyncTask()
 	{
@@ -41,6 +48,7 @@ public class EnableOfRootAdmin extends Enable{
 		@Override
 		protected Object doInBackground(Object... params) {
 			m_szAppInfo = m_pEngine.getInstalledAppWithPermiss() ;
+			m_szRunningService = m_pEngine2.getRunningService() ;
 			Message msg = Message.obtain() ;
 			msg.what = SCAN_FINISH ;
 			m_pHandler.sendMessage(msg) ;
@@ -77,8 +85,13 @@ public class EnableOfRootAdmin extends Enable{
 	@Override
 	public void onViewClick(int nId) {
 	}
+	
+	public List<RunningServiceInfo> getRunningServers()
+	{
+		return m_szRunningService ;
+	}
 
-	public List<AppInfo> getData() {
+	public List<AppInfo> getInstalledAppInfo() {
 		return m_szAppInfo;
 	}
 

@@ -31,4 +31,24 @@
          <string name="rootamin_title1">通知</string>
           <string name="rootamin_title2">安全</string>
            <string name="rootamin_title3">隐私</string>
+           <string name="tab_child1_root_titles0">悬浮窗</string>
+           <string name="tab_child1_root_titles1">通知栏窗口</string>
+           <string name="tab_child2_root_titles0">拨打电话</string>
+           <string name="tab_child2_root_titles1">发送信息</string>
+           <string name="tab_child2_root_titles2">发送彩信</string>
+           <string name="tab_child2_root_titles3">打开移动网络</string>
+           <string name="tab_child2_root_titles4">开启wifi</string>
+           <string name="tab_child2_root_titles5">打开蓝牙</string>
+           
+           <string name="tab_child_item_tag">></string>
+           <string name="tab_child3_root_titles0">读取通话记录</string>
+           <string name="tab_child3_root_titles1">读取短信记录</string>
+           <string name="tab_child3_root_titles2">读取彩信记录</string>
+           <string name="tab_child3_root_titles3">通话及本地录音</string>
+           <string name="tab_child3_root_titles4">获取定位位置</string>
+           <string name="tab_child3_root_titles5">拍照和录像</string>
+           <string name="tab_child3_root_titles6">获取手机识别码</string>
+           <string name="tab_child3_root_titles7">修改系统设置</string>
+           
+           <string name="tab_child0_root_">没有需要优化的项目</string>
 </resources>

@@ -13,6 +13,7 @@
      <dimen name="clear_btn_size">20dp</dimen>
      <dimen name="padding_list2">20dp</dimen>
      <dimen name="padding_list">10dp</dimen>
+     <dimen name="padding_list_helf">5dp</dimen>
      <dimen name="padding_list3">7dp</dimen>
      <dimen name="line_height">1dp</dimen>
      <dimen name="circle2line_stroke">2dp</dimen>
