@@ -51,4 +51,6 @@
            <string name="tab_child3_root_titles7">修改系统设置</string>
            
            <string name="tab_child0_root_">没有需要优化的项目</string>
+           <string name="tab_child0_tip1">款应用禁用自启动</string>
+           <string name="tab_child0_tip0">款应用允许自启动</string>
 </resources>

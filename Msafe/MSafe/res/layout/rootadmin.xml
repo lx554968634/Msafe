@@ -1,70 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-        <TabWidget
-            android:id="@android:id/tabs"
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:divider="@null" />
+            android:layout_height="fill_parent" >
 
-        <View
-            android:id="@+id/divde_line"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_below="@android:id/tabs"
-            android:background="@color/tab_textcolor_selected" />
-
-        <LinearLayout
-            android:id="@+id/fileadmin_btn_clear"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:visibility="visible" >
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:divider="@null" />
 
             <View
+                android:id="@+id/divde_line"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/line_height"
-                android:background="@color/gray_mainactivity_btn_press" />
+                android:layout_height="1dp"
+                android:layout_below="@android:id/tabs"
+                android:background="@color/tab_textcolor_selected" />
+
+            <LinearLayout
+                android:id="@+id/fileadmin_btn_clear"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="visible" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:background="@color/gray_mainactivity_btn_press" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/padding_list"
+                    android:paddingTop="@dimen/padding_list"
+                    android:text="@string/clear" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:paddingBottom="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list"
-                android:text="@string/clear" />
-        </LinearLayout>
-         <TextView
-             android:id="@+id/wait_for_scan"
+                android:id="@+id/wait_for_scan"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingTop="@dimen/padding_list"
                 android:text="@string/scan_txt" />
-        <FrameLayout
-            android:layout_above="@id/fileadmin_btn_clear"
-            android:id="@android:id/tabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/divde_line" >
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible" />
-        </FrameLayout>
-    </RelativeLayout>
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/fileadmin_btn_clear"
+                android:layout_below="@id/divde_line" >
 
-</TabHost>
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewPager1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:visibility="invisible" />
+                </FrameLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </TabHost>
+
+</LinearLayout>

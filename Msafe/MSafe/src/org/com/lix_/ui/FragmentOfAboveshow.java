@@ -2,8 +2,8 @@ package org.com.lix_.ui;
 
 import java.util.List;
 
+import org.com.lix_.enable.EnableOfRootStart;
 import org.com.lix_.enable.engine.AppInfo;
-import org.com.lix_.ui.enable.EnableOfRootStart;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +23,6 @@ public class FragmentOfAboveshow extends Fragment{
 	}
 
 	private void init() {
-		m_pEnable = new EnableOfRootStart();
 	}
 
 	@Override

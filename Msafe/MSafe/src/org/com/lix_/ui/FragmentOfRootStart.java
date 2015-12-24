@@ -1,20 +1,25 @@
 package org.com.lix_.ui;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.com.lix_.ui.enable.EnableOfRootStart;
 import org.com.lix_.util.Debug;
 
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
+
+import org.com.lix_.enable.EnableCallback;
+import org.com.lix_.enable.EnableOfRootStart;
 import org.com.lix_.enable.engine.AppInfo;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,90 +34,152 @@ public class FragmentOfRootStart extends Fragment {
 
 	private String TAG = "FragmentOfRootStart";
 
-	private List<RunningServiceInfo> m_szRunningAutoStartService;
-
-	private List<RunningServiceInfo> m_szRunningCloseAutoStartService;
-	
-	private ListView m_pAutoStartListView  ;
-	private ListView m_pNoStartListView ;
+	private ListView m_pAutoStartListView;
+	private ListView m_pNoStartListView;
 
 	private EnableOfRootStart m_pEnable;
 
+	private RootStartCallback m_pCallback;
+
 	private Context m_pContext;
+
+	private View m_pView;
+
+	private LayoutInflater m_pInflater;
 
 	public FragmentOfRootStart(List<RunningServiceInfo> szList, Context pContext) {
 		super();
 		m_pContext = pContext;
-		divideList(szList);
-		init();
+		m_pInflater = LayoutInflater.from(pContext);
+		m_pCallback = new RootStartCallback();
+		m_pEnable = new EnableOfRootStart(m_pContext, m_pCallback, szList);
 	}
 
 	private void init() {
-		m_pEnable = new EnableOfRootStart();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.tabchild_rootstart, null);
-		initList(v);
-		return v;
+		m_pView = inflater.inflate(R.layout.tabchild_rootstart, null);
+		m_pAutoStartListView = (ListView) m_pView
+				.findViewById(R.id.autostart_list0);
+		m_pAutoStartListView.setAdapter(new AutoStartApdater());
+		return m_pView;
 	}
 
 	private void initList(View pView) {
-		TextView pText ;
-		if (m_szRunningAutoStartService.size() == 0) {
-			pText = (TextView) pView.findViewById(R.id.tab_child0_tip0);
-			pText.setText(m_pContext.getResources().getString(R.string.tab_child0_root_));
-		}else
-		{
-			pView.findViewById(R.id.tab_child0_tip0).setVisibility(View.INVISIBLE);
-			pView.findViewById(R.id.autostart_list0).setVisibility(View.VISIBLE) ;
-			m_pAutoStartListView = (ListView) pView.findViewById(R.id.autostart_list0);
+		TextView pText;
+//		if (m_pEnable.getAutoStartList().size() == 0) {
+//			Debug.i(TAG, "能够自动开启的服务:" + m_pEnable.getAutoStartList());
+//			pText = (TextView) pView.findViewById(R.id.tab_child0_tip0);
+//			pText.setText(m_pContext.getResources().getString(
+//					R.string.tab_child0_root_));
+//		} else {
+//			((TextView) pView.findViewById(R.id.tip_child0_tab))
+//					.setText(m_pEnable.getAutoStartList().size()
+//							+ m_pContext.getResources().getString(
+//									R.string.tab_child0_tip0));
+//			pView.findViewById(R.id.tab_child0_tip0).setVisibility(
+//					View.INVISIBLE);
+//			pView.findViewById(R.id.autostart_list0)
+//					.setVisibility(View.VISIBLE);
+//			m_pAutoStartListView = (ListView) pView
+//					.findViewById(R.id.autostart_list0);
+//			m_pAutoStartListView.setAdapter(new AutoStartApdater());
+//		}
+//		if (m_pEnable.getAutoCloseStartList().size() == 0) {
+//			Debug.i(TAG, "关闭自动开启的服务:" + m_pEnable.getAutoCloseStartList());
+//			pText = (TextView) pView.findViewById(R.id.tab_child0_tip1);
+//			pText.setText(m_pContext.getResources().getString(
+//					R.string.tab_child0_root_));
+//		} else {
+//			((TextView) pView.findViewById(R.id.tip_child1_tab))
+//					.setText(m_pEnable.getAutoCloseStartList().size()
+//							+ m_pContext.getResources().getString(
+//									R.string.tab_child0_tip1));
+//			pView.findViewById(R.id.tab_child0_tip1).setVisibility(
+//					View.INVISIBLE);
+//			pView.findViewById(R.id.nowaystart_list1).setVisibility(
+//					View.VISIBLE);
+//			m_pAutoStartListView = (ListView) pView
+//					.findViewById(R.id.nowaystart_list1);
+//		}
+	}
+
+	class AutoCloseAdapter extends BaseAdapter {
+
+		@Override
+		public int getCount() {
+			return m_pEnable.getAutoCloseStartList().size();
 		}
-		if (m_szRunningCloseAutoStartService.size() == 0) {
-			pText = (TextView) pView.findViewById(R.id.tab_child0_tip1);
-			pText.setText(m_pContext.getResources().getString(R.string.tab_child0_root_));
-		}else
-		{
-			pView.findViewById(R.id.tab_child0_tip1).setVisibility(View.INVISIBLE);
-			pView.findViewById(R.id.nowaystart_list1).setVisibility(View.VISIBLE) ;
-			m_pAutoStartListView = (ListView) pView.findViewById(R.id.nowaystart_list1);
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			Debug.i(TAG, "converview:" + (convertView == null));
+			try {
+				if (convertView == null) {
+					convertView = m_pInflater.inflate(
+							R.layout.root_child0_item, null);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return convertView;
 		}
 	}
-	
-	
 
-	private void divideList(List<RunningServiceInfo> szList) {
-		int nStatue = 0;
-		if (szList == null || szList.size() == 0) {
-			Debug.e(TAG, "麻痹,没有正在运行的服务");
-		} else {
-			m_szRunningAutoStartService = new ArrayList<RunningServiceInfo>();
-			m_szRunningCloseAutoStartService = new ArrayList<RunningServiceInfo>();
-			for (RunningServiceInfo pInfo : szList) {
-				nStatue = m_pContext.getPackageManager()
-						.getComponentEnabledSetting(pInfo.service);
-				switch (nStatue) {
-				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
-					m_szRunningAutoStartService.add(pInfo);
-					break;
-				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED:
-					m_szRunningCloseAutoStartService.add(pInfo);
-					break;
-				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
-					m_szRunningCloseAutoStartService.add(pInfo);
-					break;
-				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
-					m_szRunningAutoStartService.add(pInfo);
-					break;
-				default:
-					break;
-				}
-				Debug.i(TAG, "pInfo:" + pInfo.service.getPackageName() + ":"
-						+ nStatue);
+	class AutoStartApdater extends BaseAdapter {
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return m_pEnable.getAutoStartList().size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	}
+
+	class RootStartCallback implements EnableCallback {
+
+		@Override
+		public void callback(Object... obj) {
+			int nWhat = Integer.parseInt(obj[0].toString());
+			switch (nWhat) {
+			case EnableOfRootStart.FINISH_DIVIDE_LIST:
+				initList(m_pView);
+				Debug.i(TAG, "结束分割list!~~~");
+				break;
 			}
 		}
+
 	}
 
 }

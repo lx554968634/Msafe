@@ -1,61 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/padding_list"
     android:paddingRight="@dimen/padding_list" >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/padding_list"
-        android:paddingTop="@dimen/padding_list"
-        android:text="2款应用允许自启动" />
-
-    <TextView
-        android:id="@+id/tab_child0_tip0"
+ <ListView
+     	android:background="@color/green_mainlayout_background"
+            android:id="@+id/autostart_list0"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="visible" />
+  <!--  <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/scan_txt"
-        android:textSize="@dimen/gird_item_down_textsize" />
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/line_height"
-        android:background="@color/gray_mainactivity_btn_press" />
+        <TextView
+            android:id="@+id/tip_child0_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingTop="@dimen/padding_list"
+            android:text="自动开启的应用" />
 
-    <ListView
-        android:id="@+id/autostart_list0"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/tab_child0_tip0"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/scan_txt"
+            android:textSize="@dimen/gird_item_down_textsize" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/padding_list"
-        android:paddingTop="@dimen/padding_list"
-        android:text="6款应用禁用自启动" />
+        <ListView
+            android:id="@+id/autostart_list0"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/tab_child0_tip1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/scan_txt"
-        android:textSize="@dimen/gird_item_down_textsize" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/line_height"
+            android:background="@color/gray_mainactivity_btn_press" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/line_height"
-        android:background="@color/gray_mainactivity_btn_press" />
+        <TextView
+            android:id="@+id/tip_child1_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingTop="@dimen/padding_list"
+            android:text="禁用自开启的应用" />
 
-    <ListView
-        android:id="@+id/nowaystart_list1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/tab_child0_tip1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/scan_txt"
+            android:textSize="@dimen/gird_item_down_textsize" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/line_height"
+            android:background="@color/gray_mainactivity_btn_press" />
+
+        <ListView
+            android:id="@+id/nowaystart_list1"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+    </LinearLayout>-->  
 
 </LinearLayout>
