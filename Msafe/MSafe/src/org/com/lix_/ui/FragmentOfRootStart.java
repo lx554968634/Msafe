@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.UiUtils;
 
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
@@ -43,7 +44,9 @@ public class FragmentOfRootStart extends Fragment {
 
 	private Context m_pContext;
 
-	private View m_pView;
+	private View m_pViewTitle;
+	
+	private View m_pViewContent ;
 
 	private LayoutInflater m_pInflater;
 
@@ -56,115 +59,67 @@ public class FragmentOfRootStart extends Fragment {
 	}
 
 	private void init() {
+		m_pViewTitle = m_pInflater.inflate(R.layout.item0_child_tab0, null) ;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		m_pView = inflater.inflate(R.layout.tabchild_rootstart, null);
-		m_pAutoStartListView = (ListView) m_pView
-				.findViewById(R.id.autostart_list0);
-		m_pAutoStartListView.setAdapter(new AutoStartApdater());
-		return m_pView;
+		Debug.i(TAG, "oncreate View");
+		View pView = inflater.inflate(R.layout.tabchild_rootstart, null);
+		m_pTotalView = pView.findViewById(R.id.tab_child_tab) ;
+		init() ;
+		return pView;
 	}
+	
+	private View m_pTotalView ;
 
-	private void initList(View pView) {
-		TextView pText;
-//		if (m_pEnable.getAutoStartList().size() == 0) {
-//			Debug.i(TAG, "能够自动开启的服务:" + m_pEnable.getAutoStartList());
-//			pText = (TextView) pView.findViewById(R.id.tab_child0_tip0);
-//			pText.setText(m_pContext.getResources().getString(
-//					R.string.tab_child0_root_));
-//		} else {
-//			((TextView) pView.findViewById(R.id.tip_child0_tab))
-//					.setText(m_pEnable.getAutoStartList().size()
-//							+ m_pContext.getResources().getString(
-//									R.string.tab_child0_tip0));
-//			pView.findViewById(R.id.tab_child0_tip0).setVisibility(
-//					View.INVISIBLE);
-//			pView.findViewById(R.id.autostart_list0)
-//					.setVisibility(View.VISIBLE);
-//			m_pAutoStartListView = (ListView) pView
-//					.findViewById(R.id.autostart_list0);
-//			m_pAutoStartListView.setAdapter(new AutoStartApdater());
-//		}
-//		if (m_pEnable.getAutoCloseStartList().size() == 0) {
-//			Debug.i(TAG, "关闭自动开启的服务:" + m_pEnable.getAutoCloseStartList());
-//			pText = (TextView) pView.findViewById(R.id.tab_child0_tip1);
-//			pText.setText(m_pContext.getResources().getString(
-//					R.string.tab_child0_root_));
-//		} else {
-//			((TextView) pView.findViewById(R.id.tip_child1_tab))
-//					.setText(m_pEnable.getAutoCloseStartList().size()
-//							+ m_pContext.getResources().getString(
-//									R.string.tab_child0_tip1));
-//			pView.findViewById(R.id.tab_child0_tip1).setVisibility(
-//					View.INVISIBLE);
-//			pView.findViewById(R.id.nowaystart_list1).setVisibility(
-//					View.VISIBLE);
-//			m_pAutoStartListView = (ListView) pView
-//					.findViewById(R.id.nowaystart_list1);
-//		}
-	}
-
-	class AutoCloseAdapter extends BaseAdapter {
-
-		@Override
-		public int getCount() {
-			return m_pEnable.getAutoCloseStartList().size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			Debug.i(TAG, "converview:" + (convertView == null));
-			try {
-				if (convertView == null) {
-					convertView = m_pInflater.inflate(
-							R.layout.root_child0_item, null);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+	private void initList() {
+		int nCount = 0 ;
+		int nIndex = 0 ;
+		((ViewGroup)m_pTotalView).addView(m_pViewTitle);
+		if(m_pEnable.getAutoStartList().size() == 0)
+		{
+			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,m_pContext.getResources().getString(R.string.tab_child0_tip00)) ;
+			UiUtils.setText(m_pViewTitle, R.id.tab_child0_tip0, m_pContext.getResources().getString(R.string.tab_child0_root_));
+		}else
+		{
+			m_pViewTitle.findViewById(R.id.tab_child0_tip0).setVisibility(View.INVISIBLE);
+			nCount = m_pEnable.getAutoStartList().size() ;
+			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,nCount+m_pContext.getResources().getString(R.string.tab_child0_tip0)) ;
+			for(nIndex = 0 ; nIndex < 22 ; nIndex ++)
+			{
+				((ViewGroup)m_pTotalView).addView(getAutoStartView());
 			}
-			return convertView;
+		}
+		m_pViewTitle =  m_pInflater.inflate(R.layout.item0_child_tab0, null) ;
+		((ViewGroup)m_pTotalView).addView(m_pViewTitle);
+		if(m_pEnable.getAutoCloseStartList().size() == 0)
+		{
+			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,m_pContext.getResources().getString(R.string.tab_child0_tip11)) ;
+			UiUtils.setText(m_pViewTitle, R.id.tab_child0_tip0, m_pContext.getResources().getString(R.string.tab_child0_root_));
+		}else
+		{
+			m_pViewTitle.findViewById(R.id.tab_child0_tip0).setVisibility(View.INVISIBLE);
+			nCount = m_pEnable.getAutoCloseStartList().size() ;
+			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,nCount+m_pContext.getResources().getString(R.string.tab_child0_tip1)) ;
+			for(nIndex = 0 ; nIndex < nCount ; nIndex ++)
+			{
+				((ViewGroup)m_pTotalView).addView(getAutoCloseStartView());
+			}
 		}
 	}
-
-	class AutoStartApdater extends BaseAdapter {
-
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return m_pEnable.getAutoStartList().size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
+	
+	private View getAutoStartView()
+	{
+		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null) ;
+		return m_pViewContent;
+	}
+	
+	private View getAutoCloseStartView()
+	{
+		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null) ;
+		return m_pViewContent;
 	}
 
 	class RootStartCallback implements EnableCallback {
@@ -174,8 +129,8 @@ public class FragmentOfRootStart extends Fragment {
 			int nWhat = Integer.parseInt(obj[0].toString());
 			switch (nWhat) {
 			case EnableOfRootStart.FINISH_DIVIDE_LIST:
-				initList(m_pView);
 				Debug.i(TAG, "结束分割list!~~~");
+				initList() ;
 				break;
 			}
 		}

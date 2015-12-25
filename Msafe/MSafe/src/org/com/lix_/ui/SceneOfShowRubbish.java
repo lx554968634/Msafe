@@ -239,7 +239,6 @@ public class SceneOfShowRubbish extends BaseActivity {
 		pRamText.setText("apk安装包大小  " + sName.getSize());
 		return convertView;
 	}
-
 	public View getRubbishFileView(int position, View convertView,
 			ViewGroup parent) {
 		if (convertView == null) {
@@ -258,7 +257,6 @@ public class SceneOfShowRubbish extends BaseActivity {
 		pRamText.setText("垃圾文件  " + sName.getSize());
 		return convertView;
 	}
-
 	public View getApkCacheView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			convertView = m_pInflater.inflate(
@@ -288,7 +286,6 @@ public class SceneOfShowRubbish extends BaseActivity {
 		return convertView;
 
 	}
-
 	private View getRubbishPropView(int position, View convertView,
 			ViewGroup parent) {
 		Debug.i(TAG, "getRubbishPropView ---"+position);
@@ -323,7 +320,6 @@ public class SceneOfShowRubbish extends BaseActivity {
 		pRamText.setText(sDes);
 		return convertView;
 	}
-
 	public View getBlankFileView(int position, View convertView,
 			ViewGroup parent) {
 		if (convertView == null) {

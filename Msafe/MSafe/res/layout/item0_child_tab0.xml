@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_child_tab"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_list"
+    android:paddingRight="@dimen/padding_list" >
+
+    <TextView
+        android:id="@+id/tip_child0_tab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_list"
+        android:paddingTop="@dimen/padding_list"
+        android:text="自动开启的应用" />
+
+    <TextView
+        android:id="@+id/tab_child0_tip0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/scan_txt"
+        android:textSize="@dimen/gird_item_down_textsize" />
+
+</LinearLayout>

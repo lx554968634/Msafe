@@ -161,7 +161,7 @@ public class SceneOfRootAdmin extends BaseFragActivity {
 		case 0:
 			return new FragmentOfRootStart(m_pTotalEnable.getRunningServers(),SceneOfRootAdmin.this);
 		case 1:
-			return new FragmentOfAboveshow(null );
+			return new FragmentOfAboveshow(m_pTotalEnable.getInstalledAppInfo(),SceneOfRootAdmin.this );
 		case 2:
 			return new FragmentOfPhoneSeacure(null);
 		case 3:

@@ -53,4 +53,7 @@
            <string name="tab_child0_root_">没有需要优化的项目</string>
            <string name="tab_child0_tip1">款应用禁用自启动</string>
            <string name="tab_child0_tip0">款应用允许自启动</string>
+           
+           <string name="tab_child0_tip11">禁用自启动应用</string>
+           <string name="tab_child0_tip00">允许自启动应用</string>
 </resources>

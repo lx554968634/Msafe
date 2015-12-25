@@ -1,17 +1,16 @@
 package org.com.lix_.util;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import org.com.lix_.enable.engine.FileInfo;
 
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 public class UiUtils {
 
@@ -115,31 +114,33 @@ public class UiUtils {
 		return pLong0.longValue();
 	}
 
-	public static int getHashMapSize(
-			HashMap szDatas) {
-		if(szDatas == null)
-			return 0 ;
-		else
-		{
-			int nCount = 0 ;
-			for(Object obj:szDatas.keySet())
-			{
-				nCount += ((List)szDatas.get(obj)).size();
+	public static int getHashMapSize(HashMap szDatas) {
+		if (szDatas == null)
+			return 0;
+		else {
+			int nCount = 0;
+			for (Object obj : szDatas.keySet()) {
+				nCount += ((List) szDatas.get(obj)).size();
 			}
-			return nCount = 0 ;
+			return nCount = 0;
 		}
 	}
 
 	public static void logStringArr(String[] requestedPermissions) {
-		if(requestedPermissions == null || requestedPermissions.length == 0)
+		if (requestedPermissions == null || requestedPermissions.length == 0)
 			Debug.e(TAG, "requestPermissionsΪnull~");
-			
-		StringBuffer sb = new StringBuffer() ;
-		for(String sInfo:requestedPermissions)
-		{
-			sb.append(sInfo+":") ;
+
+		StringBuffer sb = new StringBuffer();
+		for (String sInfo : requestedPermissions) {
+			sb.append(sInfo + ":");
 		}
 		Debug.i(TAG, sb.toString());
+	}
+
+	public static void setText(View m_pViewTitle, int tipChild0Tab, String string) {
+		TextView pTextView = (TextView) (m_pViewTitle.findViewById(tipChild0Tab));
+		if (string != null)
+			pTextView.setText(string);
 	}
 
 }

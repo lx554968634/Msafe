@@ -67,7 +67,6 @@ public class AppInfoEngine {
 					if (nFlag && pm.getPackageInfo(packname, PackageManager.GET_PERMISSIONS).requestedPermissions != null) {
 						 ;
 						appInfo.setSzPermission(pm.getPackageInfo(packname, PackageManager.GET_PERMISSIONS).requestedPermissions);
-						UiUtils.logStringArr(pm.getPackageInfo(packname, PackageManager.GET_PERMISSIONS).requestedPermissions );
 					}else
 					{
 						Debug.i(TAG, name+"不需要什么特殊权限");
