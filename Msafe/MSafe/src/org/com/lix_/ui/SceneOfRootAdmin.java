@@ -6,6 +6,7 @@ import org.com.lix_.util.Debug;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -17,10 +18,11 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.FrameLayout;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
-public class SceneOfRootAdmin extends BaseFragActivity {
+public class SceneOfRootAdmin extends FragmentActivity {
 
 	private static final String TAG = "SceneOfRootAdmin";
 	private TabHost m_pTabHost;
@@ -65,7 +67,6 @@ public class SceneOfRootAdmin extends BaseFragActivity {
 		}
 	}
 
-	@Override
 	public void init() {
 		m_pViewPager = (ViewPager) findViewById(R.id.viewPager1);
 		View pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator,
@@ -76,15 +77,18 @@ public class SceneOfRootAdmin extends BaseFragActivity {
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("one").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator, null);
-		((TextView)pView.findViewById(R.id.title)).setText(getResources().getString(R.string.rootamin_title1));
+		((TextView) pView.findViewById(R.id.title)).setText(getResources()
+				.getString(R.string.rootamin_title1));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("two").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator, null);
-		((TextView)pView.findViewById(R.id.title)).setText(getResources().getString(R.string.rootamin_title2));
+		((TextView) pView.findViewById(R.id.title)).setText(getResources()
+				.getString(R.string.rootamin_title2));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("three").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		pView = LayoutInflater.from(this).inflate(R.layout.tab_indicator, null);
-		((TextView)pView.findViewById(R.id.title)).setText(getResources().getString(R.string.rootamin_title3));
+		((TextView) pView.findViewById(R.id.title)).setText(getResources()
+				.getString(R.string.rootamin_title3));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("four").setIndicator(pView)
 				.setContent(R.id.viewPager1));
 		final TabWidget tabWidget = m_pTabHost.getTabWidget();
@@ -156,18 +160,39 @@ public class SceneOfRootAdmin extends BaseFragActivity {
 		m_pTotalEnable = new EnableOfRootAdmin(this, m_pCallback);
 	}
 
+	private FragmentOfRootStart m_pFragmentOfRootStart;
+
+	private FragmentOfAboveshow m_pFragmentOfAboveshow;
+
+	private FragmentOfPhoneSeacure m_pFragmentOfPhoneSeacure;
+
+	private FragmentOfPhonePermission m_pFragmentOfPhonePermission;
+
 	public Fragment getFragment(int position) {
 		switch (position) {
 		case 0:
-			return new FragmentOfRootStart(m_pTotalEnable.getRunningServers(),SceneOfRootAdmin.this);
+			if (m_pFragmentOfRootStart == null)
+				m_pFragmentOfRootStart = new FragmentOfRootStart(
+						m_pTotalEnable.getRunningServers(),
+						SceneOfRootAdmin.this);
+			return m_pFragmentOfRootStart;
 		case 1:
-			return new FragmentOfAboveshow(m_pTotalEnable.getInstalledAppInfo(),SceneOfRootAdmin.this );
+			if (m_pFragmentOfAboveshow == null)
+				m_pFragmentOfAboveshow = new FragmentOfAboveshow(
+						m_pTotalEnable.getInstalledAppInfo(),
+						SceneOfRootAdmin.this);
+			return m_pFragmentOfAboveshow;
 		case 2:
-			return new FragmentOfPhoneSeacure(null);
+			if (m_pFragmentOfPhoneSeacure == null)
+				m_pFragmentOfPhoneSeacure = new FragmentOfPhoneSeacure(m_pTotalEnable.getInstalledAppInfo(),SceneOfRootAdmin.this);
+			return m_pFragmentOfPhoneSeacure;
 		case 3:
-			return new FragmentOfPhonePermission(null);
+			if (m_pFragmentOfPhonePermission == null)
+				m_pFragmentOfPhonePermission = new FragmentOfPhonePermission(
+						m_pTotalEnable.getInstalledAppInfo(),SceneOfRootAdmin.this);
+			return m_pFragmentOfPhonePermission;
 		}
-		return new FragmentOfRootStart(null,SceneOfRootAdmin.this);
+		return new FragmentOfRootStart(null, SceneOfRootAdmin.this);
 	}
 
 	class CallbackOfRootadmin implements EnableCallback {
@@ -191,5 +216,4 @@ public class SceneOfRootAdmin extends BaseFragActivity {
 		}
 
 	}
-
 }

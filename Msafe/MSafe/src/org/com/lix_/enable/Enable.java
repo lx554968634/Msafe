@@ -35,10 +35,9 @@ public abstract class Enable implements Serializable {
 	public abstract void finish();
 
 	public abstract void onViewClick(int nId);
-	
-	public void doAsyWork()
-	{
-		m_pAsyTask.execute(0) ;
+
+	public void doAsyWork() {
+		m_pAsyTask.execute(0);
 	}
 
 	Handler m_pAsyHandler = new Handler() {

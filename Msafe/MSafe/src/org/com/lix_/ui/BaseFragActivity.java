@@ -1,27 +1,25 @@
 package org.com.lix_.ui;
 
+import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.util.Debug;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
-public abstract class BaseFragActivity extends FragmentActivity {
+public abstract class BaseFragActivity extends Fragment {
+
 	protected String TAG = "BaseActivity";
-	/**
-	 * 开启硬件加速
-	 */
-	protected void moveQuick() {
-		getWindow().setFlags(
-				WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
-				WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		Debug.e(TAG, "位置:" + event.getX() + "---" + event.getY());
-		return super.onTouchEvent(event);
-	}
+	protected EnableCallback m_pCallback = new EnableCallback() {
 
-	public abstract void init();
+		@Override
+		public void callback(Object... obj) {
+			doCallback(obj);
+		}
+	};
+
+	public abstract void doCallback(Object... szObj);
+
 }

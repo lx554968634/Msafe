@@ -8,18 +8,23 @@ import org.com.lix_.util.Debug;
 import android.content.Context;
 import android.os.Message;
 
-public class EnableOfAboveshow extends Enable {	private List<AppInfo> m_szList;
+public class EnableOfAboveshow extends Enable {
+	private List<AppInfo> m_szList;
 
-private String TAG = "EnableOfAboveshow" ;
+	private String TAG = "EnableOfAboveshow";
 
-	public EnableOfAboveshow(Context pContext,List<AppInfo> szList) {
+	private EnableCallback m_pCallback;
+
+	public static final int FINISH_SCAN = 1;
+
+	public static final int FINISH_NOLIST = 2;
+
+	public EnableOfAboveshow(Context pContext, List<AppInfo> szList,
+			EnableCallback pCalback) {
 		super(pContext);
-		m_szList = szList ;
-		init();
-	}
-
-	private void init() {
-		doAsyWork();
+		m_pCallback = pCalback;
+		m_szList = szList;
+		doAsyWork(); 
 	}
 
 	@Override
@@ -34,19 +39,34 @@ private String TAG = "EnableOfAboveshow" ;
 
 	@Override
 	protected void doSynchrWork(Message pMsg) {
-		super.doSynchrWork(pMsg);
+		int nTag = pMsg.what;
+		switch (nTag) {
+		case FINISH_SCAN:
+			m_pCallback.callback(FINISH_SCAN);
+			break;
+		case FINISH_NOLIST:
+			m_pCallback.callback(FINISH_NOLIST);
+			break;
+		}
 	}
 
 	@Override
 	protected void doAsyWorkInTask(Object... szObj) {
 		super.doAsyWorkInTask(szObj);
-		if(m_szList != null)
-		{
-			
-		}else
-		{
-			Debug.e(TAG, "不可能扫描不到一个app应用的");
+		Message pMsg = Message.obtain();
+		if (m_szList != null) {
+			pMsg.what = FINISH_SCAN;
+		} else {
+
+			pMsg.what = FINISH_NOLIST;
 		}
+		m_pAsyHandler.sendMessage(pMsg);
+	}
+
+	public int getListCount() {
+		if (m_szList.size() == 0)
+			return 0;
+		return m_szList.size() ;
 	}
 
 }
