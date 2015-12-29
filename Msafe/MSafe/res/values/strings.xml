@@ -9,7 +9,7 @@
     <string name="saftytitle_mainlayout_background_up">安全中心</string>
     <string name="title_breathecircle">一键检测</string>
     <string name="title_clearrubbish_btn_mainlayout">垃圾清理</string>
-     <string name="title_fileadmin_btn_mainlayout">大文件管理</string>
+     <string name="title_fileadmin_btn_mainlayout">文件管理</string>
      <string name="title_apkrubbish_btn_mainlayout">应用清理</string>
       <string name="title_wrapadmin_btn_mainlayout">流量管理</string>
        <string name="title_virusclear_btn_mainlayout">病毒查杀</string>
@@ -56,4 +56,11 @@
            
            <string name="tab_child0_tip11">禁用自启动应用</string>
            <string name="tab_child0_tip00">允许自启动应用</string>
+           <string name="powerdes">剩余可用时间</string>
+           
+           <string name="power_str0">智能省电模式</string>
+            <string name="power_str1">极限省电模式</string>
+             <string name="power_str2">自定义模式</string>
+             <string name="power_button_str">启动</string>
+             <string name="total_time">2136</string>
 </resources>

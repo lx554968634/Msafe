@@ -143,4 +143,14 @@ public class UiUtils {
 			pTextView.setText(string);
 	}
 
+	/*
+	 * 百分比时间
+	 * 2136 分钟 
+	 */
+	public static CharSequence getTime(String sTotal ,String string) { 
+		int nTotalTime = Integer.parseInt(sTotal) ;
+		int nNow = nTotalTime / 100 * Integer.parseInt(string) ;
+		return nNow / 60 +"小时"+nNow%60+"分钟";
+	}
+
 }

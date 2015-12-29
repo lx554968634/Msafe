@@ -31,8 +31,8 @@ public class Circle2LineView extends View {
 
 	private void init() {
 		m_nWidth = Define.WIDTH / 2;
-		m_nHeight = Define.HEIGHT / 4 / 100 * 65;
-		m_nRadio = m_nWidth > m_nHeight ? m_nHeight : m_nWidth;
+		m_nHeight = Define.HEIGHT / 4 - 25;
+		m_nRadio = m_nWidth > m_nHeight / 4 * 3 ? m_nHeight / 4 * 3 : m_nWidth;
 		m_nOffset = (int) getResources().getDimension(R.dimen.padding_list);
 		m_pInnerPaint = new Paint();
 		m_pInnerPaint.setAntiAlias(true);
@@ -49,17 +49,23 @@ public class Circle2LineView extends View {
 		drawCavas(canvas);
 	}
 
-	final int TOTAL = 360;
+	public int m_nPercent = 0;
+	
+	private int m_nTarget = 0 ;
 
-	private void drawCavas(Canvas pCanvas) {
+	private void drawCanvas(Canvas pCanvas,int nAlpha, int nPercent) {
 		float nX1, nX2, nY1, nY2, nRadio;
 		int nTag = 0;
-		for (int i = 0; i < TOTAL; i++) {
+		int nExt = 180;
+		for (int i = TOTAL + nExt; i >= nExt; i--) {
 			if (nTag == 6)
 				nTag = 0;
 			if (nTag == 0) {
-				if(i > 230)
-					m_pInnerPaint.setAlpha(60);
+				if (TOTAL + nExt - i < nPercent) {
+					m_pInnerPaint.setAlpha(nAlpha);
+				} else {
+					return ;
+				}
 				nRadio = m_nRadio;
 				nX1 = m_nWidth + UiUtils.sin(i) * nRadio;
 				nY1 = m_nHeight + UiUtils.cos(i) * nRadio;
@@ -70,6 +76,20 @@ public class Circle2LineView extends View {
 			}
 			nTag++;
 		}
+	}
+
+	final int TOTAL = 360;
+
+	private void drawCavas(Canvas pCanvas) {
+		if(m_nPercent != m_nTarget)
+		{
+			m_nTarget += m_nPercent /50 ;
+		}
+		if(m_nTarget >= m_nPercent)
+			m_nTarget = m_nPercent ;
+		drawCanvas(pCanvas,60 ,200000);
+		drawCanvas(pCanvas,255 ,m_nTarget * 360 / 100);
+		postInvalidateDelayed(20);
 	}
 
 }

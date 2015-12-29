@@ -82,33 +82,38 @@ public class EnableOfPhonePermission extends Enable {
 					msg.obj = pInfo.getAppName();
 					m_pAsyHandler.sendMessage(msg);
 					for (String sInfo : szPermission) {
-						if (sInfo.equals(permission.CALL_PHONE)) // 电话
+						if(sInfo.equals(permission.CHANGE_CONFIGURATION)) //修改系统设置
 						{
-							addItem(permission.CALL_PHONE, pInfo);
+							addItem(permission.CHANGE_CONFIGURATION, pInfo);
 						}
-						if (sInfo.equals(permission.RECEIVE_MMS))// 彩信
+						if (sInfo.equals(permission.READ_CONTACTS)) // 读取通话记录
+						{
+							addItem(permission.READ_CONTACTS, pInfo);
+						}
+						if (sInfo.equals(permission.RECEIVE_MMS))// 读取彩信
 						{
 							addItem(permission.RECEIVE_MMS, pInfo);
 						}
-						if (sInfo.equals(permission.RECEIVE_SMS)
+						if (sInfo.equals(permission.READ_SMS)
 								|| sInfo.equals(permission.SEND_SMS)) // 短信
 						{
-							addItem(permission.RECEIVE_SMS, pInfo);
+							addItem(permission.READ_SMS, pInfo);
 						}
-						if (sInfo.equals(permission.BLUETOOTH)
-								|| sInfo.equals(permission.BLUETOOTH_ADMIN)) // 蓝牙
+						if (sInfo.equals(permission.RECORD_AUDIO)) // 本地录音
 						{
-							addItem(permission.BLUETOOTH, pInfo);
+							addItem(permission.RECORD_AUDIO, pInfo);
 						}
-						if (sInfo.equals(permission.ACCESS_NETWORK_STATE)) // wap
+						if (sInfo.equals(permission.ACCESS_FINE_LOCATION)) // 定位位置
 						{
-							addItem(permission.ACCESS_NETWORK_STATE, pInfo);
+							addItem(permission.ACCESS_FINE_LOCATION, pInfo);
 						}
-						if (sInfo.equals(permission.ACCESS_WIFI_STATE)
-								|| sInfo.equals(permission.CHANGE_WIFI_STATE)
-								|| sInfo.equals(permission.CHANGE_WIFI_MULTICAST_STATE)) // wifi
+						if (sInfo.equals(permission.CAMERA)) // 摄像拍照相关
 						{
-							addItem(permission.ACCESS_WIFI_STATE, pInfo);
+							addItem(permission.CAMERA, pInfo);
+						}
+						if(sInfo.equals(permission.READ_PHONE_STATE))//手机识别码
+						{
+							addItem(permission.READ_PHONE_STATE, pInfo);
 						}
 					}
 				}

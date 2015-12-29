@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:backgroundcolor="@color/green_breathecircleview_background"
-            app:textColor="@color/white_textcolor"
+            app:textColor="@color/white"
             app:textSize="@dimen/textsize_breathecircle"
             app:txt="@string/title_breathecircle" />
     </LinearLayout>
@@ -65,14 +65,16 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:src="@drawable/main_clear_title" />
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:paddingTop="@dimen/padding_list"
+                        android:src="@drawable/main_title_0" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -90,19 +92,20 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:src="@drawable/main_clear_title" />
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:paddingTop="@dimen/padding_list"
+                        android:src="@drawable/main_title_1" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="center"
                         android:singleLine="true"
                         android:text="@string/title_fileadmin_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
@@ -115,19 +118,21 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_clear_title" />
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:paddingTop="@dimen/padding_list"
+                        android:src="@drawable/main_title_2" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="center"
                         android:singleLine="true"
                         android:text="@string/title_apkrubbish_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
@@ -140,14 +145,16 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:orientation="vertical" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_clear_title" />
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:paddingTop="@dimen/padding_list"
+                        android:src="@drawable/main_title_3" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -162,7 +169,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:background="@color/white" >
 
                 <LinearLayout
                     android:id="@+id/btn_virusadmin_mainacitivity"
@@ -172,19 +180,20 @@
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
                     android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:paddingBottom="@dimen/padding_list"
+                    android:paddingLeft="@dimen/padding_list2"
+                    android:paddingRight="@dimen/padding_list2">
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_clear_title" />
+                        android:src="@drawable/main_title_4" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:singleLine="true"
                         android:text="@string/title_virusclear_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
                 </LinearLayout>
@@ -197,13 +206,15 @@
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
                     android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:paddingBottom="@dimen/padding_list"
+                    android:paddingLeft="@dimen/padding_list2"
+                    android:paddingRight="@dimen/padding_list2">
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_clear_title" />
+                        android:src="@drawable/main_title_5" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -222,13 +233,15 @@
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
                     android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:paddingBottom="@dimen/padding_list"
+                    android:paddingLeft="@dimen/padding_list2"
+                    android:paddingRight="@dimen/padding_list2" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_clear_title" />
+                        android:src="@drawable/main_title_6" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -244,16 +257,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
                     android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:paddingBottom="@dimen/padding_list"
+                    android:paddingLeft="@dimen/padding_list2"
+                    android:paddingRight="@dimen/padding_list2"
+                    android:paddingTop="@dimen/padding_list"
+                    android:visibility="invisible" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_clear_title" />
+                        android:src="@drawable/main_title_1" />
 
                     <TextView
                         android:layout_width="fill_parent"
