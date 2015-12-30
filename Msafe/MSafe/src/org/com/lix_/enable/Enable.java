@@ -21,6 +21,8 @@ public abstract class Enable implements Serializable {
 	protected Context m_pContext;
 	protected EnableCallback m_pCallback;
 
+	AsyncTask m_pAsyTask;
+
 	public Enable() {
 	}
 
@@ -36,8 +38,10 @@ public abstract class Enable implements Serializable {
 
 	public abstract void onViewClick(int nId);
 
-	public void doAsyWork() {
-		m_pAsyTask.execute(0);
+	public void doAsyWork(Object... szObj) {
+		if(m_pAsyTask == null)
+			reStartThread();
+		m_pAsyTask.execute(szObj);
 	}
 
 	Handler m_pAsyHandler = new Handler() {
@@ -48,15 +52,23 @@ public abstract class Enable implements Serializable {
 		}
 
 	};
+	
+	public void doRestartWork(Object... szObj)
+	{
+		reStartThread() ;
+		doAsyWork(szObj) ;
+	}
 
-	AsyncTask m_pAsyTask = new AsyncTask() {
-		@Override
-		protected Object doInBackground(Object... params) {
-			doAsyWorkInTask();
-			return null;
-		}
+	public void reStartThread() {
+		m_pAsyTask = new AsyncTask() {
+			@Override
+			protected Object doInBackground(Object... params) {
+				doAsyWorkInTask(params);
+				return null;
+			}
 
-	};
+		};
+	}
 
 	protected void doSynchrWork(Message pMsg) {
 
@@ -65,4 +77,5 @@ public abstract class Enable implements Serializable {
 	protected void doAsyWorkInTask(Object... szObj) {
 
 	}
+
 }

@@ -89,6 +89,8 @@ public class BreatheCircleView extends View {
 		m_nCircleX = Define.WIDTH / 2;
 		m_nCircleY = Define.HEIGHT / 4;
 		m_pRadioLen = m_nCircleX > m_nCircleY ? m_nCircleY : m_nCircleX;
+		m_nCircleX = Define.WIDTH / 2;
+		m_nCircleY = Define.HEIGHT / 4 * 5 / 6;
 	}
 
 	private void initRadiaGradient() {
@@ -134,7 +136,7 @@ public class BreatheCircleView extends View {
 				drawRadiaGradient(canvas);
 			}
 			changeStatusTime();
-			drawSector(canvas, m_pRadioLen / 100 * 60, 270 + m_nAngle,
+			drawSector(canvas,m_pRadioLen / 100 * 60, 270 + m_nAngle,
 					90 + m_nAngle);
 			// ºËÐÄµÄÔ²
 			canvas.drawCircle(m_nCircleX, m_nCircleY, m_pRadioLen / 100 * 55,

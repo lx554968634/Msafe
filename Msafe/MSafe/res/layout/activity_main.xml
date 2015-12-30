@@ -19,6 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:paddingTop="@dimen/padding_list"
             android:text="@string/saftytitle_mainlayout_background_up"
             android:textColor="@color/white_textcolor"
             android:textSize="@dimen/textsize_mainactiviy_top" />
@@ -41,6 +42,7 @@
         <GridView
             android:id="@+id/list_mainactivity"
             android:layout_width="fill_parent"
+            android:clickable="false"
             android:layout_height="match_parent"
             android:visibility="gone" />
         <!-- 下面的按钮  垃圾清理，大文件管理，应用清理，流量管理，病毒检测，权限管理，省电模式，额外 -->
@@ -73,7 +75,6 @@
                         android:gravity="center_horizontal"
                         android:paddingLeft="@dimen/padding_list2"
                         android:paddingRight="@dimen/padding_list2"
-                        android:paddingTop="@dimen/padding_list"
                         android:src="@drawable/main_title_0" />
 
                     <TextView
@@ -99,7 +100,6 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/padding_list2"
                         android:paddingRight="@dimen/padding_list2"
-                        android:paddingTop="@dimen/padding_list"
                         android:src="@drawable/main_title_1" />
 
                     <TextView
@@ -123,10 +123,8 @@
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
                         android:paddingLeft="@dimen/padding_list2"
                         android:paddingRight="@dimen/padding_list2"
-                        android:paddingTop="@dimen/padding_list"
                         android:src="@drawable/main_title_2" />
 
                     <TextView
@@ -153,8 +151,7 @@
                         android:layout_gravity="top"
                         android:paddingLeft="@dimen/padding_list2"
                         android:paddingRight="@dimen/padding_list2"
-                        android:paddingTop="@dimen/padding_list"
-                        android:src="@drawable/main_title_3" />
+                        android:src="@drawable/main_title_5" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -179,21 +176,21 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/padding_list"
-                    android:paddingLeft="@dimen/padding_list2"
-                    android:paddingRight="@dimen/padding_list2">
+                    android:orientation="vertical" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_title_4" />
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:src="@drawable/main_title_3" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
+                        android:singleLine="true"
                         android:text="@string/title_virusclear_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
                 </LinearLayout>
@@ -205,16 +202,16 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/padding_list"
-                    android:paddingLeft="@dimen/padding_list2"
-                    android:paddingRight="@dimen/padding_list2">
+                    android:orientation="vertical" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:src="@drawable/main_title_5" />
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:singleLine="true"
+                        android:src="@drawable/main_title_4" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -232,15 +229,14 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/padding_list"
-                    android:paddingLeft="@dimen/padding_list2"
-                    android:paddingRight="@dimen/padding_list2" >
+                    android:orientation="vertical" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:singleLine="true"
                         android:src="@drawable/main_title_6" />
 
                     <TextView

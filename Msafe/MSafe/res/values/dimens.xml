@@ -1,13 +1,13 @@
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">12dp</dimen>
+    <dimen name="activity_horizontal_margin">5dp</dimen>
     <dimen name="activity_vertical_margin">13dp</dimen>
 	<!-- 系统字大小 -->
 	  <dimen name="textsize_circle_cache">35sp</dimen>
-    <dimen name="textsize_mainactiviy_top">24sp</dimen>
-    <dimen name="textsize_breathecircle">20dp</dimen>
-     <dimen name="textsize_mainactivity_btn">10sp</dimen>
+    <dimen name="textsize_mainactiviy_top">22sp</dimen>
+    <dimen name="textsize_breathecircle">18dp</dimen>
+     <dimen name="textsize_mainactivity_btn">14sp</dimen>
      <dimen name="txtpaddingbottom_mainactivity_grid">10dp</dimen>
      <dimen name="stroke_circle">10dp</dimen>
      <dimen name="clear_btn_size">20dp</dimen>
@@ -21,4 +21,12 @@
      <dimen name="textsize_title_num">7dp</dimen>
      <dimen name="gird_item_up_textsize">15dp</dimen>
       <dimen name="gird_item_down_textsize">10dp</dimen>
+      <dimen name="main_scan_padding">50dp</dimen>
+      <dimen name="main_scan_title_size">14dp</dimen>
+      <dimen name="main_scan_content_size">12dp</dimen>
+       <dimen name="main_scan_titleimage_size">12dp</dimen>
+       <dimen name="main_scan_titleimage_size_1">12dp</dimen>
+      <dimen name="main_scan_padding1">65dp</dimen>
+       <dimen name="main_scan_padding2">58dp</dimen>
+      <dimen name="divider_height_half">0.5dp</dimen>
 </resources>

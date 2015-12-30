@@ -2,10 +2,13 @@ package org.com.lix_.ui;
 
 import org.com.lix_.Define;
 import org.com.lix_.enable.Enable;
+import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfMainActivity;
 import org.com.lix_.util.Debug;
 
 import android.app.ActionBar.LayoutParams;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +38,11 @@ import android.widget.TextView;
  */
 public class MainActivity extends BaseActivity implements AnimationListener {
 
+	private final int START_DOWN_ANIM1 = -1;
+
+	private final int START_UP_ANIM = -2;
+
+	private final int LISTEN_ANIM = 0;
 	private String[] m_szGridTxt0 = new String[] { "正在检测", "垃圾清理", "大文件检测",
 			"常用应用检测", "手机安全检测", "启动项检测", "流量使用检测", "待机运行应用检测" };
 	private String[] m_szGridTxt1 = new String[] { "检测完成", "垃圾清理完毕", "已完成文件检测",
@@ -46,7 +54,8 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 
 	private GridView m_pGridView;
 
-	private Enable m_pEnable;
+	private EnableOfMainActivity m_pEnable;
+
 	private View m_pBtns;
 
 	@Override
@@ -60,9 +69,10 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 	@Override
 	public void init() {
 		m_pEnable = new EnableOfMainActivity(this);
+		m_pEnable.setCallback(m_pCallback);
 		m_pBtns = findViewById(R.id.btns_mainactivity);
 		btnsAddListener();
-		moveQuick() ;
+		moveQuick();
 		WindowManager wm = this.getWindowManager();
 		Define.WIDTH = wm.getDefaultDisplay().getWidth();
 		Define.HEIGHT = wm.getDefaultDisplay().getHeight();
@@ -81,14 +91,37 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		addOnClickListener(R.id.btn_wapadmin_mainacitivity);
 	}
 
+	EnableCallback m_pCallback = new EnableCallback() {
+
+		@Override
+		public void callback(Object... obj) {
+			int nTag = Integer.parseInt(obj[0].toString());
+
+			switch (nTag) {
+			case EnableOfMainActivity.OVERSCAN:
+				Debug.i(TAG, "结束扫描");
+				showBtns();
+				break;
+			default:
+				Debug.i(TAG, "nTag:" + nTag + "结束检查");
+				m_pGridView.getChildAt(nTag + 1)
+						.findViewById(R.id.grid_item_image1)
+						.setVisibility(View.INVISIBLE);
+				m_pGridView.getChildAt(nTag + 1)
+						.findViewById(R.id.grid_item_image)
+						.setVisibility(View.VISIBLE);
+				break;
+			}
+		}
+	};
+
 	private LayoutAnimationController m_pLayAnControl;
 
 	private void initCheckList() {
 		if (m_pLayAnControl == null) {
 			Animation pAnimLayout = AnimationUtils.loadAnimation(this,
 					R.anim.slide_down_1);
-			m_pLayAnControl = new LayoutAnimationController(
-					pAnimLayout);
+			m_pLayAnControl = new LayoutAnimationController(pAnimLayout);
 			m_pLayAnControl.setOrder(LayoutAnimationController.ORDER_NORMAL);
 			m_pLayAnControl.setDelay(1);
 			m_pGridView = (GridView) findViewById(R.id.list_mainactivity);
@@ -99,6 +132,7 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 	}
 
 	private void initGridView() {
+		m_pGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		m_pGridView.setAdapter(new Adapter());
 	}
 
@@ -145,9 +179,9 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 					pHolder = new ViewHolder();
 					pHolder.m_pTextView = (TextView) convertView
 							.findViewById(R.id.itemImage);
-					pHolder.m_pImageView = (ImageView) convertView
-							.findViewById(R.id.grid_item_image);
-					convertView.setTag(pHolder);
+					if (m_pEnable != null) {
+						m_pEnable.checkPhone(position - 1);
+					}
 				}
 			} else {
 				pHolder = (ViewHolder) convertView.getTag();
@@ -165,6 +199,8 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 	@Override
 	public void onClick(View v) {
 		int nId = v.getId();
+		if (m_nBtnType < 0)
+			return;
 		m_nBtnType = nId;
 		switch (nId) {
 		case R.id.title_btn_mainlayout:
@@ -193,17 +229,22 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		m_pEnable.onViewClick(m_nBtnType);
 	}
 
+	private int m_nLock = 0;
+
 	private void onTitleBtnClick() {
+		if (m_nLock != 0)
+			return;
+		m_nLock++;
 		if (m_pBtns == null) {
 			m_nBtnType = -1;
 			Debug.e(TAG, "m_pBtns == null 没办法工作了!");
 		} else {
 			if (m_pBtns.getVisibility() == View.VISIBLE) {
-				m_nBtnType = -2;
+				m_nBtnType = START_DOWN_ANIM1;
+				m_pEnable.startCheck();
 				hiddenBtns();
 			} else {
-				m_nBtnType = -3;
-				showBtns();
+				m_nBtnType = START_UP_ANIM;
 			}
 		}
 	}
@@ -213,6 +254,7 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		m_pGridView.setVisibility(View.INVISIBLE);
 		m_pBtns.startAnimation(AnimationUtils.loadAnimation(this,
 				R.anim.slide_up));
+		m_nBtnType = LISTEN_ANIM;
 	}
 
 	private Animation m_pHiddenAnimation;

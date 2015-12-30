@@ -96,7 +96,7 @@ public class EnableOfRootStart extends Enable {
 					m_szRunningCloseAutoStartService.add(pInfo);
 					break;
 				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
-					m_szRunningAutoStartService.add(pInfo);
+			 		m_szRunningAutoStartService.add(pInfo);
 					break;
 				default:
 					break;

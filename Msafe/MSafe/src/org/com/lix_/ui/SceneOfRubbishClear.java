@@ -194,12 +194,6 @@ public class SceneOfRubbishClear extends BaseActivity {
 			} else {
 				pHolder = (ViewHolder) convertView.getTag();
 			}
-			if (position == COUNT_GRID_ITEMS - 1) {
-				convertView.findViewById(R.id.grid_item_div).setVisibility(
-						View.GONE);
-			} else
-				convertView.findViewById(R.id.grid_item_div).setVisibility(
-						View.VISIBLE);
 			pHolder.m_pTextView.setText(m_szTitles[position]);
 			return convertView;
 		}

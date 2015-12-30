@@ -2,15 +2,16 @@
 
     <!-- MainActivity.java需要的颜色 -->
     <color name="white">#fafafa</color>
-    <color name="green_mainlayout_background">#43c361</color>
+    <color name="green_mainlayout_background">#10A75A</color>
     <color name="white_mainlayout_background">#ffffff</color>
     <color name="white_textcolor">#ffffff</color>
-    <color name="green_breathecircleview_background">#34b862</color>
+    <color name="green_breathecircleview_background">#34B862</color>
     <color name="gray_mainactivity_btn_press">#d7d7d7</color>
     <color name="rubbishclear_bg">#aaf49c</color>
     <color name="radar_outcircle_color">#D1FFD4</color>
     <color name="radar_inner_color">#C9FFCC</color>
     <color name="black">#000000</color>
     <color name="tab_textcolor_selected">#81fa87</color>
+     <color name="white_apha">#99fafafa</color>
 
 </resources>

@@ -19,7 +19,7 @@ public class PowerReceiver extends BroadcastReceiver{
 		super();
 		m_pHandler = pHandler ;
 	}
-  
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		 int current=intent.getExtras().getInt("level");//获得当前电量

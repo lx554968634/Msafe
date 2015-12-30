@@ -2,45 +2,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@null"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin" >
+    android:background="@null" >
 
-    <ImageView
-        android:id="@+id/grid_item_image"
+    <ProgressBar
+        android:id="@+id/grid_item_image1"
+        style="@style/progressbar_style1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/main_scan_padding1"
+        android:layout_marginTop="@dimen/padding_list_helf"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/image_exclam" />
+        android:gravity="center"
+        android:text="!"
+        android:textColor="@color/white_apha"
+        android:textSize="8dp" />
+
+    <TextView
+        android:id="@+id/grid_item_image"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/main_scan_padding1"
+        android:layout_marginTop="@dimen/padding_list_helf"
+        android:background="@drawable/circle_main_tag"
+        android:contentDescription="@string/app_name"
+        android:gravity="center"
+        android:text="!"
+        android:textColor="@color/white_apha"
+        android:textSize="8dp" />
 
     <TextView
         android:id="@+id/itemImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_list_helf"
+        android:layout_marginTop="@dimen/padding_list_helf"
         android:layout_toRightOf="@id/grid_item_image"
-        android:paddingLeft="@dimen/padding_list"
         android:text="@string/grid_item_check0"
-        android:textSize="@dimen/textsize_breathecircle" />
+        android:textColor="@color/white_apha"
+        android:textSize="@dimen/main_scan_content_size" />
 
     <TextView
         android:id="@+id/grid_item_size"
-        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:layout_alignParentRight="true"
         android:layout_gravity="center"
-        android:text="0B" />
-
-    <View
-        android:id="@+id/grid_item_div"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/itemImage"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:background="@color/gray_mainactivity_btn_press" />
+        android:layout_marginLeft="@dimen/main_scan_padding"
+        android:layout_marginRight="@dimen/main_scan_padding"
+        android:layout_marginTop="@dimen/padding_list_helf"
+        android:text="0B"
+        android:visibility="invisible" />
 
 </RelativeLayout>
