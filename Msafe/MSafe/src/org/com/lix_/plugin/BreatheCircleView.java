@@ -1,11 +1,14 @@
 package org.com.lix_.plugin;
 
 import org.com.lix_.Define;
+import org.com.lix_.enable.EnableOfMainActivity;
 import org.com.lix_.ui.R;
+import org.com.lix_.util.Debug;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RadialGradient;
@@ -31,10 +34,6 @@ public class BreatheCircleView extends View {
 
 	private Paint m_pDrawPaint;
 
-	private String m_pTitleText;
-
-	private float m_nTextSize;
-
 	private Paint m_pWaterPaint;
 
 	/*
@@ -54,12 +53,8 @@ public class BreatheCircleView extends View {
 				R.styleable.BreatheCircleView);
 		int nTextColor = pTypeAttri.getColor(
 				R.styleable.BreatheCircleView_textColor, 0xffffff);
-		m_nTextSize = pTypeAttri.getDimension(
-				R.styleable.BreatheCircleView_textSize, 20f);
 		m_pTextPaint = new Paint();
-		m_pTextPaint.setTextSize(m_nTextSize);
 		m_pTextPaint.setColor(nTextColor);
-		m_pTitleText = pTypeAttri.getString(R.styleable.BreatheCircleView_txt);
 		int nDrawColor = pTypeAttri.getColor(
 				R.styleable.BreatheCircleView_backgroundcolor,
 				R.color.green_breathecircleview_background);
@@ -90,7 +85,7 @@ public class BreatheCircleView extends View {
 		m_nCircleY = Define.HEIGHT / 4;
 		m_pRadioLen = m_nCircleX > m_nCircleY ? m_nCircleY : m_nCircleX;
 		m_nCircleX = Define.WIDTH / 2;
-		m_nCircleY = Define.HEIGHT / 4 * 5 / 6;
+		m_nCircleY = Define.HEIGHT / 4 ;
 	}
 
 	private void initRadiaGradient() {
@@ -101,13 +96,6 @@ public class BreatheCircleView extends View {
 						getResources().getColor(
 								R.color.green_breathecircleview_background) },
 				null, Shader.TileMode.REPEAT);
-	}
-
-	private void drawRadiaGradient(Canvas pCanvas) {
-		m_pWaterPaint.setShader(mRadialGradient);
-		pCanvas.drawCircle(m_nCircleX, m_nCircleY, m_pRadioLen / 100 * 50
-				+ (m_pRadioLen * 10000 / 100 * 15) / 30 * m_nWaterFrameIndex
-				/ 10000, m_pWaterPaint);
 	}
 
 	private void drawSector(Canvas pCanvas, float radius, float nStart,
@@ -125,6 +113,12 @@ public class BreatheCircleView extends View {
 
 	private int m_nOffAngle = 1;
 
+	public boolean m_nShowRadia = true;
+
+	public boolean m_nShowSelect = false;
+
+	public boolean m_nShowCheck = false;
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
@@ -132,45 +126,78 @@ public class BreatheCircleView extends View {
 			if (mRadialGradient == null && m_pRadioLen > 0) {
 				initRadiaGradient();
 			}
-			if (mRadialGradient != null) {
+			if (mRadialGradient != null && m_nShowRadia) {
+				changeRadiaStatusTime();
 				drawRadiaGradient(canvas);
 			}
-			changeStatusTime();
-			drawSector(canvas,m_pRadioLen / 100 * 60, 270 + m_nAngle,
-					90 + m_nAngle);
+			changeAngleStatusTime();
+			if (m_nShowSelect)
+				drawSector(canvas, m_pRadioLen / 100 * 60, 270 + m_nAngle,
+						90 + m_nAngle);
+			if (m_nShowCheck) {
+				drawCheckGradient(canvas);
+			}
 			// 核心的圆
 			canvas.drawCircle(m_nCircleX, m_nCircleY, m_pRadioLen / 100 * 55,
 					m_pDrawPaint);
 
 		}
-		if (m_pTitleText != null && m_pTextPaint != null) {
-			drawText(canvas);
-		}
 		postInvalidateDelayed(FRAME_FPS);
 	}
 
-	private void changeStatusTime() {
-		if (m_nWaterFrameIndex == 30) {
-			m_nWaterFrameIndex = 0;
+	private void drawCheckGradient(Canvas pCanvas) {
+		m_pWaterPaint.setShader(mRadialGradient);
+
+		pCanvas.drawCircle(m_nCircleX, m_nCircleY, m_pRadioLen / 100 * 50
+				+ (m_pRadioLen * 10000 / 100 * 15) / 30 * 22 / 10000,
+				m_pWaterPaint);
+	}
+
+	private void drawRadiaGradient(Canvas pCanvas) {
+		m_pWaterPaint.setShader(mRadialGradient);
+
+		pCanvas.drawCircle(m_nCircleX, m_nCircleY, m_pRadioLen / 100 * 50
+				+ (m_pRadioLen * 10000 / 100 * 15) / 30 * m_nWaterFrameIndex
+				/ 10000, m_pWaterPaint);
+	}
+
+	private int m_nExt = 0;
+
+	/*
+	 * 1、扩散到最大边境 2、渐变apha
+	 */
+	private void changeRadiaStatusTime() {
+		if (m_nExt == 0) {
+			if (m_nWaterFrameIndex == 0)
+				m_nExt = 1;
+		}
+		if (m_nWaterFrameIndex > 30) {
+			m_nExt = -2;
+		} else if (m_nWaterFrameIndex < 0) {
+			m_nExt = 1;
 		}
 		if (m_nInnerCurrentTime == 0)
 			m_nInnerCurrentTime = System.currentTimeMillis();
 		if (System.currentTimeMillis() - m_nInnerCurrentTime >= 15) {
 			m_nInnerCurrentTime = 0;
-			m_nWaterFrameIndex++;
-		}
-		if (m_nSectorCurrentTime == 0)
-			m_nSectorCurrentTime = System.currentTimeMillis();
-		if (System.currentTimeMillis() - m_nSectorCurrentTime >= 10) {
-			m_nSectorCurrentTime = 0;
-			m_nAngle = (m_nAngle += m_nOffAngle) % 360;
+			m_nWaterFrameIndex += m_nExt;
 		}
 	}
 
-	private void drawText(Canvas pCanvas) {
-		m_pTextPaint.setAntiAlias(true); // 消除锯齿
-		pCanvas.drawText(m_pTitleText,
-				m_nCircleX - m_nTextSize * m_pTitleText.length() / 2,
-				m_nCircleY + m_nTextSize / 3, m_pTextPaint);
+	private void changeAngleStatusTime() {
+		m_nAngle = (m_nAngle += m_nOffAngle) % 360;
+	}
+
+	public void overCheck() {
+		m_nShowRadia = false;
+		m_nShowSelect = false;
+		m_nShowCheck = true;
+	}
+
+
+	public void startCheck() {
+		m_nShowRadia = false;
+		m_nShowSelect = true;
+		m_nShowCheck = false;
 	}
 }

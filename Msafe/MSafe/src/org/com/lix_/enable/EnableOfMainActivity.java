@@ -41,6 +41,8 @@ public class EnableOfMainActivity extends Enable {
 		m_pSharedPerferencesDB = new LocalSharedpreferencesDB(pContext);
 	}
 
+	private int m_nTotal = 100;
+
 	@Override
 	protected void doSynchrWork(Message pMsg) {
 		super.doSynchrWork(pMsg);
@@ -56,11 +58,11 @@ public class EnableOfMainActivity extends Enable {
 			m_nScanCount++;
 			break;
 		}
-		m_pCallback.callback(nTag);
+		m_pCallback.callback(nTag, m_nTotal -= (nTag + 1));
 		if (m_nScanCount == TOTAL) {
 			pMsg = Message.obtain();
 			pMsg.what = OVERSCAN;
-			m_nScanCount = -1 ;
+			m_nScanCount = -1;
 			m_pAsyHandler.sendMessageDelayed(pMsg, 10000);
 		}
 	}

@@ -142,6 +142,11 @@ public class UiUtils {
 		if (string != null)
 			pTextView.setText(string);
 	}
+	public static void setText(View m_pViewTitle, String string) {
+		TextView pTextView = (TextView) (m_pViewTitle);
+		if (string != null)
+			pTextView.setText(string);
+	}
 
 	/*
 	 * 百分比时间

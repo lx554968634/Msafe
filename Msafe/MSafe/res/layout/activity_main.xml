@@ -8,7 +8,7 @@
 
     <!-- 首页的安全中心和一键检测 附带呼吸圈效果 -->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -32,7 +32,17 @@
             app:textColor="@color/white"
             app:textSize="@dimen/textsize_breathecircle"
             app:txt="@string/title_breathecircle" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/percent_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="@dimen/padding_list"
+            android:text="@string/scan_one"
+            android:textColor="@color/white_textcolor"
+            android:textSize="@dimen/textsize_mainactiviy_scan" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -42,8 +52,8 @@
         <GridView
             android:id="@+id/list_mainactivity"
             android:layout_width="fill_parent"
-            android:clickable="false"
             android:layout_height="match_parent"
+            android:clickable="false"
             android:visibility="gone" />
         <!-- 下面的按钮  垃圾清理，大文件管理，应用清理，流量管理，病毒检测，权限管理，省电模式，额外 -->
 
@@ -69,13 +79,29 @@
                     android:clickable="true"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:paddingLeft="@dimen/padding_list2"
-                        android:paddingRight="@dimen/padding_list2"
-                        android:src="@drawable/main_title_0" />
+                        android:layout_marginLeft="@dimen/padding_list2"
+                        android:layout_marginRight="@dimen/padding_list2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/main_title_0" />
+
+                        <TextView
+                            android:id="@+id/title_tag0"
+                            android:layout_width="@dimen/padding_list"
+                            android:layout_height="@dimen/padding_list"
+                            android:layout_marginTop="@dimen/padding_list2"
+                            android:background="@drawable/circle_red"
+                            android:gravity="center"
+                            android:text="@string/tanhao"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/padding_list3"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -95,17 +121,34 @@
                     android:clickable="true"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/padding_list2"
-                        android:paddingRight="@dimen/padding_list2"
-                        android:src="@drawable/main_title_1" />
+                        android:layout_marginLeft="@dimen/padding_list2"
+                        android:layout_marginRight="@dimen/padding_list2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/main_title_1" />
+
+                        <TextView
+                            android:id="@+id/title_tag1"
+                            android:layout_width="@dimen/padding_list"
+                            android:layout_height="@dimen/padding_list"
+                            android:layout_marginTop="@dimen/padding_list2"
+                            android:background="@drawable/circle_red"
+                            android:gravity="center"
+                            android:text="@string/tanhao"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/padding_list3"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:singleLine="true"
                         android:text="@string/title_fileadmin_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
@@ -120,17 +163,34 @@
                     android:clickable="true"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/padding_list2"
-                        android:paddingRight="@dimen/padding_list2"
-                        android:src="@drawable/main_title_2" />
+                        android:layout_marginLeft="@dimen/padding_list2"
+                        android:layout_marginRight="@dimen/padding_list2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/main_title_2" />
+
+                        <TextView
+                            android:id="@+id/title_tag2"
+                            android:layout_width="@dimen/padding_list"
+                            android:layout_height="@dimen/padding_list"
+                            android:layout_marginTop="@dimen/padding_list2"
+                            android:background="@drawable/circle_red"
+                            android:gravity="center"
+                            android:text="@string/tanhao"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/padding_list3"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:singleLine="true"
                         android:text="@string/title_apkrubbish_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
@@ -145,13 +205,29 @@
                     android:clickable="true"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:paddingLeft="@dimen/padding_list2"
-                        android:paddingRight="@dimen/padding_list2"
-                        android:src="@drawable/main_title_5" />
+                        android:layout_marginLeft="@dimen/padding_list2"
+                        android:layout_marginRight="@dimen/padding_list2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/main_title_5" />
+
+                        <TextView
+                            android:id="@+id/title_tag3"
+                            android:layout_width="@dimen/padding_list"
+                            android:layout_height="@dimen/padding_list"
+                            android:layout_marginTop="@dimen/padding_list2"
+                            android:background="@drawable/circle_green"
+                            android:gravity="center"
+                            android:text="@string/duihao"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/padding_list3"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -178,13 +254,29 @@
                     android:clickable="true"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:paddingLeft="@dimen/padding_list2"
-                        android:paddingRight="@dimen/padding_list2"
-                        android:src="@drawable/main_title_3" />
+                        android:layout_marginLeft="@dimen/padding_list2"
+                        android:layout_marginRight="@dimen/padding_list2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/main_title_3" />
+
+                        <TextView
+                            android:id="@+id/title_tag4"
+                            android:layout_width="@dimen/padding_list"
+                            android:layout_height="@dimen/padding_list"
+                            android:layout_marginTop="@dimen/padding_list2"
+                            android:background="@drawable/circle_red"
+                            android:gravity="center"
+                            android:text="@string/tanhao"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/padding_list3"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -204,21 +296,36 @@
                     android:clickable="true"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:paddingLeft="@dimen/padding_list2"
-                        android:paddingRight="@dimen/padding_list2"
-                        android:singleLine="true"
-                        android:src="@drawable/main_title_4" />
+                        android:layout_marginLeft="@dimen/padding_list2"
+                        android:layout_marginRight="@dimen/padding_list2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/main_title_4" />
+
+                        <TextView
+                            android:id="@+id/title_tag5"
+                            android:layout_width="@dimen/padding_list"
+                            android:layout_height="@dimen/padding_list"
+                            android:layout_marginTop="@dimen/padding_list2"
+                            android:background="@drawable/circle_red"
+                            android:gravity="center"
+                            android:text="@string/tanhao"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/padding_list3"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:singleLine="true"
-                        android:text="@string/title_rootadmin_btn_mainlayout"
+                        android:text="@string/title_wrapadmin_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
                 </LinearLayout>
 
@@ -231,13 +338,29 @@
                     android:clickable="true"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:layout_width="fill_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/padding_list2"
-                        android:paddingRight="@dimen/padding_list2"
-                        android:singleLine="true"
-                        android:src="@drawable/main_title_6" />
+                        android:layout_marginLeft="@dimen/padding_list2"
+                        android:layout_marginRight="@dimen/padding_list2" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/main_title_6" />
+
+                        <TextView
+                            android:id="@+id/title_tag6"
+                            android:layout_width="@dimen/padding_list"
+                            android:layout_height="@dimen/padding_list"
+                            android:layout_marginTop="@dimen/padding_list2"
+                            android:background="@drawable/circle_red"
+                            android:gravity="center"
+                            android:text="@string/tanhao"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/padding_list3"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -253,26 +376,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/selector_highlight_button"
                     android:clickable="true"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/padding_list"
-                    android:paddingLeft="@dimen/padding_list2"
-                    android:paddingRight="@dimen/padding_list2"
-                    android:paddingTop="@dimen/padding_list"
                     android:visibility="invisible" >
 
                     <ImageView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:src="@drawable/main_title_1" />
+                        android:paddingLeft="@dimen/padding_list2"
+                        android:paddingRight="@dimen/padding_list2"
+                        android:singleLine="true"
+                        android:src="@drawable/main_title_6" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:singleLine="true"
-                        android:text="@string/title_extra_btn_mainlayout"
+                        android:text="@string/title_lowpower_btn_mainlayout"
                         android:textSize="@dimen/textsize_mainactivity_btn" />
                 </LinearLayout>
             </LinearLayout>

@@ -6,6 +6,7 @@
 	<!-- 系统字大小 -->
 	  <dimen name="textsize_circle_cache">35sp</dimen>
     <dimen name="textsize_mainactiviy_top">22sp</dimen>
+    <dimen name="textsize_mainactiviy_scan">24sp</dimen>
     <dimen name="textsize_breathecircle">18dp</dimen>
      <dimen name="textsize_mainactivity_btn">14sp</dimen>
      <dimen name="txtpaddingbottom_mainactivity_grid">10dp</dimen>

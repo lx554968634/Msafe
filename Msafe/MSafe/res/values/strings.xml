@@ -57,4 +57,7 @@
     <string name="power_str2">自定义模式</string>
     <string name="power_button_str">启动</string>
     <string name="total_time">2136</string>
+    <string name="scan_one">一键检测</string>
+    <string name="tanhao">!</string>
+    <string name="duihao">√</string>
 </resources>

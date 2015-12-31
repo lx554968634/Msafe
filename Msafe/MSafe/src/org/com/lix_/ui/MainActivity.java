@@ -4,12 +4,16 @@ import org.com.lix_.Define;
 import org.com.lix_.enable.Enable;
 import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfMainActivity;
+import org.com.lix_.plugin.BreatheCircleView;
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.UiUtils;
 
 import android.app.ActionBar.LayoutParams;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +60,11 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 
 	private EnableOfMainActivity m_pEnable;
 
+	private BreatheCircleView m_pCircle;
+
 	private View m_pBtns;
+
+	private TextView m_pPercentText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,8 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 	public void init() {
 		m_pEnable = new EnableOfMainActivity(this);
 		m_pEnable.setCallback(m_pCallback);
+		m_pPercentText = (TextView) findViewById(R.id.percent_scan);
+		m_pCircle = (BreatheCircleView) findViewById(R.id.title_btn_mainlayout);
 		m_pBtns = findViewById(R.id.btns_mainactivity);
 		btnsAddListener();
 		moveQuick();
@@ -91,16 +101,58 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		addOnClickListener(R.id.btn_wapadmin_mainacitivity);
 	}
 
+	private void setWrong(View pView, boolean bTag) {
+		if (bTag) {
+			pView.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.circle_red));
+			UiUtils.setText(pView, getResources().getString(R.string.tanhao));
+		} else {
+			pView.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.circle_green));
+			UiUtils.setText(pView, getResources().getString(R.string.duihao));
+		}
+	}
+
 	EnableCallback m_pCallback = new EnableCallback() {
 
 		@Override
 		public void callback(Object... obj) {
 			int nTag = Integer.parseInt(obj[0].toString());
-
+			switch (nTag) {
+			case EnableOfMainActivity.STARTRUBBISHLIGHTWORK:
+				findViewById(R.id.title_tag0).setVisibility(View.VISIBLE);
+				setWrong(findViewById(R.id.title_tag0), true);
+				break;
+			case EnableOfMainActivity.BIGFILECHECKWORK:
+				findViewById(R.id.title_tag1).setVisibility(View.VISIBLE);
+				setWrong(findViewById(R.id.title_tag1), true);
+				break;
+			case EnableOfMainActivity.NOUSUALAPKCHECK:
+				findViewById(R.id.title_tag2).setVisibility(View.VISIBLE);
+				setWrong(findViewById(R.id.title_tag2), false);
+				break;
+			case EnableOfMainActivity.PHONESAFECHECK:
+				findViewById(R.id.title_tag3).setVisibility(View.VISIBLE);
+				setWrong(findViewById(R.id.title_tag3), true);
+				break;
+			case EnableOfMainActivity.SELFSTARTAPPCHECK:
+				findViewById(R.id.title_tag4).setVisibility(View.VISIBLE);
+				setWrong(findViewById(R.id.title_tag4), true);
+				break;
+			case EnableOfMainActivity.WAPCHECK:
+				findViewById(R.id.title_tag5).setVisibility(View.VISIBLE);
+				setWrong(findViewById(R.id.title_tag5), true);
+				break;
+			case EnableOfMainActivity.SURFCHECK:
+				findViewById(R.id.title_tag6).setVisibility(View.VISIBLE);
+				setWrong(findViewById(R.id.title_tag6), true);
+				break;
+			}
 			switch (nTag) {
 			case EnableOfMainActivity.OVERSCAN:
 				Debug.i(TAG, "结束扫描");
 				showBtns();
+				m_pCircle.overCheck();
 				break;
 			default:
 				Debug.i(TAG, "nTag:" + nTag + "结束检查");
@@ -110,6 +162,7 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 				m_pGridView.getChildAt(nTag + 1)
 						.findViewById(R.id.grid_item_image)
 						.setVisibility(View.VISIBLE);
+				m_pPercentText.setText(obj[1].toString() + "分");
 				break;
 			}
 		}
@@ -241,13 +294,25 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		} else {
 			if (m_pBtns.getVisibility() == View.VISIBLE) {
 				m_nBtnType = START_DOWN_ANIM1;
+				m_pPercentText.setText("100分");
+				m_pCircle.startCheck();
 				m_pEnable.startCheck();
-				hiddenBtns();
+				m_pInnerHandler.sendMessageDelayed(new Message(), 100);
 			} else {
 				m_nBtnType = START_UP_ANIM;
 			}
 		}
 	}
+
+	private Handler m_pInnerHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			hiddenBtns();
+		}
+
+	};
 
 	private void showBtns() {
 		m_pBtns.setVisibility(View.VISIBLE);

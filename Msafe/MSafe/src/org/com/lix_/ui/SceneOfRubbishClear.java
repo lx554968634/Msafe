@@ -185,16 +185,9 @@ public class SceneOfRubbishClear extends BaseActivity {
 			if (convertView == null) {
 				convertView = m_pInflater.inflate(
 						R.layout.grid_item_other_main, null);
-				pHolder = new ViewHolder();
-				pHolder.m_pTextView = (TextView) convertView
-						.findViewById(R.id.itemImage);
-				pHolder.m_pImageView = (ImageView) convertView
-						.findViewById(R.id.grid_item_image);
-				convertView.setTag(pHolder);
 			} else {
 				pHolder = (ViewHolder) convertView.getTag();
 			}
-			pHolder.m_pTextView.setText(m_szTitles[position]);
 			return convertView;
 		}
 
