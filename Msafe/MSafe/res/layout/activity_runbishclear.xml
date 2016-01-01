@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -14,12 +14,21 @@
         android:orientation="vertical" >
 
         <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
+            android:paddingTop="@dimen/padding_list"
             android:text="@string/title_clearrubbish_btn_mainlayout"
             android:textColor="@color/white_textcolor"
             android:textSize="@dimen/textsize_mainactiviy_top" />
+
+        <ImageView
+            android:paddingRight="@dimen/padding_list3"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/padding_list2_tagimg"
+            android:layout_height="@dimen/padding_list2_tagimg"
+            android:src="@drawable/setting" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -37,8 +46,8 @@
                 android:layout_height="fill_parent"
                 android:gravity="center"
                 android:text="0B"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textsize_circle_cache" />
+                android:textColor="@color/white_textcolor"
+                android:textSize="@dimen/textsize_mainactiviy_top" />
 
             <TextView
                 android:id="@+id/rubbish_text_1"
@@ -60,14 +69,14 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/textsize_breathecircle" />
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
         android:background="@color/white"
+        android:orientation="vertical"
         android:visibility="visible" >
 
         <org.com.lix_.plugin.AListView

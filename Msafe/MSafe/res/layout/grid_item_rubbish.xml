@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:paddingBottom="@dimen/padding_list_helf"
+    android:paddingTop="@dimen/padding_list_helf" >
+
+    <!-- 扫描图片 -->
+
+    <ImageView
+        android:id="@+id/scan_rubbish_title_img"
+        android:layout_width="@dimen/padding_list1_tagimg"
+        android:layout_height="@dimen/padding_list1_tagimg"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_list1"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/rubbish_clear_t0" />
+    <!-- 扫描说明 -->
+
+    <TextView
+        android:id="@+id/scan_rubbish_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_list"
+        android:layout_toRightOf="@id/scan_rubbish_title_img"
+        android:text="@string/grid_item_check0"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_scan_content_size" />
+
+    <!-- 扫描数据 -->
+
+    <TextView
+        android:id="@+id/scan_rubbish_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/padding_list1"
+        android:text=".." />
+
+</RelativeLayout>

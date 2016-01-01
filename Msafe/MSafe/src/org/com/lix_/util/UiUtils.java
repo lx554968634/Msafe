@@ -7,9 +7,11 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class UiUtils {
@@ -156,6 +158,11 @@ public class UiUtils {
 		int nTotalTime = Integer.parseInt(sTotal) ;
 		int nNow = nTotalTime / 100 * Integer.parseInt(string) ;
 		return nNow / 60 +"–° ±"+nNow%60+"∑÷÷”";
+	}
+
+	public static void setImg(View findViewById, Drawable drawable) {
+		ImageView pImageView = (ImageView) findViewById ;
+		pImageView.setImageDrawable(drawable);
 	}
 
 }

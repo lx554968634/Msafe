@@ -146,7 +146,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 		for (int i = 0; i < m_pGridView.getChildCount(); i++) {
 			if (m_pGridView.getChildAt(i) != null) {
 				pTextView = (TextView) m_pGridView.getChildAt(i).findViewById(
-						R.id.grid_item_size);
+						R.id.scan_rubbish_res);
 				pTextView.setVisibility(View.VISIBLE);
 				pTextView.setText(m_pEnable.getRubbishSize(i));
 				;
@@ -181,20 +181,42 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder pHolder;
 			if (convertView == null) {
-				convertView = m_pInflater.inflate(
-						R.layout.grid_item_other_main, null);
-			} else {
-				pHolder = (ViewHolder) convertView.getTag();
+				convertView = m_pInflater.inflate(R.layout.grid_item_rubbish,
+						null);
+				initItem(convertView, position);
 			}
 			return convertView;
 		}
 
-		class ViewHolder {
-			public TextView m_pTextView;
-			public ImageView m_pImageView;
+		private void initItem(View pView, int nPos) {
+			int nDrawableId = -1;
+			switch (nPos) {
+			case 0:
+				nDrawableId = R.drawable.rubbish_clear_t0;
+				break;
+			case 1:
+				nDrawableId = R.drawable.rubbish_clear_t1;
+				break;
+			case 2:
+				nDrawableId = R.drawable.rubbish_clear_t2;
+				break;
+			case 3:
+				nDrawableId = R.drawable.rubbish_clear_t3;
+				break;
+			case 4:
+				nDrawableId = R.drawable.rubbish_clear_t4;
+				break;
+			default:
+				nDrawableId = R.drawable.ic_launcher;
+				break;
+			}
+			UiUtils.setImg(pView.findViewById(R.id.scan_rubbish_title_img),
+					getResources().getDrawable(nDrawableId));
+			UiUtils.setText(pView.findViewById(R.id.scan_rubbish_des),
+					m_szTitles[nPos]);
 		}
+
 	}
 
 }
