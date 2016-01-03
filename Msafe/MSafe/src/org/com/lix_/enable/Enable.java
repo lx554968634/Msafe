@@ -59,6 +59,11 @@ public abstract class Enable implements Serializable {
 		doAsyWork(szObj) ;
 	}
 
+	public void sendMessage(Message msg)
+	{
+		m_pAsyHandler.sendMessage(msg) ;
+	}
+	
 	public void reStartThread() {
 		m_pAsyTask = new AsyncTask() {
 			@Override

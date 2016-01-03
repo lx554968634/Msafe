@@ -19,12 +19,10 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -57,10 +55,19 @@ public class EnableOfRubbishClear extends Enable {
 	public static final int RAM_SHOW = 8;
 	public static final int READY2CHECK_RUBBISHSERVICE = 9;
 	public static final int FINISH_SCAN_RUBBISH = 10;
+	public static final int START_SCAN_GETALLAPPINFO = 13;
+	public static final int START_SCAN_GETRUNNINGTASK = 14;
+	public static final int START_SCAN_GETRUNNINGRUBBISH = 15;
+	public static final int START_SCAN_RUNNINGSERVICE = 16;
+	public static final int START_SCAN_RUBBISHSERVICE = 17;
+	public static final int START_SCAN_CHECKRUBBISH = 18;
+	public static final int START_HAS_CACHE= 19 ;
 
 	public static final int TXT_SHOW = 11;
+
+	public static final int NONE_SDCARD = 12;
+
 	
-	public static final int NONE_SDCARD = 12 ;
 
 	private int m_nScanPckCacheCount = 0;
 
@@ -74,120 +81,6 @@ public class EnableOfRubbishClear extends Enable {
 	private boolean m_bPropScanReady = false;
 
 	private Map<String, Long> m_szRamRecord = null;
-
-	/**
-	 * 处理器
-	 */
-	Handler m_pRubbishHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			int nTag = msg.what;
-			try {
-				switch (nTag) {
-				case NONE_SDCARD:
-					break ;
-				case FIND_CACHE_SYSTEMPCK:
-					m_nScanCount++;
-					if (m_nScanPckCacheCount == m_nScanCount) {
-						msg = Message.obtain();
-						msg.what = READY2CHECK_RUBBISHSERVICE;
-						sendMessage(msg);
-					}
-					break;
-				case FIND_START_SCANCACHE:
-					m_nScanPckCacheCount = msg.arg1;
-					m_bCacheReady = false;
-					m_bPropScanReady = false;
-					m_nScanCount = 0;
-					break;
-				case FIND_CACHE_USERPCK:
-					m_nScanCount++;
-					if (m_nScanPckCacheCount == m_nScanCount) {
-						msg = Message.obtain();
-						msg.what = READY2CHECK_RUBBISHSERVICE;
-						sendMessage(msg);
-					}
-					break;
-				case FINISH_SCAN_RUBBISH:
-					if (!m_bPropScanReady) {
-						m_bPropScanReady = true;
-					}
-					if (m_bCacheReady && m_bPropScanReady)
-						checkService();
-					break;
-				case READY2CHECK_RUBBISHSERVICE:
-					if (!m_bCacheReady && m_nScanPckCacheCount == m_nScanCount) {
-						m_bCacheReady = true;
-					}
-					if (m_bCacheReady && m_bPropScanReady)
-						checkService();
-					break;
-				case FIND_CACHE_NO:
-					m_nScanCount++;
-					if (m_nScanPckCacheCount == m_nScanCount) {
-						msg = Message.obtain();
-						msg.what = READY2CHECK_RUBBISHSERVICE;
-						sendMessage(msg);
-					}
-					break;
-				case FINSH_SD_RUBBISH:
-					if (m_pCallback != null)
-						m_pCallback.callback(msg.what, null);
-					break;
-				case PREPARE_FINISH:
-					if (m_pCallback != null)
-						m_pCallback.callback(msg.what, null);
-					break;
-				case FINSH_INNER_PROP:
-					if (m_pCallback != null)
-						m_pCallback.callback(msg.what, null);
-					break;
-				case RAM_SHOW:
-					if (msg.obj == null)
-						break;
-					Long pValue = null;
-					if (msg.arg1 == RAM_TYPE_APK_CACHE) {
-						pValue = new Long(msg.obj.toString().split(":")[0]);
-						if (m_szApkCache.get(msg.obj.toString().split(":")[1]) == null) {
-							AppInfo pAppInfo = new AppInfo();
-							pAppInfo.setPackageName(msg.obj.toString().split(
-									":")[1]);
-							pAppInfo.setM_nRam(pValue);
-							m_szApkCache.put(msg.obj.toString().split(":")[1],
-									pAppInfo);
-						}
-					} else {
-						pValue = new Long(msg.obj.toString());
-					}
-					m_nTotalCache += pValue.longValue();
-					if (m_pCallback != null && pValue != null)
-						m_pCallback.callback(msg.what, m_nTotalCache);
-					if (pValue.longValue() != 0) {
-						Long pInt;
-						String sKey = Define.RAM_STR + (msg.arg1 + "");
-						if ((pInt = m_szRamRecord.get(sKey)) == null) {
-							m_szRamRecord.put((sKey), pValue);
-						} else {
-							m_szRamRecord.put(sKey,
-									pInt.longValue() + pValue.longValue());
-						}
-					}
-					break;
-				case TXT_SHOW:
-					if (msg.obj != null) {
-						if (m_pCallback != null && msg.obj != null)
-							m_pCallback.callback(msg.what, msg.obj);
-					}
-					break;
-				}
-			} catch (Error e) {
-				e.printStackTrace();
-				Debug.logFile("在ram_show出错:" + e.getMessage(), false);
-			}
-		}
-
-	};
 
 	private HashMap<String, AppInfo> m_szApkCache;
 
@@ -206,7 +99,12 @@ public class EnableOfRubbishClear extends Enable {
 
 	@Override
 	public void finish() {
-
+		
+	}
+	
+	public void start()
+	{
+		doAsyWork();
 	}
 
 	private void init() {
@@ -216,13 +114,152 @@ public class EnableOfRubbishClear extends Enable {
 			m_szRamRecord = new HashMap<String, Long>();
 			m_szDetailCache = new HashMap<String, ArrayList<FileInfo>>();
 			m_nTotalCache = 0;
-			m_pTaskWorkEngine = new PropInfoEngine(m_pContext,
-					m_pRubbishHandler);
-			m_pFileEngine = new FileInfoEngine(m_pContext, m_pRubbishHandler);
-			m_pRubbishTask.execute(0);
+			m_pTaskWorkEngine = new PropInfoEngine(m_pContext, m_pAsyHandler);
+			m_pFileEngine = new FileInfoEngine(m_pContext, m_pAsyHandler);
 		} catch (Error e) {
 			e.printStackTrace();
 			Debug.logFile("这里还能出错?", false);
+		}
+	}
+	
+	public long getRubbishCache()
+	{
+		return m_nTotalCache ;
+	}
+	
+	@Override
+	protected void doSynchrWork(Message msg) {
+		super.doSynchrWork(msg);
+		int nTag = msg.what;
+		try {
+			switch (nTag) {
+			case NONE_SDCARD:
+				break;
+			case START_SCAN_GETALLAPPINFO:
+			case START_SCAN_GETRUNNINGTASK:
+			case START_SCAN_GETRUNNINGRUBBISH:
+			case START_SCAN_RUNNINGSERVICE:
+			case START_SCAN_RUBBISHSERVICE:
+			case START_SCAN_CHECKRUBBISH:
+				m_pCallback.callback(nTag);
+				break;
+			case FIND_CACHE_SYSTEMPCK:
+				m_nScanCount++;
+				if (m_nScanPckCacheCount == m_nScanCount) {
+					msg = Message.obtain();
+					msg.what = READY2CHECK_RUBBISHSERVICE;
+					sendMessage(msg);
+				}
+				break;
+			case FIND_START_SCANCACHE:
+				m_nScanPckCacheCount = msg.arg1;
+				m_bCacheReady = false;
+				m_bPropScanReady = false;
+				m_nScanCount = 0;
+				break;
+			case FIND_CACHE_USERPCK:
+				m_nScanCount++;
+				if (m_nScanPckCacheCount == m_nScanCount) {
+					msg = Message.obtain();
+					msg.what = READY2CHECK_RUBBISHSERVICE;
+					sendMessage(msg);
+				}
+				break;
+			case FINISH_SCAN_RUBBISH:
+				if (!m_bPropScanReady) {
+					m_bPropScanReady = true;
+				}
+				if (m_bCacheReady && m_bPropScanReady)
+					checkService();
+				break;
+			case READY2CHECK_RUBBISHSERVICE:
+				if (!m_bCacheReady && m_nScanPckCacheCount == m_nScanCount) {
+					m_bCacheReady = true;
+				}
+				if (m_bCacheReady && m_bPropScanReady)
+					checkService();
+				break;
+			case FIND_CACHE_NO:
+				m_nScanCount++;
+				if (m_nScanPckCacheCount == m_nScanCount) {
+					msg = Message.obtain();
+					msg.what = READY2CHECK_RUBBISHSERVICE;
+					sendMessage(msg);
+				}
+				break;
+			case FINSH_SD_RUBBISH:
+				if (m_pCallback != null)
+					m_pCallback.callback(msg.what, null);
+				break;
+			case PREPARE_FINISH:
+				if (m_pCallback != null)
+					m_pCallback.callback(msg.what, null);
+				break;
+			case FINSH_INNER_PROP:
+				if (m_pCallback != null)
+					m_pCallback.callback(msg.what, null);
+				break;
+			case RAM_SHOW:
+				if (msg.obj == null)
+					break;
+				Long pValue = null;
+				if (msg.arg1 == RAM_TYPE_APK_CACHE) {
+					pValue = new Long(msg.obj.toString().split(":")[0]);
+					if (m_szApkCache.get(msg.obj.toString().split(":")[1]) == null) {
+						AppInfo pAppInfo = new AppInfo();
+						pAppInfo.setPackageName(msg.obj.toString().split(":")[1]);
+						pAppInfo.setM_nRam(pValue);
+						m_szApkCache.put(msg.obj.toString().split(":")[1],
+								pAppInfo);
+					}
+				} else {
+					pValue = new Long(msg.obj.toString());
+				}
+				if(m_nTotalCache == 0 && pValue.longValue() !=0 )
+				{
+					m_pCallback.callback(START_HAS_CACHE);
+				}
+				m_nTotalCache += pValue.longValue();
+				if (m_pCallback != null && pValue != null)
+					m_pCallback.callback(msg.what, m_nTotalCache);
+				if (pValue.longValue() != 0) {
+					Long pInt;
+					String sKey = Define.RAM_STR + (msg.arg1 + "");
+					if ((pInt = m_szRamRecord.get(sKey)) == null) {
+						m_szRamRecord.put((sKey), pValue);
+					} else {
+						m_szRamRecord.put(sKey,
+								pInt.longValue() + pValue.longValue());
+					}
+				}
+				break;
+			case TXT_SHOW:
+				if (msg.obj != null) {
+					if (m_pCallback != null && msg.obj != null)
+						m_pCallback.callback(msg.what, msg.obj);
+				}
+				break;
+			}
+		} catch (Error e) {
+			e.printStackTrace();
+			Debug.logFile("在ram_show出错:" + e.getMessage(), false);
+		}
+	}
+
+	@Override
+	protected void doAsyWorkInTask(Object... szObj) {
+		super.doAsyWorkInTask(szObj);
+		try {
+			checkSD();
+			checkProps();
+		} catch (Error e) {
+			e.printStackTrace();
+			StringBuffer sb = new StringBuffer();
+			for (int b = 0; b < e.getStackTrace().length; b++) {
+				sb.append(e.getStackTrace()[b].toString());
+			}
+			Debug.logFile("出错:" + sb.toString() + ":" + e.getClass().getName(),
+					false);
 		}
 	}
 
@@ -230,32 +267,6 @@ public class EnableOfRubbishClear extends Enable {
 	public void onViewClick(int nId) {
 
 	}
-
-	AsyncTask m_pRubbishTask = new AsyncTask() {
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			Debug.e(TAG, "开始准备扫描sd卡");
-		}
-
-		@Override
-		protected Object doInBackground(Object... params) {
-			try {
-				checkSD();
-				checkProps();
-			} catch (Error e) {
-				e.printStackTrace();
-				StringBuffer sb = new StringBuffer();
-				for (int b = 0; b < e.getStackTrace().length; b++) {
-					sb.append(e.getStackTrace()[b].toString());
-				}
-				Debug.logFile("出错:" + sb.toString() + ":"
-						+ e.getClass().getName(), false);
-			}
-
-			return null;
-		}
-	};
 
 	ArrayList<FileInfo> m_szBlackDir;
 	HashMap<String, ArrayList<FileInfo>> m_szDetailCache;
@@ -265,7 +276,7 @@ public class EnableOfRubbishClear extends Enable {
 		int nTag = m_pFileEngine.retSDCardStatus();
 		pMsg = Message.obtain();
 		pMsg.what = PREPARE_FINISH;
-		m_pRubbishHandler.sendMessage(pMsg);
+		sendMessage(pMsg);
 		if (nTag == 1 && Debug.DEBUG_STR != null) {
 			StringBuffer sb = new StringBuffer();
 			m_pFileEngine.readFile(Environment.getExternalStorageDirectory(),
@@ -273,31 +284,38 @@ public class EnableOfRubbishClear extends Enable {
 			Debug.i(TAG, "垃圾文件大小:" + m_szDetailCache.size());
 			pMsg = Message.obtain();
 			pMsg.what = FINSH_SD_RUBBISH;
-			m_pRubbishHandler.sendMessage(pMsg);
-		}else
-		{
+			sendMessage(pMsg);
+		} else {
 			pMsg = Message.obtain();
 			pMsg.what = NONE_SDCARD;
-			m_pRubbishHandler.sendMessage(pMsg);
+			sendMessage(pMsg);
 		}
 	}
-
 	private void checkService() {
+		Message pMsg = Message.obtain();
+		pMsg.what = START_SCAN_RUNNINGSERVICE;
+		sendMessage(pMsg);
 		List<ActivityManager.RunningServiceInfo> szServices = m_pTaskWorkEngine
 				.getRunningService();
+		pMsg = Message.obtain();
+		pMsg.what = START_SCAN_RUBBISHSERVICE;
+		sendMessage(pMsg);
 		ArrayList<ActivityManager.RunningServiceInfo> szRubbishService = m_pTaskWorkEngine
 				.getRubbishServices(m_szAppInfos, szServices);
+		pMsg = Message.obtain();
+		pMsg.what = START_SCAN_CHECKRUBBISH;
+		sendMessage(pMsg);
 		ArrayList<AppInfo> szRubbishTask = m_pTaskWorkEngine.checkRubbish(
 				m_szRubbishProp, szRubbishService);
 		Debug.DEBUG_STR = "开始记录";
 		Debug.DEBUG_STR = "文件记录完毕";
 		finishScan();
 	}
-	
-	private HashMap<String,ArrayList<FileInfo>> m_szRubbishFlies ;
-	
-	private HashMap<String,ArrayList<FileInfo>> m_szApkFiles ;
- 
+
+	private HashMap<String, ArrayList<FileInfo>> m_szRubbishFlies;
+
+	private HashMap<String, ArrayList<FileInfo>> m_szApkFiles;
+
 	private void finishScan() {
 		m_szRubbishFlies = new HashMap<String, ArrayList<FileInfo>>();
 		String[] szArray = m_pContext.getResources().getStringArray(
@@ -308,7 +326,8 @@ public class EnableOfRubbishClear extends Enable {
 				m_szRubbishFlies.put(szArray[i],
 						m_szDetailCache.get(szArray[i]));
 			}
-		};
+		}
+		;
 		m_szApkFiles = new HashMap<String, ArrayList<FileInfo>>();
 		if (m_szDetailCache.get(szArray[4]) != null
 				&& m_szDetailCache.get(szArray[4]).size() != 0) {
@@ -317,7 +336,7 @@ public class EnableOfRubbishClear extends Enable {
 		Message pMsg = null;
 		pMsg = Message.obtain();
 		pMsg.what = FINSH_INNER_PROP;
-		m_pRubbishHandler.sendMessage(pMsg);
+		sendMessage(pMsg);
 	}
 
 	HashMap<String, AppInfo> m_szAppInfos;
@@ -326,14 +345,23 @@ public class EnableOfRubbishClear extends Enable {
 	private void checkProps() {
 		Debug.DEBUG_STR = "准备分析进程";
 		// 开始扫描系统进程 ,区分了系统进程和用户进程，前者不管，后者干
+		Message pMsg = Message.obtain();
+		pMsg.what = START_SCAN_GETALLAPPINFO;
+		sendMessage(pMsg);
 		m_szAppInfos = m_pTaskWorkEngine.getAllAppInfo();
+		pMsg = Message.obtain();
+		pMsg.what = START_SCAN_GETRUNNINGTASK;
+		sendMessage(pMsg);
 		List<RunningAppProcessInfo> szTotal = m_pTaskWorkEngine
 				.getRunningTask();
+		pMsg = Message.obtain();
+		pMsg.what = START_SCAN_GETRUNNINGRUBBISH;
+		sendMessage(pMsg);
 		m_szRubbishProp = m_pTaskWorkEngine.getRunningRubbishInfo(m_szAppInfos,
 				szTotal);
 		Message msg = Message.obtain();
 		msg.what = FINISH_SCAN_RUBBISH;
-		m_pRubbishHandler.sendMessage(msg);
+		sendMessage(msg);
 	}
 
 	public Map<String, Long> getRubbishSizeData() {
@@ -370,7 +398,7 @@ public class EnableOfRubbishClear extends Enable {
 			nTarget = UiUtils.getLongValue(pLong0);
 			break;
 		case 4:
-			return m_szBlackDir.size() +"个";
+			return m_szBlackDir.size() + "个";
 		}
 		return UiUtils.getCacheSize(nTarget);
 	}

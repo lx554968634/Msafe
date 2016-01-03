@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@null"
-    android:paddingBottom="@dimen/padding_list_helf"
-    android:paddingTop="@dimen/padding_list_helf" >
+    android:background="@null" >
 
     <!-- 扫描图片 -->
 
@@ -15,6 +13,10 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/padding_list1"
         android:contentDescription="@string/app_name"
+        android:paddingBottom="@dimen/padding_list_helf"
+        android:paddingTop="@dimen/padding_list_helf"
+        android:layout_marginTop="@dimen/padding_list_helf"
+        android:layout_marginBottom="@dimen/padding_list_helf"
         android:src="@drawable/rubbish_clear_t0" />
     <!-- 扫描说明 -->
 
@@ -25,9 +27,11 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/padding_list"
         android:layout_toRightOf="@id/scan_rubbish_title_img"
+        android:paddingBottom="@dimen/padding_list_helf"
+        android:paddingTop="@dimen/padding_list_helf"
         android:text="@string/grid_item_check0"
         android:textColor="@color/black"
-        android:textSize="@dimen/main_scan_content_size" />
+        android:textSize="@dimen/txt_title_rubbish" />
 
     <!-- 扫描数据 -->
 
@@ -38,7 +42,18 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:layout_marginRight="@dimen/padding_list1"
+        android:layout_marginRight="@dimen/padding_list2"
+        android:paddingBottom="@dimen/padding_list_helf"
+        android:paddingTop="@dimen/padding_list_helf"
         android:text=".." />
+
+    <View
+        android:id="@+id/grid_item_divi"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="@dimen/padding_list"
+        android:layout_marginRight="@dimen/padding_list"
+        android:layout_height="@dimen/divider_height"
+		android:layout_below="@id/scan_rubbish_title_img"        
+        android:background="@color/gray_mainactivity_btn_press" />
 
 </RelativeLayout>

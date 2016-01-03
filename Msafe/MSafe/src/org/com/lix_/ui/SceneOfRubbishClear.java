@@ -1,7 +1,5 @@
 package org.com.lix_.ui;
 
-import java.util.Map;
-
 import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.plugin.AListView;
@@ -9,13 +7,16 @@ import org.com.lix_.plugin.AutodrawCircleView;
 import org.com.lix_.util.Debug;
 import org.com.lix_.util.UiUtils;
 
+import android.os.Build.VERSION;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SceneOfRubbishClear extends BaseActivity {
@@ -42,6 +43,8 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 	private EnableCallback pCallback;
 
+	private View m_pTotalView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +56,16 @@ public class SceneOfRubbishClear extends BaseActivity {
 	@Override
 	public void init() {
 		moveQuick();
+		if (VERSION.SDK_INT >= 19) {
+			// 这样会使系统标题栏与应用黏在一起，需要重新定义位置
+			// 透明状态栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// 透明导航栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
+		m_pTotalView = findViewById(R.id.total_runbishclear);
 		m_szTitles = getResources().getStringArray(
 				R.array.titles_rubbishclear_array);
 		m_pTipTextView = (TextView) findViewById(R.id.rubbish_text_1);
@@ -69,6 +82,14 @@ public class SceneOfRubbishClear extends BaseActivity {
 		m_pEnable = new EnableOfRubbishClear(this);
 		pCallback = new CallbackImpl();
 		m_pEnable.setCallback(pCallback);
+		new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				super.handleMessage(msg);
+				m_pEnable.start();
+			}
+		}.sendEmptyMessage(1);
 	}
 
 	@Override
@@ -101,9 +122,20 @@ public class SceneOfRubbishClear extends BaseActivity {
 						m_pTipTextView.setText(UiUtils.getCurrentTxt(sTxt));
 					}
 					break;
+				case EnableOfRubbishClear.START_HAS_CACHE:
+					if (m_pEnable.getRubbishCache() != 0) {
+						m_pTotalView.setBackgroundDrawable(getResources()
+								.getDrawable(R.drawable.rubbish_linecolor0));
+						reFreshUI();
+					}
+					break;
 				case EnableOfRubbishClear.RAM_SHOW:
 					pNum = new Integer(obj[1].toString()); // 内存增加
 					addCacheViewValue(pNum);
+					break;
+				case EnableOfRubbishClear.NONE_SDCARD:
+					if (m_pTargetCircle != null)
+						m_pTargetCircle.m_nTargetNum = 12;
 					break;
 				case EnableOfRubbishClear.FINSH_SD_RUBBISH:
 					if (m_pTargetCircle != null)
@@ -113,13 +145,113 @@ public class SceneOfRubbishClear extends BaseActivity {
 				case EnableOfRubbishClear.FINSH_INNER_PROP:
 					if (m_pTargetCircle != null)
 						m_pTargetCircle.m_nTargetNum = 28;
+					if (m_pEnable.getRubbishCache() != 0) {
+						m_pTotalView.setBackgroundDrawable(getResources()
+								.getDrawable(R.drawable.rubbish_linecolor2));
+						reFreshUI();
+					}
 					Debug.i(TAG, "callback : FINSH_INNER_PROP ");
 					finishScan();
 					break;
 				case EnableOfRubbishClear.PREPARE_FINISH:
 					if (m_pTargetCircle != null)
-						m_pTargetCircle.m_nTargetNum = 0;
+						m_pTargetCircle.m_nTargetNum = 4;
+					m_pTotalView.setBackgroundDrawable(getResources()
+							.getDrawable(R.drawable.rubbish_linecolor0));
+					reFreshUI();
 					Debug.i(TAG, "callback : PREPARE_FINISH ");
+					break;
+				case EnableOfRubbishClear.START_SCAN_GETALLAPPINFO:
+					if (m_pTipTextView != null) {
+						m_pTipTextView.setText("获取所有app信息!");
+					}
+					if (m_pEnable.getRubbishCache() > 10) {
+						if (m_pEnable.getRubbishCache() != 0) {
+							m_pTotalView
+									.setBackgroundDrawable(getResources()
+											.getDrawable(
+													R.drawable.rubbish_linecolor1));
+						}
+					}
+					if (m_pTargetCircle != null)
+						m_pTargetCircle.m_nTargetNum = pNum + 3;
+					break;
+				case EnableOfRubbishClear.START_SCAN_GETRUNNINGTASK:
+					if (m_pTipTextView != null) {
+						m_pTipTextView.setText("获取所有运行进程!");
+					}
+					if (m_pEnable.getRubbishCache() > 10) {
+						if (m_pEnable.getRubbishCache() != 0) {
+							m_pTotalView
+									.setBackgroundDrawable(getResources()
+											.getDrawable(
+													R.drawable.rubbish_linecolor1));
+							reFreshUI();
+						}
+					}
+					if (m_pTargetCircle != null)
+						m_pTargetCircle.m_nTargetNum = pNum + 3;
+					break;
+				case EnableOfRubbishClear.START_SCAN_GETRUNNINGRUBBISH:
+					if (m_pTipTextView != null) {
+						m_pTipTextView.setText("获取所有运行垃圾进程!");
+					}
+					if (m_pEnable.getRubbishCache() > 10) {
+						if (m_pEnable.getRubbishCache() != 0) {
+							m_pTotalView
+									.setBackgroundDrawable(getResources()
+											.getDrawable(
+													R.drawable.rubbish_linecolor1));
+							reFreshUI();
+						}
+					}
+					if (m_pTargetCircle != null)
+						m_pTargetCircle.m_nTargetNum = pNum + 3;
+					break;
+				case EnableOfRubbishClear.START_SCAN_RUNNINGSERVICE:
+					if (m_pTipTextView != null) {
+						m_pTipTextView.setText("获取所有运行服务!");
+					}
+					if (m_pEnable.getRubbishCache() > 10) {
+						if (m_pEnable.getRubbishCache() != 0) {
+							m_pTotalView
+									.setBackgroundDrawable(getResources()
+											.getDrawable(
+													R.drawable.rubbish_linecolor1));
+							reFreshUI();
+						}
+					}
+					if (m_pTargetCircle != null)
+						m_pTargetCircle.m_nTargetNum = pNum + 3;
+					break;
+				case EnableOfRubbishClear.START_SCAN_RUBBISHSERVICE:
+					if (m_pTipTextView != null) {
+						m_pTipTextView.setText("获取所有垃圾服务!");
+					}
+					if (m_pEnable.getRubbishCache() > 10) {
+						if (m_pEnable.getRubbishCache() != 0) {
+							m_pTotalView
+									.setBackgroundDrawable(getResources()
+											.getDrawable(
+													R.drawable.rubbish_linecolor1));
+							reFreshUI();
+						}
+					}
+					if (m_pTargetCircle != null)
+						m_pTargetCircle.m_nTargetNum = pNum + 3;
+					break;
+				case EnableOfRubbishClear.START_SCAN_CHECKRUBBISH:
+					if (m_pEnable.getRubbishCache() > 10) {
+						if (m_pEnable.getRubbishCache() != 0) {
+							m_pTotalView
+									.setBackgroundDrawable(getResources()
+											.getDrawable(
+													R.drawable.rubbish_linecolor1));
+							reFreshUI();
+						}
+					}
+					if (m_pTargetCircle != null)
+						m_pTargetCircle.m_nTargetNum = pNum + 3;
 					break;
 				default:
 					break;
@@ -155,6 +287,10 @@ public class SceneOfRubbishClear extends BaseActivity {
 		m_pGridView.setOnItemClickListener(m_pEnable.getOnGridItemListener());
 	}
 
+	public void reFreshUI() {
+
+	}
+
 	class Adapter extends BaseAdapter {
 
 		public Adapter() {
@@ -166,6 +302,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 		@Override
 		public int getCount() {
+//			return 2;
 			return COUNT_GRID_ITEMS;
 		}
 
@@ -211,10 +348,12 @@ public class SceneOfRubbishClear extends BaseActivity {
 				nDrawableId = R.drawable.ic_launcher;
 				break;
 			}
-			UiUtils.setImg(pView.findViewById(R.id.scan_rubbish_title_img),
-					getResources().getDrawable(nDrawableId));
-			UiUtils.setText(pView.findViewById(R.id.scan_rubbish_des),
-					m_szTitles[nPos]);
+			if (pView.findViewById(R.id.scan_rubbish_title_img) != null)
+				UiUtils.setImg(pView.findViewById(R.id.scan_rubbish_title_img),
+						getResources().getDrawable(nDrawableId));
+			if (pView.findViewById(R.id.scan_rubbish_des) != null)
+				UiUtils.setText(pView.findViewById(R.id.scan_rubbish_des),
+						m_szTitles[nPos]);
 		}
 
 	}

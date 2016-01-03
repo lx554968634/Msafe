@@ -15,5 +15,6 @@
     <color name="tab_textcolor_selected">#81fa87</color>
     <color name="white_apha">#99fafafa</color>
     <color name="red">#FF0000</color>
+    <color name="rubbish_clear_bg_start">#99C5E8D0</color>
 
 </resources>

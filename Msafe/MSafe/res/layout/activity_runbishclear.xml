@@ -4,13 +4,14 @@
     android:id="@+id/total_runbishclear"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/rubbish_linecolor3"
+    android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/rubbishclear_bg"
+        android:layout_weight="8"
         android:orientation="vertical" >
 
         <TextView
@@ -24,10 +25,10 @@
             android:textSize="@dimen/textsize_mainactiviy_top" />
 
         <ImageView
-            android:paddingRight="@dimen/padding_list3"
-            android:layout_alignParentRight="true"
             android:layout_width="@dimen/padding_list2_tagimg"
             android:layout_height="@dimen/padding_list2_tagimg"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/padding_list3"
             android:src="@drawable/setting" />
 
         <RelativeLayout
@@ -74,44 +75,41 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="7"
         android:background="@color/white"
         android:orientation="vertical"
         android:visibility="visible" >
 
         <org.com.lix_.plugin.AListView
             android:id="@+id/list_rubbishactivity"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:divider="@null"
             android:layoutAnimation="@anim/list_anim_layout"
             android:listSelector="@android:color/transparent"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
-        <LinearLayout
-            android:id="@+id/clear_btn_rubbish"
+        <RelativeLayout
+            android:id="@+id/grid_item_divi"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:background="@color/white"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:visibility="visible" >
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/divider_height"
                 android:background="@color/gray_mainactivity_btn_press" />
 
-            <TextView
+            <org.com.lix_.plugin.ButtonPlugin
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_horizontal_margin"
-                android:text="@string/clear" />
-        </LinearLayout>
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingLeft="@dimen/padding_list4"
+                android:paddingRight="@dimen/padding_list4"
+                android:paddingTop="@dimen/padding_list"
+                android:textColor="@color/red" />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

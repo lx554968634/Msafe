@@ -13,9 +13,10 @@
      <dimen name="stroke_circle">10dp</dimen>
      <dimen name="clear_btn_size">20dp</dimen>
      <dimen name="padding_list2">20dp</dimen>
+     <dimen name="padding_list4">30dp</dimen>
      <dimen name="padding_list">10dp</dimen>
      <dimen name="padding_list1">15dp</dimen>
-     <dimen name="padding_list1_tagimg">30dp</dimen>
+     <dimen name="padding_list1_tagimg">43dp</dimen>
      <dimen name="padding_list2_tagimg">40dp</dimen>
      <dimen name="padding_list_helf">5dp</dimen>
      <dimen name="padding_list3">7dp</dimen>
@@ -33,4 +34,5 @@
       <dimen name="main_scan_padding1">65dp</dimen>
        <dimen name="main_scan_padding2">58dp</dimen>
       <dimen name="divider_height_half">0.5dp</dimen>
+      <dimen name="txt_title_rubbish">16dp</dimen>
 </resources>

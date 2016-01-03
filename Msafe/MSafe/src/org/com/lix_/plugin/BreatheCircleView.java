@@ -156,8 +156,8 @@ public class BreatheCircleView extends View {
 	private void drawRadiaGradient(Canvas pCanvas) {
 		m_pWaterPaint.setShader(mRadialGradient);
 
-		pCanvas.drawCircle(m_nCircleX, m_nCircleY, m_pRadioLen / 100 * 50
-				+ (m_pRadioLen * 10000 / 100 * 15) / 30 * m_nWaterFrameIndex
+		pCanvas.drawCircle(m_nCircleX, m_nCircleY, m_pRadioLen / 100 * 53
+				+ (m_pRadioLen * 10000 / 100 * 15) / 40 * m_nWaterFrameIndex
 				/ 10000, m_pWaterPaint);
 	}
 
@@ -171,7 +171,7 @@ public class BreatheCircleView extends View {
 			if (m_nWaterFrameIndex == 0)
 				m_nExt = 1;
 		}
-		if (m_nWaterFrameIndex > 30) {
+		if (m_nWaterFrameIndex > 40) {
 			m_nExt = -2;
 		} else if (m_nWaterFrameIndex < 0) {
 			m_nExt = 1;
