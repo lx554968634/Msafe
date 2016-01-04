@@ -48,6 +48,8 @@ public class SceneOfShowRubbish extends BaseActivity {
 	private ArrayList<FileInfo> m_szArrayList0;
 
 	private EnableOfShowRubbish m_pEnable;
+	
+	private TextView m_pTotalShowView ;
 
 	String[] m_szTitls = new String[] { "内存加速", "系统及应用缓存", "垃圾文件", "多余安装包",
 			"应用卸载残余" };
@@ -67,6 +69,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 
 	@Override
 	public void init() {
+		m_pTotalShowView = (TextView) findViewById(R.id.total_rubbish_clickitems) ;
 		m_pEnable = new EnableOfShowRubbish(this);
 		m_pInflater = LayoutInflater.from(this);
 		Intent pIntent = getIntent();
@@ -229,6 +232,9 @@ public class SceneOfShowRubbish extends BaseActivity {
 			convertView = m_pInflater.inflate(
 					R.layout.grid_item_rubbishactivity, null);
 		}
+		if (convertView != null) {
+			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
+		}
 		ImageView pImageView = (ImageView) convertView
 				.findViewById(R.id.grid_item_image);
 		pImageView.setImageDrawable(getResources().getDrawable(
@@ -249,6 +255,9 @@ public class SceneOfShowRubbish extends BaseActivity {
 		if (convertView == null) {
 			convertView = m_pInflater.inflate(
 					R.layout.grid_item_rubbishactivity, null);
+		}
+		if (convertView != null) {
+			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
 		}
 		ImageView pImageView = (ImageView) convertView
 				.findViewById(R.id.grid_item_image);
@@ -276,6 +285,9 @@ public class SceneOfShowRubbish extends BaseActivity {
 				.findViewById(R.id.item_name);
 		TextView pRamText = (TextView) convertView.findViewById(R.id.item_desc);
 		pTextName.setText(sName);
+		if (convertView != null) {
+			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
+		}
 		try {
 			Drawable pDraw = m_pPckManager.getApplicationIcon(pInfo
 					.getPackageName());
@@ -322,6 +334,9 @@ public class SceneOfShowRubbish extends BaseActivity {
 		long nRam = pInfo.getM_nRam();
 		if (nServiceCount == 0) {
 			sDes += "包含2个服务";
+		}
+		if (convertView != null) {
+			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
 		}
 		sDes += " " + UiUtils.getCacheSize(nRam);
 		pRamText.setText(sDes);
@@ -393,7 +408,10 @@ public class SceneOfShowRubbish extends BaseActivity {
 					pTxt.setText("");
 					check(v, false);
 				}else
+				{
+					pTxt.setText(getResources().getString(R.string.duihao));
 					check(v, true);
+				}
 				break;
 			}
 			return false;
