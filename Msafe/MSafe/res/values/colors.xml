@@ -12,9 +12,17 @@
     <color name="radar_outcircle_color">#D1FFD4</color>
     <color name="radar_inner_color">#C9FFCC</color>
     <color name="black">#000000</color>
-    <color name="tab_textcolor_selected">#81fa87</color>
+    <color name="tab_textcolor_selected">#3fb36a</color>
     <color name="white_apha">#99fafafa</color>
     <color name="red">#FF0000</color>
     <color name="rubbish_clear_bg_start">#99C5E8D0</color>
+
+    <!-- 垃圾清理设置 -->
+    <color name="rubbish_setting_tag_bg">#ededed</color>
+    <color name="rubbish_setting_content_txtcolor">#7b7b7b</color>
+    <!-- 垃圾清理详细列表 -->
+    <color name="checkbox_green_checked">#42b56a</color>
+     <color name="detail_rubbish_scan_item_">#ededed</color>
+    <color name="detail_rubbish_scan_txtcolor">#7b7b7b</color>
 
 </resources>

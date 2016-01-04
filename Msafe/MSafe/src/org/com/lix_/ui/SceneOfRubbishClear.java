@@ -45,6 +45,22 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 	private View m_pTotalView;
 
+	private boolean m_nViewClickLock = false;
+
+	@Override
+	public void onClick(View v) {
+		if (m_nViewClickLock)
+			return;
+		m_nViewClickLock = true;
+		m_pEnable.onViewClick(v.getId());
+	}
+
+	@Override
+	protected void onResume() {
+		m_nViewClickLock = false;
+		super.onResume();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,6 +98,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 		m_pEnable = new EnableOfRubbishClear(this);
 		pCallback = new CallbackImpl();
 		m_pEnable.setCallback(pCallback);
+		findViewById(R.id.ui_tag1).setOnClickListener(this);
 		new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -150,6 +167,8 @@ public class SceneOfRubbishClear extends BaseActivity {
 								.getDrawable(R.drawable.rubbish_linecolor2));
 						reFreshUI();
 					}
+					SceneOfRubbishClear.this.findViewById(R.id.rubbish_clear_button_divider).setVisibility(View.VISIBLE);
+					SceneOfRubbishClear.this.findViewById(R.id.rubbish_clear_button).setVisibility(View.VISIBLE);
 					Debug.i(TAG, "callback : FINSH_INNER_PROP ");
 					finishScan();
 					break;
@@ -302,7 +321,7 @@ public class SceneOfRubbishClear extends BaseActivity {
 
 		@Override
 		public int getCount() {
-//			return 2;
+			// return 2;
 			return COUNT_GRID_ITEMS;
 		}
 
@@ -322,6 +341,11 @@ public class SceneOfRubbishClear extends BaseActivity {
 				convertView = m_pInflater.inflate(R.layout.grid_item_rubbish,
 						null);
 				initItem(convertView, position);
+				if (position == COUNT_GRID_ITEMS - 1) {
+					convertView.findViewById(R.id.grid_item_divi)
+							.setVisibility(View.INVISIBLE);
+					;
+				}
 			}
 			return convertView;
 		}

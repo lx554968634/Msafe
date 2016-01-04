@@ -47,6 +47,7 @@ public class AutodrawCircleView extends View {
 		m_nCircleX = Define.WIDTH / 2;
 		m_nCircleY = Define.HEIGHT / 4;
 		m_pRadioLen = m_nCircleX > m_nCircleY ? m_nCircleY : m_nCircleX;
+		m_nCircleY = m_nCircleY * 4 /5 ;
 		m_pWaterPaint = new Paint();
 		m_pWaterPaint.setAntiAlias(true);
 		;

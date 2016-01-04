@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/grid_item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/all_item_app_icon_size"
+        android:layout_height="@dimen/all_item_app_icon_size"
         android:layout_centerVertical="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_launcher" />
@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_list"
         android:layout_toRightOf="@id/grid_item_image"
         android:orientation="vertical" >
 
@@ -28,25 +29,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/grid_item_check0"
-            android:textSize="@dimen/gird_item_up_textsize" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/rubbish_setting_title_size" />
 
         <TextView
             android:id="@+id/item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_list_helf"
             android:text="@string/grid_item_check0"
-            android:textSize="@dimen/gird_item_down_textsize" />
+            android:textColor="@color/detail_rubbish_scan_txtcolor"
+            android:textSize="@dimen/rubbish_setting_des_size" />
     </LinearLayout>
 
-   <ImageView
-       		android:src="@drawable/checked"
-            android:id="@+id/grid_rubbish_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingRight="0dp"
-            android:layout_alignParentRight="true"
-            android:button="@drawable/checked_style"
-            android:clickable="false" />
-
+    <TextView
+        android:id="@+id/grid_rubbish_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/checked"
+        android:button="@drawable/checked_style"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center"
+        android:paddingRight="0dp"
+        android:text="@string/duihao"
+        android:textColor="@color/white"
+        android:textSize="@dimen/padding_list2" />
 </RelativeLayout>

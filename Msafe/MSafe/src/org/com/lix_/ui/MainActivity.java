@@ -33,6 +33,8 @@ import android.widget.TextView;
  * 
  * 模仿魅族 安全中心
  * 
+ * 未进行UI布局优化，后期必须完成，相关资料地址:http://blog.csdn.net/rwecho/article/details/8951009
+ * 
  * @ClassName: MainActivity
  * @Description: 程序入口
  * @author lix_

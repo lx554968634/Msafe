@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">MSafe</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
@@ -60,4 +61,18 @@
     <string name="scan_one">一键检测</string>
     <string name="tanhao">!</string>
     <string name="duihao">√</string>
+
+    <!-- 垃圾清理settings属性 -->
+    <string name="setting_rubbish_str">设置</string>
+    <string name="setting_rubbish_title0">内存加速</string>
+    <string name="setting_rubbish_title1">添加快捷方式至桌面</string>
+    <string name="setting_rubbish_title2">内存加速白名单</string>
+    <string name="setting_rubbish_title6">内存扫描优化</string>
+    <string name="setting_rubbish_title7">每天一次</string>
+    <string name="setting_rubbish_title8">11:24</string>
+    <string name="setting_rubbish_title3">定时扫描</string>
+    <string name="setting_rubbish_title4">扫描间隔</string>
+    <string name="setting_rubbish_title5">扫描时间</string>
+    <string name="setting_rubbish_jiantou">></string>
+
 </resources>

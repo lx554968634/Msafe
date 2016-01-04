@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_weight="8"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
         <TextView
@@ -25,91 +25,107 @@
             android:textSize="@dimen/textsize_mainactiviy_top" />
 
         <ImageView
+            android:id="@+id/ui_tag1"
             android:layout_width="@dimen/padding_list2_tagimg"
             android:layout_height="@dimen/padding_list2_tagimg"
             android:layout_alignParentRight="true"
+            android:clickable="true"
             android:paddingRight="@dimen/padding_list3"
             android:src="@drawable/setting" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_below="@id/ui_tag1"
+            android:orientation="vertical" >
 
-            <org.com.lix_.plugin.AutodrawCircleView
-                android:id="@+id/circle_target"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:stokeSize="10dp" />
-
-            <TextView
-                android:id="@+id/rubbish_text_0"
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:text="0B"
-                android:textColor="@color/white_textcolor"
-                android:textSize="@dimen/textsize_mainactiviy_top" />
+                android:layout_height="match_parent"
+                android:layout_weight="8" >
 
-            <TextView
-                android:id="@+id/rubbish_text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:paddingBottom="@dimen/padding_list"
-                android:text="建议清理"
-                android:textColor="@color/white" />
+                <org.com.lix_.plugin.AutodrawCircleView
+                    android:id="@+id/circle_target"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:stokeSize="10dp" />
 
-            <TextView
-                android:id="@+id/rubbish_text_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/rubbish_text_1"
-                android:layout_centerHorizontal="true"
-                android:text="正在扫描"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textsize_breathecircle" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/rubbish_text_0"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:text="0B"
+                    android:textColor="@color/white_textcolor"
+                    android:textSize="@dimen/textsize_mainactiviy_top" />
+
+                <TextView
+                    android:id="@+id/rubbish_text_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="@dimen/padding_list"
+                    android:text="建议清理"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/rubbish_text_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/rubbish_text_1"
+                    android:layout_centerHorizontal="true"
+                    android:text="正在扫描"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_breathecircle" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:background="@color/white"
+                android:orientation="vertical" >
+
+                <org.com.lix_.plugin.AListView
+                    android:id="@+id/list_rubbishactivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:divider="@null"
+                    android:layoutAnimation="@anim/list_anim_layout"
+                    android:listSelector="@android:color/transparent"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/grid_item_divi"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_weight="7"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:visibility="visible" >
+        android:layout_weight="11"
+        android:background="@color/white" >
 
-        <org.com.lix_.plugin.AListView
-            android:id="@+id/list_rubbishactivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:divider="@null"
-            android:layoutAnimation="@anim/list_anim_layout"
-            android:listSelector="@android:color/transparent"
+        <View
+            android:id="@+id/rubbish_clear_button_divider"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/gray_mainactivity_btn_press"
             android:visibility="invisible" />
 
-        <RelativeLayout
-            android:id="@+id/grid_item_divi"
+        <org.com.lix_.plugin.ButtonPlugin
+            android:clickable="true"
+            android:id="@+id/rubbish_clear_button"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" >
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/divider_height"
-                android:background="@color/gray_mainactivity_btn_press" />
-
-            <org.com.lix_.plugin.ButtonPlugin
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_list"
-                android:paddingLeft="@dimen/padding_list4"
-                android:paddingRight="@dimen/padding_list4"
-                android:paddingTop="@dimen/padding_list"
-                android:textColor="@color/red" />
-        </RelativeLayout>
-    </LinearLayout>
+            android:layout_height="fill_parent"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingLeft="@dimen/padding_list4"
+            android:paddingRight="@dimen/padding_list4"
+            android:paddingTop="@dimen/padding_list"
+            android:textColor="@color/red"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
 </LinearLayout>

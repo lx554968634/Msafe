@@ -75,6 +75,8 @@ public class ButtonPlugin extends TextView {
 			// 只需要取一次时间
 			if(isPushButton == 1)
 				return true;
+			if(isPushButton != 0)
+				return true;
 			if (downTime == 0) {
 				downTime = SystemClock.elapsedRealtime();
 			}
@@ -87,6 +89,8 @@ public class ButtonPlugin extends TextView {
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_CANCEL:
 			if(isPushButton == 2)
+				return true ;
+			if(isPushButton != 1)
 				return true ;
 			isPushButton = 2;
 			postInvalidateDelayed(INVALIDATE_DURATION);

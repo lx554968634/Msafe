@@ -11,6 +11,7 @@ import org.com.lix_.enable.engine.FileInfo;
 import org.com.lix_.enable.engine.FileInfoEngine;
 import org.com.lix_.enable.engine.PropInfoEngine;
 import org.com.lix_.ui.R;
+import org.com.lix_.ui.SceneOfSettingRubbishClear;
 import org.com.lix_.ui.SceneOfShowRubbish;
 import org.com.lix_.util.Debug;
 import org.com.lix_.util.UiUtils;
@@ -262,10 +263,17 @@ public class EnableOfRubbishClear extends Enable {
 					false);
 		}
 	}
-
+	
 	@Override
 	public void onViewClick(int nId) {
-
+		switch(nId)
+		{
+		case R.id.ui_tag1:
+			Intent pIntent = new Intent() ;
+			pIntent.setClass(m_pContext, SceneOfSettingRubbishClear.class) ;
+			m_pContext.startActivity(pIntent);
+			break ;
+		}
 	}
 
 	ArrayList<FileInfo> m_szBlackDir;

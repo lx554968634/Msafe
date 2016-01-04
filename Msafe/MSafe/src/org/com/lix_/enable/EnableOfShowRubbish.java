@@ -21,7 +21,7 @@ public class EnableOfShowRubbish extends Enable {
 	public void onViewClick(int nId) {
 		switch(nId)
 		{
-		case R.id.clear_itemlayout:
+		case R.id.rubbish_clear_button:
 			clearRubbish() ;
 			break ;
 		}

@@ -1,5 +1,7 @@
 package org.com.lix_.plugin;
 
+import org.com.lix_.util.Debug;
+
 import android.content.Context;
 import android.support.v4.widget.AutoScrollHelper;
 import android.support.v4.widget.ListViewAutoScrollHelper;
