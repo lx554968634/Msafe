@@ -28,7 +28,7 @@
     </RelativeLayout>
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/apkadmin_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/line_height"
@@ -57,7 +57,7 @@
             android:layout_toLeftOf="@id/tip_0" />
 
         <TextView
-            android:id="@+id/fileadmin_filesizetotalnum"
+            android:id="@+id/apkadmin_filesizetotalnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_list"
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/fileadmin_filesizetotalnum"
+            android:layout_toRightOf="@id/apkadmin_filesizetotalnum"
             android:paddingBottom="@dimen/padding_list"
             android:paddingTop="@dimen/padding_list"
             android:text="@string/des_filenum"
@@ -85,7 +85,7 @@
             android:id="@+id/view_line"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/line_height"
-            android:layout_below="@id/fileadmin_filesizetotalnum"
+            android:layout_below="@id/apkadmin_filesizetotalnum"
             android:background="@color/gray_mainactivity_btn_press"
             android:visibility="visible" />
     </RelativeLayout>
@@ -95,7 +95,7 @@
         android:layout_height="match_parent" >
 
         <LinearLayout
-            android:id="@+id/fileadmin_btn_clear"
+            android:id="@+id/apkadmin_btn_clear"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -118,12 +118,12 @@
         </LinearLayout>
 
         <org.com.lix_.plugin.AListView
-            android:id="@+id/fileadmin_detail_list"
+            android:id="@+id/apkadmin_detail_list"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/padding_list"
             android:layout_marginRight="@dimen/padding_list"
-            android:layout_above="@id/fileadmin_btn_clear"
+            android:layout_above="@id/apkadmin_btn_clear"
             android:visibility="visible" />
     </RelativeLayout>
 

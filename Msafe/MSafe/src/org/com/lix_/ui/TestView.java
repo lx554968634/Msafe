@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -17,7 +18,16 @@ public class TestView extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.grid_item_rubbishactivity);
+		getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+				WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+		setContentView(R.layout.testview);
+		
+		
+	}
+	
+	public void testOnTouchEvent()
+	{
 		findViewById(R.id.grid_rubbish_checkbox)
 		.setOnTouchListener(new OnTouchListener() {
 			
@@ -27,7 +37,6 @@ public class TestView extends Activity{
 				return false;
 			}
 		});
-		
 	}
 	
 	public void testSwitch()

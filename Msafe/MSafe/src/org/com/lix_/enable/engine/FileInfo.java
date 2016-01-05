@@ -14,8 +14,23 @@ public class FileInfo implements Serializable {
 	public String m_sType = "未知类型文件";
 	public FileInfo() {
 	}
+	public FileInfo(String absolutePath,String sType) {
+		m_sAbFilePath = absolutePath ;
+		m_sType = sType ;
+	}
 	public FileInfo(String absolutePath) {
 		m_sAbFilePath = absolutePath ;
+	}
+	
+	public long getSizeLong()
+	{
+		if (m_nFileSize == -1) {
+			File pFile = new File(m_sAbFilePath);
+			if (pFile.exists()) {
+				m_nFileSize = UiUtils.getFileSize(pFile);
+			}
+		}
+		return m_nFileSize;
 	}
 
 	public String getSize() {

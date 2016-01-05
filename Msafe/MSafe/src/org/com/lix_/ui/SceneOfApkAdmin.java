@@ -42,7 +42,7 @@ public class SceneOfApkAdmin extends BaseActivity {
 
 	@Override
 	public void init() {
-		m_pProssBar = (ProgressBar) findViewById(R.id.progress);
+		m_pProssBar = (ProgressBar) findViewById(R.id.apkadmin_progress);
 		m_pEnable = new EnableOfApkAdmin(this);
 		m_pCallback = new ApkCallback();
 		m_pEnable.init(m_pCallback);
@@ -88,9 +88,9 @@ public class SceneOfApkAdmin extends BaseActivity {
 				break;
 			case EnableOfApkAdmin.SCAN_OVER:
 				m_pProssBar.setProgress(m_nTotalProgress);
-				((TextView) findViewById(R.id.fileadmin_filesizetotalnum))
+				((TextView) findViewById(R.id.apkadmin_filesizetotalnum))
 						.setVisibility(View.VISIBLE);
-				((TextView) findViewById(R.id.fileadmin_filesizetotalnum))
+				((TextView) findViewById(R.id.apkadmin_filesizetotalnum))
 						.setText("扫描结束，共" + m_pEnable.getDataCount() + "个应用");
 				Debug.i(TAG, "扫描结束");
 				scanListOver();
@@ -159,7 +159,7 @@ public class SceneOfApkAdmin extends BaseActivity {
 	protected void scanListOver() {
 		findViewById(R.id.tip_0).setVisibility(View.INVISIBLE);
 		findViewById(R.id.tip_pro).setVisibility(View.INVISIBLE);
-		m_pListView = (AListView) findViewById(R.id.fileadmin_detail_list);
+		m_pListView = (AListView) findViewById(R.id.apkadmin_detail_list);
 		m_pListView.setAutoScroll();
 		m_pListView.setAdapter(new Adapter());
 	}

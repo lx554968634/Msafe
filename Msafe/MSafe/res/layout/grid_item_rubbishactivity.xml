@@ -49,12 +49,11 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/checked"
-        android:button="@drawable/checked_style"
         android:clickable="false"
         android:focusable="false"
         android:gravity="center"
         android:paddingRight="0dp"
         android:text="@string/duihao"
         android:textColor="@color/white"
-        android:textSize="@dimen/padding_list2" />
-</RelativeLayout>
+        android:textSize="@dimen/txt_title_rubbish" />
+</RelativeLayout>

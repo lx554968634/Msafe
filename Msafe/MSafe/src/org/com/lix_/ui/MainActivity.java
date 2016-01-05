@@ -169,7 +169,6 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 			}
 		}
 	};
-
 	private LayoutAnimationController m_pLayAnControl;
 
 	private void initCheckList() {
@@ -363,7 +362,6 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 	// 1f, Animation.RELATIVE_TO_SELF, 0f);
 	// m_pTransShowAnims.setDuration(TIME_HID_ANIMDURATION);
 	// }
-
 	@Override
 	public void onAnimationEnd(Animation animation) {
 		switch (m_pBtns.getVisibility()) {

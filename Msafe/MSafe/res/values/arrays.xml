@@ -24,7 +24,7 @@
     <!-- 这个是系统自带文件夹以及相应功能 -->
     <string-array name="file_type_simple">
         <item>Alarms@@@铃声文件</item>
-      	<item>DCIM@@@视频文件</item>
+      	<item>DCIM@@@乐媒体文件</item>
       	<item>Download@@@下载文件</item>
       	<item>LOST.DIR@@@系统恢复文件</item>
       	<item>Movies@@@电影文件</item>
@@ -37,9 +37,17 @@
     
     <!-- 这个是整理的相应文件夹以及功能 -->
      <string-array name="file_type_tri">
-        <item>tencent/MicroMsg/@@@微信</item>
+         <!-- 腾讯相关 -->
+        <item>tencent/MicroMsg@@@微信缓存文件</item>
       	<item>tencent/QQfile_recv@@@QQ接受到的文件</item>
-      	<item>autonavi/data@@@高德地图</item>
-      	<item>iReader@@@掌阅</item>
+      	<!-- 高德地图 -->
+      	<item>autonavi/data/poiv5@@@高德离线地图</item>
+      	<item>autonavi/data/route@@@高德缓存文件</item>
+      	<!-- ireader相关 -->
+      	<item>iReader/backup@@@掌阅无用文件</item>
+      	<item>iReader/books@@@掌阅下载图书</item>
+      	<item>iReader/cartoon@@@掌阅下载漫画</item>
+      	<item>iReader/logs@@@掌阅log信息</item>
+      	<item>iReader/tmp@@@掌阅临时文件</item>
     </string-array>
 </resources> 

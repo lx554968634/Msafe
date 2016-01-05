@@ -22,7 +22,11 @@
     <color name="rubbish_setting_content_txtcolor">#7b7b7b</color>
     <!-- 垃圾清理详细列表 -->
     <color name="checkbox_green_checked">#42b56a</color>
-     <color name="detail_rubbish_scan_item_">#ededed</color>
+    <color name="detail_rubbish_scan_item_">#ededed</color>
     <color name="detail_rubbish_scan_txtcolor">#7b7b7b</color>
-
+    <!-- 大文件管理 -->
+    <color name="item_cache_bg">#efbf00</color>
+    <!-- listview item的selector -->
+	<color name="item_fouce">#f5f5f5</color>
+	<color name="item_touch">#ebebeb</color>
 </resources>

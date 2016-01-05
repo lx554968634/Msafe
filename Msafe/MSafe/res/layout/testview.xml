@@ -6,13 +6,38 @@
     android:background="@null"
     android:orientation="vertical" >
 
-    <org.com.lix_.plugin.ButtonPlugin
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/padding_list4"
-        android:paddingTop="@dimen/padding_list"
-        android:paddingRight="@dimen/padding_list4"
-        android:paddingBottom="@dimen/padding_list"
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Small.Inverse"
         android:layout_width="wrap_content"
-        android:textColor="@color/red" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/padding_list1"
+        android:indeterminateDuration="10"
+        android:indeterminateOnly="true" />
+
+    <ProgressBar
+        android:id="@+id/filadmin_tip_pro"
+        style="@style/progressbar_style2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/padding_list1"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateDuration="1"
+        android:indeterminateOnly="true" />
+
+    <ProgressBar
+        style="@style/progressbar_style2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/padding_list1"
+        android:indeterminateDuration="200" />
+
+    <ProgressBar
+        style="@style/progressbar_style2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/padding_list1"
+        android:indeterminateDuration="300" />
 
 </LinearLayout>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class SceneOfFileAdmin extends BaseActivity {
@@ -25,6 +26,8 @@ public class SceneOfFileAdmin extends BaseActivity {
 	private EnableOfFileAdmin m_pEnable;
 
 	private Callback m_pCallback;
+
+	private ProgressBar m_pScanProgress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +41,15 @@ public class SceneOfFileAdmin extends BaseActivity {
 
 	@Override
 	public void init() {
-
+		m_pScanProgress = (ProgressBar) findViewById(R.id.fileadmin_progress);
 		m_pEnable = new EnableOfFileAdmin(this);
 		m_pCallback = new Callback();
+		findViewById(R.id.line_view).setVisibility(View.VISIBLE);
+		findViewById(R.id.fileadmin_list).setVisibility(View.VISIBLE);
+		m_pListView = (AListView) findViewById(R.id.fileadmin_list);
+		m_pListView.setAutoScroll();
+		m_pAdapter = new Adapter() ;
+		m_pListView.setAdapter(m_pAdapter);
 		m_pEnable.init(m_pCallback);
 	}
 
@@ -49,7 +58,6 @@ public class SceneOfFileAdmin extends BaseActivity {
 		@Override
 		public void callback(Object... obj) {
 			Integer pInteger = null;
-			HashMap<String, ArrayList<FileInfo>> szTmpData = null;
 			try {
 				pInteger = Integer.parseInt(obj[0].toString());
 			} catch (RuntimeException ee) {
@@ -62,31 +70,55 @@ public class SceneOfFileAdmin extends BaseActivity {
 				return;
 			}
 			switch (pInteger.intValue()) {
-			case EnableOfFileAdmin.GET_LIST:
-				break;
 			case EnableOfFileAdmin.FINISH_SIMFILE_SCAN:
-				if (obj[1] != null) {
-					szTmpData = (HashMap<String, ArrayList<FileInfo>>) obj[1];
-					m_pEnable.addData(m_szDatas, szTmpData);
-				}
-				initList();
+				m_pAdapter.notifyDataSetChanged(); 
+				break;
+			case EnableOfFileAdmin.REFRESH_PROGRESS:
+				setProgressBar(Integer.parseInt(obj[1].toString()));
+				break;
+			case EnableOfFileAdmin.NONE_SD:
+				finishScan(EnableOfFileAdmin.NONE_SD);
+				break;
+			case EnableOfFileAdmin.FINISH_SCAN:
+				finishScan(EnableOfFileAdmin.FINISH_SCAN);
 				break;
 			}
 		}
 	}
 
-	private ArrayList<FileInfo> m_szDatas = new ArrayList<FileInfo>();
-
-	private void initList() {
-		findViewById(R.id.line_view).setVisibility(View.VISIBLE);
-		findViewById(R.id.fileadmin_detail_list).setVisibility(View.VISIBLE);
-		m_pListView = (AListView) findViewById(R.id.fileadmin_detail_list);
-		m_pListView.setAutoScroll();
-		m_pListView.setAdapter(new Adapter());
-		Debug.i(TAG, "m_szDatas == null :" + m_szDatas.size());
-		findViewById(R.id.fileadmin_btn_clear).setVisibility(View.VISIBLE);
+	private void setProgressBar(int nValue) {
+		Debug.i(TAG, nValue + "更新进度:" + (m_pScanProgress == null));
+		if (m_pScanProgress != null) {
+			m_pScanProgress.setProgress(nValue);
+		}
 	}
 
+	private void finishScan(int nStatus) {
+		findViewById(R.id.filadmin_tip_pro).setVisibility(View.INVISIBLE);
+		switch (nStatus) {
+		case EnableOfFileAdmin.NONE_SD:
+			UiUtils.setText(findViewById(R.id.fileadmin_tip_0), getResources()
+					.getString(R.string.fileadmin_none_sdcard));
+			break;
+		case EnableOfFileAdmin.FINISH_SCAN:
+			findViewById(R.id.total_rubbish_clickitems).setVisibility(View.VISIBLE);
+			UiUtils.setText(findViewById(R.id.fileadmin_tip_0),
+					m_pEnable.m_nTotalSize + "个大文件");
+			findViewById(R.id.fileadmin_list_type).setVisibility(View.VISIBLE);
+			findViewById(R.id.filadmin_tip_des).setVisibility(View.VISIBLE);
+			UiUtils.setText(findViewById(R.id.filadmin_tip_des),
+					"共" + UiUtils.getCacheSize(m_pEnable.m_nTotalCache));
+			m_pAdapter.notifyDataSetChanged(); 
+			break;
+		}
+	}
+	
+	private Adapter m_pAdapter ;
+
+	private void initList() {
+		findViewById(R.id.fileadmin_btn_clear).setVisibility(View.VISIBLE);
+	}
+//ebebeb    f5f5f5  fafafa
 	class Adapter extends BaseAdapter {
 
 		private LayoutInflater m_pInflater;
@@ -97,7 +129,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 
 		@Override
 		public int getCount() {
-			return m_szDatas.size();
+			return m_pEnable.m_nTotalSize;
 		}
 
 		@Override
@@ -116,10 +148,12 @@ public class SceneOfFileAdmin extends BaseActivity {
 				convertView = m_pInflater
 						.inflate(R.layout.item_fileadmin, null);
 			}
-			FileInfo pFile = m_szDatas.get(position);
-			((TextView) convertView.findViewById(R.id.item_name))
+			FileInfo pFile = m_pEnable.getData().get(position);
+			((TextView) convertView.findViewById(R.id.fileadminitem_name))
 					.setText(pFile.m_sFileName);
-			((TextView) convertView.findViewById(R.id.item_desc))
+			((TextView) convertView.findViewById(R.id.fileadminitem_cache))
+					.setText(pFile.getSize());
+			((TextView) convertView.findViewById(R.id.fileadminitem_desc))
 					.setText(pFile.m_sType);
 			return convertView;
 		}

@@ -18,4 +18,5 @@ public class Define {
 	 * action∂®“Â
 	 */
 	public static final String ACTION_ROOT_START_TABCHILD = "org.com.lix_.ui.tabchildrootstart" ;
+	public static final int SCAN_BIGFILE_LIMIT_HALF = 7;
 }

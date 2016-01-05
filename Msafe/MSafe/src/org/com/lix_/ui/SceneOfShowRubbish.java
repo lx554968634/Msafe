@@ -2,9 +2,9 @@ package org.com.lix_.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.com.lix_.Define;
-import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.enable.EnableOfShowRubbish;
 import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.enable.engine.FileInfo;
@@ -17,17 +17,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.Telephony.Sms.Conversations;
-import android.text.method.Touch;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,11 +44,18 @@ public class SceneOfShowRubbish extends BaseActivity {
 	private ArrayList<FileInfo> m_szArrayList0;
 
 	private EnableOfShowRubbish m_pEnable;
-	
-	private TextView m_pTotalShowView ;
+
+	private TextView m_pTotalShowView;
+
+	public Map<String, ViewHolder> m_szListCache = new HashMap<String, ViewHolder>();
 
 	String[] m_szTitls = new String[] { "内存加速", "系统及应用缓存", "垃圾文件", "多余安装包",
 			"应用卸载残余" };
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -69,7 +72,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 
 	@Override
 	public void init() {
-		m_pTotalShowView = (TextView) findViewById(R.id.total_rubbish_clickitems) ;
+		m_pTotalShowView = (TextView) findViewById(R.id.total_rubbish_clickitems);
 		m_pEnable = new EnableOfShowRubbish(this);
 		m_pInflater = LayoutInflater.from(this);
 		Intent pIntent = getIntent();
@@ -208,22 +211,22 @@ public class SceneOfShowRubbish extends BaseActivity {
 		@Override
 		public View getView(final int position, View convertView,
 				ViewGroup parent) {
+			ViewHolder pHolder = m_szListCache.get(TAG + position);
 			switch (m_nIndex) {
 			case 0:
-				return getRubbishPropView(position, convertView, parent);
+				return getRubbishPropView(position, convertView, parent,
+						pHolder);
 			case 1:
-				return getApkCacheView(position, convertView, parent);
+				return getApkCacheView(position, convertView, parent, pHolder);
 			case 2:
-				return getRubbishFileView(position, convertView, parent);
+				return getRubbishPropView(position, convertView, parent,
+						pHolder);
 			case 3:
-				return getApkFileView(position, convertView, parent);
+				return getApkCacheView(position, convertView, parent, pHolder);
 			case 4:
-				return getBlankFileView(position, convertView, parent);
+				return getBlankFileView(position, convertView, parent, pHolder);
 			}
 			return null;
-		}
-
-		class ViewHolder {
 		}
 	}
 
@@ -233,7 +236,8 @@ public class SceneOfShowRubbish extends BaseActivity {
 					R.layout.grid_item_rubbishactivity, null);
 		}
 		if (convertView != null) {
-			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
+			convertView.findViewById(R.id.grid_rubbish_checkbox)
+					.setOnTouchListener(new TouchListener(position));
 		}
 		ImageView pImageView = (ImageView) convertView
 				.findViewById(R.id.grid_item_image);
@@ -257,7 +261,8 @@ public class SceneOfShowRubbish extends BaseActivity {
 					R.layout.grid_item_rubbishactivity, null);
 		}
 		if (convertView != null) {
-			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
+			convertView.findViewById(R.id.grid_rubbish_checkbox)
+					.setOnTouchListener(new TouchListener(position));
 		}
 		ImageView pImageView = (ImageView) convertView
 				.findViewById(R.id.grid_item_image);
@@ -272,97 +277,171 @@ public class SceneOfShowRubbish extends BaseActivity {
 		return convertView;
 	}
 
-	public View getApkCacheView(int position, View convertView, ViewGroup parent) {
+	public View getApkCacheView(int position, View convertView,
+			ViewGroup parent, ViewHolder pHolder) {
 		if (convertView == null) {
 			convertView = m_pInflater.inflate(
 					R.layout.grid_item_rubbishactivity, null);
 		}
-		AppInfo pInfo = (AppInfo) m_szTargetHashMap0.values().toArray()[position];
-		String sName = pInfo.getAppName();
 		ImageView pImageView = (ImageView) convertView
 				.findViewById(R.id.grid_item_image);
 		TextView pTextName = (TextView) convertView
 				.findViewById(R.id.item_name);
 		TextView pRamText = (TextView) convertView.findViewById(R.id.item_desc);
-		pTextName.setText(sName);
+		TouchListener pListener = null ;
+		String sPckName = null ;
+		String sDes = "apk缓存信息大小";
+		long nRam = 0;
+		String sName = "";
+		if(pHolder == null)
+		{
+			AppInfo pInfo = (AppInfo) m_szTargetHashMap0.values().toArray()[position];
+			sPckName = pInfo.getPackageName() ;
+			nRam = pInfo.getmCache();
+			sName = pInfo.getAppName();
+			sDes += " " + UiUtils.getCacheSize(nRam);
+			pListener = new TouchListener(position) ;
+			pHolder = new ViewHolder();
+			pHolder.m_sItemContent = sDes;
+			pHolder.m_sItemName = sName;
+			pListener = new TouchListener(position);
+			pHolder.m_pListener = pListener;
+			pHolder.m_nTitleImagePckName = sPckName;
+		}else
+		{
+			check(convertView.findViewById(R.id.grid_rubbish_checkbox),
+					pHolder.m_bChecked);
+		}
+		
+		pTextName.setText(pHolder.m_sItemName);
 		if (convertView != null) {
-			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
+			convertView.findViewById(R.id.grid_rubbish_checkbox)
+					.setOnTouchListener(pHolder.m_pListener);
 		}
 		try {
-			Drawable pDraw = m_pPckManager.getApplicationIcon(pInfo
-					.getPackageName());
+			Drawable pDraw = m_pPckManager.getApplicationIcon(pHolder.m_nTitleImagePckName);
 			pImageView.setImageDrawable(pDraw);
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 			pImageView.setImageDrawable(getResources().getDrawable(
 					R.drawable.rubbish_clear_t1));
 		}
-		String sDes = "apk缓存信息大小";
-		long nRam = pInfo.getmCache();
-		sDes += " " + UiUtils.getCacheSize(nRam);
-		pRamText.setText(sDes);
+		pRamText.setText(pHolder.m_sItemContent);
 		return convertView;
 
 	}
 
 	private View getRubbishPropView(int position, View convertView,
-			ViewGroup parent) {
-		Debug.i(TAG, "getRubbishPropView ---" + position);
+			ViewGroup parent, ViewHolder pHolder) {
 		if (convertView == null) {
 			convertView = m_pInflater.inflate(
 					R.layout.grid_item_rubbishactivity, null);
 		}
-		AppInfo pInfo = (AppInfo) m_szTargetHashMap0.values().toArray()[position];
-		String sName = pInfo.getAppName();
 		ImageView pImageView = (ImageView) convertView
 				.findViewById(R.id.grid_item_image);
 		TextView pTextName = (TextView) convertView
 				.findViewById(R.id.item_name);
 		TextView pRamText = (TextView) convertView.findViewById(R.id.item_desc);
-		pTextName.setText(sName);
+		String sName = null;
+		String sPckName = null;
+		String sDes = "一个进程";
+		long nRam = 0;
+		TouchListener pListener = null;
+		if (pHolder == null) {
+			AppInfo pInfo = (AppInfo) m_szTargetHashMap0.values().toArray()[position];
+			sPckName = pInfo.getPackageName();
+			sName = pInfo.getAppName();
+			int nServiceCount = pInfo.getmServiceCount();
+			nRam = pInfo.getM_nRam();
+			if (nServiceCount != 0) {
+				sDes += "包含" + nServiceCount + "个服务";
+			}
+			sDes += " " + UiUtils.getCacheSize(nRam);
+			pHolder = new ViewHolder();
+			pHolder.m_sItemContent = sDes;
+			pHolder.m_sItemName = sName;
+			pListener = new TouchListener(position);
+			pHolder.m_pListener = pListener;
+			pHolder.m_nTitleImagePckName = sPckName;
+		} else {
+			check(convertView.findViewById(R.id.grid_rubbish_checkbox),
+					pHolder.m_bChecked);
+		}
+		pTextName.setText(pHolder.m_sItemName);
 		try {
-			Drawable pDraw = m_pPckManager.getApplicationIcon(pInfo
-					.getPackageName());
+			Drawable pDraw = m_pPckManager.getApplicationIcon(pHolder.m_nTitleImagePckName);
 			pImageView.setImageDrawable(pDraw);
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 			pImageView.setImageDrawable(getResources().getDrawable(
 					R.drawable.rubbish_clear_t0));
 		}
-		String sDes = "一个进程";
-		int nServiceCount = pInfo.getmServiceCount();
-		long nRam = pInfo.getM_nRam();
-		if (nServiceCount == 0) {
-			sDes += "包含2个服务";
-		}
-		if (convertView != null) {
-			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
-		}
-		sDes += " " + UiUtils.getCacheSize(nRam);
-		pRamText.setText(sDes);
+
+		convertView.findViewById(R.id.grid_rubbish_checkbox)
+				.setOnTouchListener(pHolder.m_pListener);
+		pRamText.setText(pHolder.m_sItemContent);
 		return convertView;
 	}
 
 	public View getBlankFileView(int position, View convertView,
-			ViewGroup parent) {
+			ViewGroup parent, ViewHolder pHolder) {
 		if (convertView == null) {
 			convertView = m_pInflater.inflate(
 					R.layout.grid_item_rubbishactivity, null);
 		}
-		FileInfo sInfo = m_szArrayList0.get(position);
 		ImageView pImageView = (ImageView) convertView
 				.findViewById(R.id.grid_item_image);
 		TextView pTextName = (TextView) convertView
 				.findViewById(R.id.item_name);
-		pTextName.setText(sInfo.m_sFileName);
 		TextView pRamText = (TextView) convertView.findViewById(R.id.item_desc);
-		pRamText.setText("空白文件夹");
+		TouchListener pListener = null ;
+		String sName = "" ;
+		String sContent = "" ;
+		if(pHolder == null)
+		{
+			pHolder = new ViewHolder() ;
+			FileInfo sInfo = m_szArrayList0.get(position);
+			pListener = new TouchListener(position) ;
+			pHolder.m_pListener = pListener ;
+			sName = "空白文件夹" ;
+			sContent = sInfo.m_sFileName ;
+			pHolder.m_sItemName = sName ;
+			pHolder.m_sItemContent = sContent ;
+			m_szListCache.put(TAG+position, pHolder) ;
+		}else
+		{
+			check(convertView.findViewById(R.id.grid_rubbish_checkbox),
+					pHolder.m_bChecked);
+		}
+		pTextName.setText(pHolder.m_sItemName );
+		pRamText.setText(pHolder.m_sItemContent);
 		pImageView.setImageDrawable(getResources().getDrawable(
 				R.drawable.rubbish_clear_t4));
 		if (convertView != null) {
-			convertView.findViewById(R.id.grid_rubbish_checkbox).setOnTouchListener(new TouchListener(position));
+			convertView.findViewById(R.id.grid_rubbish_checkbox)
+					.setOnTouchListener(pListener);
 		}
 		return convertView;
+	}
+
+	class ViewHolder {
+		public TouchListener m_pListener;
+		public String m_nTitleImagePckName;
+		public String m_sItemName;
+		public String m_sItemContent;
+		public boolean m_bChecked = true;
+	}
+
+	private void check(View v, boolean bCheck) {
+		int nId = 0;
+		if (bCheck) {
+			((TextView) v).setText(getResources().getString(R.string.duihao));
+			nId = R.drawable.checked;
+		} else {
+			nId = R.drawable.uncheck;
+			((TextView) v).setText("");
+		}
+		v.setBackgroundDrawable(getResources().getDrawable(nId));
 	}
 
 	class TouchListener implements OnTouchListener {
@@ -373,17 +452,6 @@ public class SceneOfShowRubbish extends BaseActivity {
 			m_nPos = nPosi;
 		}
 
-		private void check(View v, boolean bCheck) {
-			int nId = 0;
-			if (bCheck)
-				nId = R.drawable.checked;
-			else
-			{
-				nId = R.drawable.uncheck;
-			}
-			v.setBackgroundDrawable(getResources().getDrawable(nId));
-		}
-
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			TextView pTxt = ((TextView) v);
@@ -391,8 +459,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 			if (pTxt.getText() == null
 					|| !pTxt.getText().toString()
 							.equals(getResources().getString(R.string.duihao))) {
-			} else 
-			{
+			} else {
 				pTxt.setText(getResources().getString(R.string.duihao));
 				bChecked = true;
 			}
@@ -403,13 +470,9 @@ public class SceneOfShowRubbish extends BaseActivity {
 				if (m_pGridView.m_bCheckValue == 0) {
 					m_pGridView.m_bCheckValue = bChecked ? 1 : -1;
 				}
-				if (m_pGridView.m_bCheckValue == 1)
-				{
-					pTxt.setText("");
+				if (m_pGridView.m_bCheckValue == 1) {
 					check(v, false);
-				}else
-				{
-					pTxt.setText(getResources().getString(R.string.duihao));
+				} else {
 					check(v, true);
 				}
 				break;

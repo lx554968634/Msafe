@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.com.lix_.Define;
 import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.enable.EnableOfRubbishClear;
 import org.com.lix_.ui.R;
@@ -69,6 +70,8 @@ public class FileInfoEngine {
 		return -1;
 	}
 
+	public static final int TXT_SHOW = 11;
+
 	/**
 	 * 
 	 * @param pFile
@@ -92,7 +95,7 @@ public class FileInfoEngine {
 		} else {
 			sTmpName = pFile.getName();
 			pMsg = Message.obtain();
-			pMsg.what = EnableOfRubbishClear.TXT_SHOW;
+			pMsg.what = TXT_SHOW;
 			pMsg.obj = sTmpName;
 			m_pHandler.sendMessage(pMsg);
 			sb.append("[检查文件:" + sTmpName + "]");
@@ -131,7 +134,7 @@ public class FileInfoEngine {
 					sb.append("[" + sTmpName + "]:" + nSize + ">");
 					pMsg = Message.obtain();
 					pMsg.obj = nSize + "";
-					pMsg.what = EnableOfRubbishClear.RAM_SHOW;
+					pMsg.what = RAM_SHOW;
 					pMsg.arg1 = nType;
 					m_pHandler.sendMessage(pMsg);
 					szTmp.add(pFileInfo);
@@ -140,58 +143,93 @@ public class FileInfoEngine {
 		}
 	}
 
+	public static final int RAM_SHOW = 8;
+
 	private String STR_SPLITE_0 = "@@@";
 
+	public static final int SCAN_SIM_FILE = 3;
+	public static final int FINISH_SIMFILE_SCAN = 4;
+
+	public static final int START_SCAN_BIGFILE = 5;
+
+	public static final int START_SCAN_TRI_FILE = 7;
+	public static final int SCAN_TRI_FILE = 8;
+	public static final int FINISH_TRI_SCAN = 9;
+
 	/*
-	 * 获取系统基本文件夹冗余文件
+	 * 获取系统基本文件夹冗余文件 ------------------------- -------------------------
 	 */
 	public void getSimpleBigFile() {
-		HashMap<String, ArrayList<FileInfo>> szSimpelFils = null;
 		String[] sArr = m_pContext.getResources().getStringArray(
 				R.array.file_type_simple);
+		getSpecialFile(sArr, START_SCAN_BIGFILE, SCAN_SIM_FILE,
+				FINISH_SIMFILE_SCAN);
+	}
+
+	public void getTriBigFile() {
+		String[] sArr = m_pContext.getResources().getStringArray(
+				R.array.file_type_tri);
+		getSpecialFile(sArr, START_SCAN_TRI_FILE, SCAN_TRI_FILE,
+				FINISH_TRI_SCAN);
+	}
+	
+	private void addList(ArrayList szList,ArrayList targetList,int nCount)
+	{
+		for(int i = 0 ; i < szList.size() ; i ++)
+		{
+			if(i > nCount)
+				break ;
+			targetList.add(szList.get(i)) ;
+		}
+	}
+
+	private void getSpecialFile(String[] sArr, int nStartTag, int nScanItemTag,
+			int nEndTag) {
+		ArrayList<FileInfo> szSimpelFils = new ArrayList<FileInfo>();
 		int nCount = sArr.length;
+		Message pMsg = Message.obtain();
+		pMsg.what = nStartTag;
+		pMsg.arg1 = nCount;
+		m_pHandler.sendMessage(pMsg);
 		int nIndex = 0;
-		Message pMsg = null;
 		String sTmpFile = null;
 		FileInfo pFileInfo = null;
 		String[] szTmp = null;
 		ArrayList<FileInfo> szArr = new ArrayList<FileInfo>();
 		for (nIndex = 0; nIndex < nCount; nIndex++) {
-			pMsg = Message.obtain();
-			pMsg.what = EnableOfFileAdmin.SCAN_SIM_FILE;
 			szTmp = sArr[nIndex].split(STR_SPLITE_0);
 			sTmpFile = szTmp[0];
-			pMsg.obj = sTmpFile + ":"
-					+ Environment.getExternalStorageDirectory();
 			pFileInfo = new FileInfo();
 			pFileInfo.m_sAbFilePath = Environment.getExternalStorageDirectory()
 					+ "/" + sTmpFile;
 			pFileInfo.m_sType = szTmp[1];
 			if (pFileInfo.exists()) {
 				szArr.add(pFileInfo);
+			} else {
+				Debug.i(TAG, pFileInfo.m_sAbFilePath + ":不存在");
 			}
 		}
 		nCount = szArr.size();
 		ArrayList<FileInfo> szArr2 = null;
-		szSimpelFils = new HashMap<String, ArrayList<FileInfo>>();
 		for (nIndex = 0; nIndex < nCount; nIndex++) {
+			pMsg = Message.obtain();
+			pMsg.what = nScanItemTag;
+			pMsg.arg1 = nIndex;
+			m_pHandler.sendMessage(pMsg);
 			pFileInfo = szArr.get(nIndex);
-			Debug.i(TAG, "扫描pFileInfo:" + pFileInfo.m_sType);
 			szArr2 = listFiles(pFileInfo);
-			if (szArr2 != null && szArr2.size() != 0)
-				szSimpelFils.put(pFileInfo.m_sType, szArr2);
+			if (szArr2 != null && szArr2.size() != 0) {
+//				szSimpelFils.addAll(szArr2);
+				addList(szArr2, szSimpelFils, Define.SCAN_BIGFILE_LIMIT_HALF);
+			}
 		}
-		//不管成功没有都直接回调
+		// 不管成功没有都直接回调
 		pMsg = Message.obtain();
-		pMsg.what = EnableOfFileAdmin.FINISH_SIMFILE_SCAN;
-		if(szSimpelFils == null)
-			Debug.i(TAG, "szSimpelFils == null");
-		else
-			Debug.i(TAG, "szSimpelFils "+szSimpelFils.size());
-		pMsg.obj = szSimpelFils ;
-		m_pHandler.sendMessage(pMsg) ;
+		pMsg.what = nEndTag;
+		pMsg.obj = szSimpelFils;
+		Debug.i(TAG, "添加item:" + szSimpelFils.size());
+		m_pHandler.sendMessage(pMsg);
 	}
-
 
 	/*
 	 * 找到所有不是文件夹的实体文件
@@ -199,13 +237,15 @@ public class FileInfoEngine {
 	private ArrayList<FileInfo> listFiles(FileInfo pFile) {
 		ArrayList<FileInfo> szTmp = new ArrayList<FileInfo>();
 		if (pFile.exists()) {
-			getExistFiles(pFile, szTmp);
+			Debug.i(TAG, "pFile.type:"+pFile.m_sType);
+			getExistFiles(pFile, szTmp, pFile.m_sType);
 		} else
-			return null;
+			return szTmp;
 		return szTmp;
 	}
 
-	private void getExistFiles(FileInfo pFile, ArrayList<FileInfo> szArr) {
+	private void getExistFiles(FileInfo pFile, ArrayList<FileInfo> szArr,
+			String sType) {
 		File[] szFiles = pFile.getFile().listFiles();
 		if (szFiles == null || szFiles.length == 0) {
 			return;
@@ -218,14 +258,14 @@ public class FileInfoEngine {
 			pFileTmp = szFiles[nIndex];
 			if (pFileTmp != null && pFileTmp.exists()) {
 				if (pFileTmp.isDirectory()) {
-					getExistFiles(new FileInfo(pFileTmp.getAbsolutePath()),
-							szArr);
+					getExistFiles(new FileInfo(pFileTmp.getAbsolutePath(),
+							sType), szArr, sType);
 				} else {
 					pFileInfo = FileInfo.init(pFileTmp);
+					pFileInfo.m_sType = sType ;
 					szArr.add(pFileInfo);
 				}
 			}
 		}
 	}
-
 }
