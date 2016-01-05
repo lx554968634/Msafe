@@ -1,21 +1,17 @@
 package org.com.lix_.enable;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 
-import org.apache.http.entity.FileEntity;
 import org.com.lix_.enable.engine.FileInfo;
 import org.com.lix_.enable.engine.FileInfoEngine;
-import org.com.lix_.ui.R;
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.MediaUtils;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Bundle;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 public class EnableOfFileAdmin extends Enable {
 
@@ -191,6 +187,25 @@ public class EnableOfFileAdmin extends Enable {
 
 	public ArrayList<FileInfo> getData() {
 		return m_szTmp;
+	}
+
+	public void getMediaImage(View convertView, int position, Handler handler) {
+		
+	}
+
+	public void getMediaImage(final int position,final String sPath ,final Handler handler) {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Debug.i(TAG, "ªÒ»°Õº∆¨:"+sPath);
+				Bitmap pBitmp = MediaUtils.getMediaImage(sPath) ;
+				Message msg = Message.obtain() ;
+				msg.arg1 = position ;
+				msg.obj = pBitmp;
+				handler.sendMessage(msg) ;
+			}
+		}).start(); 
 	}
 
 }

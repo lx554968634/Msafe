@@ -1,21 +1,23 @@
 package org.com.lix_.ui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.enable.engine.FileInfo;
 import org.com.lix_.plugin.AListView;
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.MediaUtils;
 import org.com.lix_.util.UiUtils;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -48,7 +50,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 		findViewById(R.id.fileadmin_list).setVisibility(View.VISIBLE);
 		m_pListView = (AListView) findViewById(R.id.fileadmin_list);
 		m_pListView.setAutoScroll();
-		m_pAdapter = new Adapter() ;
+		m_pAdapter = new Adapter();
 		m_pListView.setAdapter(m_pAdapter);
 		m_pEnable.init(m_pCallback);
 	}
@@ -71,7 +73,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 			}
 			switch (pInteger.intValue()) {
 			case EnableOfFileAdmin.FINISH_SIMFILE_SCAN:
-				m_pAdapter.notifyDataSetChanged(); 
+				m_pAdapter.notifyDataSetChanged();
 				break;
 			case EnableOfFileAdmin.REFRESH_PROGRESS:
 				setProgressBar(Integer.parseInt(obj[1].toString()));
@@ -101,24 +103,26 @@ public class SceneOfFileAdmin extends BaseActivity {
 					.getString(R.string.fileadmin_none_sdcard));
 			break;
 		case EnableOfFileAdmin.FINISH_SCAN:
-			findViewById(R.id.total_rubbish_clickitems).setVisibility(View.VISIBLE);
+			findViewById(R.id.total_rubbish_clickitems).setVisibility(
+					View.VISIBLE);
 			UiUtils.setText(findViewById(R.id.fileadmin_tip_0),
 					m_pEnable.m_nTotalSize + "个大文件");
 			findViewById(R.id.fileadmin_list_type).setVisibility(View.VISIBLE);
 			findViewById(R.id.filadmin_tip_des).setVisibility(View.VISIBLE);
 			UiUtils.setText(findViewById(R.id.filadmin_tip_des),
 					"共" + UiUtils.getCacheSize(m_pEnable.m_nTotalCache));
-			m_pAdapter.notifyDataSetChanged(); 
+			m_pAdapter.notifyDataSetChanged();
 			break;
 		}
 	}
-	
-	private Adapter m_pAdapter ;
+
+	private Adapter m_pAdapter;
 
 	private void initList() {
 		findViewById(R.id.fileadmin_btn_clear).setVisibility(View.VISIBLE);
 	}
-//ebebeb    f5f5f5  fafafa
+
+	// ebebeb f5f5f5 fafafa
 	class Adapter extends BaseAdapter {
 
 		private LayoutInflater m_pInflater;
@@ -143,12 +147,38 @@ public class SceneOfFileAdmin extends BaseActivity {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			if (convertView == null) {
 				convertView = m_pInflater
 						.inflate(R.layout.item_fileadmin, null);
 			}
-			FileInfo pFile = m_pEnable.getData().get(position);
+			final View v = convertView;
+			convertView.setTag(position + "");
+			final FileInfo pFile = m_pEnable.getData().get(position);
+			if (MediaUtils.checkMediaName(pFile.m_sAbFilePath)) {
+				m_pEnable.getMediaImage(position, pFile.m_sAbFilePath,
+						new Handler() {
+							@Override
+							public void handleMessage(Message msg) {
+								Debug.i(TAG, "图片回调" + position + ":"
+										+ pFile.m_sAbFilePath + ":"
+										+ (msg.obj == null));
+								if (msg.obj == null)
+									return;
+								int nPos = msg.arg1;
+								if (Integer.parseInt(v.getTag().toString()) == nPos) {
+									Bitmap pTmp = (Bitmap) msg.obj;
+									if (pTmp != null) {
+										((ImageView) findViewById(R.id.fileadmin_item_image))
+												.setImageBitmap(pTmp);
+									}
+								}
+							}
+
+						});
+			}
+
 			((TextView) convertView.findViewById(R.id.fileadminitem_name))
 					.setText(pFile.m_sFileName);
 			((TextView) convertView.findViewById(R.id.fileadminitem_cache))

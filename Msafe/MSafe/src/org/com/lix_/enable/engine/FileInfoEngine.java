@@ -172,16 +172,6 @@ public class FileInfoEngine {
 		getSpecialFile(sArr, START_SCAN_TRI_FILE, SCAN_TRI_FILE,
 				FINISH_TRI_SCAN);
 	}
-	
-	private void addList(ArrayList szList,ArrayList targetList,int nCount)
-	{
-		for(int i = 0 ; i < szList.size() ; i ++)
-		{
-			if(i > nCount)
-				break ;
-			targetList.add(szList.get(i)) ;
-		}
-	}
 
 	private void getSpecialFile(String[] sArr, int nStartTag, int nScanItemTag,
 			int nEndTag) {
@@ -219,7 +209,7 @@ public class FileInfoEngine {
 			pFileInfo = szArr.get(nIndex);
 			szArr2 = listFiles(pFileInfo);
 			if (szArr2 != null && szArr2.size() != 0) {
-//				szSimpelFils.addAll(szArr2);
+				// szSimpelFils.addAll(szArr2);
 				addList(szArr2, szSimpelFils, Define.SCAN_BIGFILE_LIMIT_HALF);
 			}
 		}
@@ -230,6 +220,25 @@ public class FileInfoEngine {
 		Debug.i(TAG, "添加item:" + szSimpelFils.size());
 		m_pHandler.sendMessage(pMsg);
 	}
+	/**
+	 * 
+	 * @param szList
+	 * @param targetList
+	 * @param nCount
+	 *            targetList加上szList
+	 */
+	private void addList(ArrayList szList, ArrayList targetList, int nCount) {
+		int nIndex = 0;
+		for (int i = 0; i < szList.size(); i++) {
+			FileInfo pFile = (FileInfo) szList.get(i);
+			if (pFile != null && pFile.getSizeLong() > 10000000) {
+				nIndex++;
+				targetList.add(szList.get(i));
+			}
+			if (nIndex >= nCount)
+				return;
+		}
+	}
 
 	/*
 	 * 找到所有不是文件夹的实体文件
@@ -237,7 +246,7 @@ public class FileInfoEngine {
 	private ArrayList<FileInfo> listFiles(FileInfo pFile) {
 		ArrayList<FileInfo> szTmp = new ArrayList<FileInfo>();
 		if (pFile.exists()) {
-			Debug.i(TAG, "pFile.type:"+pFile.m_sType);
+			Debug.i(TAG, "pFile.type:" + pFile.m_sType);
 			getExistFiles(pFile, szTmp, pFile.m_sType);
 		} else
 			return szTmp;
@@ -262,7 +271,7 @@ public class FileInfoEngine {
 							sType), szArr, sType);
 				} else {
 					pFileInfo = FileInfo.init(pFileTmp);
-					pFileInfo.m_sType = sType ;
+					pFileInfo.m_sType = sType;
 					szArr.add(pFileInfo);
 				}
 			}

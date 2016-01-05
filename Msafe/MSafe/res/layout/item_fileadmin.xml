@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
 		android:layout_marginLeft="@dimen/padding_list"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/fileadmin_item_default" />
 
     <RelativeLayout
         android:id="@+id/filemadin_item_rubbish_des"
