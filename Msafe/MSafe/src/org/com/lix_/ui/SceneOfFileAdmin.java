@@ -332,10 +332,9 @@ public class SceneOfFileAdmin extends BaseActivity {
 				}
 				if (m_pListView.m_bCheckValue == 1) {
 					if(pViewHolder.m_bCheck == 0)
-						return true;
+					{}
 					else if(pViewHolder.m_bCheck == -1)
 					{
-						return true ;
 					}else
 					{
 						pViewHolder.m_bCheck = 0;

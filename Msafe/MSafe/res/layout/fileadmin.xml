@@ -121,6 +121,7 @@
             android:layout_width="fill_parent"
             android:dividerHeight="@dimen/divider_height_half"
             android:layout_height="match_parent"
+            android:scrollbars="none"
             android:paddingLeft="@dimen/padding_list"
             android:paddingRight="@dimen/padding_list"
             android:background="@color/white"
