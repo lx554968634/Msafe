@@ -35,6 +35,12 @@ public class Debug {
 				&& Environment.getExternalStorageState().equals(
 						Environment.MEDIA_MOUNTED))
 			try {
+				if(!new File(Environment.getExternalStorageDirectory() + "/"
+						+ DEBUG_FILENAME).exists())
+				{
+					new File(Environment.getExternalStorageDirectory() + "/"
+							+ DEBUG_FILENAME).createNewFile() ;
+				}
 				FileOutputStream fout = new FileOutputStream(Environment.getExternalStorageDirectory() + "/"
 						+ DEBUG_FILENAME,bFlag);
 
@@ -45,7 +51,6 @@ public class Debug {
 				fout.close();
 
 			} catch (Exception e) {
-				DEBUG_STR = e.getMessage() ;
 				e.printStackTrace();
 
 			}

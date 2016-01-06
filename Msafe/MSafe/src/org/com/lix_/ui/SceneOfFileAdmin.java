@@ -1,5 +1,8 @@
 package org.com.lix_.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.enable.engine.FileInfo;
@@ -8,14 +11,20 @@ import org.com.lix_.util.Debug;
 import org.com.lix_.util.MediaUtils;
 import org.com.lix_.util.UiUtils;
 
+import android.R.color;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -83,6 +92,20 @@ public class SceneOfFileAdmin extends BaseActivity {
 				break;
 			case EnableOfFileAdmin.FINISH_SCAN:
 				finishScan(EnableOfFileAdmin.FINISH_SCAN);
+				break;
+			case EnableOfFileAdmin.GET_MEDIA_IMAGE:
+				if (obj[1] == null)
+					return;
+				int nPos = Integer.parseInt(obj[2].toString());
+				if (Integer.parseInt(m_pListView.getChildAt(nPos).getTag()
+						.toString()) == nPos) {
+					Bitmap pTmp = (Bitmap) obj[1];
+					if (pTmp != null) {
+						((ImageView) m_pListView.getChildAt(nPos).findViewById(
+								R.id.fileadmin_item_image))
+								.setImageBitmap(pTmp);
+					}
+				}
 				break;
 			}
 		}
@@ -153,45 +176,187 @@ public class SceneOfFileAdmin extends BaseActivity {
 				convertView = m_pInflater
 						.inflate(R.layout.item_fileadmin, null);
 			}
-			final View v = convertView;
-			convertView.setTag(position + "");
-			final FileInfo pFile = m_pEnable.getData().get(position);
-			if (MediaUtils.checkMediaName(pFile.m_sAbFilePath)) {
-				m_pEnable.getMediaImage(position, pFile.m_sAbFilePath,
-						new Handler() {
-							@Override
-							public void handleMessage(Message msg) {
-								Debug.i(TAG, "图片回调" + position + ":"
-										+ pFile.m_sAbFilePath + ":"
-										+ (msg.obj == null));
-								if (msg.obj == null)
-									return;
-								int nPos = msg.arg1;
-								if (Integer.parseInt(v.getTag().toString()) == nPos) {
-									Bitmap pTmp = (Bitmap) msg.obj;
-									if (pTmp != null) {
-										((ImageView) findViewById(R.id.fileadmin_item_image))
-												.setImageBitmap(pTmp);
-									}
-								}
-							}
-
-						});
+			if (convertView.getTag() != null
+					&& convertView.getTag().toString().equals(position + "")) {
+				return convertView;
 			}
-
-			((TextView) convertView.findViewById(R.id.fileadminitem_name))
+			ViewHolder pViewHolder = null;
+			convertView.setTag(position + "");
+			pViewHolder = m_szItemHolder.get(TAG + position);
+			if (pViewHolder == null) {
+				pViewHolder = new ViewHolder();
+				pViewHolder.m_pFileInfo = m_pEnable.getData().get(position);
+				pViewHolder.m_pCheckView = convertView;
+				checkRadio(pViewHolder.m_pCheckView);
+				m_szItemHolder.put(TAG + convertView.getTag(), pViewHolder);
+			}
+			final View v = pViewHolder.m_pCheckView;
+			final FileInfo pFile = pViewHolder.m_pFileInfo;
+			if (MediaUtils.checkMediaName(pFile.m_sAbFilePath)) {
+				m_pEnable.getMediaImage(position, pFile.m_sAbFilePath);
+			}
+			if (v != null) {
+				v.findViewById(R.id.fileadmin_rubbish_checkbox)
+						.setOnTouchListener(new TouchListener(position));
+			}
+			((TextView) v.findViewById(R.id.fileadminitem_name))
 					.setText(pFile.m_sFileName);
-			((TextView) convertView.findViewById(R.id.fileadminitem_cache))
-					.setText(pFile.getSize());
-			((TextView) convertView.findViewById(R.id.fileadminitem_desc))
+			((TextView) v.findViewById(R.id.fileadminitem_cache)).setText(pFile
+					.getSize());
+			((TextView) v.findViewById(R.id.fileadminitem_desc))
 					.setText(pFile.m_sType);
-			return convertView;
+			return v;
+		}
+	}
+
+	private void checkAll(boolean nFlag) {
+		if (nFlag) {
+			for (ViewHolder pHolder : m_szItemHolder.values()) {
+				if (pHolder.m_bCheck == -1) {
+					pHolder.m_bCheck = 0;
+					unCheckRadio(pHolder.m_pCheckView);
+				}
+			}
+		} else {
+			boolean bTag = false;
+			for (ViewHolder pHolder : m_szItemHolder.values()) {
+				if (pHolder.m_bCheck == 1) {
+					bTag = true;
+					break;
+				}
+			}
+			if (!bTag) {
+				Debug.i(TAG, "消除checkbox痕迹");
+				for (ViewHolder pHolder : m_szItemHolder.values()) {
+					pHolder.m_bCheck = -1;
+					showAnimSmall2Normal(pHolder.m_pCheckView, false);
+				}
+			}
+		}
+	}
+
+	private void checkRadio(View v) {
+		int nId = R.drawable.checked;
+		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
+				.setTextColor(getResources().getColor(R.color.white));
+		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
+				.setText(getResources().getString(R.string.duihao));
+		v.findViewById(R.id.fileadmin_rubbish_checkbox).setBackgroundDrawable(
+				getResources().getDrawable(nId));
+	}
+
+	private void unCheckRadio(View v) {
+		int nId = R.drawable.uncheck;
+		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
+				.setTextColor(getResources().getColor(R.color.white));
+		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
+				.setText("");
+		v.findViewById(R.id.fileadmin_rubbish_checkbox).setBackgroundDrawable(
+				getResources().getDrawable(nId));
+	}
+
+	private void showAnimSmall2Normal(final View v, final boolean bTag) {
+		int nId = -1;
+		if (bTag)
+			nId = R.anim.small2normal;
+		else
+			nId = R.anim.normal2small;
+		Debug.i(TAG, "放动画:" + bTag);
+		Animation pAnim = AnimationUtils.loadAnimation(this, nId);
+		pAnim.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				Debug.i(TAG, "播放结束:"+bTag);
+				if (bTag) {
+					unCheckRadio(v);
+				} else {
+					removeCheckRadio(v);
+				}
+			}
+		});
+		v.findViewById(R.id.fileadmin_rubbish_checkbox).startAnimation(pAnim);
+	}
+
+	private void removeCheckRadio(View v) {
+		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
+				.setTextColor(getResources().getColor(
+						color.transparent));
+		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
+				.setText("");
+		v.findViewById(R.id.fileadmin_rubbish_checkbox).setBackgroundDrawable(
+				getResources().getDrawable(R.drawable.removecheck));
+	}
+
+	private void check(View v, boolean bCheck) {
+		if (bCheck) {
+			checkRadio(v);
+			checkAll(bCheck);
+		} else {
+			unCheckRadio(v);
+			checkAll(bCheck);
+		}
+	}
+
+	class TouchListener implements OnTouchListener {
+
+		private int m_nPos;
+
+		public TouchListener(int nPosi) {
+			m_nPos = nPosi;
 		}
 
-		class ViewHolder {
-
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			TextView pTxt = ((TextView) v);
+			boolean bChecked = false;
+			if (pTxt.getText() == null
+					|| !pTxt.getText().toString()
+							.equals(getResources().getString(R.string.duihao))) {
+			} else {
+				pTxt.setText(getResources().getString(R.string.duihao));
+				bChecked = true;
+			}
+			int nEventCode = event.getAction();
+			switch (nEventCode) {
+			case MotionEvent.ACTION_DOWN:
+				m_pListView.m_bCanMove = false;
+				ViewHolder pViewHolder = m_szItemHolder.get(TAG + m_nPos);
+				if (m_pListView.m_bCheckValue == 0) {
+					m_pListView.m_bCheckValue = bChecked ? 1 : -1;
+				}
+				if (m_pListView.m_bCheckValue == 1) {
+					if(pViewHolder.m_bCheck == 0)
+						return true;
+					else if(pViewHolder.m_bCheck == -1)
+					{
+						return true ;
+					}else
+					{
+						pViewHolder.m_bCheck = 0;
+						check(pViewHolder.m_pCheckView, false);
+					}
+				} else {
+					pViewHolder.m_bCheck = 1;
+					check(pViewHolder.m_pCheckView, true);
+				}
+				break;
+			}
+			return false;
 		}
+	}
 
+	private Map<String, ViewHolder> m_szItemHolder = new HashMap<String, ViewHolder>();
+
+	class ViewHolder {
+		int m_bCheck = 1; // 选中 0 至空，-1都没选
+		FileInfo m_pFileInfo;
+		View m_pCheckView;
 	}
 
 }

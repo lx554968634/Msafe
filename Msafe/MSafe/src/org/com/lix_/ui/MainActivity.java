@@ -30,7 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * 
+ * http://www.23code.com/dong-hua-xiao-guo-animate/
  * 模仿魅族 安全中心
  * 
  * 未进行UI布局优化，后期必须完成，相关资料地址:http://blog.csdn.net/rwecho/article/details/8951009

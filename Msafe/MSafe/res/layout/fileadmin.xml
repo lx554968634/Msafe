@@ -112,14 +112,17 @@
                 android:paddingTop="@dimen/padding_list"
                 android:layout_below="@id/fileadmin_tip_0"
                 android:background="@color/gray_mainactivity_btn_press"
-                android:paddingLeft="@dimen/padding_list"
-                android:paddingRight="@dimen/padding_list" />
+                android:layout_marginLeft="@dimen/padding_list"
+                android:layout_marginRight="@dimen/padding_list" />
         </RelativeLayout>
 
         <org.com.lix_.plugin.AListView
             android:id="@+id/fileadmin_list"
             android:layout_width="fill_parent"
+            android:dividerHeight="@dimen/divider_height_half"
             android:layout_height="match_parent"
+            android:paddingLeft="@dimen/padding_list"
+            android:paddingRight="@dimen/padding_list"
             android:background="@color/white"
             android:visibility="visible" />
     </LinearLayout>

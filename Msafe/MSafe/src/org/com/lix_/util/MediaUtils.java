@@ -34,7 +34,7 @@ public class MediaUtils {
 	 * @param imagePath
 	 *            图像的路径
 	 * @param width
-	 *            指定输出图像的宽度
+	 *            指定输出图像的宽b度
 	 * @param height
 	 *            指定输出图像的高度
 	 * @return 生成的缩略图
@@ -70,22 +70,27 @@ public class MediaUtils {
 		return bitmap;
 	}
 
+	private static String TAG = "MediaUtils";
+
 	public static Bitmap getVideoThumbnail(String filePath) {
+		 MediaMetadataRetriever fmmr = new MediaMetadataRetriever();  
 		Bitmap bitmap = null;
-		MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 		try {
-			retriever.setDataSource(filePath);
-			bitmap = retriever.getFrameAtTime();
-		} catch (IllegalArgumentException e) {
-			return null;
-		} catch (RuntimeException e) {
-			return null;
-		} finally {
-			try {
-				retriever.release();
-			} catch (RuntimeException e) {
-				e.printStackTrace();
+			fmmr.setDataSource(filePath);
+			bitmap = fmmr.getFrameAtTime();
+			if (bitmap != null) {
+				Bitmap b2 = fmmr.getFrameAtTime(1,
+						MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+				if (b2 != null) {
+					bitmap = b2;
+				}
+				bitmap = ThumbnailUtils.extractThumbnail(bitmap, 150, 150,
+						ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 			}
+		} catch (IllegalArgumentException ex) {
+			ex.printStackTrace();
+		} finally {
+			fmmr.release();
 		}
 		return bitmap;
 	}

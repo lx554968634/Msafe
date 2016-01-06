@@ -164,6 +164,9 @@ public class EnableOfFileAdmin extends Enable {
 			pTmp = null ;
 			System.gc(); 
 			break ;
+		case GET_MEDIA_IMAGE:
+			m_pCallback.callback(msg.what,msg.obj,msg.arg1);
+			break ;
 		}
 	}
 	
@@ -171,6 +174,8 @@ public class EnableOfFileAdmin extends Enable {
 	public static final int START_SCAN_TRI_FILE = 7 ;
 	public static final int SCAN_TRI_FILE = 8 ;
 	public static final int FINISH_TRI_SCAN = 9 ;
+
+	public static final int GET_MEDIA_IMAGE = 13;
 	/*
 	 * 获取基本文件信息 Moive DICM LOST.D...
 	 */
@@ -193,7 +198,7 @@ public class EnableOfFileAdmin extends Enable {
 		
 	}
 
-	public void getMediaImage(final int position,final String sPath ,final Handler handler) {
+	public void getMediaImage(final int position,final String sPath ) {
 		new Thread(new Runnable() {
 			
 			@Override
@@ -201,9 +206,10 @@ public class EnableOfFileAdmin extends Enable {
 				Debug.i(TAG, "获取图片:"+sPath);
 				Bitmap pBitmp = MediaUtils.getMediaImage(sPath) ;
 				Message msg = Message.obtain() ;
+				msg.what = GET_MEDIA_IMAGE ;
 				msg.arg1 = position ;
 				msg.obj = pBitmp;
-				handler.sendMessage(msg) ;
+				sendMessage(msg);
 			}
 		}).start(); 
 	}

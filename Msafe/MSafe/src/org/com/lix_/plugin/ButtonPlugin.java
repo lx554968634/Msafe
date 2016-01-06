@@ -1,5 +1,6 @@
 package org.com.lix_.plugin;
 
+import org.com.lix_.Define;
 import org.com.lix_.ui.R;
 import org.com.lix_.util.Debug;
 
@@ -63,7 +64,6 @@ public class ButtonPlugin extends TextView {
 		super.onSizeChanged(w, h, oldw, oldh);
 		this.viewWidth = w;
 		this.viewHeight = h;
-		Debug.i("testview", w + ":" + h);
 	}
 
 	private long downTime = 0;
@@ -82,6 +82,8 @@ public class ButtonPlugin extends TextView {
 			}
 			// ¼ÆËã×î´ó°ë¾¶
 			countMaxRadio();
+			if(!checkCope(event.getX()))
+				return true ;
 			isPushButton = 1;
 			shaderRadio = maxRadio;
 			postInvalidateDelayed(INVALIDATE_DURATION);
@@ -98,6 +100,16 @@ public class ButtonPlugin extends TextView {
 		}
 		Debug.i("testview", "isPushButton:" + isPushButton);
 		return true;
+	}
+
+	private boolean checkCope(float x) {
+		int nMax = Define.WIDTH / 2 +maxRadio ;
+		int nMin = Define.WIDTH / 2 - maxRadio ;
+		if(nMax  > x && nMin < x)
+		{
+			return true ;
+		}
+		return false;
 	}
 
 	/**

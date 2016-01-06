@@ -61,6 +61,7 @@
     <string name="scan_one">一键检测</string>
     <string name="tanhao">!</string>
     <string name="duihao">√</string>
+    <string name="juhao">。</string>
 
     <!-- 垃圾清理settings属性 -->
     <string name="setting_rubbish_str">设置</string>
