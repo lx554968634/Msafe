@@ -7,21 +7,24 @@ import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.enable.engine.FileInfo;
 import org.com.lix_.plugin.AListView;
+import org.com.lix_.ui.dialog.DialogOfFileAdminTypes;
+import org.com.lix_.ui.dialog.DialogOfFileItemClick;
 import org.com.lix_.util.Debug;
 import org.com.lix_.util.MediaUtils;
 import org.com.lix_.util.UiUtils;
 
 import android.R.color;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -48,7 +51,71 @@ public class SceneOfFileAdmin extends BaseActivity {
 		init();
 	}
 
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.fileadmin_tip_0:
+		case R.id.fileadmin_list_type:
+			Debug.i(TAG, "监听 了 信息弹出对话框");
+			if (findViewById(R.id.fileadmin_list_type).getVisibility() == View.VISIBLE) {
+				dialogShowOK();
+			}
+			break;
+		}
+	}
+
 	protected String TAG = "SceneOfFileAdmin";
+	DialogOfFileAdminTypes m_pPopFileTypeDialog;
+	DialogOfFileItemClick m_pFileItemClickDialog;
+
+	/*
+	 * 弹出文件类型选项
+	 */
+	private void dialogShowOK() {
+		if (m_pPopFileTypeDialog != null)
+			m_pPopFileTypeDialog.show();
+		else {
+			m_pPopFileTypeDialog = new DialogOfFileAdminTypes(this,
+					R.style.noshade_dialog, R.layout.dialog_fileadmin_filetypes);
+			Window pWin = m_pPopFileTypeDialog.getWindow();
+			LayoutParams pParam = pWin.getAttributes();
+			pParam.x = (int) m_pFileTypePopRect.m_nX;
+			pParam.width = m_pFileTypePopRect.m_nWidth / 2;
+			pParam.height = m_pFileTypePopRect.m_nHeight;
+			pParam.y = (int) (m_pFileTypePopRect.m_nY
+					- getResources().getDimension(R.dimen.padding_list) + m_pFileTypePopRect.m_nHeight);
+			m_pPopFileTypeDialog.getWindow().setAttributes(pParam);
+			m_pPopFileTypeDialog.show();
+		}
+	}
+
+	/*
+	 * 
+	 */
+	private void dialogShowFileItem() {
+		if (m_pFileItemClickDialog != null)
+			m_pFileItemClickDialog.show();
+		else {
+			m_pFileItemClickDialog = new DialogOfFileItemClick(this,
+					R.style.class_dialog, R.layout.dialog_fileadmin_filetypes);
+			m_pFileItemClickDialog.show();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		releaseDialog(m_pFileItemClickDialog);
+		releaseDialog(m_pPopFileTypeDialog);
+	}
+
+	private void releaseDialog(Dialog pDialog) {
+		if (pDialog != null) {
+			pDialog.dismiss();
+			pDialog = null;
+		}
+	}
 
 	@Override
 	public void init() {
@@ -56,6 +123,23 @@ public class SceneOfFileAdmin extends BaseActivity {
 		m_pEnable = new EnableOfFileAdmin(this);
 		m_pCallback = new Callback();
 		findViewById(R.id.line_view).setVisibility(View.VISIBLE);
+		final View pView = findViewById(R.id.fileadmin_pop_tag);
+		pView.getViewTreeObserver().addOnGlobalLayoutListener(
+				new OnGlobalLayoutListener() {
+					@Override
+					public void onGlobalLayout() {
+						Debug.i(TAG,
+								"获得view 信息：" + pView.getX() + ":"
+										+ pView.getY() + ":"
+										+ pView.getMeasuredWidth() + ":"
+										+ pView.getMeasuredHeight());
+						getPopFileTypeRect(pView.getLeft(), pView.getTop(),
+								pView.getMeasuredWidth(),
+								pView.getMeasuredHeight());
+					}
+				});
+		findViewById(R.id.fileadmin_list_type).setOnClickListener(this);
+		findViewById(R.id.fileadmin_tip_0).setOnClickListener(this);
 		findViewById(R.id.fileadmin_list).setVisibility(View.VISIBLE);
 		m_pListView = (AListView) findViewById(R.id.fileadmin_list);
 		m_pListView.setAutoScroll();
@@ -140,10 +224,6 @@ public class SceneOfFileAdmin extends BaseActivity {
 	}
 
 	private Adapter m_pAdapter;
-
-	private void initList() {
-		findViewById(R.id.fileadmin_btn_clear).setVisibility(View.VISIBLE);
-	}
 
 	// ebebeb f5f5f5 fafafa
 	class Adapter extends BaseAdapter {
@@ -267,12 +347,14 @@ public class SceneOfFileAdmin extends BaseActivity {
 			@Override
 			public void onAnimationStart(Animation animation) {
 			}
+
 			@Override
 			public void onAnimationRepeat(Animation animation) {
 			}
+
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				Debug.i(TAG, "播放结束:"+bTag);
+				Debug.i(TAG, "播放结束:" + bTag);
 				if (bTag) {
 					unCheckRadio(v);
 				} else {
@@ -285,8 +367,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 
 	private void removeCheckRadio(View v) {
 		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
-				.setTextColor(getResources().getColor(
-						color.transparent));
+				.setTextColor(getResources().getColor(color.transparent));
 		((TextView) v.findViewById(R.id.fileadmin_rubbish_checkbox))
 				.setText("");
 		v.findViewById(R.id.fileadmin_rubbish_checkbox).setBackgroundDrawable(
@@ -331,12 +412,9 @@ public class SceneOfFileAdmin extends BaseActivity {
 					m_pListView.m_bCheckValue = bChecked ? 1 : -1;
 				}
 				if (m_pListView.m_bCheckValue == 1) {
-					if(pViewHolder.m_bCheck == 0)
-					{}
-					else if(pViewHolder.m_bCheck == -1)
-					{
-					}else
-					{
+					if (pViewHolder.m_bCheck == 0) {
+					} else if (pViewHolder.m_bCheck == -1) {
+					} else {
 						pViewHolder.m_bCheck = 0;
 						check(pViewHolder.m_pCheckView, false);
 					}
@@ -356,6 +434,32 @@ public class SceneOfFileAdmin extends BaseActivity {
 		int m_bCheck = 1; // 选中 0 至空，-1都没选
 		FileInfo m_pFileInfo;
 		View m_pCheckView;
+	}
+
+	private Rect m_pFileTypePopRect;
+
+	private void getPopFileTypeRect(float nX, float nY, int nWidth, int nHeight) {
+		m_pFileTypePopRect = new Rect(nX, nY, nWidth, nHeight);
+	}
+
+	class Rect {
+		float m_nX;
+		float m_nY;
+		int m_nWidth;
+		int m_nHeight;
+
+		public Rect(float nX, float nY, int width, int height) {
+			this.m_nHeight = height;
+			this.m_nWidth = width;
+			this.m_nX = nX;
+			m_nY = nY;
+		}
+
+		@Override
+		public String toString() {
+			return m_nX + ":" + m_nY + ":" + m_nWidth + ":" + m_nHeight;
+		}
+
 	}
 
 }

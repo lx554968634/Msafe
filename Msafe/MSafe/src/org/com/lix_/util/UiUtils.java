@@ -30,7 +30,7 @@ public class UiUtils {
 		return (int) (pxValue / scale + 0.5f);
 	}
 
-	static public int dipToPx(Context context, int dip) {
+	static public int dipToPx(Context context, float dip) {
 		return (int) (dip * getScreenDensity(context) + 0.5f);
 	}
 

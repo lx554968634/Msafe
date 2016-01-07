@@ -57,6 +57,7 @@
             android:progressDrawable="@drawable/progress_line" />
 
         <RelativeLayout
+            android:id="@+id/fileadmin_pop_tag"
             android:background="@color/white"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
@@ -69,12 +70,14 @@
                 android:paddingTop="@dimen/padding_list1"
                 android:paddingBottom="@dimen/padding_list1"
                 android:layout_marginLeft="@dimen/padding_list2"
+                android:clickable="true"
                 android:text="@string/scan_txt"
                 android:textColor="@color/rubbish_setting_content_txtcolor"
                 android:textSize="@dimen/rubbish_setting_des_size" />
 
             <TextView
                 android:id="@+id/fileadmin_list_type"
+                android:clickable="true"
                 android:layout_toRightOf="@id/fileadmin_tip_0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,7 +137,6 @@
         android:layout_height="match_parent"
         android:layout_weight="11"
         android:background="@color/white" >
-
         <View
             android:id="@+id/fileadmin_clear_button_divider"
             android:layout_width="fill_parent"

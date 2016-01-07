@@ -39,7 +39,6 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
 	}
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		Debug.e(TAG, "Œª÷√:"+event.getX()+"---"+event.getY());
 		return super.onTouchEvent(event);
 	}
 	

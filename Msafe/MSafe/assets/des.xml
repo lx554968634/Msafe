@@ -1,0 +1,6 @@
+描述
+
+1、ListView的左右间距是 10dp  ，其上方的分割线是 左右间距 5dp
+
+2、添加阴影 有需求 api：16  引用:https://github.com/wangjiegulu/ShadowViewHelper/
+

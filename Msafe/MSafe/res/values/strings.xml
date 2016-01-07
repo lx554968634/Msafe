@@ -78,5 +78,12 @@
     
     <!-- 文件管理 -->
     <string name="fileadmin_none_sdcard">未插入sdcard，轻稍后再试!</string>
+    <!-- 文件管理弹出框 -->
+    <string name="fileadmin_pop_filetype0">全部</string>
+    <string name="fileadmin_pop_filetype1">压缩包</string>
+    <string name="fileadmin_pop_filetype2">视频</string>
+    <string name="fileadmin_pop_filetype3">音乐</string>
+    <string name="fileadmin_pop_filetype4">文档</string>
+    <string name="fileadmin_pop_filetype5">其他</string>
 
 </resources>

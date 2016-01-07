@@ -93,7 +93,6 @@ public class EnableOfMainActivity extends Enable {
 		if (position == 0) {
 			m_nScanCount = 0;
 		}
-		Debug.i(TAG, "check phone :" + position);
 		switch (position) {
 		case SURFCHECK:
 			surfCheck();

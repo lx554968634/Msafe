@@ -37,9 +37,9 @@
     <dimen name="txt_title_rubbish">16dp</dimen>
 
     <!-- 垃圾清理设置中相关属性 -->
-    <dimen name="rubbish_setting_tag_size">22dp</dimen>
+    <dimen name="rubbish_setting_tag_size">20dp</dimen>
     <dimen name="rubbish_setting_title_size">16dp</dimen>
-    <dimen name="rubbish_setting_des_size">14dp</dimen>
+    <dimen name="rubbish_setting_des_size">12dp</dimen>
     <dimen name="rubbish_setting_divider_height">2dp</dimen>
     <!-- 所有的列表item中app的图标 -->
     <dimen name="all_item_app_icon_size">50dp</dimen>
