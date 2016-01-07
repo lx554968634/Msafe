@@ -33,4 +33,8 @@
 	<!-- 大文件管理 弹出对话框字体颜色 -->
 	<color name="fileadmin_pop_filetype_color_enable">#42b56a</color>
 	<color name="d5_alph">#55d5d5d5</color>
+	<!-- 大文件itemonlick显示的灰色字体 -->
+	<color name="dialog_fileadmin_item_textcolorgray">#7b7b7b</color>
+	<color name="dialog_fileadmin_item_cancelcolor">#303030</color>
+	<color name="dialog_fileadmin_item_deletecolor">#41ba6b</color>
 </resources>

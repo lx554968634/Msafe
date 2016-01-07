@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -139,11 +140,14 @@ public class UiUtils {
 		Debug.i(TAG, sb.toString());
 	}
 
-	public static void setText(View m_pViewTitle, int tipChild0Tab, String string) {
-		TextView pTextView = (TextView) (m_pViewTitle.findViewById(tipChild0Tab));
+	public static void setText(View m_pViewTitle, int tipChild0Tab,
+			String string) {
+		TextView pTextView = (TextView) (m_pViewTitle
+				.findViewById(tipChild0Tab));
 		if (string != null)
 			pTextView.setText(string);
 	}
+
 	public static void setText(View m_pViewTitle, String string) {
 		TextView pTextView = (TextView) (m_pViewTitle);
 		if (string != null)
@@ -151,18 +155,27 @@ public class UiUtils {
 	}
 
 	/*
-	 * 百分比时间
-	 * 2136 分钟 
+	 * 百分比时间 2136 分钟
 	 */
-	public static CharSequence getTime(String sTotal ,String string) { 
-		int nTotalTime = Integer.parseInt(sTotal) ;
-		int nNow = nTotalTime / 100 * Integer.parseInt(string) ;
-		return nNow / 60 +"小时"+nNow%60+"分钟";
+	public static CharSequence getTime(String sTotal, String string) {
+		int nTotalTime = Integer.parseInt(sTotal);
+		int nNow = nTotalTime / 100 * Integer.parseInt(string);
+		return nNow / 60 + "小时" + nNow % 60 + "分钟";
 	}
 
 	public static void setImg(View findViewById, Drawable drawable) {
-		ImageView pImageView = (ImageView) findViewById ;
+		ImageView pImageView = (ImageView) findViewById;
 		pImageView.setImageDrawable(drawable);
+	}
+
+	public static void setText(View findViewById, Spanned fromHtml) {
+		TextView pTextView = (TextView) (findViewById);
+		if (fromHtml != null)
+			pTextView.setText(fromHtml);
+	}
+
+	public static String getHtmlString(String string, String string2) {
+		return "<font color=\"" + string2 + "\" >" + string + "</font>";
 	}
 
 }

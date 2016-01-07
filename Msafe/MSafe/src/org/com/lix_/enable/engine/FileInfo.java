@@ -65,4 +65,8 @@ public class FileInfo implements Serializable {
 		pFile.m_sFileName = pFileTmp.getName() ;
 		return pFile;
 	}
+	public String m_sModifyTime ;
+	public void initModifyTime() {
+		m_sModifyTime = "2015/10/31 17:37" ;
+	}
 }

@@ -59,7 +59,8 @@ public class SceneOfFileAdmin extends BaseActivity {
 		case R.id.fileadmin_list_type:
 			Debug.i(TAG, "监听 了 信息弹出对话框");
 			if (findViewById(R.id.fileadmin_list_type).getVisibility() == View.VISIBLE) {
-				dialogShowOK();
+				// dialogShowOK();
+				dialogShowFileItem();
 			}
 			break;
 		}
@@ -91,14 +92,20 @@ public class SceneOfFileAdmin extends BaseActivity {
 	}
 
 	/*
-	 * 
+	 * 加载图片不急弄
 	 */
 	private void dialogShowFileItem() {
 		if (m_pFileItemClickDialog != null)
 			m_pFileItemClickDialog.show();
 		else {
+			FileInfo pFileInfo = new FileInfo();
+			pFileInfo.m_sFileName = "V51031-173625.mp4" ;
+			pFileInfo.m_sType = "录像";
+			pFileInfo.m_sAbFilePath ="sdcard/DCIM/Vidio/V51031-173625.mp4" ;
+			pFileInfo.initModifyTime() ;
+			pFileInfo.m_nFileSize = 20000000 ;
 			m_pFileItemClickDialog = new DialogOfFileItemClick(this,
-					R.style.class_dialog, R.layout.dialog_fileadmin_filetypes);
+					R.style.class_dialog, R.layout.dialog_fileadmin_item,pFileInfo);
 			m_pFileItemClickDialog.show();
 		}
 	}
