@@ -104,6 +104,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/selector_highlight_button"
+            android:clickable="true"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingBottom="@dimen/padding_list2"
@@ -118,6 +120,7 @@
             android:background="@color/gray_mainactivity_btn_press" />
 
         <TextView
+            android:background="@drawable/selector_highlight_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

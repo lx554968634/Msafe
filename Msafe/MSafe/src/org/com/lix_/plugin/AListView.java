@@ -7,10 +7,16 @@ import android.support.v4.widget.AutoScrollHelper;
 import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class AListView extends ListView {
+
+	public View getChildAtC(int index) {
+		// TODO Auto-generated method stub
+		return super.getChildAt(index-getFirstVisiblePosition());
+	}
 
 	public boolean m_bCanMove;
 

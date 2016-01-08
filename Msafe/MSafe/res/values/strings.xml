@@ -90,4 +90,9 @@
      <string name="source_str">来源 :</string>
      <string name="modify_time_str">修改时间:</string>
       <string name="filepath_str">文件路径:</string>
+      <!-- apk管理 -->
+      <string name="apk_installed_time_str">已安装</string>
+      <string name="zhanyong">占用</string>
+      <string name="apktype_title0">时间排序</string>
+      <string name="apktype_title1">大小排序</string>
 </resources>

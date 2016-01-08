@@ -1,130 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@null"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_list" >
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/padding_list"
-            android:text="@string/title_apkrubbish_btn_mainlayout"
-            android:textSize="@dimen/textsize_mainactiviy_top" />
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:contentDescription="@string/title_apkrubbish_btn_mainlayout"
-            android:padding="10dp"
-            android:src="@drawable/checked" />
-    </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/apkadmin_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/line_height"
-        android:background="@drawable/shape_line"
-        android:max="0"
-        android:progress="0"
-        android:progressDrawable="@drawable/progress_line" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/tip_0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/scan_txt" />
-
-        <ProgressBar
-            android:id="@+id/tip_pro"
-            style="?android:attr/progressBarStyleSmallInverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/tip_0" />
-
-        <TextView
-            android:id="@+id/apkadmin_filesizetotalnum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_list"
-            android:text="3"
-            android:visibility="invisible" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/apkadmin_filesizetotalnum"
-            android:paddingBottom="@dimen/padding_list"
-            android:paddingTop="@dimen/padding_list"
-            android:text="@string/des_filenum"
-            android:visibility="invisible" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/padding_list"
-            android:text="@string/totalsize_des_exp_fileadmin"
-            android:visibility="invisible" />
-
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/line_height"
-            android:layout_below="@id/apkadmin_filesizetotalnum"
-            android:background="@color/gray_mainactivity_btn_press"
-            android:visibility="visible" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent" >
-
-        <LinearLayout
-            android:id="@+id/apkadmin_btn_clear"
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:orientation="vertical"
+            android:id="@+id/apkadmin_tag0"
             android:visibility="visible" >
 
-            <View
+            <TextView
+                android:id="@+id/apkadmin_show_title"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/line_height"
-                android:background="@color/gray_mainactivity_btn_press" />
+                android:layout_height="wrap_content"
+                android:background="@color/rubbish_setting_tag_bg"
+                android:gravity="center_vertical|left"
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingLeft="@dimen/padding_list1"
+                android:paddingTop="@dimen/padding_list"
+                android:text="@string/title_apkrubbish_btn_mainlayout"
+                android:textColor="@color/black"
+                android:textSize="@dimen/rubbish_setting_tag_size" />
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:id="@+id/apkadmin_total_rubbish_clickitems"
+                android:visibility="invisible"
+                android:layout_width="@dimen/padding_list2"
+                android:layout_height="@dimen/padding_list2"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_list1"
+                android:background="@drawable/apkadmin_typebtn"
                 android:gravity="center"
-                android:paddingBottom="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list"
-                android:text="@string/clear" />
-        </LinearLayout>
+                android:clickable="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_title_rubbish" />
+        </RelativeLayout>
 
+        <ProgressBar
+            android:id="@+id/apkadmin_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/line_height"
+            android:background="@drawable/shape_line"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_line" />
+		<RelativeLayout
+            android:id="@+id/apkadmin_postag0"
+            android:background="@color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/apkadmin_tip_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="@dimen/padding_list1"
+                android:paddingBottom="@dimen/padding_list1"
+                android:layout_marginLeft="@dimen/padding_list2"
+                android:clickable="true"
+                android:text="@string/scan_txt"
+                android:textColor="@color/rubbish_setting_content_txtcolor"
+                android:textSize="@dimen/rubbish_setting_des_size" />
+
+            <TextView
+                android:id="@+id/apkadmin_list_type"
+                android:clickable="true"
+                android:layout_toRightOf="@id/apkadmin_tip_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/padding_list_helf"
+                android:background="@drawable/tribe"
+                android:padding="@dimen/padding_list_helf" />
+			<TextView
+                android:id="@+id/apkadmin_tip_des"
+                android:layout_width="wrap_content"
+                android:text="共650M"
+                android:visibility="invisible"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/rubbish_setting_content_txtcolor"
+                android:textSize="@dimen/rubbish_setting_des_size" 
+                android:layout_marginRight="@dimen/padding_list1" />
+            <ProgressBar
+                android:id="@+id/apkadmin_tip_pro"
+                style="@style/progressbar_style2"
+                android:indeterminateDuration="100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_list1" />
+
+            <View
+                android:id="@+id/line_view"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/line_height"
+                android:paddingTop="@dimen/padding_list"
+                android:layout_below="@id/apkadmin_tip_0"
+                android:background="@color/gray_mainactivity_btn_press"
+                android:layout_marginLeft="@dimen/padding_list"
+                android:layout_marginRight="@dimen/padding_list" />
+        </RelativeLayout>
         <org.com.lix_.plugin.AListView
             android:id="@+id/apkadmin_detail_list"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/padding_list"
-            android:layout_marginRight="@dimen/padding_list"
-            android:layout_above="@id/apkadmin_btn_clear"
+            android:layout_height="fill_parent"
+            android:scrollbars="none"
+            android:paddingLeft="@dimen/padding_list"
+            android:paddingRight="@dimen/padding_list"
+            android:background="@color/white"
             android:visibility="visible" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/apk_admin_div"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="11"
+        android:background="@color/white" >
+
+        <View
+            android:id="@+id/apkadmin_clear_button_divider"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/gray_mainactivity_btn_press" />
+
+        <org.com.lix_.plugin.ButtonPlugin
+            android:id="@+id/apkadmin_btn_clear"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingTop="@dimen/padding_list"
+            android:textColor="@color/red" />
     </RelativeLayout>
 
 </LinearLayout>

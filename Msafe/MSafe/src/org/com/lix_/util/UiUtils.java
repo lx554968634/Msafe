@@ -77,8 +77,11 @@ public class UiUtils {
 		}
 		if (i >= 1000 && i < 1000000) {
 			return i / 1000 + "." + i % 1000 % 100 % 10 + "KB";
-		} else {
+		} else if (i > 1000000 && i < 1000000000) {
 			return i / 1000000 + "." + i / 1000 % 1000 % 100 % 10 + "M";
+		} else {
+			return i / 1000000000 + "." + i / 1000 / 1000 % 1000 % 100 % 10
+					+ "G";
 		}
 	}
 
@@ -176,6 +179,27 @@ public class UiUtils {
 
 	public static String getHtmlString(String string, String string2) {
 		return "<font color=\"" + string2 + "\" >" + string + "</font>";
+	}
+
+	public static String getInstalledTime(long m_nFirstInstalledTime) {
+		long nTime = System.currentTimeMillis() - m_nFirstInstalledTime;
+		return getTime(nTime);
+	}
+
+	public static String getTime(long nTime) {
+		long day = nTime / 1000 / 60 / 60 / 24;
+		if (day > 0) {
+			return day + "天";
+		}
+		long hour = nTime / 1000 / 60 / 60;
+		if (hour > 0) {
+			return hour + "小时";
+		}
+		long fen = nTime / 1000 / 60;
+		if (fen > 0)
+			return fen + "分";
+		long miao = nTime / 1000;
+		return miao + "秒";
 	}
 
 }

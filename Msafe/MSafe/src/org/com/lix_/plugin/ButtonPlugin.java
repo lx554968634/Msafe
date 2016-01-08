@@ -134,7 +134,6 @@ public class ButtonPlugin extends TextView {
 
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
-		Debug.i("testview", "vvv:"+isPushButton+":"+getX() +":"+getY()+":"+shaderRadio);
 		if (m_pTextPaint == null) {
 			m_nTextSize = getResources().getDimension(
 					R.dimen.gird_item_up_textsize);

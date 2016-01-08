@@ -4,3 +4,5 @@
 
 2、添加阴影 有需求 api：16  引用:https://github.com/wangjiegulu/ShadowViewHelper/
 
+3、 在GridView和ListView中，getChildAt ( int position ) 方法中position指的是当前可见区域的第几个元素。
+

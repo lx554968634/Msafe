@@ -99,13 +99,14 @@ public class SceneOfFileAdmin extends BaseActivity {
 			m_pFileItemClickDialog.show();
 		else {
 			FileInfo pFileInfo = new FileInfo();
-			pFileInfo.m_sFileName = "V51031-173625.mp4" ;
+			pFileInfo.m_sFileName = "V51031-173625.mp4";
 			pFileInfo.m_sType = "Â¼Ïñ";
-			pFileInfo.m_sAbFilePath ="sdcard/DCIM/Vidio/V51031-173625.mp4" ;
-			pFileInfo.initModifyTime() ;
-			pFileInfo.m_nFileSize = 20000000 ;
+			pFileInfo.m_sAbFilePath = "sdcard/DCIM/Vidio/V51031-173625.mp4";
+			pFileInfo.initModifyTime();
+			pFileInfo.m_nFileSize = 20000000;
 			m_pFileItemClickDialog = new DialogOfFileItemClick(this,
-					R.style.class_dialog, R.layout.dialog_fileadmin_item,pFileInfo);
+					R.style.class_dialog, R.layout.dialog_fileadmin_item,
+					pFileInfo);
 			m_pFileItemClickDialog.show();
 		}
 	}
@@ -188,12 +189,16 @@ public class SceneOfFileAdmin extends BaseActivity {
 				if (obj[1] == null)
 					return;
 				int nPos = Integer.parseInt(obj[2].toString());
-				if (Integer.parseInt(m_pListView.getChildAt(nPos).getTag()
+				if (m_pListView.getChildAtC(nPos) == null)
+					return;
+				if (Integer.parseInt(m_pListView.getChildAtC(nPos).getTag()
 						.toString()) == nPos) {
 					Bitmap pTmp = (Bitmap) obj[1];
 					if (pTmp != null) {
-						((ImageView) m_pListView.getChildAt(nPos).findViewById(
-								R.id.fileadmin_item_image))
+						if (m_pListView.getChildAtC(nPos) == null)
+							return;
+						((ImageView) m_pListView.getChildAtC(nPos)
+								.findViewById(R.id.fileadmin_item_image))
 								.setImageBitmap(pTmp);
 					}
 				}

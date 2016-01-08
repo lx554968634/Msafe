@@ -2,6 +2,8 @@ package org.com.lix_.enable.engine;
 
 import java.io.Serializable;
 
+import org.com.lix_.util.UiUtils;
+
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,7 +15,7 @@ public class AppInfo implements Serializable {
 	private boolean isSystemApp = false;
 	private int mServiceCount = 0;
 	private long mCache = 0;
-	private boolean m_bIsSdSaved = false ;
+	private boolean m_bIsSdSaved = false;
 
 	public long getmCache() {
 		return mCache;
@@ -67,10 +69,20 @@ public class AppInfo implements Serializable {
 
 	public AppInfo() {
 	}
+
+	private String[] szPermission;
+	public long m_nFirstInstalledTime = -1;
 	
-	private String[] szPermission ;
-	
-	
+	public String getInstalledTime()
+	{
+		if(m_nFirstInstalledTime == -1)
+		{
+			return "×î½ü";
+		}else
+		{
+			return UiUtils.getInstalledTime(m_nFirstInstalledTime) ;
+		}
+	}
 
 	public String[] getSzPermission() {
 		return szPermission;
@@ -88,6 +100,6 @@ public class AppInfo implements Serializable {
 	}
 
 	public void setInRom(boolean b) {
-		m_bIsSdSaved = b ;
+		m_bIsSdSaved = b;
 	}
 }

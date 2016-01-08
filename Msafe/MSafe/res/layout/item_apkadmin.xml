@@ -2,51 +2,88 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/list_item_selector"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/padding_list"
     android:paddingTop="@dimen/padding_list" >
 
     <ImageView
-        android:id="@+id/grid_item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/apkadmin_item_item_image"
+        android:layout_width="@dimen/all_item_app_icon_size"
+        android:layout_height="@dimen/all_item_app_icon_size"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_list_helf"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/doc_icon" />
+        android:src="@drawable/fileadmin_item_default" />
 
-    <LinearLayout
-        android:id="@+id/grid_item_rubbish_des"
+    <RelativeLayout
+        android:id="@+id/apkadmin_item_rubbish_des"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/grid_item_image"
+        android:layout_marginLeft="@dimen/padding_list"
+        android:layout_toRightOf="@id/apkadmin_item_item_image"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/item_name"
+            android:id="@+id/apkadmin_itemitem_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/grid_item_check0"
-            android:textSize="@dimen/gird_item_up_textsize" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/rubbish_setting_title_size" />
 
         <TextView
-            android:id="@+id/item_desc"
+            android:id="@+id/apkadmin_itemitem_installedtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/grid_item_check0"
-            android:textSize="@dimen/gird_item_down_textsize" />
-    </LinearLayout>
+            android:layout_below="@id/apkadmin_itemitem_name"
+            android:layout_marginTop="@dimen/padding_list_helf"
+            android:background="@color/apkadmin_installed_time"
+            android:paddingLeft="@dimen/divider_height"
+            android:paddingRight="@dimen/divider_height"
+            android:text="60M"
+            android:textColor="@color/white"
+            android:textSize="@dimen/rubbish_setting_des_size" />
 
-   <ImageView
-       		android:src="@drawable/checked"
-            android:id="@+id/grid_rubbish_checkbox"
+        <TextView
+            android:id="@+id/apkadmin_itemitem_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingRight="0dp"
-            android:layout_alignParentRight="true"
-            android:button="@drawable/checked_style"
-            android:clickable="false" />
+            android:layout_below="@id/apkadmin_itemitem_name"
+            android:layout_marginLeft="@dimen/padding_list_helf"
+            android:layout_marginTop="@dimen/padding_list_helf"
+            android:layout_toRightOf="@id/apkadmin_itemitem_installedtime"
+            android:text="@string/apk_installed_time_str"
+            android:textColor="@color/detail_rubbish_scan_txtcolor"
+            android:textSize="@dimen/rubbish_setting_des_size" />
+        <TextView
+            android:id="@+id/apkadmin_itemitem_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/apkadmin_itemitem_name"
+            android:layout_marginLeft="@dimen/padding_list"
+            android:layout_marginTop="@dimen/padding_list_helf"
+            android:layout_toRightOf="@id/apkadmin_itemitem_desc"
+            android:text="@string/apk_installed_time_str"
+            android:textColor="@color/detail_rubbish_scan_txtcolor"
+            android:textSize="@dimen/rubbish_setting_des_size" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/apkadmin_item_rubbish_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/padding_list_helf"
+        android:background="@drawable/removecheck"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingRight="0dp"
+        android:text="@string/duihao"
+        android:textColor="@android:color/transparent"
+        android:textSize="@dimen/txt_title_rubbish" />
 
 </RelativeLayout>

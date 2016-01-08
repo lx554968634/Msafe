@@ -37,4 +37,6 @@
 	<color name="dialog_fileadmin_item_textcolorgray">#7b7b7b</color>
 	<color name="dialog_fileadmin_item_cancelcolor">#303030</color>
 	<color name="dialog_fileadmin_item_deletecolor">#41ba6b</color>
+	<!-- apk管理 -->
+	<color name="apkadmin_installed_time">#f06112</color>
 </resources>
