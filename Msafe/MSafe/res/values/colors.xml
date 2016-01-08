@@ -39,4 +39,6 @@
 	<color name="dialog_fileadmin_item_deletecolor">#41ba6b</color>
 	<!-- apk管理 -->
 	<color name="apkadmin_installed_time">#f06112</color>
+	<!-- wap管理 -->
+	<color name="wap_circle_background">#309b55</color>
 </resources>

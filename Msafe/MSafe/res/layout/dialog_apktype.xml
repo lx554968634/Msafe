@@ -17,13 +17,22 @@
             android:id="@+id/dialog_apktype_title0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/checkbox_green_checked"
+            android:textSize="@dimen/padding_list2" 
+            android:padding="@dimen/padding_list"
             android:text="@string/apktype_title0" />
 
         <TextView
             android:id="@+id/dialog_apktype_title0_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/duihao" />
+            android:layout_centerVertical="true"
+            android:textColor="@color/checkbox_green_checked"
+            android:layout_toRightOf="@id/dialog_apktype_title0"
+            android:padding="@dimen/padding_list"
+            android:text="@string/duihao"
+            android:textSize="@dimen/padding_list2" />
     </RelativeLayout>
 
     <View
@@ -44,12 +53,21 @@
             android:id="@+id/dialog_apktype_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/apktype_title0" />
+            android:layout_centerVertical="true"
+            android:padding="@dimen/padding_list"
+            android:textSize="@dimen/padding_list2" 
+            android:textColor="@color/black"
+            android:text="@string/apktype_title1" />
 
         <TextView
             android:id="@+id/dialog_apktype_title1_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/dialog_apktype_title1"
+            android:textSize="@dimen/padding_list2" 
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:padding="@dimen/padding_list"
             android:text="@string/duihao" />
     </RelativeLayout>
 

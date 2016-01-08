@@ -104,7 +104,7 @@ public class SinkingView extends View {
 		path.reset();
 		mPaint.setStyle(Paint.Style.FILL);
 		mPaint.setColor(getResources().getColor(
-				R.color.green_mainlayout_background));
+				R.color.wap_circle_background));
 		pCanvas.drawCircle((float) m_nWidth, (float) m_nHeight + m_nOffset,
 				(float) (m_nRadio + m_nOffset), mPaint);
 		pCanvas.clipPath(path);

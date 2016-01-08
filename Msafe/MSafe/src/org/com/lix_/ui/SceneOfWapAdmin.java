@@ -35,7 +35,7 @@ public class SceneOfWapAdmin extends BaseActivity implements
 		moveQuick(); 
 		mSinkingView = (SinkingView) findViewById(R.id.wap_sinking);
 		percent = 0.01f;
-		m_pTitleTextView = (TextView) findViewById(R.id.wap_title_des);
+		m_pTitleTextView = (TextView) findViewById(R.id.wap_show_title);
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);// TYPE_GRAVITY
 		mSensorManager.registerListener(this, mSensor,

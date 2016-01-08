@@ -6,126 +6,155 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="@color/rubbish_setting_tag_bg"
         android:orientation="vertical" >
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/wap_title_des"
-            android:padding="@dimen/padding_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/title_wrapadmin_btn_mainlayout"
-            android:textSize="@dimen/textsize_mainactiviy_top" />
-
-        <org.com.lix_.plugin.SinkingView
-            android:id="@+id/wap_sinking"
-			android:layout_centerHorizontal="true"
-            android:layout_below="@id/wap_title_des"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@null"
-        android:visibility="visible" >
-
-        <LinearLayout
-            android:id="@+id/detail_btn_wap"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:background="@color/white"
             android:orientation="vertical"
-            android:padding="@dimen/clear_btn_size"
             android:visibility="visible" >
 
             <TextView
-                android:layout_gravity="center"
+                android:id="@+id/wap_show_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/rubbish_setting_tag_bg"
+                android:gravity="center_vertical|left"
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingLeft="@dimen/padding_list1"
+                android:paddingTop="@dimen/padding_list"
+                android:text="@string/title_fileadmin_btn_mainlayout"
+                android:textColor="@color/black"
+                android:textSize="@dimen/rubbish_setting_tag_size" />
+
+            <TextView
+                android:id="@+id/total_rubbish_clickitems"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_list1"
+                android:background="@drawable/checked"
                 android:gravity="center"
-                android:text="@string/clear" />
-        </LinearLayout>
-
-        <View
-            android:layout_above="@id/detail_btn_wap"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_mainactivity_btn_press" />
+                android:text="All"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_title_rubbish"
+                android:visibility="invisible" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/detail_btn_wap"
             android:orientation="vertical" >
+            <org.com.lix_.plugin.SinkingView
+                android:id="@+id/wap_sinking"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal" >
+                android:background="@color/white"
+                android:visibility="visible" >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="300M" />
+                    android:orientation="vertical" >
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="fill_parent"
-                    android:layout_marginTop="@dimen/padding_list"
-                    android:background="@color/gray_mainactivity_btn_press" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="300M" />
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="300M" />
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/padding_list"
-                android:layout_marginRight="@dimen/padding_list"
-                android:background="@color/gray_mainactivity_btn_press" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="fill_parent"
+                            android:layout_marginTop="@dimen/padding_list"
+                            android:background="@color/gray_mainactivity_btn_press" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="300M" />
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="300M" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/padding_list"
+                        android:layout_marginRight="@dimen/padding_list"
+                        android:background="@color/gray_mainactivity_btn_press" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="@dimen/padding_list"
-                    android:background="@color/gray_mainactivity_btn_press" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="300M" />
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="300M" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="fill_parent"
+                            android:layout_marginBottom="@dimen/padding_list"
+                            android:background="@color/gray_mainactivity_btn_press" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="300M" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/wap_admin_div"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="11"
+        android:background="@color/white" >
+
+        <View
+            android:id="@+id/fileadmin_clear_button_divider"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/gray_mainactivity_btn_press" />
+
+        <org.com.lix_.plugin.ButtonPlugin
+            android:id="@+id/fileadmin_btn_clear"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingTop="@dimen/padding_list"
+            android:textColor="@color/red" />
     </RelativeLayout>
 
 </LinearLayout>
