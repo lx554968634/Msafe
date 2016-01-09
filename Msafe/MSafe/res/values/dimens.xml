@@ -36,6 +36,7 @@
     <dimen name="main_scan_padding2">58dp</dimen>
     <dimen name="divider_height_half">0.5dp</dimen>
     <dimen name="txt_title_rubbish">16dp</dimen>
+    
 
     <!-- 垃圾清理设置中相关属性 -->
     <dimen name="rubbish_setting_tag_size">20dp</dimen>
@@ -45,4 +46,6 @@
     <!-- 所有的列表item中app的图标 -->
     <dimen name="all_item_app_icon_size">50dp</dimen>
 	<dimen name="dialog_fileadmin_item_marginleft">22dp</dimen>
+	<!-- wap相关 -->
+	<dimen name="content_title_des_size">25dp</dimen>
 </resources>

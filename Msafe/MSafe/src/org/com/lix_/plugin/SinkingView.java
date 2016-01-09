@@ -126,7 +126,9 @@ public class SinkingView extends View {
 			}
 			pCanvas.save();
 			if (m_nAnimRotate == 0) {
-				if (m_nRotate > 0) {
+				if(m_nRotate == 0)
+				{}
+				else if (m_nRotate > 0) {
 					m_nRotate -= m_nRotateExt;
 				} else {
 					m_nRotate += m_nRotateExt;

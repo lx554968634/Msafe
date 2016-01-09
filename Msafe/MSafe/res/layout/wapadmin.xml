@@ -26,7 +26,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/rubbish_setting_tag_bg"
-                android:gravity="center_vertical|left"
+                android:gravity="center"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list1"
                 android:paddingTop="@dimen/padding_list"
@@ -35,24 +35,23 @@
                 android:textSize="@dimen/rubbish_setting_tag_size" />
 
             <TextView
-                android:id="@+id/total_rubbish_clickitems"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/wap_title_btn"
+                android:layout_width="@dimen/padding_list2"
+                android:layout_height="@dimen/padding_list2"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/padding_list1"
-                android:background="@drawable/checked"
+                android:background="@drawable/wap_title_btn"
+                android:clickable="true"
                 android:gravity="center"
-                android:text="All"
-                android:textColor="@color/white"
-                android:textSize="@dimen/txt_title_rubbish"
-                android:visibility="invisible" />
+                android:textColor="@color/white" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
+
             <org.com.lix_.plugin.SinkingView
                 android:id="@+id/wap_sinking"
                 android:layout_width="wrap_content"
@@ -77,12 +76,28 @@
                         android:layout_weight="1"
                         android:orientation="horizontal" >
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="300M" />
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="今日已用"
+                                android:textColor="#7d7d7d"
+                                android:textSize="@dimen/main_scan_title_size" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_list_helf"
+                                android:text="30.03M"
+                                android:textColor="#575757"
+                                android:textSize="@dimen/content_title_des_size" />
+                        </LinearLayout>
 
                         <View
                             android:layout_width="1dp"
@@ -90,12 +105,28 @@
                             android:layout_marginTop="@dimen/padding_list"
                             android:background="@color/gray_mainactivity_btn_press" />
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="300M" />
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="本月已用"
+                                android:textColor="#7d7d7d"
+                                android:textSize="@dimen/main_scan_title_size" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_list_helf"
+                                android:text="125M"
+                                android:textColor="#575757"
+                                android:textSize="@dimen/content_title_des_size" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -110,12 +141,28 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" >
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="300M" />
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="包月流量"
+                                android:textColor="#7d7d7d"
+                                android:textSize="@dimen/main_scan_title_size" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_list_helf"
+                                android:text="700M"
+                                android:textColor="#575757"
+                                android:textSize="@dimen/content_title_des_size" />
+                        </LinearLayout>
 
                         <View
                             android:layout_width="1dp"
@@ -123,12 +170,28 @@
                             android:layout_marginBottom="@dimen/padding_list"
                             android:background="@color/gray_mainactivity_btn_press" />
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="300M" />
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="距离结算"
+                                android:textColor="#7d7d7d"
+                                android:textSize="@dimen/main_scan_title_size" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_list_helf"
+                                android:text="21天"
+                                android:textColor="#575757"
+                                android:textSize="@dimen/content_title_des_size" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -148,13 +211,31 @@
             android:layout_height="@dimen/divider_height"
             android:background="@color/gray_mainactivity_btn_press" />
 
-        <org.com.lix_.plugin.ButtonPlugin
-            android:id="@+id/fileadmin_btn_clear"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:paddingBottom="@dimen/padding_list"
-            android:paddingTop="@dimen/padding_list"
-            android:textColor="@color/red" />
+            android:orientation="horizontal" >
+
+            
+
+
+            <org.com.lix_.plugin.ButtonPlugin
+                android:id="@+id/fileadmin_btn_clear0"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingTop="@dimen/padding_list"
+                android:textColor="@color/red" />
+            <org.com.lix_.plugin.ButtonPlugin
+                android:id="@+id/fileadmin_btn_clear1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/padding_list"
+                android:paddingTop="@dimen/padding_list"
+                android:textColor="@color/red" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

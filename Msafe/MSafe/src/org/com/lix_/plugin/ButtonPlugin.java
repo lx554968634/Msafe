@@ -1,6 +1,7 @@
 package org.com.lix_.plugin;
 
-import org.com.lix_.Define;
+import java.util.Random;
+
 import org.com.lix_.ui.R;
 import org.com.lix_.util.Debug;
 
@@ -8,21 +9,21 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
-import android.graphics.Shader;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetricsInt;
 import android.graphics.Rect;
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.TextView;
 
 public class ButtonPlugin extends TextView {
-	private static final int INVALIDATE_DURATION = 5; // 每次刷新的时间间隔
-	private static int DIFFUSE_GAP = 10; // 扩散半径增量
-	private static int TAP_TIMEOUT; // 判断点击和长按的时间
+	private final int INVALIDATE_DURATION = 5; // 每次刷新的时间间隔
+	private int DIFFUSE_GAP = 10; // 扩散半径增量
+	private int TAP_TIMEOUT; // 判断点击和长按的时间
+	private String TAG = "ButtonPlugin";
+	public int A = 1;
 
 	private int viewWidth; // 控件宽度和高度
 	private int viewHeight;
@@ -40,6 +41,7 @@ public class ButtonPlugin extends TextView {
 	public ButtonPlugin(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initPaint();
+		A = new Random().nextInt(10000);
 		TAP_TIMEOUT = ViewConfiguration.getLongPressTimeout();
 	}
 
@@ -52,7 +54,8 @@ public class ButtonPlugin extends TextView {
 	 */
 	private void initPaint() {
 		colorPaint = new Paint();
-		colorPaint.setColor(getResources().getColor(R.color.rubbish_clear_bg_start));
+		colorPaint.setColor(getResources().getColor(
+				R.color.rubbish_clear_bg_start));
 		bottomPaint = new Paint();
 		colorPaint.setAntiAlias(true);
 		bottomPaint.setColor(getResources().getColor(
@@ -64,50 +67,52 @@ public class ButtonPlugin extends TextView {
 		super.onSizeChanged(w, h, oldw, oldh);
 		this.viewWidth = w;
 		this.viewHeight = h;
+		Debug.i(TAG, "viewWidth:" + w);
 	}
 
 	private long downTime = 0;
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		Debug.i(TAG, A + ":" + isPushButton + ":" + event.getAction());
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			// 只需要取一次时间
-			if(isPushButton == 1)
+			if (isPushButton == 1)
 				return true;
-			if(isPushButton != 0)
+			if (isPushButton != 0)
 				return true;
 			if (downTime == 0) {
 				downTime = SystemClock.elapsedRealtime();
 			}
 			// 计算最大半径
 			countMaxRadio();
-			if(!checkCope(event.getX()))
-				return true ;
+			if (!checkCope(event.getX()))
+				return true;
 			isPushButton = 1;
 			shaderRadio = maxRadio;
 			postInvalidateDelayed(INVALIDATE_DURATION);
 			break;
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_CANCEL:
-			if(isPushButton == 2)
-				return true ;
-			if(isPushButton != 1)
-				return true ;
+			if (isPushButton == 2)
+				return true;
+			if (isPushButton != 1)
+				return true;
 			isPushButton = 2;
 			postInvalidateDelayed(INVALIDATE_DURATION);
 			break;
 		}
-		Debug.i("testview", "isPushButton:" + isPushButton);
 		return true;
 	}
 
-	private boolean checkCope(float x) {
-		int nMax = Define.WIDTH / 2 +maxRadio ;
-		int nMin = Define.WIDTH / 2 - maxRadio ;
-		if(nMax  > x && nMin < x)
-		{
-			return true ;
+	private boolean checkCope(float nX) {
+		int x = Math.abs((int) (nX - getX()));
+		Debug.i(TAG, "checkCode:" + A + ":" + x);
+		int nMax = viewWidth / 2 + maxRadio;
+		int nMin = viewWidth / 2 - maxRadio;
+		if (nMax > x && nMin < x) {
+			return true;
 		}
 		return false;
 	}
@@ -133,13 +138,15 @@ public class ButtonPlugin extends TextView {
 	Rect bounds = null;
 
 	@Override
-	protected void dispatchDraw(Canvas canvas) {
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
 		if (m_pTextPaint == null) {
 			m_nTextSize = getResources().getDimension(
 					R.dimen.gird_item_up_textsize);
 			m_pTextPaint = new Paint();
 			m_pTextPaint.setAntiAlias(true);
-			m_pTextPaint.setColor(getResources().getColor(R.color.green_mainlayout_background));
+			m_pTextPaint.setColor(getResources().getColor(
+					R.color.green_mainlayout_background));
 			m_pTextPaint.setTextSize(m_nTextSize);
 			m_pTextPaint.setTextAlign(Align.LEFT);
 			bounds = new Rect();
@@ -155,41 +162,33 @@ public class ButtonPlugin extends TextView {
 
 		// 绘制按下后的整个背景
 		if (isPushButton == 1) {
-			canvas.drawRect(pointX, pointY, pointX + viewWidth, pointY
-					+ viewHeight, bottomPaint);
-			canvas.save();
 			// 绘制扩散圆形背景
-			canvas.clipRect(pointX, pointY, pointX + viewWidth, pointY
-					+ viewHeight);
-			canvas.drawCircle(getX() + viewWidth / 2, getY() + viewHeight / 2,
+			 canvas.clipRect(pointX, pointY, pointX+viewWidth,
+			 pointY+viewHeight);
+			canvas.drawCircle(viewWidth / 2,  viewHeight / 2,
 					shaderRadio, colorPaint);
 			canvas.drawText("清理", getMeasuredWidth() / 2 - bounds.width() / 2,
 					m_nBaseline, m_pTextPaint);
-			canvas.restore();
 		}
-		if(isPushButton == 2)
-		{
+		if (isPushButton == 2) {
 			canvas.drawRect(pointX, pointY, pointX + viewWidth, pointY
 					+ viewHeight, bottomPaint);
 			canvas.save();
 			// 绘制扩散圆形背景
 			canvas.clipRect(pointX, pointY, pointX + viewWidth, pointY
 					+ viewHeight);
-			canvas.drawCircle(getX() + viewWidth / 2, getY() + viewHeight / 2,
+			canvas.drawCircle(viewWidth / 2, viewHeight / 2,
 					shaderRadio, colorPaint);
 			canvas.drawText("清理", getMeasuredWidth() / 2 - bounds.width() / 2,
 					m_nBaseline, m_pTextPaint);
 			canvas.restore();
 			// 直到半径等于最大半径
 			if (shaderRadio > 0) {
-				postInvalidateDelayed(INVALIDATE_DURATION, pointX, pointY, pointX
-						+ viewWidth, pointY + viewHeight);
+				postInvalidateDelayed(INVALIDATE_DURATION);
 				shaderRadio -= DIFFUSE_GAP;
 			} else {
-				 clearData();
+				clearData();
 			}
 		}
-		
-		super.dispatchDraw(canvas);
 	}
 }
