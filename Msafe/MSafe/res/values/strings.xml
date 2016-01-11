@@ -102,4 +102,6 @@
       <string name="setting_wap_title2">包月流量</string>
       <string name="setting_wap_title3">已用流量</string>
       <string name="setting_wap_title4">流量使用预警值</string>
+      <string name="wapadmin_title0">移动网络</string>
+      <string name="wapadmin_title1">WLAN网络</string>
 </resources>

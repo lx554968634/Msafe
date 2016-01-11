@@ -13,21 +13,69 @@
         android:background="@color/rubbish_setting_tag_bg"
         android:orientation="vertical" >
 
+        <TabHost
+            android:id="@android:id/tabhost"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TabWidget
+                        android:id="@android:id/tabs"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:divider="@null" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:layout_weight="3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:background="@color/checkbox_green_checked" />
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/wap_viewPager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+        <!-- 这些是正常模式中的wap流量球，以及相应的配置数据 -->
+
         <RelativeLayout
             android:id="@+id/wap_title_des"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:visibility="visible" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/wap_show_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/rubbish_setting_tag_bg"
-                android:gravity="center"
                 android:clickable="true"
+                android:gravity="center"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list1"
                 android:paddingTop="@dimen/padding_list"
@@ -49,9 +97,10 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/wap_tag0"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <org.com.lix_.plugin.SinkingView
                 android:id="@+id/wap_sinking"

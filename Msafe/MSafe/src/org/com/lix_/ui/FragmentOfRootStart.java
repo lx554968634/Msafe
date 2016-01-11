@@ -45,8 +45,8 @@ public class FragmentOfRootStart extends Fragment {
 	private Context m_pContext;
 
 	private View m_pViewTitle;
-	
-	private View m_pViewContent ;
+
+	private View m_pViewContent;
 
 	private LayoutInflater m_pInflater;
 
@@ -59,7 +59,7 @@ public class FragmentOfRootStart extends Fragment {
 	}
 
 	private void init() {
-		m_pViewTitle = m_pInflater.inflate(R.layout.item0_child_tab0, null) ;
+		m_pViewTitle = m_pInflater.inflate(R.layout.item0_child_tab0, null);
 	}
 
 	@Override
@@ -67,58 +67,70 @@ public class FragmentOfRootStart extends Fragment {
 			Bundle savedInstanceState) {
 		Debug.i(TAG, "oncreate View");
 		View pView = inflater.inflate(R.layout.tabchild_rootstart, null);
-		m_pTotalView = pView.findViewById(R.id.tab_child_tab) ;
-		init() ;
+		m_pTotalView = pView.findViewById(R.id.tab_child_tab);
+		init();
 		return pView;
 	}
-	
-	private View m_pTotalView ;
+
+	private View m_pTotalView;
 
 	private void initList() {
-		int nCount = 0 ;
-		int nIndex = 0 ;
-		((ViewGroup)m_pTotalView).addView(m_pViewTitle);
-		if(m_pEnable.getAutoStartList().size() == 0)
-		{
-			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,m_pContext.getResources().getString(R.string.tab_child0_tip00)) ;
-			UiUtils.setText(m_pViewTitle, R.id.tab_child0_tip0, m_pContext.getResources().getString(R.string.tab_child0_root_));
-		}else
-		{
-			m_pViewTitle.findViewById(R.id.tab_child0_tip0).setVisibility(View.INVISIBLE);
-			nCount = m_pEnable.getAutoStartList().size() ;
-			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,nCount+m_pContext.getResources().getString(R.string.tab_child0_tip0)) ;
-			for(nIndex = 0 ; nIndex < nCount ; nIndex ++)
-			{
-				((ViewGroup)m_pTotalView).addView(getAutoStartView(nIndex));
+		int nCount = 0;
+		int nIndex = 0;
+		//²âÊÔÌí¼Ó 
+		if (m_pEnable.getAutoStartList() == null)
+			return;
+		((ViewGroup) m_pTotalView).addView(m_pViewTitle);
+		if (m_pEnable.getAutoStartList().size() == 0) {
+			UiUtils.setText(m_pViewTitle, R.id.tip_child0_tab, m_pContext
+					.getResources().getString(R.string.tab_child0_tip00));
+			UiUtils.setText(m_pViewTitle, R.id.tab_child0_tip0, m_pContext
+					.getResources().getString(R.string.tab_child0_root_));
+		} else {
+			m_pViewTitle.findViewById(R.id.tab_child0_tip0).setVisibility(
+					View.INVISIBLE);
+			nCount = m_pEnable.getAutoStartList().size();
+			UiUtils.setText(
+					m_pViewTitle,
+					R.id.tip_child0_tab,
+					nCount
+							+ m_pContext.getResources().getString(
+									R.string.tab_child0_tip0));
+			for (nIndex = 0; nIndex < nCount; nIndex++) {
+				((ViewGroup) m_pTotalView).addView(getAutoStartView(nIndex));
 			}
 		}
-		m_pViewTitle =  m_pInflater.inflate(R.layout.item0_child_tab0, null) ;
-		((ViewGroup)m_pTotalView).addView(m_pViewTitle);
-		if(m_pEnable.getAutoCloseStartList().size() == 0)
-		{
-			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,m_pContext.getResources().getString(R.string.tab_child0_tip11)) ;
-			UiUtils.setText(m_pViewTitle, R.id.tab_child0_tip0, m_pContext.getResources().getString(R.string.tab_child0_root_));
-		}else
-		{
-			m_pViewTitle.findViewById(R.id.tab_child0_tip0).setVisibility(View.INVISIBLE);
-			nCount = m_pEnable.getAutoCloseStartList().size() ;
-			UiUtils.setText(m_pViewTitle,R.id.tip_child0_tab,nCount+m_pContext.getResources().getString(R.string.tab_child0_tip1)) ;
-			for(nIndex = 0 ; nIndex < nCount ; nIndex ++)
-			{
-				((ViewGroup)m_pTotalView).addView(getAutoCloseStartView(nIndex));
+		m_pViewTitle = m_pInflater.inflate(R.layout.item0_child_tab0, null);
+		((ViewGroup) m_pTotalView).addView(m_pViewTitle);
+		if (m_pEnable.getAutoCloseStartList().size() == 0) {
+			UiUtils.setText(m_pViewTitle, R.id.tip_child0_tab, m_pContext
+					.getResources().getString(R.string.tab_child0_tip11));
+			UiUtils.setText(m_pViewTitle, R.id.tab_child0_tip0, m_pContext
+					.getResources().getString(R.string.tab_child0_root_));
+		} else {
+			m_pViewTitle.findViewById(R.id.tab_child0_tip0).setVisibility(
+					View.INVISIBLE);
+			nCount = m_pEnable.getAutoCloseStartList().size();
+			UiUtils.setText(
+					m_pViewTitle,
+					R.id.tip_child0_tab,
+					nCount
+							+ m_pContext.getResources().getString(
+									R.string.tab_child0_tip1));
+			for (nIndex = 0; nIndex < nCount; nIndex++) {
+				((ViewGroup) m_pTotalView)
+						.addView(getAutoCloseStartView(nIndex));
 			}
 		}
 	}
-	
-	private View getAutoStartView(int nIndex)
-	{
-		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null) ;
+
+	private View getAutoStartView(int nIndex) {
+		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null);
 		return m_pViewContent;
 	}
-	
-	private View getAutoCloseStartView(int nIndex)
-	{
-		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null) ;
+
+	private View getAutoCloseStartView(int nIndex) {
+		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null);
 		return m_pViewContent;
 	}
 
@@ -130,7 +142,7 @@ public class FragmentOfRootStart extends Fragment {
 			switch (nWhat) {
 			case EnableOfRootStart.FINISH_DIVIDE_LIST:
 				Debug.i(TAG, "½áÊø·Ö¸îlist!~~~");
-				initList() ;
+				initList();
 				break;
 			}
 		}

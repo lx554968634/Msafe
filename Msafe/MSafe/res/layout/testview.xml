@@ -1,43 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/org.com.lix_.ui"
     android:id="@+id/total_runbishclear"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@null"
     android:orientation="vertical" >
-
-    <ProgressBar
-        style="@android:style/Widget.ProgressBar.Small.Inverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/padding_list1"
-        android:indeterminateDuration="10"
-        android:indeterminateOnly="true" />
-
-    <ProgressBar
-        android:id="@+id/filadmin_tip_pro"
-        style="@style/progressbar_style2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/padding_list1"
-        android:indeterminateBehavior="repeat"
-        android:indeterminateDuration="1"
-        android:indeterminateOnly="true" />
-
-    <ProgressBar
-        style="@style/progressbar_style2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/padding_list1"
-        android:indeterminateDuration="200" />
-
-    <ProgressBar
-        style="@style/progressbar_style2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/padding_list1"
-        android:indeterminateDuration="300" />
 
 </LinearLayout>

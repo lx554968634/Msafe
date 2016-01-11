@@ -42,7 +42,7 @@ public class EnableOfRootStart extends Enable {
 		int nWhat = pMsg.what;
 		switch (nWhat) {
 		case FINISH_DIVIDE_LIST:
-			if (m_szTmpList != null || m_szTmpList.size() == 0) {
+			if (m_szTmpList != null && m_szTmpList.size() == 0) {
 				m_szTmpList.clear();
 				m_szTmpList = null;
 				System.gc();

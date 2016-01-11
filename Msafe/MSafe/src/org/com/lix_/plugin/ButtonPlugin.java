@@ -112,6 +112,12 @@ public class ButtonPlugin extends View {
 
 	private long downTime = 0;
 
+	private BtnListener m_pListener;
+
+	public void setListener(BtnListener pListener) {
+		m_pListener = pListener;
+	}
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {
@@ -128,6 +134,8 @@ public class ButtonPlugin extends View {
 			countMaxRadio();
 			if (!checkCope(event.getX()))
 				return true;
+			if (m_pListener != null)
+				m_pListener.listener();
 			isPushButton = 1;
 			shaderRadio = maxRadio;
 			postInvalidateDelayed(INVALIDATE_DURATION);
@@ -265,6 +273,6 @@ public class ButtonPlugin extends View {
 
 	@Override
 	public void onDraw(Canvas pCanvas) {
-		draw1(pCanvas) ;
+		draw1(pCanvas);
 	}
 }
