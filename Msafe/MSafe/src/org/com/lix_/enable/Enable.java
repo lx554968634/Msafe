@@ -13,11 +13,7 @@ import android.os.Message;
  * @author punsher
  *
  */
-public abstract class Enable implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public abstract class Enable {
 	protected Context m_pContext;
 	protected EnableCallback m_pCallback;
 
@@ -39,7 +35,7 @@ public abstract class Enable implements Serializable {
 	public abstract void onViewClick(int nId);
 
 	public void doAsyWork(Object... szObj) {
-		if(m_pAsyTask == null)
+		if (m_pAsyTask == null)
 			reStartThread();
 		m_pAsyTask.execute(szObj);
 	}
@@ -52,18 +48,16 @@ public abstract class Enable implements Serializable {
 		}
 
 	};
-	
-	public void doRestartWork(Object... szObj)
-	{
-		reStartThread() ;
-		doAsyWork(szObj) ;
+
+	public void doRestartWork(Object... szObj) {
+		reStartThread();
+		doAsyWork(szObj);
 	}
 
-	public void sendMessage(Message msg)
-	{
-		m_pAsyHandler.sendMessage(msg) ;
+	public void sendMessage(Message msg) {
+		m_pAsyHandler.sendMessage(msg);
 	}
-	
+
 	public void reStartThread() {
 		m_pAsyTask = new AsyncTask() {
 			@Override

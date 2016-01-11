@@ -124,6 +124,7 @@
             android:paddingLeft="@dimen/padding_list4"
             android:paddingRight="@dimen/padding_list4"
             android:paddingTop="@dimen/padding_list"
+            app:title_str="@string/clear"
             android:textColor="@color/red"
             android:visibility="invisible" />
     </RelativeLayout>

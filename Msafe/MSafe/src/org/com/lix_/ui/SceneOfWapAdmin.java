@@ -1,6 +1,8 @@
 package org.com.lix_.ui;
 
+import org.com.lix_.enable.EnableOfWapAdmin;
 import org.com.lix_.plugin.SinkingView;
+import org.com.lix_.util.Debug;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -8,15 +10,23 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
 public class SceneOfWapAdmin extends BaseActivity implements
 		SensorEventListener {
+	@Override
+	protected void onResume() {
+		super.onResume();
+		m_nSettingClock = 0;
+	}
+
 	protected String TAG = "SceneOfWapAdmin";
 	private SensorManager mSensorManager;
 	private Sensor mSensor;
 	private TextView m_pTitleTextView;
+	private EnableOfWapAdmin m_pEnable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +42,36 @@ public class SceneOfWapAdmin extends BaseActivity implements
 
 	@Override
 	public void init() {
-		moveQuick(); 
+		moveQuick();
+		m_pEnable = new EnableOfWapAdmin(this, m_pCallback);
 		mSinkingView = (SinkingView) findViewById(R.id.wap_sinking);
 		percent = 0.01f;
 		m_pTitleTextView = (TextView) findViewById(R.id.wap_show_title);
+		m_pTitleTextView.setOnClickListener(this);
+		Debug.i(TAG, "×¢²áÁË¼àÌý");
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);// TYPE_GRAVITY
 		mSensorManager.registerListener(this, mSensor,
 				SensorManager.SENSOR_DELAY_UI);
 		mSinkingView.setPercent(percent);
+	}
+
+	private int m_nSettingClock = 0;
+
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		Debug.i(TAG, "µã»÷----");
+		int nId = v.getId();
+		switch (nId) {
+		case R.id.wap_show_title:
+			Debug.i(TAG, "Ö´ÐÐ");
+			if (m_nSettingClock == 1)
+				return;
+			m_nSettingClock = 1;
+			m_pEnable.onViewClick(nId);
+			break;
+		}
 	}
 
 	@Override
@@ -67,7 +98,6 @@ public class SceneOfWapAdmin extends BaseActivity implements
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
 	}
 
 	/**

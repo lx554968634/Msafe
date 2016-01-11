@@ -6,7 +6,7 @@
         <shape>
             <corners android:radius="10dp" />
  
-            <solid android:color="#ffffff" />
+            <solid android:color="@color/gray_mainactivity_btn_press" />
         </shape>
     </item>
  

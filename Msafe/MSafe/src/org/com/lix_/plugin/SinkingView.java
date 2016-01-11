@@ -92,19 +92,13 @@ public class SinkingView extends View {
 		}
 	}
 
-	@Override
-	protected void onDraw(Canvas canvas) {
-		drawView(canvas);
-	}
-
-	private void drawView(Canvas pCanvas) {
+	private void drawView1(Canvas pCanvas) {
 		// ²Ã¼ô³ÉÔ²ÇøÓò
 		Path path = new Path();
 		pCanvas.save();
 		path.reset();
 		mPaint.setStyle(Paint.Style.FILL);
-		mPaint.setColor(getResources().getColor(
-				R.color.wap_circle_background));
+		mPaint.setColor(getResources().getColor(R.color.wap_circle_background));
 		pCanvas.drawCircle((float) m_nWidth, (float) m_nHeight + m_nOffset,
 				(float) (m_nRadio + m_nOffset), mPaint);
 		pCanvas.clipPath(path);
@@ -126,9 +120,8 @@ public class SinkingView extends View {
 			}
 			pCanvas.save();
 			if (m_nAnimRotate == 0) {
-				if(m_nRotate == 0)
-				{}
-				else if (m_nRotate > 0) {
+				if (m_nRotate == 0) {
+				} else if (m_nRotate > 0) {
 					m_nRotate -= m_nRotateExt;
 				} else {
 					m_nRotate += m_nRotateExt;
@@ -187,4 +180,10 @@ public class SinkingView extends View {
 			}
 		}
 	}
+
+	@Override
+	public void onDraw(Canvas pCanvas) {
+		drawView1(pCanvas);
+	}
+
 }

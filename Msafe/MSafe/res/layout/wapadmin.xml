@@ -27,10 +27,11 @@
                 android:layout_height="wrap_content"
                 android:background="@color/rubbish_setting_tag_bg"
                 android:gravity="center"
+                android:clickable="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list1"
                 android:paddingTop="@dimen/padding_list"
-                android:text="@string/title_fileadmin_btn_mainlayout"
+                android:text="@string/title_wrapadmin_btn_mainlayout"
                 android:textColor="@color/black"
                 android:textSize="@dimen/rubbish_setting_tag_size" />
 
@@ -216,9 +217,6 @@
             android:layout_height="fill_parent"
             android:orientation="horizontal" >
 
-            
-
-
             <org.com.lix_.plugin.ButtonPlugin
                 android:id="@+id/fileadmin_btn_clear0"
                 android:layout_width="fill_parent"
@@ -226,7 +224,10 @@
                 android:layout_weight="1"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingTop="@dimen/padding_list"
-                android:textColor="@color/red" />
+                android:textColor="@color/red"
+                app:image_ref_enabled="@drawable/wapadmin_drawableview0"
+                app:image_ref_unenabled="@drawable/wapadmin_drawableview1" />
+
             <org.com.lix_.plugin.ButtonPlugin
                 android:id="@+id/fileadmin_btn_clear1"
                 android:layout_width="fill_parent"
@@ -234,7 +235,9 @@
                 android:layout_weight="1"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingTop="@dimen/padding_list"
-                android:textColor="@color/red" />
+                android:textColor="@color/red"
+                app:image_ref_enabled="@drawable/wapadmin_txtview0"
+                app:image_ref_unenabled="@drawable/wapadmin_txtview1" />
         </LinearLayout>
     </RelativeLayout>
 

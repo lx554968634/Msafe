@@ -5,9 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.NinePatchDrawable;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -200,6 +205,22 @@ public class UiUtils {
 			return fen + "·Ö";
 		long miao = nTime / 1000;
 		return miao + "Ãë";
+	}
+
+	public static Bitmap drawable2Bitmap(Drawable drawable) {
+		if (drawable instanceof BitmapDrawable) {
+			return ((BitmapDrawable) drawable).getBitmap();
+		} else if (drawable instanceof NinePatchDrawable) {
+			Bitmap bitmap = Bitmap
+					.createBitmap(
+							drawable.getIntrinsicWidth(),
+							drawable.getIntrinsicHeight(),
+							drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+									: Bitmap.Config.RGB_565);
+			return bitmap;
+		} else {
+			return null;
+		}
 	}
 
 }

@@ -8,9 +8,15 @@
         <attr name="backgroundcolor" format="color|reference" />
         <attr name="txt" format="string|reference"></attr>
     </declare-styleable>
-    
+
     <!-- 垃圾清理圈圈 -->
     <declare-styleable name="AutodrawCircleView">
         <attr name="stokeSize" format="dimension|reference" />
     </declare-styleable>
-</resources>
+    <declare-styleable name="ButtonPlugin">
+        <attr name="title_str" format="string|reference" />
+        <attr name="image_ref_enabled" format="reference" />
+        <attr name="image_ref_unenabled" format="reference" />
+    </declare-styleable>
+
+</resources>

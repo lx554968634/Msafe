@@ -95,4 +95,11 @@
       <string name="zhanyong">占用</string>
       <string name="apktype_title0">时间排序</string>
       <string name="apktype_title1">大小排序</string>
+      <!-- wap Settings设置 -->
+      <string name="wap_setting_title">流量设置</string>
+      <string name="setting_wap_title0">流量监控</string>
+      <string name="setting_wap_title1">基础设置</string>
+      <string name="setting_wap_title2">包月流量</string>
+      <string name="setting_wap_title3">已用流量</string>
+      <string name="setting_wap_title4">流量使用预警值</string>
 </resources>

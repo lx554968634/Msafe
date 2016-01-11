@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res/org.com.lix_.ui"
     android:background="@color/white"
     android:orientation="vertical" >
 
@@ -146,6 +147,7 @@
             android:id="@+id/apkadmin_btn_clear"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            app:title_str="@string/clear"
             android:paddingBottom="@dimen/padding_list"
             android:paddingTop="@dimen/padding_list"
             android:textColor="@color/red" />
