@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.com.lix_.Define;
+import org.com.lix_.util.Debug;
 
 import dalvik.system.BaseDexClassLoader;
 import android.content.ContentValues;
@@ -15,6 +16,8 @@ import android.database.sqlite.SQLiteDatabase;
  * 数据管理器
  */
 public class DBManager {
+	
+	private String TAG = "DBManager" ;
 
 	private Context m_pContext;
 
@@ -228,6 +231,7 @@ public class DBManager {
 	public boolean insert(String table, ContentValues values) {
 		try {
 			openDB();
+			Debug.i(TAG, "insert:"+table+":数据");
 			return m_pDatabase.insertOrThrow(table, null, values) != -1;
 		} catch (Exception ex) {
 			ex.printStackTrace();

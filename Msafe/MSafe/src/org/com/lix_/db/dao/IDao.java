@@ -25,6 +25,14 @@ public class IDao {
 
 	public IDao() {
 	}
+	
+	public void finish()
+	{
+		if(m_pDb != null)
+		{
+			m_pDb.closeDB(); 
+		}
+	}
 
 	public IDao(Context pContext, Class pClass) {
 		m_pOriginClass = pClass;
