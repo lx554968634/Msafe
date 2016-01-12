@@ -1,6 +1,11 @@
 package org.com.lix_.enable;
 
-import org.com.lix_.db.LocalSharedpreferencesDB;
+import java.util.ArrayList;
+
+import org.com.lix_.Define;
+import org.com.lix_.db.engine.LocalSharedpreferencesDB;
+import org.com.lix_.enable.receiver.WapReceiver;
+import org.com.lix_.service.BootService;
 import org.com.lix_.ui.R;
 import org.com.lix_.ui.SceneOfApkAdmin;
 import org.com.lix_.ui.SceneOfExtraFuction;
@@ -12,10 +17,11 @@ import org.com.lix_.ui.SceneOfVirusAdmin;
 import org.com.lix_.ui.SceneOfWapAdmin;
 import org.com.lix_.util.Debug;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
-import android.sax.StartElementListener;
 
 public class EnableOfMainActivity extends Enable {
 
@@ -29,6 +35,7 @@ public class EnableOfMainActivity extends Enable {
 	public static final int SELFSTARTAPPCHECK = 4;
 	public static final int NOUSUALAPKCHECK = 2;
 	public static final int OVERSCAN = 7;
+	private static final int SCANSERVICE = 8;
 	private final int TOTAL = 7;
 
 	private int m_nScanCount = -1;
@@ -39,6 +46,7 @@ public class EnableOfMainActivity extends Enable {
 		super(pContext);
 		m_nScanCount = -1;
 		m_pSharedPerferencesDB = new LocalSharedpreferencesDB(pContext);
+		doAsyWork(SCANSERVICE);
 	}
 
 	private int m_nTotal = 100;
@@ -57,6 +65,9 @@ public class EnableOfMainActivity extends Enable {
 		case SURFCHECK:
 			m_nScanCount++;
 			break;
+		case SCANSERVICE:
+			startWapService();
+			return;
 		}
 		m_pCallback.callback(nTag, m_nTotal -= (nTag + 1));
 		if (m_nScanCount == TOTAL) {
@@ -65,6 +76,12 @@ public class EnableOfMainActivity extends Enable {
 			m_nScanCount = -1;
 			m_pAsyHandler.sendMessageDelayed(pMsg, 10000);
 		}
+	}
+
+	private void startWapService() {
+		Intent pIntent = new Intent();
+		pIntent.setClass(m_pContext, BootService.class);
+		m_pContext.startService(pIntent);
 	}
 
 	@Override
@@ -85,8 +102,35 @@ public class EnableOfMainActivity extends Enable {
 			break;
 		case SURFCHECK:
 			break;
+		case SCANSERVICE:
+			CheckService();
+			return;
 		}
 		sendOverMessage(nTag);
+	}
+
+	private void CheckService() {
+		ActivityManager myManager = (ActivityManager) m_pContext
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		ArrayList<RunningServiceInfo> runningService = (ArrayList<RunningServiceInfo>) myManager
+				.getRunningServices(30);
+		boolean bFlag = false;
+		for (int i = 0; i < runningService.size(); i++) {
+			if (runningService.get(i).service.getClassName().toString()
+					.equals(Define.WAPSERVICE_PATH)) {
+				Debug.i(TAG, "找到指定service:" + Define.WAPSERVICE_PATH);
+				bFlag = true;
+			} else {
+				Debug.i(TAG,
+						"判断service:"
+								+ runningService.get(i).service.getClassName());
+			}
+		}
+		Debug.i(TAG, "是否开启了WapService:" + bFlag);
+		Message msg = new Message();
+		msg.what = SCANSERVICE;
+		msg.arg1 = bFlag ? 1 : 0;
+		sendMessage(msg);
 	}
 
 	public void checkPhone(int position) {

@@ -22,4 +22,6 @@ public class Define {
 	public static final String[] MEDIA_SPLIT = new String[] {
 		"avi","rmvb","rm","asf","divx","mpg","mpeg","mpe","wmv","mp4","mkv","3gp"
 	};
+	public static final String  WAPSERVICE_PATH = "org.com.lix_.service.BootService";
+	public static final String TEST_ACTION = "org.com.lix_.test.receiver";
 }

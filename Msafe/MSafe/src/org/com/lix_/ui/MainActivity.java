@@ -9,6 +9,7 @@ import org.com.lix_.util.Debug;
 import org.com.lix_.util.UiUtils;
 
 import android.app.ActionBar.LayoutParams;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,8 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * http://www.23code.com/dong-hua-xiao-guo-animate/
- * 模仿魅族 安全中心
+ * http://www.23code.com/dong-hua-xiao-guo-animate/ 模仿魅族 安全中心
  * 
  * 未进行UI布局优化，后期必须完成，相关资料地址:http://blog.csdn.net/rwecho/article/details/8951009
  * 
@@ -43,6 +43,14 @@ import android.widget.TextView;
  * 
  */
 public class MainActivity extends BaseActivity implements AnimationListener {
+
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent();
+		intent.setAction(Define.TEST_ACTION);
+		sendOrderedBroadcast(intent, null);
+		super.onBackPressed();
+	}
 
 	private final int START_DOWN_ANIM1 = -1;
 

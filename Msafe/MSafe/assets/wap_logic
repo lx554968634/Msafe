@@ -1,0 +1,26 @@
+流量监控模块的逻辑
+
+dao框架 摘抄http://git.oschina.net/yeguozhong/AndroidGenericDao/tree/master
+
+1、如何做到流量监控
+	流量分为 receive和send两部分。同时总的需要区分wifi和gprs
+	
+2、监控数据逻辑
+			wap_monitor_table 只有两条数据 
+表结构		key   statu   timesmt	
+			主键	      状态            时间戳
+		数据1 0     0       0       wifi的开启或关闭状态记录
+		数据2 1     0       0       gprs的开启或关闭记录状态
+
+
+
+表结构		wap_tmp_record_table 中间状态临时记录表
+		key		uid 	pckname		timesmt		wapdata 	status
+		主键	      程序uid   程序pckname	时间戳		使用流量大小	记录状态0 代表wifi临时记录 1代表gprs临时记录
+		
+			wap_record_table 流量花费情况
+		key		uid		pckname 	wapdata		status                                  
+		主键		程序uid	程序pckname	程序消耗流量       记录状态0 代表wifi临时记录 1代表gprs临时记录		
+		
+	关机关机 再执行一次流量结算只不过分别执行wifi和gprs关闭的结算操作
+		

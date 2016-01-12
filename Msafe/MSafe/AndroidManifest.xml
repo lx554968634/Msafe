@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -21,15 +23,15 @@
         <activity
             android:name="org.com.lix_.ui.MainActivity"
             android:label="@string/app_name" >
-              <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="org.com.lix_.ui.TestView"
             android:label="@string/app_name" >
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="org.com.lix_.ui.SceneOfRubbishClear"
@@ -68,6 +70,16 @@
                 <action android:name="org.com.lix_.ui.tabchildrootstart" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="org.com.lix_.service.BootService"
+            android:exported="false" >
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.BOOT_COMPLETED"
+                    android:exported="false" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

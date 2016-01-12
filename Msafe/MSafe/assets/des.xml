@@ -1,8 +1,31 @@
 描述
 
+
+ORM框架 http://www.codeceo.com/article/5-android-orm-framework.html 
+
+里面所有的Service和Receiver都必须严格判断
+
 1、ListView的左右间距是 10dp  ，其上方的分割线是 左右间距 5dp
 
 2、添加阴影 有需求 api：16  引用:https://github.com/wangjiegulu/ShadowViewHelper/
 
 3、 在GridView和ListView中，getChildAt ( int position ) 方法中position指的是当前可见区域的第几个元素。
 
+
+机型适配：屏幕大小，这个只能人工检验了（程序不知道你的UI长得好不好看）
+　　Android版本（某些API在低版本上没有的，会Crash，推荐Lint静态扫描）
+　　网络质量：联通、电信、移动、WiFi、弱网络等
+　　安全性：网络数据必定经过加密处理；本地不保存安全信息（帐号密码等），或者加密保存
+　　代码中敏感信息尽量使用byte数组而不是字符串代码混淆处理(Proguard)
+　　SD卡剩余空间很少，没SD卡，双SD卡，飞行模式，时间有误等。
+　　性能：CPU、内存占用（开发可以使用Linux的top命令或者DDMS里面的工具）
+　　网络流量消耗（有各种第三方流量监控软件）
+
+　android4.4在UI线程无法进行网络操作不单只android API版本不一定导致运行异常，有些机型还使用Java 1.5进行编译，使用某些Java 1.6的函数会Crash的。
+　　注意OOM问题，目前android手机已经有3G内存了，但并非一个应用就能使用全部内存。了解一下堆内存，一个软件至少一个进程，一个进程跑一个虚拟机，进程使用的堆内存大小，每部手机不一定一样。
+　　Show Dialog的问题，永远要判断Activity是否还在。
+　　使用了高版本的API函数，在低版本机器上挂了。
+　　非UI线程不能操作UI。可能有各种权限被禁的问题。
+　　没有浏览器、没有软件安装器、没有Email等发生ActivityNotFoundexception。
+　　超快速连续点击按钮可能触发跑多个线程的问题。
+　　Android4.4短信权限设置，原生系统带有新接口，第三方系统可能裁剪掉了。

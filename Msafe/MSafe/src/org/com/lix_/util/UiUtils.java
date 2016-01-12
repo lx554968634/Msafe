@@ -222,5 +222,8 @@ public class UiUtils {
 			return null;
 		}
 	}
-
+	public static boolean isNum(String str) {
+		return !str.equals("")
+				&& str.matches("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
+	}
 }
