@@ -129,7 +129,13 @@ public class ShutdownReceiver extends BroadcastReceiver {
 					TmpRecordWapEntity pTmp = new TmpRecordWapEntity(
 							pInfo.getUid(), pInfo.getPackageName());
 					pTmpRecordResult = pTmpRecordDao.queryByModel(pTmp);
-					if (pTmpRecordResult.size() > 2) {
+					if (pTmpRecordResult == null
+							|| pTmpRecordResult.size() == 0) {
+						IDao.finish();
+						Debug.i(TAG, "临时表没有记录 uid:" + pInfo.getUid()
+								+ ": pckName:" + pInfo.getPackageName());
+						continue;
+					} else if (pTmpRecordResult.size() > 2) {
 						// 出现了无效数据，这里面数据最多就是三条，即关于wifi使用临时记录，gprs使用临时记录
 						pTmpRecordDao.deleteModel(pTmp);
 						Debug.i(TAG, "多余记录删除关于uid:" + pInfo.getUid()
@@ -154,9 +160,11 @@ public class ShutdownReceiver extends BroadcastReceiver {
 							long tXData = TrafficStats.getUidTxBytes(pInfo
 									.getUid());
 							long max = rxData + tXData;
+							Debug.i(TAG, "pTmpRecordResult == null :"+(pTmpRecordResult == null ? -1 : pTmpRecordResult.size()));
 							TmpRecordWapEntity pTmpRecord = getWifiTmpRecord(pTmpRecordResult);
 							if (pTmpRecord != null) {
 								long nWapdata = pTmpRecord.getNwapdata() - max;
+								Debug.i(TAG, "相差流量:" + nWapdata);
 								if (nWapdata > 0) {
 									// 有效数据
 									// 更新记录 waprecorddao 和log记录
@@ -166,9 +174,12 @@ public class ShutdownReceiver extends BroadcastReceiver {
 									pTmpRecord.setNwapdata((int) nWapdata);
 									pWapRecorddao
 											.insertOrUpdateOtherModel(pTmpRecord);
+									pTmpRecordDao.deleteModelByStatus(pTmpRecord);
 								} else {
 									// 无效数据，继续下一个扫描
 								}
+							} else {
+								Debug.i(TAG, "pTmpRecord == null ");
 							}
 						}
 						pWifiStatus.setStatus(TmpStatusEntity.WIFI_UNABLE);

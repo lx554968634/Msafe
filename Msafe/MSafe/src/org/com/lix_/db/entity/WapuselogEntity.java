@@ -1,8 +1,11 @@
 package org.com.lix_.db.entity;
 
+import org.com.lix_.db.engine.Table;
 import org.com.lix_.db.engine.Table.Column;
 
+@Table(name = "t_use_log_wap")
 public class WapuselogEntity {
+	
 	public Integer getUid() {
 		return uid;
 	}

@@ -32,14 +32,23 @@ public class TmpRecordWapDaoImpl extends IDao {
 				null, null, tmpRecordWapEntity.getUid() + "",
 				tmpRecordWapEntity.getsPckname());
 		Debug.i(TAG, "queryByModel : end" + (pList == null ? 0 : pList.size()));
-		return null;
+		return pList;
 	}
 
 	public void deleteModel(TmpRecordWapEntity tmpRecordWapEntity) {
 		delete(TmpRecordWapEntity.getAllComlumn()[0] + " = ? AND "
-						+ TmpRecordWapEntity.getAllComlumn()[1] + " = ?", null,
-				null, null, tmpRecordWapEntity.getUid() + "",
-				tmpRecordWapEntity.getsPckname()) ;
+				+ TmpRecordWapEntity.getAllComlumn()[1] + " = ?", null, null,
+				null, tmpRecordWapEntity.getUid() + "",
+				tmpRecordWapEntity.getsPckname());
+	}
+
+	public void deleteModelByStatus(TmpRecordWapEntity tmpRecordWapEntity) {
+		delete(TmpRecordWapEntity.getAllComlumn()[0] + " = ? AND "
+				+ TmpRecordWapEntity.getAllComlumn()[1] + " = ? AND "
+				+ TmpRecordWapEntity.getAllComlumn()[4] + "=?",
+				tmpRecordWapEntity.getUid() + "",
+				tmpRecordWapEntity.getsPckname(),
+				tmpRecordWapEntity.getStatus() + "");
 	}
 
 }

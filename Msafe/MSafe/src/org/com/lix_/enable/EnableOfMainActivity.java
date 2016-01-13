@@ -66,7 +66,8 @@ public class EnableOfMainActivity extends Enable {
 			m_nScanCount++;
 			break;
 		case SCANSERVICE:
-			startWapService();
+			if (pMsg.arg1 == 0)
+				startWapService();
 			return;
 		}
 		m_pCallback.callback(nTag, m_nTotal -= (nTag + 1));
