@@ -40,6 +40,8 @@ public class BootService extends Service {
 			Debug.i(TAG, "Ïú»ÙShutdownReceiver");
 			unregisterReceiver(m_pShutdownReceiver);
 		}
+		
+		
 		Debug.i(TAG, "Ïú»ÙBootService");
 		super.onDestroy();
 	}

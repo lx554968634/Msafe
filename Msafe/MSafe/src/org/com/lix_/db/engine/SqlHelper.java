@@ -38,7 +38,7 @@ public class SqlHelper {
 				sqlBuidler.append(" NOT NULL");
 			}
 			if (column.isPrimaryKey()) {
-				sqlBuidler.append(" PRIMARY KEY ");
+				sqlBuidler.append("  PRIMARY KEY AUTOINCREMENT");
 				if (mOnPrimaryKeyListener != null)
 					mOnPrimaryKeyListener.onGetPrimaryKey(column.name());
 			}
@@ -51,20 +51,20 @@ public class SqlHelper {
 		sqlBuidler.append(")");
 		return sqlBuidler.toString();
 	}
+
 	/**
-
+	 * 
 	 * 把model里面的值映射到ContentValues中
-
 	 * 
-
+	 * 
+	 * 
 	 * 如果model里面字段没有赋值，也就是null的时候，则不把该值映射到ContentValues
-
 	 * 
-
+	 * 
+	 * 
 	 * @param model
-
+	 * 
 	 * @return
-
 	 */
 	public static void parseModelToContentValues(Object model,
 			ContentValues contentValues) {
@@ -86,10 +86,16 @@ public class SqlHelper {
 				fieldVal = field.get(model);
 				// 如果字段值为空的情况下，不放入contentValues
 
-
 				if (column == null || fieldVal == null)
 					continue;
-
+				if (column.isPrimaryKey()) {
+					// 自增
+					if (fieldType.equals(int.class)) {
+						if (field.getInt(model) == -1) {
+							continue;
+						}
+					}
+				}
 				if (fieldType.equals(int.class)) {
 					contentValues.put(column.name(), field.getInt(model));
 				} else if (fieldType.equals(Integer.class)) {
@@ -133,21 +139,20 @@ public class SqlHelper {
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
 
-
 				e.printStackTrace();
 			}
 		}
 	}
+
 	/**
-
-	 * 把queryResult里面的值映射到model中来
-
 	 * 
-
+	 * 把queryResult里面的值映射到model中来
+	 * 
+	 * 
+	 * 
 	 * @param queryResult
-
+	 * 
 	 * @param model
-
 	 */
 	public static void parseQueryResultToModel(QueryResult queryResult,
 			Object model) {
@@ -216,20 +221,20 @@ public class SqlHelper {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-
-	 * 把queryResultList里面的值映射到modelList中来
-
 	 * 
-
+	 * 把queryResultList里面的值映射到modelList中来
+	 * 
+	 * 
+	 * 
 	 * @param queryResultList
-
+	 * 
 	 * @param mList
-
+	 * 
 	 * @param mdlType
-
+	 * 
 	 *            List容器的类类型
-
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void parseQueryResultListToModelList(
@@ -248,10 +253,10 @@ public class SqlHelper {
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 
-
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * 
 	 * 获取表名称

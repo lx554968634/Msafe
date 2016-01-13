@@ -68,7 +68,8 @@ public class AppInfoEngine {
 			}
 			msg.what = nScanStart;
 			msg.arg1 = installedAppList.size();
-			m_pHandler.sendMessage(msg);
+			if (m_pHandler != null)
+				m_pHandler.sendMessage(msg);
 			for (ApplicationInfo application : installedAppList) {
 				AppInfo appInfo = new AppInfo();
 				int flags = application.flags;
@@ -92,7 +93,7 @@ public class AppInfoEngine {
 				/*
 				 * 如果直接扫描自己，会卡主程序
 				 */
-				if (!packname.equals("org.com.lix_.ui")) 
+				if (!packname.equals("org.com.lix_.ui"))
 					for (RunningAppProcessInfo pRunningInfo : totalApps) {
 						for (String sPck : pRunningInfo.pkgList) {
 							if (sPck.equals(packname)) {
@@ -106,13 +107,6 @@ public class AppInfoEngine {
 				long nExtRam = 0;
 				Debug.i(TAG, "");
 				if (tmpRunningInfo != null) {
-					Debug.i(TAG, "am == null :" + (am == null));
-					Debug.i(TAG,
-							"getMem == null:"
-									+ am.getProcessMemoryInfo(new int[] { tmpRunningInfo.pid }) == null);
-					Debug.i(TAG,
-							"[0] == null:"
-									+ am.getProcessMemoryInfo(new int[] { tmpRunningInfo.pid })[0] == null);
 					try {
 						nExtRam = 1024 * am
 								.getProcessMemoryInfo(new int[tmpRunningInfo.pid])[0]
@@ -122,6 +116,7 @@ public class AppInfoEngine {
 						nExtRam = 0;
 					}
 				}
+				appInfo.setUid(application.uid);
 				appInfo.setM_nRam(new File(dir).length() + nExtRam);
 				try {
 					if (nFlag
@@ -139,7 +134,8 @@ public class AppInfoEngine {
 				msg = Message.obtain();
 				msg.what = nScanItem;
 				msg.obj = packname;
-				m_pHandler.sendMessage(msg);
+				if (m_pHandler != null)
+					m_pHandler.sendMessage(msg);
 				appInfo.setPackageName(packname);
 				appinfos.add(appInfo);
 			}

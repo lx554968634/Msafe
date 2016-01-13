@@ -23,4 +23,12 @@ dao框架 摘抄http://git.oschina.net/yeguozhong/AndroidGenericDao/tree/master
 		主键		程序uid	程序pckname	程序消耗流量       记录状态0 代表wifi临时记录 1代表gprs临时记录		
 		
 	关机关机 再执行一次流量结算只不过分别执行wifi和gprs关闭的结算操作
+
+2016年1月13日10:13:15 ： 删除了所有表的主键，用着麻烦	
+	
+口令 ： 
+1、删除表
+drop table t_wap_record_table ;
+drop table t_tmp_record_wap ;
+drop table t_tmp_wap ;
 		

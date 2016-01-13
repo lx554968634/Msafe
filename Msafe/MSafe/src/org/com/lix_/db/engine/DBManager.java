@@ -16,8 +16,8 @@ import android.database.sqlite.SQLiteDatabase;
  * 数据管理器
  */
 public class DBManager {
-	
-	private String TAG = "DBManager" ;
+
+	private String TAG = "DBManager";
 
 	private Context m_pContext;
 
@@ -25,8 +25,9 @@ public class DBManager {
 
 	public DBManager(Context context) {
 		m_pContext = context;
-		m_pDatabase = context.openOrCreateDatabase(DB_define.DATABASE_NAME, Context.MODE_PRIVATE,
-				null);
+		if (m_pDatabase != null)
+			m_pDatabase = context.openOrCreateDatabase(DB_define.DATABASE_NAME,
+					Context.MODE_PRIVATE, null);
 	}
 
 	/**
@@ -231,7 +232,7 @@ public class DBManager {
 	public boolean insert(String table, ContentValues values) {
 		try {
 			openDB();
-			Debug.i(TAG, "insert:"+table+":数据");
+			Debug.i(TAG, "insert:" + table + ":数据");
 			return m_pDatabase.insertOrThrow(table, null, values) != -1;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -275,14 +276,19 @@ public class DBManager {
 	public void closeDB() {
 		if (m_pDatabase.isOpen()) {
 			m_pDatabase.close();
+			Debug.i(TAG, "数据库关闭:close()");
+		} else {
+			Debug.i(TAG, "数据库已经关闭了");
 		}
+		m_pDatabase = null;
+		System.gc();
 	}
 
 	/*
 	 * * 打开数据库
 	 */
 	public void openDB() {
-		if (m_pDatabase.isOpen() == false)
+		if (m_pDatabase == null || m_pDatabase.isOpen() == false)
 			m_pDatabase = m_pContext.openOrCreateDatabase(
 					DB_define.DATABASE_NAME, Context.MODE_PRIVATE, null);
 	}

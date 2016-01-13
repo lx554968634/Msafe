@@ -8,6 +8,7 @@ import org.com.lix_.db.engine.DBManager;
 import org.com.lix_.db.engine.QueryResult;
 import org.com.lix_.db.engine.SqlHelper;
 import org.com.lix_.db.engine.Table.Column;
+import org.com.lix_.util.Debug;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,7 +17,7 @@ public class IDao {
 
 	protected String TAG = "IDAO";
 
-	private DBManager m_pDb;
+	private static DBManager m_pDb;
 
 	private Class m_pOriginClass;
 
@@ -25,13 +26,10 @@ public class IDao {
 
 	public IDao() {
 	}
-	
-	public void finish()
-	{
-		if(m_pDb != null)
-		{
-			m_pDb.closeDB(); 
-		}
+
+	public static void finish() {
+		if (m_pDb != null)
+			m_pDb.closeDB();
 	}
 
 	public IDao(Context pContext, Class pClass) {
@@ -39,7 +37,7 @@ public class IDao {
 		m_sTableName = SqlHelper.getTableName(pClass);
 		if (m_pDb == null) {
 			m_pDb = new DBManager(pContext);
-		}
+		}createTable(); 
 	}
 
 	public void createTable() {
@@ -112,6 +110,7 @@ public class IDao {
 		String[] bindColumnValues;
 		String selection;
 		Object modelInDb;
+		Debug.i(TAG, "insertUpdate :" + model.getClass().getName());
 		if (bindColumnNames == null || bindColumnNames.length == 0) {
 			if (m_sPk == null)
 				reGainPrimaryKey();
@@ -140,6 +139,7 @@ public class IDao {
 		modelInDb = queryUniqueRecord(selection, bindColumnValues);
 		ContentValues contentValues = new ContentValues();
 		SqlHelper.parseModelToContentValues(model, contentValues);
+		Debug.i(TAG, "modelInDb == null :" + (modelInDb == null));
 		if (modelInDb == null) {
 			return m_pDb.insert(m_sTableName, contentValues);
 		} else {

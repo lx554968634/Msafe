@@ -5,8 +5,6 @@ import org.com.lix_.db.engine.Table.Column;
 
 @Table(name = "t_wap_record_table")
 public class WapRecordEntity {
-	@Column(name = "nid", type = Column.TYPE_BOOLEAN, isPrimaryKey = true)
-	private Integer nid;
 
 	@Column(name = "uid", type = Column.TYPE_INTEGER)
 	private Integer uid;
@@ -19,14 +17,6 @@ public class WapRecordEntity {
 
 	@Column(name = "status", type = Column.TYPE_INTEGER)
 	private Integer status;
-
-	public Integer getNid() {
-		return nid;
-	}
-
-	public void setNid(Integer nid) {
-		this.nid = nid;
-	}
 
 	public Integer getUid() {
 		return uid;
@@ -58,5 +48,10 @@ public class WapRecordEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public static String[] getAllComlumn() {
+		// TODO Auto-generated method stub
+		return new String[] { "uid", "sPckname", "nwapdata", "status" };
 	}
 }

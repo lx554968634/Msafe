@@ -1,5 +1,7 @@
 描述
 
+android 中service和broadcastreceiver都是运行在ui线程中，，如果在他们中执行耗时操作，若果操作持续的时间超过android平台的约定
+，那么android平台会认为该程序出现异常，从而抛出ANR异常。
 
 ORM框架 http://www.codeceo.com/article/5-android-orm-framework.html 
 

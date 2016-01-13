@@ -9,12 +9,21 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class AppInfo implements Serializable {
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
 	private static final long serialVersionUID = 8802173452293625312L;
 	private String appName = "";
 	private String packageName = "";
 	private boolean isSystemApp = false;
 	private int mServiceCount = 0;
 	private long mCache = 0;
+	private int uid = -1;
 	private boolean m_bIsSdSaved = false;
 
 	public long getmCache() {
@@ -72,15 +81,12 @@ public class AppInfo implements Serializable {
 
 	private String[] szPermission;
 	public long m_nFirstInstalledTime = -1;
-	
-	public String getInstalledTime()
-	{
-		if(m_nFirstInstalledTime == -1)
-		{
+
+	public String getInstalledTime() {
+		if (m_nFirstInstalledTime == -1) {
 			return "×î½ü";
-		}else
-		{
-			return UiUtils.getInstalledTime(m_nFirstInstalledTime) ;
+		} else {
+			return UiUtils.getInstalledTime(m_nFirstInstalledTime);
 		}
 	}
 
