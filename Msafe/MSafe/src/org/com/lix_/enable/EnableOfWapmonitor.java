@@ -10,6 +10,7 @@ import org.com.lix_.db.dao.WapuselogDaoImpl;
 import org.com.lix_.db.entity.TmpRecordWapEntity;
 import org.com.lix_.db.entity.TmpStatusEntity;
 import org.com.lix_.enable.engine.AppInfo;
+import org.com.lix_.enable.engine.AppInfoEngine;
 import org.com.lix_.util.Debug;
 
 import android.Manifest;
@@ -101,28 +102,46 @@ public class EnableOfWapmonitor extends Enable {
 				Debug.i(TAG,
 						"tmprecord表关于pInfo.pckName = " + pInfo.getPackageName()
 								+ " 数据有误");
+				IDao.finish();
 				return null;
 			}
 		}
 		return pTmpRecordResult;
 	}
 
+	private long getWapdataByUid(AppInfo pInfo) {
+		long rxData = TrafficStats.getUidRxBytes(pInfo.getUid());
+		long tXData = TrafficStats.getUidTxBytes(pInfo.getUid());
+		long max = rxData + tXData;
+		return max;
+	}
+
 	private int checkWifiOrGprsWithTmpRecord(TmpRecordWapDaoImpl pTmpRecordDao,
 			WapRecordDaoImpl pWapRecorddao, TmpStatusDaoImpl pStatusDao,
-			TmpStatusEntity pWifiStatus,
+			TmpStatusEntity pTmpStatus,
 			List<TmpRecordWapEntity> pTmpRecordResult, AppInfo pInfo,
-			int nenableStatus, int unablestatus) {
+			int nStatus) {
 		WapuselogDaoImpl pWapuseLog = new WapuselogDaoImpl(m_pContext);
 		TmpRecordWapEntity pTmpRecord = null;
-		if (pWifiStatus.getStatus() == nenableStatus) {
+		int nenableStatus = -1;
+		int unablestatus = -1;
+		switch (nStatus) {
+		case 0:// wifi
+			nenableStatus = TmpStatusEntity.WIFI_ENABLE;
+			unablestatus = TmpStatusEntity.WIFI_UNABLE;
+			break;
+		case 1:// gprs
+			nenableStatus = TmpStatusEntity.GPRS_ENABLE;
+			unablestatus = TmpStatusEntity.GPRS_UNABLE;
+			break;
+		}
+		if (pTmpStatus.getStatus() == nenableStatus) {
 			// 找到tmpRecord表中记录，并且同步到WapRecord表中
 			if (pTmpRecordResult == null || pTmpRecordResult.size() == 0) {
 			} else {
 				Debug.i(TAG, "此时wifiEnalbe开启，并且中间表中存在数据!");
 				// 需要把数据添加到wap_record_table , wapuselogentity ;
-				long rxData = TrafficStats.getUidRxBytes(pInfo.getUid());
-				long tXData = TrafficStats.getUidTxBytes(pInfo.getUid());
-				long max = rxData + tXData;
+				long max = getWapdataByUid(pInfo);
 				Debug.i(TAG,
 						"pTmpRecordResult == null :"
 								+ (pTmpRecordResult == null ? -1
@@ -148,78 +167,28 @@ public class EnableOfWapmonitor extends Enable {
 				}
 			}
 			Debug.i(TAG, "tmp表中wifi开启记录还原");
-			pWifiStatus.setStatus(unablestatus);
-			boolean nFlag = pStatusDao.insertOrUpdate(pWifiStatus,
+			pTmpStatus.setStatus(unablestatus);
+			boolean nFlag = pStatusDao.insertOrUpdate(pTmpStatus,
 					TmpStatusEntity.getAllComlumn()[2]);
-		} else if (pWifiStatus.getStatus() == unablestatus) {
+		} else if (pTmpStatus.getStatus() == unablestatus) {
 		} else {
 			pStatusDao.insertData();
 			pTmpRecordDao.deleteAll();
 			IDao.finish();
 			return -1;
 		}
-		if (pWifiStatus.getStatus() == unablestatus) {
+		if (pTmpStatus.getStatus() == unablestatus) {
 			if (pTmpRecord == null) {
 				pTmpRecord = new TmpRecordWapEntity();
 				pTmpRecord.setUid(pInfo.getUid());
 				pTmpRecord.setsPckname(pInfo.getPackageName());
 			}
-			pTmpRecord.setStatus((unablestatus - 1) < 0 ? 0
-					: (unablestatus - 1));
+			pTmpRecord.setStatus(nStatus);
 			Debug.i(TAG, "wifi 临时表记录也已关闭 ,清除多余的tmpRecord记录:" + pInfo.getUid()
 					+ ":" + pInfo.getPackageName());
 			pTmpRecordDao.deleteModelByStatus(pTmpRecord);
 		}
 		return 0;
-	}
-
-	/**
-	 * 核心方法
-	 */
-	public void saveAndCheckRecord(AppInfo pInfo) {
-		String[] szPermission = pInfo.getSzPermission();
-		boolean bFlag = checkPermission(szPermission,
-				Manifest.permission.INTERNET);
-		List<TmpStatusEntity> pStatuResult = null;
-		List<TmpRecordWapEntity> pTmpRecordResult = null;
-		if (bFlag) {
-			Debug.i(TAG,
-					"使用 net权限:" + pInfo.getPackageName() + ":" + pInfo.getUid());
-			TmpStatusDaoImpl pStatusDao = new TmpStatusDaoImpl(m_pContext);
-			TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
-					m_pContext);
-			pStatuResult = checkWapStatusTableRegural(pStatusDao);
-			int nSize = pStatuResult == null ? -1 : pStatuResult.size();
-			if (nSize != 2) {
-				Debug.i(TAG, "pStatuResult 数据不符合格式 : 直接关闭");
-				return;
-			} else {
-				pTmpRecordResult = checkTmpRecord(pTmpRecordDao, pInfo);
-				if (pTmpRecordResult == null) {
-					Debug.i(TAG, "tmpRecord 数据格式不符:直接关闭");
-					return;
-				}
-				TmpStatusEntity pWifiStatus = pStatuResult.get(0);
-				TmpStatusEntity pGprsStatus = pStatuResult.get(1);
-				WapRecordDaoImpl pWapRecorddao = new WapRecordDaoImpl(
-						m_pContext);
-				// wifi gprs 同时enable记录是不共存的
-				int nTag = checkWifiOrGprsWithTmpRecord(pTmpRecordDao,
-						pWapRecorddao, pStatusDao, pWifiStatus,
-						pTmpRecordResult, pInfo, TmpStatusEntity.WIFI_ENABLE,
-						TmpStatusEntity.WIFI_UNABLE);
-				if (nTag != 0)
-					return;
-				nTag = checkWifiOrGprsWithTmpRecord(pTmpRecordDao,
-						pWapRecorddao, pStatusDao, pGprsStatus,
-						pTmpRecordResult, pInfo, TmpStatusEntity.GPRS_ENABLE,
-						TmpStatusEntity.GPRS_UNABLE);
-				if (nTag != 0)
-					return;
-			}
-			IDao.finish();
-		} else {
-		}
 	}
 
 	private TmpRecordWapEntity getWifiTmpRecord(
@@ -256,8 +225,104 @@ public class EnableOfWapmonitor extends Enable {
 	}
 
 	public void updateStatusWap(TmpStatusEntity pEntity) {
-		TmpStatusDaoImpl pDao = new TmpStatusDaoImpl(m_pContext) ;
-		pDao.update(pEntity) ;
+		TmpStatusDaoImpl pDao = new TmpStatusDaoImpl(m_pContext);
+		pDao.update(pEntity);
+	}
+
+	/*
+	 * 根据uid插入临时数据 1、扫描数据
+	 */
+	public void updateTmpUidwapdata(int nStatus) {
+		List<AppInfo> szList = getAppInfoListWithPermission();
+		for (AppInfo pInfo : szList) {
+			String[] szPermission = pInfo.getSzPermission();
+			boolean bFlag = checkPermission(szPermission,
+					Manifest.permission.INTERNET);
+			if (!bFlag) {
+				return;
+			} else {
+				TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
+						m_pContext);
+				TmpRecordWapEntity pModel = new TmpRecordWapEntity();
+				pModel.setUid(pInfo.getUid());
+				pModel.setsPckname(pInfo.getPackageName());
+				pModel.setStatus(nStatus);
+				long max = getWapdataByUid(pInfo);
+				pModel.setNwapdata((int) max);
+				pModel.setTimesmt(System.currentTimeMillis());
+				pTmpRecordDao.insertModel(pModel);
+			}
+		}
+		IDao.finish();
+	}
+
+	private List<AppInfo> getAppInfoListWithPermission() {
+		AppInfoEngine pEngine1 = new AppInfoEngine(m_pContext);
+		List<AppInfo> pList = pEngine1.getInstalledAppWithPermiss();
+		return pList;
+	}
+
+	public void stoneInfoWhenWifiDisconnected() {
+		stoneAllInfoWhenWapLinkDisconnected(0);
+	}
+
+	/**
+	 * 核心函数里面有储存log，record，清空tmprecord，复位tmpStatus表的功能
+	 * @param pInfo
+	 * @param nStatus
+	 */
+	private void saveAndCheckRecordWhenWapLinkDisconnected(AppInfo pInfo,
+			int nStatus) {
+		String[] szPermission = pInfo.getSzPermission();
+		boolean bFlag = checkPermission(szPermission,
+				Manifest.permission.INTERNET);
+		List<TmpStatusEntity> pStatuResult = null;
+		List<TmpRecordWapEntity> pTmpRecordResult = null;
+		if (bFlag) {
+			Debug.i(TAG,
+					"使用 net权限:" + pInfo.getPackageName() + ":" + pInfo.getUid());
+			TmpStatusDaoImpl pStatusDao = new TmpStatusDaoImpl(m_pContext);
+			TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
+					m_pContext);
+			pStatuResult = checkWapStatusTableRegural(pStatusDao);
+			int nSize = pStatuResult == null ? -1 : pStatuResult.size();
+			if (nSize != 2) {
+				Debug.i(TAG, "pStatuResult 数据不符合格式 : 直接关闭");
+				return;
+			} else {
+				pTmpRecordResult = checkTmpRecord(pTmpRecordDao, pInfo);
+				if (pTmpRecordResult == null) {
+					Debug.i(TAG, "tmpRecord 数据格式不符:直接关闭");
+					return;
+				}
+				TmpStatusEntity pStatusEntity = pStatuResult.get(nStatus);
+				WapRecordDaoImpl pWapRecorddao = new WapRecordDaoImpl(
+						m_pContext);
+				// wifi gprs 同时enable记录是不共存的
+				int nTag = checkWifiOrGprsWithTmpRecord(pTmpRecordDao,
+						pWapRecorddao, pStatusDao, pStatusEntity,
+						pTmpRecordResult, pInfo, nStatus);
+			}
+			IDao.finish();
+		}
+	}
+
+	private void stoneAllInfoWhenWapLinkDisconnected(int nStatus) {
+		List<AppInfo> szList = getAppInfoListWithPermission();
+		for (AppInfo pInfo : szList) {
+			String[] szPermission = pInfo.getSzPermission();
+			boolean bFlag = checkPermission(szPermission,
+					Manifest.permission.INTERNET);
+			if (!bFlag) {
+				return;
+			} else {
+				saveAndCheckRecordWhenWapLinkDisconnected(pInfo, nStatus);
+			}
+		}
+	}
+
+	public void stoneInfoWhenGprsDisconnected() {
+		stoneAllInfoWhenWapLinkDisconnected(1);
 	}
 
 }

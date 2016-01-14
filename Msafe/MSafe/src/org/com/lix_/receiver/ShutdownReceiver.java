@@ -59,13 +59,11 @@ public class ShutdownReceiver extends BroadcastReceiver {
 
 	private void stoneWapInfo(final Context pContext) {
 		final InnerHandler pHandler = new InnerHandler();
-		final AppInfoEngine pEngine1 = new AppInfoEngine(pContext);
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				List<AppInfo> pList = pEngine1.getInstalledAppWithPermiss();
-				stoneInfo(pList);
+				stoneInfo();
 				Message msg = Message.obtain();
 				msg.what = SCAN_OVER;
 				msg.obj = pContext;
@@ -74,12 +72,9 @@ public class ShutdownReceiver extends BroadcastReceiver {
 		}).start();
 	}
 
-	private void stoneInfo(List<AppInfo> pList) {
-		if (pList == null || pList.size() == 0)
-			return;
-		for (AppInfo pInfo : pList) {
-			m_pEnable.saveAndCheckRecord(pInfo);
-		}
+	private void stoneInfo() {
+		m_pEnable.stoneInfoWhenGprsDisconnected() ;
+		m_pEnable.stoneInfoWhenWifiDisconnected();
 	}
 
 	private final int SCAN_OVER = 2;

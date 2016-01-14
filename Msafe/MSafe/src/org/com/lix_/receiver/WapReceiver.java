@@ -23,21 +23,25 @@ public class WapReceiver extends BroadcastReceiver {
 		TmpStatusEntity pEntity = TmpStatusEntity.getWifiEntity() ;
 		m_pEnable.updateStatusWap(pEntity) ;
 		//记录uid的wap数据
+		m_pEnable.updateTmpUidwapdata(0) ;
 	}
 
 	protected void onWifiDisconnected() {
 		Debug.i(TAG, "onWifiDisconnected 对比Wifi消耗，并记录数据");
+		m_pEnable.stoneInfoWhenWifiDisconnected() ;
 	}
 
 	protected void onGprsConnected() {
 		Debug.i(TAG, "onGprsConnected 记录流量tag");
 		TmpStatusEntity pEntity = TmpStatusEntity.getGprsEntity() ;
 		m_pEnable.updateStatusWap(pEntity) ;
+		m_pEnable.updateTmpUidwapdata(1) ;
 		//记录uid的wap数据
 	}
 
 	protected void onGprsDisConnected() {
 		Debug.i(TAG, "onGprsDisConnected 对比流量消耗，并记录数据");
+		m_pEnable.stoneInfoWhenGprsDisconnected() ;
 	}
 
 	EnableOfWapmonitor m_pEnable;

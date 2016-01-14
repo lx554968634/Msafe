@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.com.lix_.db.entity.TmpRecordWapEntity;
 import org.com.lix_.db.entity.TmpStatusEntity;
+import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.util.Debug;
 
 import android.content.Context;
@@ -37,7 +38,8 @@ public class TmpRecordWapDaoImpl extends IDao {
 
 	public void deleteModel(TmpRecordWapEntity tmpRecordWapEntity) {
 		delete(TmpRecordWapEntity.getAllComlumn()[0] + " = ? AND "
-				+ TmpRecordWapEntity.getAllComlumn()[1] + " = ?", tmpRecordWapEntity.getUid() + "",
+				+ TmpRecordWapEntity.getAllComlumn()[1] + " = ?",
+				tmpRecordWapEntity.getUid() + "",
 				tmpRecordWapEntity.getsPckname());
 	}
 
@@ -48,6 +50,12 @@ public class TmpRecordWapDaoImpl extends IDao {
 				tmpRecordWapEntity.getUid() + "",
 				tmpRecordWapEntity.getsPckname(),
 				tmpRecordWapEntity.getStatus() + "");
+	}
+
+	public void insertModel(TmpRecordWapEntity pInfo) {
+		Debug.i(TAG, "插入临时数据:" + pInfo.getsPckname() + ":" + pInfo.getTimesmt());
+		insertOrUpdate(pInfo, pInfo.getAllComlumn()[0],
+				pInfo.getAllComlumn()[1], pInfo.getAllComlumn()[4]);
 	}
 
 }
