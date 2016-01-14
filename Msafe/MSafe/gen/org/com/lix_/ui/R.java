@@ -13,11 +13,14 @@ public final class R {
         public static final int anim_loading2=0x7f040001;
         public static final int anim_rotate0=0x7f040002;
         public static final int list_anim_layout=0x7f040003;
-        public static final int slide_down=0x7f040004;
-        public static final int slide_down_1=0x7f040005;
-        public static final int slide_left=0x7f040006;
-        public static final int slide_right=0x7f040007;
-        public static final int slide_up=0x7f040008;
+        public static final int normal2small=0x7f040004;
+        public static final int remove_checked=0x7f040005;
+        public static final int slide_down=0x7f040006;
+        public static final int slide_down_1=0x7f040007;
+        public static final int slide_left=0x7f040008;
+        public static final int slide_right=0x7f040009;
+        public static final int slide_up=0x7f04000a;
+        public static final int small2normal=0x7f04000b;
     }
     public static final class array {
         /**  这个是系统自带文件夹以及相应功能 
@@ -37,6 +40,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
         public static final int backgroundcolor=0x7f010002;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int image_ref_enabled=0x7f010006;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int image_ref_unenabled=0x7f010007;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -61,15 +72,32 @@ in (inches), mm (millimeters).
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
          */
+        public static final int title_str=0x7f010005;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+         */
         public static final int txt=0x7f010003;
     }
     public static final class color {
+        /**  apk管理 
+         */
+        public static final int apkadmin_installed_time=0x7f06001d;
         public static final int black=0x7f06000a;
         /**  垃圾清理详细列表 
          */
         public static final int checkbox_green_checked=0x7f060011;
+        public static final int d5_alph=0x7f060019;
         public static final int detail_rubbish_scan_item_=0x7f060012;
         public static final int detail_rubbish_scan_txtcolor=0x7f060013;
+        public static final int dialog_fileadmin_item_cancelcolor=0x7f06001b;
+        public static final int dialog_fileadmin_item_deletecolor=0x7f06001c;
+        /**  大文件itemonlick显示的灰色字体 
+         */
+        public static final int dialog_fileadmin_item_textcolorgray=0x7f06001a;
+        /**  大文件管理 弹出对话框字体颜色 
+         */
+        public static final int fileadmin_pop_filetype_color_enable=0x7f060018;
         public static final int gray_mainactivity_btn_press=0x7f060006;
         public static final int green_breathecircleview_background=0x7f060004;
         public static final int green_breathecircleview_background_apha=0x7f060005;
@@ -90,7 +118,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int rubbish_setting_tag_bg=0x7f06000f;
         public static final int rubbishclear_bg=0x7f060007;
+        public static final int shadowcolor=0x7f060017;
         public static final int tab_textcolor_selected=0x7f06000b;
+        /**  wap管理 
+         */
+        public static final int wap_circle_background=0x7f06001e;
         /**  MainActivity.java需要的颜色 
          */
         public static final int white=0x7f060000;
@@ -109,35 +141,40 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_vertical_margin=0x7f070001;
         /**  所有的列表item中app的图标 
          */
-        public static final int all_item_app_icon_size=0x7f070025;
-        public static final int circle2line_stroke=0x7f070013;
+        public static final int all_item_app_icon_size=0x7f070026;
+        public static final int circle2line_stroke=0x7f070014;
         public static final int clear_btn_size=0x7f070009;
-        public static final int divider_height=0x7f070014;
-        public static final int divider_height_half=0x7f07001f;
-        public static final int gird_item_down_textsize=0x7f070017;
-        public static final int gird_item_up_textsize=0x7f070016;
-        public static final int line_height=0x7f070012;
-        public static final int main_scan_content_size=0x7f07001a;
-        public static final int main_scan_padding=0x7f070018;
-        public static final int main_scan_padding1=0x7f07001d;
-        public static final int main_scan_padding2=0x7f07001e;
-        public static final int main_scan_title_size=0x7f070019;
-        public static final int main_scan_titleimage_size=0x7f07001b;
-        public static final int main_scan_titleimage_size_1=0x7f07001c;
-        public static final int padding_list=0x7f07000c;
-        public static final int padding_list1=0x7f07000d;
-        public static final int padding_list1_tagimg=0x7f07000e;
+        /**  wap相关 
+         */
+        public static final int content_title_des_size=0x7f070028;
+        public static final int dialog_fileadmin_item_marginleft=0x7f070027;
+        public static final int divider_height=0x7f070015;
+        public static final int divider_height_half=0x7f070020;
+        public static final int gird_item_down_textsize=0x7f070018;
+        public static final int gird_item_up_textsize=0x7f070017;
+        public static final int line_height=0x7f070013;
+        public static final int main_scan_content_size=0x7f07001b;
+        public static final int main_scan_padding=0x7f070019;
+        public static final int main_scan_padding1=0x7f07001e;
+        public static final int main_scan_padding2=0x7f07001f;
+        public static final int main_scan_title_size=0x7f07001a;
+        public static final int main_scan_titleimage_size=0x7f07001c;
+        public static final int main_scan_titleimage_size_1=0x7f07001d;
+        public static final int padding_list=0x7f07000d;
+        public static final int padding_list1=0x7f07000e;
+        public static final int padding_list1_tagimg=0x7f07000f;
         public static final int padding_list2=0x7f07000a;
-        public static final int padding_list2_tagimg=0x7f07000f;
-        public static final int padding_list3=0x7f070011;
-        public static final int padding_list4=0x7f07000b;
-        public static final int padding_list_helf=0x7f070010;
-        public static final int rubbish_setting_des_size=0x7f070023;
-        public static final int rubbish_setting_divider_height=0x7f070024;
+        public static final int padding_list2_tagimg=0x7f070010;
+        public static final int padding_list3=0x7f070012;
+        public static final int padding_list4=0x7f07000c;
+        public static final int padding_list_helf=0x7f070011;
+        public static final int padding_list_helf_tri=0x7f07000b;
+        public static final int rubbish_setting_des_size=0x7f070024;
+        public static final int rubbish_setting_divider_height=0x7f070025;
         /**  垃圾清理设置中相关属性 
          */
-        public static final int rubbish_setting_tag_size=0x7f070021;
-        public static final int rubbish_setting_title_size=0x7f070022;
+        public static final int rubbish_setting_tag_size=0x7f070022;
+        public static final int rubbish_setting_title_size=0x7f070023;
         public static final int stroke_circle=0x7f070008;
         public static final int textsize_breathecircle=0x7f070005;
         /**  系统字大小 
@@ -146,73 +183,103 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int textsize_mainactivity_btn=0x7f070006;
         public static final int textsize_mainactiviy_scan=0x7f070004;
         public static final int textsize_mainactiviy_top=0x7f070003;
-        public static final int textsize_title_num=0x7f070015;
-        public static final int txt_title_rubbish=0x7f070020;
+        public static final int textsize_title_num=0x7f070016;
+        public static final int txt_title_rubbish=0x7f070021;
         public static final int txtpaddingbottom_mainactivity_grid=0x7f070007;
     }
     public static final class drawable {
-        public static final int blank_folder=0x7f020000;
-        public static final int checkbox_checked=0x7f020001;
-        public static final int checkbox_checked_style=0x7f020002;
-        public static final int checkbox_default=0x7f020003;
-        public static final int checked=0x7f020004;
-        public static final int checked_style=0x7f020005;
-        public static final int circle_green=0x7f020006;
-        public static final int circle_main_tag=0x7f020007;
-        public static final int circle_red=0x7f020008;
-        public static final int doc_icon=0x7f020009;
-        public static final int green_progress=0x7f02000a;
-        public static final int ic_launcher=0x7f02000b;
-        public static final int ic_progress=0x7f02000c;
-        public static final int list_divide=0x7f02000d;
-        public static final int list_divider=0x7f02000e;
-        public static final int list_item_selector=0x7f02000f;
-        public static final int main_scan_right=0x7f020010;
-        public static final int main_scan_wow=0x7f020011;
-        public static final int main_title_0=0x7f020012;
-        public static final int main_title_1=0x7f020013;
-        public static final int main_title_2=0x7f020014;
-        public static final int main_title_3=0x7f020015;
-        public static final int main_title_4=0x7f020016;
-        public static final int main_title_5=0x7f020017;
-        public static final int main_title_6=0x7f020018;
-        public static final int point=0x7f020019;
-        public static final int progress_line=0x7f02001a;
-        public static final int radar=0x7f02001b;
-        public static final int redtag=0x7f02001c;
-        public static final int rubbish_clear_t0=0x7f02001d;
-        public static final int rubbish_clear_t1=0x7f02001e;
-        public static final int rubbish_clear_t2=0x7f02001f;
-        public static final int rubbish_clear_t3=0x7f020020;
-        public static final int rubbish_clear_t4=0x7f020021;
-        public static final int rubbish_linecolor0=0x7f020022;
-        public static final int rubbish_linecolor1=0x7f020023;
-        public static final int rubbish_linecolor2=0x7f020024;
-        public static final int rubbish_linecolor3=0x7f020025;
-        public static final int selected_underline=0x7f020026;
-        public static final int selector_highlight_button=0x7f020027;
-        public static final int selector_orange_gray=0x7f020028;
-        public static final int selector_orange_white=0x7f020029;
-        public static final int selector_text_color=0x7f02002a;
-        public static final int setting=0x7f02002b;
-        public static final int shape_line=0x7f02002c;
-        public static final int small_progress=0x7f02002d;
-        public static final int switch_blue=0x7f02002e;
-        public static final int switch_gray=0x7f02002f;
-        public static final int switch_tag=0x7f020030;
-        public static final int tab_selector=0x7f020031;
-        public static final int tab_textcolor_selectno=0x7f020032;
-        public static final int title=0x7f020033;
-        public static final int tribe=0x7f020034;
-        public static final int uncheck=0x7f020035;
-        public static final int wave2=0x7f020036;
+        public static final int apkadmin_typebtn=0x7f020000;
+        public static final int blank_folder=0x7f020001;
+        public static final int checkbox_checked=0x7f020002;
+        public static final int checkbox_checked_style=0x7f020003;
+        public static final int checkbox_default=0x7f020004;
+        public static final int checked=0x7f020005;
+        public static final int checked_style=0x7f020006;
+        public static final int circle_green=0x7f020007;
+        public static final int circle_main_tag=0x7f020008;
+        public static final int circle_red=0x7f020009;
+        public static final int doc_icon=0x7f02000a;
+        public static final int file_tpye1=0x7f02000b;
+        public static final int file_type0=0x7f02000c;
+        public static final int file_type2=0x7f02000d;
+        public static final int file_type3=0x7f02000e;
+        public static final int file_type4=0x7f02000f;
+        public static final int fileadmin_item_default=0x7f020010;
+        public static final int green_progress=0x7f020011;
+        public static final int ic_launcher=0x7f020012;
+        public static final int ic_progress=0x7f020013;
+        public static final int list_divide=0x7f020014;
+        public static final int list_divider=0x7f020015;
+        public static final int list_item_selector=0x7f020016;
+        public static final int main_scan_right=0x7f020017;
+        public static final int main_scan_wow=0x7f020018;
+        public static final int main_title_0=0x7f020019;
+        public static final int main_title_1=0x7f02001a;
+        public static final int main_title_2=0x7f02001b;
+        public static final int main_title_3=0x7f02001c;
+        public static final int main_title_4=0x7f02001d;
+        public static final int main_title_5=0x7f02001e;
+        public static final int main_title_6=0x7f02001f;
+        public static final int point=0x7f020020;
+        public static final int progress_line=0x7f020021;
+        public static final int radar=0x7f020022;
+        public static final int redtag=0x7f020023;
+        public static final int removecheck=0x7f020024;
+        public static final int rubbish_clear_t0=0x7f020025;
+        public static final int rubbish_clear_t1=0x7f020026;
+        public static final int rubbish_clear_t2=0x7f020027;
+        public static final int rubbish_clear_t3=0x7f020028;
+        public static final int rubbish_clear_t4=0x7f020029;
+        public static final int rubbish_linecolor0=0x7f02002a;
+        public static final int rubbish_linecolor1=0x7f02002b;
+        public static final int rubbish_linecolor2=0x7f02002c;
+        public static final int rubbish_linecolor3=0x7f02002d;
+        public static final int selected_underline=0x7f02002e;
+        public static final int selector_highlight_button=0x7f02002f;
+        public static final int selector_orange_gray=0x7f020030;
+        public static final int selector_orange_white=0x7f020031;
+        public static final int selector_text_color=0x7f020032;
+        public static final int setting=0x7f020033;
+        public static final int shadow=0x7f020034;
+        public static final int shape_line=0x7f020035;
+        public static final int small_progress=0x7f020036;
+        public static final int switch_blue=0x7f020037;
+        public static final int switch_gray=0x7f020038;
+        public static final int switch_tag=0x7f020039;
+        public static final int tab_selector=0x7f02003a;
+        public static final int tab_textcolor_selectno=0x7f02003b;
+        public static final int title=0x7f02003c;
+        public static final int tribe=0x7f02003d;
+        public static final int uncheck=0x7f02003e;
+        public static final int wap_title_btn=0x7f02003f;
+        public static final int wapadmin_drawableview0=0x7f020040;
+        public static final int wapadmin_drawableview1=0x7f020041;
+        public static final int wapadmin_txtview0=0x7f020042;
+        public static final int wapadmin_txtview1=0x7f020043;
+        public static final int wave2=0x7f020044;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b006f;
-        public static final int apkadmin_btn_clear=0x7f0b0022;
-        public static final int apkadmin_detail_list=0x7f0b0023;
-        public static final int apkadmin_filesizetotalnum=0x7f0b0020;
-        public static final int apkadmin_progress=0x7f0b001d;
+        public static final int action_settings=0x7f0b009e;
+        public static final int apk_admin_div=0x7f0b0028;
+        public static final int apkadmin_btn_clear=0x7f0b002a;
+        public static final int apkadmin_clear_button_divider=0x7f0b0029;
+        public static final int apkadmin_detail_list=0x7f0b0027;
+        public static final int apkadmin_item_item_image=0x7f0b0060;
+        public static final int apkadmin_item_rubbish_checkbox=0x7f0b0066;
+        public static final int apkadmin_item_rubbish_des=0x7f0b0061;
+        public static final int apkadmin_itemitem_cache=0x7f0b0065;
+        public static final int apkadmin_itemitem_desc=0x7f0b0064;
+        public static final int apkadmin_itemitem_installedtime=0x7f0b0063;
+        public static final int apkadmin_itemitem_name=0x7f0b0062;
+        public static final int apkadmin_list_type=0x7f0b0023;
+        public static final int apkadmin_postag0=0x7f0b0021;
+        public static final int apkadmin_progress=0x7f0b0020;
+        public static final int apkadmin_show_title=0x7f0b001e;
+        public static final int apkadmin_tag0=0x7f0b001d;
+        public static final int apkadmin_tip_0=0x7f0b0022;
+        public static final int apkadmin_tip_des=0x7f0b0024;
+        public static final int apkadmin_tip_pro=0x7f0b0025;
+        public static final int apkadmin_total_rubbish_clickitems=0x7f0b001f;
         public static final int btn_apkadmin_mainacitivity=0x7f0b0008;
         public static final int btn_extrafuction_mainacitivity=0x7f0b0012;
         public static final int btn_fileadmin_mainacitivity=0x7f0b0006;
@@ -222,87 +289,113 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int btn_virusadmin_mainacitivity=0x7f0b000c;
         public static final int btn_wapadmin_mainacitivity=0x7f0b000a;
         public static final int btns_mainactivity=0x7f0b0003;
-        public static final int child_tab_abovedig_title0=0x7f0b0042;
-        public static final int child_tab_abovedig_title1=0x7f0b0040;
-        public static final int circle=0x7f0b004b;
+        public static final int child_tab_abovedig_title0=0x7f0b005e;
+        public static final int child_tab_abovedig_title1=0x7f0b005c;
+        public static final int circle=0x7f0b006d;
         public static final int circle_target=0x7f0b0015;
-        public static final int des=0x7f0b004d;
-        public static final int detail_btn_wap=0x7f0b006e;
-        public static final int divde_line=0x7f0b0055;
-        public static final int filadmin_tip_des=0x7f0b0029;
-        public static final int filadmin_tip_pro=0x7f0b002a;
-        public static final int file_admin_div=0x7f0b002d;
-        public static final int fileadmin_btn_clear=0x7f0b002f;
-        public static final int fileadmin_clear_button_divider=0x7f0b002e;
-        public static final int fileadmin_item_image=0x7f0b0044;
-        public static final int fileadmin_list=0x7f0b002c;
-        public static final int fileadmin_list_type=0x7f0b0028;
-        public static final int fileadmin_progress=0x7f0b0026;
-        public static final int fileadmin_rubbish_checkbox=0x7f0b0049;
-        public static final int fileadmin_tip_0=0x7f0b0027;
-        public static final int fileadminitem_cache=0x7f0b0047;
-        public static final int fileadminitem_desc=0x7f0b0048;
-        public static final int fileadminitem_name=0x7f0b0046;
-        public static final int filemadin_item_rubbish_des=0x7f0b0045;
+        public static final int des=0x7f0b006f;
+        public static final int dialog_apktype_title0=0x7f0b002c;
+        public static final int dialog_apktype_title0_value=0x7f0b002d;
+        public static final int dialog_apktype_title1=0x7f0b002e;
+        public static final int dialog_apktype_title1_value=0x7f0b002f;
+        public static final int dialog_fileadmin_item_div=0x7f0b003f;
+        public static final int dialog_fileadmin_item_filepath=0x7f0b003d;
+        public static final int dialog_fileadmin_item_filepathlayout=0x7f0b003c;
+        public static final int dialog_fileadmin_item_filetype=0x7f0b003b;
+        public static final int dialog_fileadmin_item_modifytime=0x7f0b003e;
+        public static final int divde_line=0x7f0b0077;
+        public static final int filadmin_tip_des=0x7f0b0046;
+        public static final int filadmin_tip_pro=0x7f0b0047;
+        public static final int file_admin_div=0x7f0b0049;
+        public static final int fileadmin_btn_clear=0x7f0b004b;
+        public static final int fileadmin_btn_clear0=0x7f0b009c;
+        public static final int fileadmin_btn_clear1=0x7f0b009d;
+        public static final int fileadmin_clear_button_divider=0x7f0b004a;
+        public static final int fileadmin_item_image=0x7f0b0067;
+        public static final int fileadmin_itemclick_image=0x7f0b0037;
+        public static final int fileadmin_list=0x7f0b0048;
+        public static final int fileadmin_list_type=0x7f0b0045;
+        public static final int fileadmin_pop_filetype_0=0x7f0b0030;
+        public static final int fileadmin_pop_filetype_1=0x7f0b0031;
+        public static final int fileadmin_pop_filetype_2=0x7f0b0032;
+        public static final int fileadmin_pop_filetype_3=0x7f0b0033;
+        public static final int fileadmin_pop_filetype_4=0x7f0b0034;
+        public static final int fileadmin_pop_filetype_5=0x7f0b0035;
+        public static final int fileadmin_pop_tag=0x7f0b0043;
+        public static final int fileadmin_progress=0x7f0b0042;
+        public static final int fileadmin_rubbish_checkbox=0x7f0b006b;
+        public static final int fileadmin_tip_0=0x7f0b0044;
+        public static final int fileadminitem_cache=0x7f0b003a;
+        public static final int fileadminitem_desc=0x7f0b006a;
+        public static final int fileadminitem_name=0x7f0b0069;
+        public static final int fileadminitemclick_name=0x7f0b0039;
+        public static final int filemadin_item_rubbish_des=0x7f0b0068;
+        public static final int filemadin_itemclick_rubbish_des=0x7f0b0038;
         public static final int grid_item_divi=0x7f0b001a;
-        public static final int grid_item_image=0x7f0b0032;
-        public static final int grid_item_image1=0x7f0b0031;
-        public static final int grid_item_rubbish_des=0x7f0b0037;
-        public static final int grid_item_size=0x7f0b0033;
-        public static final int grid_rubbish_checkbox=0x7f0b003a;
-        public static final int grid_show_rubbish_total=0x7f0b0058;
-        public static final int grid_view=0x7f0b0059;
-        public static final int init_list=0x7f0b003f;
-        public static final int itemImage=0x7f0b0030;
-        public static final int item_desc=0x7f0b0039;
-        public static final int item_name=0x7f0b0038;
-        public static final int layout_0=0x7f0b004e;
-        public static final int layout_1=0x7f0b0050;
-        public static final int line0=0x7f0b0053;
-        public static final int line_view=0x7f0b002b;
+        public static final int grid_item_image=0x7f0b004e;
+        public static final int grid_item_image1=0x7f0b004d;
+        public static final int grid_item_rubbish_des=0x7f0b0053;
+        public static final int grid_item_size=0x7f0b004f;
+        public static final int grid_rubbish_checkbox=0x7f0b0056;
+        public static final int grid_show_rubbish_total=0x7f0b007a;
+        public static final int grid_view=0x7f0b007b;
+        public static final int init_list=0x7f0b005b;
+        public static final int itemImage=0x7f0b004c;
+        public static final int item_desc=0x7f0b0055;
+        public static final int item_name=0x7f0b0054;
+        public static final int layout_0=0x7f0b0070;
+        public static final int layout_1=0x7f0b0072;
+        public static final int line0=0x7f0b0075;
+        public static final int line_view=0x7f0b0026;
         public static final int list_mainactivity=0x7f0b0002;
         public static final int list_rubbishactivity=0x7f0b0019;
-        public static final int no_list=0x7f0b003e;
-        public static final int no_rubbish_txt=0x7f0b005a;
-        public static final int num0=0x7f0b0043;
-        public static final int num1=0x7f0b0041;
+        public static final int no_list=0x7f0b005a;
+        public static final int no_rubbish_txt=0x7f0b007c;
+        public static final int num0=0x7f0b005f;
+        public static final int num1=0x7f0b005d;
         public static final int percent_scan=0x7f0b0001;
-        public static final int root_notification_content=0x7f0b006b;
-        public static final int rubbish_btn_clear=0x7f0b005b;
+        public static final int pop_dialog_fileadmin_item=0x7f0b0036;
+        public static final int pop_dialog_fileadmin_types=0x7f0b002b;
+        public static final int root_notification_content=0x7f0b0094;
+        public static final int rubbish_btn_clear=0x7f0b007d;
         public static final int rubbish_clear_button=0x7f0b001c;
         public static final int rubbish_clear_button_divider=0x7f0b001b;
-        public static final int rubbish_setting_tag0=0x7f0b005c;
-        public static final int rubbish_setting_tag1=0x7f0b0060;
-        public static final int rubbish_setting_tag2=0x7f0b0061;
-        public static final int rubbish_setting_tag3=0x7f0b0065;
-        public static final int rubbish_setting_tag4=0x7f0b0066;
-        public static final int rubbish_switch_0=0x7f0b005d;
-        public static final int rubbish_switch_1=0x7f0b0062;
-        public static final int rubbish_switch_tag0=0x7f0b005e;
-        public static final int rubbish_switch_tag00=0x7f0b0063;
-        public static final int rubbish_switch_tag01=0x7f0b0064;
-        public static final int rubbish_switch_tag1=0x7f0b005f;
+        public static final int rubbish_setting_tag0=0x7f0b007e;
+        public static final int rubbish_setting_tag1=0x7f0b0082;
+        public static final int rubbish_setting_tag2=0x7f0b0083;
+        public static final int rubbish_setting_tag3=0x7f0b0087;
+        public static final int rubbish_setting_tag4=0x7f0b0088;
+        public static final int rubbish_setting_tag5=0x7f0b0089;
+        public static final int rubbish_switch_0=0x7f0b007f;
+        public static final int rubbish_switch_1=0x7f0b0084;
+        public static final int rubbish_switch_tag0=0x7f0b0080;
+        public static final int rubbish_switch_tag00=0x7f0b0085;
+        public static final int rubbish_switch_tag01=0x7f0b0086;
+        public static final int rubbish_switch_tag1=0x7f0b0081;
         public static final int rubbish_text_0=0x7f0b0016;
         public static final int rubbish_text_1=0x7f0b0017;
         public static final int rubbish_text_2=0x7f0b0018;
-        public static final int scan_rubbish_des=0x7f0b0035;
-        public static final int scan_rubbish_res=0x7f0b0036;
-        public static final int scan_rubbish_title_img=0x7f0b0034;
-        public static final int show_title=0x7f0b0024;
-        public static final int stoke_line_indito=0x7f0b0067;
-        public static final int switch1=0x7f0b0054;
-        public static final int tab_child0_tip0=0x7f0b003d;
-        public static final int tab_child_tab=0x7f0b003b;
-        public static final int tag0=0x7f0b004f;
-        public static final int tag1=0x7f0b0052;
-        public static final int tag2=0x7f0b0051;
-        public static final int time=0x7f0b004c;
-        public static final int tip_0=0x7f0b001e;
-        public static final int tip_child0_tab=0x7f0b003c;
-        public static final int tip_pro=0x7f0b001f;
-        public static final int title=0x7f0b004a;
-        public static final int title0=0x7f0b006a;
-        public static final int title1=0x7f0b0069;
+        public static final int scan_rubbish_des=0x7f0b0051;
+        public static final int scan_rubbish_res=0x7f0b0052;
+        public static final int scan_rubbish_title_img=0x7f0b0050;
+        public static final int setting_wap_limit=0x7f0b008d;
+        public static final int setting_wap_limit_btn=0x7f0b008f;
+        public static final int setting_wap_progress=0x7f0b008e;
+        public static final int setting_wap_progress_data=0x7f0b008c;
+        public static final int setting_wap_progress_percent=0x7f0b008b;
+        public static final int show_title=0x7f0b0040;
+        public static final int stoke_line_indito=0x7f0b0090;
+        public static final int switch1=0x7f0b0076;
+        public static final int tab_child0_tip0=0x7f0b0059;
+        public static final int tab_child_tab=0x7f0b0057;
+        public static final int tag0=0x7f0b0071;
+        public static final int tag1=0x7f0b0074;
+        public static final int tag2=0x7f0b0073;
+        public static final int time=0x7f0b006e;
+        public static final int tip_child0_tab=0x7f0b0058;
+        public static final int title=0x7f0b006c;
+        public static final int title0=0x7f0b0093;
+        public static final int title1=0x7f0b0092;
         public static final int title_btn_mainlayout=0x7f0b0000;
         public static final int title_tag0=0x7f0b0005;
         public static final int title_tag1=0x7f0b0007;
@@ -311,58 +404,85 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_tag4=0x7f0b000d;
         public static final int title_tag5=0x7f0b000f;
         public static final int title_tag6=0x7f0b0011;
-        public static final int total=0x7f0b0068;
-        public static final int total_rubbish_clickitems=0x7f0b0025;
+        public static final int total=0x7f0b0091;
+        public static final int total_rubbish_clickitems=0x7f0b0041;
         public static final int total_runbishclear=0x7f0b0013;
         public static final int ui_tag1=0x7f0b0014;
-        public static final int viewPager1=0x7f0b0057;
-        public static final int view_line=0x7f0b0021;
-        public static final int wait_for_scan=0x7f0b0056;
-        public static final int wap_sinking=0x7f0b006d;
-        public static final int wap_title_des=0x7f0b006c;
+        public static final int viewPager1=0x7f0b0079;
+        public static final int wait_for_scan=0x7f0b0078;
+        public static final int wap_admin_div=0x7f0b009b;
+        public static final int wap_settings_progress_title=0x7f0b008a;
+        public static final int wap_show_title=0x7f0b0097;
+        public static final int wap_sinking=0x7f0b009a;
+        public static final int wap_tag0=0x7f0b0099;
+        public static final int wap_title_btn=0x7f0b0098;
+        public static final int wap_title_des=0x7f0b0096;
+        public static final int wap_viewPager=0x7f0b0095;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_runbishclear=0x7f030001;
         public static final int apkadmin=0x7f030002;
-        public static final int fileadmin=0x7f030003;
-        public static final int grid_item_first_main=0x7f030004;
-        public static final int grid_item_other_main=0x7f030005;
-        public static final int grid_item_rubbish=0x7f030006;
-        public static final int grid_item_rubbishactivity=0x7f030007;
-        public static final int item0_child_tab0=0x7f030008;
-        public static final int item1_child_tab1=0x7f030009;
-        public static final int item_apkadmin=0x7f03000a;
-        public static final int item_fileadmin=0x7f03000b;
-        public static final int poweradmin=0x7f03000c;
-        public static final int root_child0_item=0x7f03000d;
-        public static final int rootadmin=0x7f03000e;
-        public static final int rubbish_show_itemlayout=0x7f03000f;
-        public static final int setting_rubbishclear=0x7f030010;
-        public static final int tab_indicator=0x7f030011;
-        public static final int tabchild_phonepermission=0x7f030012;
-        public static final int tabchild_root_notification=0x7f030013;
-        public static final int tabchild_root_phoneseacure=0x7f030014;
-        public static final int tabchild_rootstart=0x7f030015;
-        public static final int testview=0x7f030016;
-        public static final int virvusadmin=0x7f030017;
-        public static final int wapadmin=0x7f030018;
+        public static final int dialog_apktype=0x7f030003;
+        public static final int dialog_fileadmin_filetypes=0x7f030004;
+        public static final int dialog_fileadmin_item=0x7f030005;
+        public static final int fileadmin=0x7f030006;
+        public static final int grid_item_first_main=0x7f030007;
+        public static final int grid_item_other_main=0x7f030008;
+        public static final int grid_item_rubbish=0x7f030009;
+        public static final int grid_item_rubbishactivity=0x7f03000a;
+        public static final int item0_child_tab0=0x7f03000b;
+        public static final int item1_child_tab1=0x7f03000c;
+        public static final int item_apkadmin=0x7f03000d;
+        public static final int item_fileadmin=0x7f03000e;
+        public static final int poweradmin=0x7f03000f;
+        public static final int root_child0_item=0x7f030010;
+        public static final int rootadmin=0x7f030011;
+        public static final int rubbish_show_itemlayout=0x7f030012;
+        public static final int setting_rubbishclear=0x7f030013;
+        public static final int setting_wapadmin=0x7f030014;
+        public static final int tab_indicator=0x7f030015;
+        public static final int tabchild_phonepermission=0x7f030016;
+        public static final int tabchild_root_notification=0x7f030017;
+        public static final int tabchild_root_phoneseacure=0x7f030018;
+        public static final int tabchild_rootstart=0x7f030019;
+        public static final int testview=0x7f03001a;
+        public static final int virvusadmin=0x7f03001b;
+        public static final int wapadmin=0x7f03001c;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
     }
     public static final class string {
         public static final int action_settings=0x7f080001;
+        /**  apk管理 
+         */
+        public static final int apk_installed_time_str=0x7f080053;
+        public static final int apktype_title0=0x7f080055;
+        public static final int apktype_title1=0x7f080056;
         public static final int app_name=0x7f080000;
+        public static final int cancel=0x7f08004e;
         public static final int clear=0x7f08000e;
+        public static final int delete=0x7f08004f;
         public static final int des_filenum=0x7f08000f;
         public static final int duihao=0x7f08003a;
         /**  文件管理 
          */
-        public static final int fileadmin_none_sdcard=0x7f080046;
+        public static final int fileadmin_none_sdcard=0x7f080047;
+        /**  文件管理弹出框 
+         */
+        public static final int fileadmin_pop_filetype0=0x7f080048;
+        public static final int fileadmin_pop_filetype1=0x7f080049;
+        public static final int fileadmin_pop_filetype2=0x7f08004a;
+        public static final int fileadmin_pop_filetype3=0x7f08004b;
+        public static final int fileadmin_pop_filetype4=0x7f08004c;
+        public static final int fileadmin_pop_filetype5=0x7f08004d;
+        public static final int filepath_str=0x7f080052;
         public static final int finish=0x7f080011;
         public static final int grid_item_check0=0x7f08000d;
         public static final int hello_world=0x7f080002;
+        public static final int juhao=0x7f08003b;
+        public static final int modify_time_str=0x7f080051;
         public static final int null_rubbish_txt=0x7f080012;
         public static final int power_button_str=0x7f080036;
         public static final int power_str0=0x7f080033;
@@ -378,19 +498,25 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int saftytitle_mainlayout_background_up=0x7f080003;
         public static final int scan_one=0x7f080038;
         public static final int scan_txt=0x7f080013;
-        public static final int setting_rubbish_jiantou=0x7f080045;
+        public static final int setting_rubbish_jiantou=0x7f080046;
         /**  垃圾清理settings属性 
          */
-        public static final int setting_rubbish_str=0x7f08003b;
-        public static final int setting_rubbish_title0=0x7f08003c;
-        public static final int setting_rubbish_title1=0x7f08003d;
-        public static final int setting_rubbish_title2=0x7f08003e;
-        public static final int setting_rubbish_title3=0x7f080042;
-        public static final int setting_rubbish_title4=0x7f080043;
-        public static final int setting_rubbish_title5=0x7f080044;
-        public static final int setting_rubbish_title6=0x7f08003f;
-        public static final int setting_rubbish_title7=0x7f080040;
-        public static final int setting_rubbish_title8=0x7f080041;
+        public static final int setting_rubbish_str=0x7f08003c;
+        public static final int setting_rubbish_title0=0x7f08003d;
+        public static final int setting_rubbish_title1=0x7f08003e;
+        public static final int setting_rubbish_title2=0x7f08003f;
+        public static final int setting_rubbish_title3=0x7f080043;
+        public static final int setting_rubbish_title4=0x7f080044;
+        public static final int setting_rubbish_title5=0x7f080045;
+        public static final int setting_rubbish_title6=0x7f080040;
+        public static final int setting_rubbish_title7=0x7f080041;
+        public static final int setting_rubbish_title8=0x7f080042;
+        public static final int setting_wap_title0=0x7f080058;
+        public static final int setting_wap_title1=0x7f080059;
+        public static final int setting_wap_title2=0x7f08005a;
+        public static final int setting_wap_title3=0x7f08005b;
+        public static final int setting_wap_title4=0x7f08005c;
+        public static final int source_str=0x7f080050;
         public static final int tab_child0_root_=0x7f08002d;
         public static final int tab_child0_tip0=0x7f08002f;
         public static final int tab_child0_tip00=0x7f080031;
@@ -429,18 +555,22 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int virus_check_txt1=0x7f080015;
         public static final int virus_check_txt2=0x7f080016;
         public static final int virus_check_txt3=0x7f080017;
+        /**  wap Settings设置 
+         */
+        public static final int wap_setting_title=0x7f080057;
+        public static final int wapadmin_title0=0x7f08005d;
+        public static final int wapadmin_title1=0x7f08005e;
+        public static final int zhanyong=0x7f080054;
     }
     public static final class style {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
-
         
          */
         public static final int AppBaseTheme=0x7f090000;
@@ -448,6 +578,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090001;
+        public static final int class_dialog=0x7f090005;
+        /**  模糊 
+         */
+        public static final int noshade_dialog=0x7f090004;
         public static final int progressbar_style1=0x7f090002;
         public static final int progressbar_style2=0x7f090003;
     }
@@ -545,5 +679,53 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           @attr name org.com.lix_.ui:txt
         */
         public static final int BreatheCircleView_txt = 3;
+        /** Attributes that can be used with a ButtonPlugin.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ButtonPlugin_image_ref_enabled org.com.lix_.ui:image_ref_enabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #ButtonPlugin_image_ref_unenabled org.com.lix_.ui:image_ref_unenabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #ButtonPlugin_title_str org.com.lix_.ui:title_str}</code></td><td></td></tr>
+           </table>
+           @see #ButtonPlugin_image_ref_enabled
+           @see #ButtonPlugin_image_ref_unenabled
+           @see #ButtonPlugin_title_str
+         */
+        public static final int[] ButtonPlugin = {
+            0x7f010005, 0x7f010006, 0x7f010007
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.com.lix_.ui.R.attr#image_ref_enabled}
+          attribute's value can be found in the {@link #ButtonPlugin} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.com.lix_.ui:image_ref_enabled
+        */
+        public static final int ButtonPlugin_image_ref_enabled = 1;
+        /**
+          <p>This symbol is the offset where the {@link org.com.lix_.ui.R.attr#image_ref_unenabled}
+          attribute's value can be found in the {@link #ButtonPlugin} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.com.lix_.ui:image_ref_unenabled
+        */
+        public static final int ButtonPlugin_image_ref_unenabled = 2;
+        /**
+          <p>This symbol is the offset where the {@link org.com.lix_.ui.R.attr#title_str}
+          attribute's value can be found in the {@link #ButtonPlugin} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+          @attr name org.com.lix_.ui:title_str
+        */
+        public static final int ButtonPlugin_title_str = 0;
     };
 }

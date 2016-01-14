@@ -71,16 +71,16 @@ public class EnableOfWapmonitor extends Enable {
 			TmpRecordWapDaoImpl pTmpRecordDao, AppInfo pInfo) {
 		TmpRecordWapEntity pTmp = new TmpRecordWapEntity(pInfo.getUid(),
 				pInfo.getPackageName());
-		List<TmpRecordWapEntity> pTmpRecordResult = pTmpRecordDao.queryByModel(pTmp);
+		List<TmpRecordWapEntity> pTmpRecordResult = pTmpRecordDao
+				.queryByModel(pTmp);
 		if (pTmpRecordResult == null || pTmpRecordResult.size() == 0) {
 			IDao.finish();
 			Debug.i(TAG,
 					"临时表没有记录 uid:" + pInfo.getUid() + ": pckName:"
 							+ pInfo.getPackageName());
 			return null;
-		}else if(pTmpRecordResult.size() == 1){
-			if(pTmpRecordResult.get(0).getStatus() > 1)
-			{
+		} else if (pTmpRecordResult.size() == 1) {
+			if (pTmpRecordResult.get(0).getStatus() > 1) {
 				Debug.i(TAG, "tmprecord 数据只有一条，但是格式不对:");
 			}
 		} else if (pTmpRecordResult.size() != 2) {
@@ -91,15 +91,17 @@ public class EnableOfWapmonitor extends Enable {
 							+ pInfo.getPackageName());
 			IDao.finish();
 			return null;
-		}else
-		{
-			boolean nFlag = pTmpRecordResult.get(0).getStatus() == 0 && pTmpRecordResult.get(1).getStatus() == 1 ;
-			boolean nFlag2 = pTmpRecordResult.get(0).getStatus() == 1 && pTmpRecordResult.get(1).getStatus() == 0 ;
-			if(!(nFlag || nFlag2))
-			{
+		} else {
+			boolean nFlag = pTmpRecordResult.get(0).getStatus() == 0
+					&& pTmpRecordResult.get(1).getStatus() == 1;
+			boolean nFlag2 = pTmpRecordResult.get(0).getStatus() == 1
+					&& pTmpRecordResult.get(1).getStatus() == 0;
+			if (!(nFlag || nFlag2)) {
 				pTmpRecordDao.deleteModel(pTmp);
-				Debug.i(TAG, "tmprecord表关于pInfo.pckName = "+pInfo.getPackageName() +" 数据有误");
-				return null ;
+				Debug.i(TAG,
+						"tmprecord表关于pInfo.pckName = " + pInfo.getPackageName()
+								+ " 数据有误");
+				return null;
 			}
 		}
 		return pTmpRecordResult;
@@ -162,7 +164,8 @@ public class EnableOfWapmonitor extends Enable {
 				pTmpRecord.setUid(pInfo.getUid());
 				pTmpRecord.setsPckname(pInfo.getPackageName());
 			}
-			pTmpRecord.setStatus((unablestatus - 1) < 0 ? 0 : (unablestatus - 1));
+			pTmpRecord.setStatus((unablestatus - 1) < 0 ? 0
+					: (unablestatus - 1));
 			Debug.i(TAG, "wifi 临时表记录也已关闭 ,清除多余的tmpRecord记录:" + pInfo.getUid()
 					+ ":" + pInfo.getPackageName());
 			pTmpRecordDao.deleteModelByStatus(pTmpRecord);
@@ -243,7 +246,6 @@ public class EnableOfWapmonitor extends Enable {
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -251,6 +253,11 @@ public class EnableOfWapmonitor extends Enable {
 	public void onViewClick(int nId) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void updateStatusWap(TmpStatusEntity pEntity) {
+		TmpStatusDaoImpl pDao = new TmpStatusDaoImpl(m_pContext) ;
+		pDao.update(pEntity) ;
 	}
 
 }

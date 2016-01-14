@@ -36,4 +36,8 @@ public class TmpStatusDaoImpl extends IDao {
 		insert(p1);
 	}
 
+	public void update(TmpStatusEntity pEntity) {
+		update(pEntity, pEntity.getAllComlumn()[2] +" = ? ",""+ pEntity.getType()) ;
+	}
+
 }

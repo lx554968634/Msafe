@@ -13,6 +13,23 @@ public class TmpStatusEntity {
 	public void setType(Integer type) {
 		this.type = type;
 	}
+	
+	public static TmpStatusEntity getWifiEntity() {
+		// TODO Auto-generated method stub
+		TmpStatusEntity pTMp = new TmpStatusEntity() ;
+		pTMp.setStatus(WIFI_ENABLE);
+		pTMp.setTimesmt(System.currentTimeMillis() );
+		pTMp.setType(0);
+		return pTMp;
+	}
+	public static TmpStatusEntity getGprsEntity() {
+		// TODO Auto-generated method stub
+		TmpStatusEntity pTMp = new TmpStatusEntity() ;
+		pTMp.setStatus(GPRS_ENABLE);
+		pTMp.setTimesmt(System.currentTimeMillis() );
+		pTMp.setType(1);
+		return pTMp;
+	}
 
 	public static final int WIFI_UNABLE = 0;
 	public static final int WIFI_ENABLE = 1;

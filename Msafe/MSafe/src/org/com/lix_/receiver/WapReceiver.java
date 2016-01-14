@@ -1,5 +1,7 @@
 package org.com.lix_.receiver;
 
+import org.com.lix_.db.entity.TmpStatusEntity;
+import org.com.lix_.enable.EnableOfWapmonitor;
 import org.com.lix_.util.Debug;
 
 import android.content.BroadcastReceiver;
@@ -18,6 +20,9 @@ public class WapReceiver extends BroadcastReceiver {
 
 	protected void onWIfiConnected() {
 		Debug.i(TAG, "onWIfiConnected 记录Wifi tag");
+		TmpStatusEntity pEntity = TmpStatusEntity.getWifiEntity() ;
+		m_pEnable.updateStatusWap(pEntity) ;
+		//记录uid的wap数据
 	}
 
 	protected void onWifiDisconnected() {
@@ -26,21 +31,26 @@ public class WapReceiver extends BroadcastReceiver {
 
 	protected void onGprsConnected() {
 		Debug.i(TAG, "onGprsConnected 记录流量tag");
+		TmpStatusEntity pEntity = TmpStatusEntity.getGprsEntity() ;
+		m_pEnable.updateStatusWap(pEntity) ;
+		//记录uid的wap数据
 	}
 
 	protected void onGprsDisConnected() {
 		Debug.i(TAG, "onGprsDisConnected 对比流量消耗，并记录数据");
 	}
 
+	EnableOfWapmonitor m_pEnable;
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Debug.i(TAG, "接受了Receiver:"+intent.getAction());
+		m_pEnable = new EnableOfWapmonitor(context) ;
 		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		NetworkInfo gprsInfo = cm
 				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
 		// 判断是否是Connected事件
 		boolean wifiConnected = false;
 		boolean gprsConnected = false;
