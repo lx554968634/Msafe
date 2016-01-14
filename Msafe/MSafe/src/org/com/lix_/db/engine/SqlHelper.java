@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.com.lix_.db.engine.Table.Column;
+import org.com.lix_.util.Debug;
 
 import android.content.ContentValues;
 
@@ -18,6 +19,8 @@ public class SqlHelper {
 	 * 
 	 * @return
 	 */
+	private static String TAG = "SqlHelper";
+
 	public static String getCreateTableSQL(Class<?> clazz,
 			OnPrimaryKeyListener mOnPrimaryKeyListener) {
 		StringBuilder sqlBuidler = new StringBuilder();
@@ -85,7 +88,6 @@ public class SqlHelper {
 				fieldType = field.getType();
 				fieldVal = field.get(model);
 				// 如果字段值为空的情况下，不放入contentValues
-
 				if (column == null || fieldVal == null)
 					continue;
 				if (column.isPrimaryKey()) {
@@ -96,6 +98,7 @@ public class SqlHelper {
 						}
 					}
 				}
+				Debug.i(TAG,column.name()+ ":fieldType:"+fieldType.getName() +":"+field.get(model));
 				if (fieldType.equals(int.class)) {
 					contentValues.put(column.name(), field.getInt(model));
 				} else if (fieldType.equals(Integer.class)) {
@@ -137,7 +140,6 @@ public class SqlHelper {
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 
 				e.printStackTrace();
 			}

@@ -1,8 +1,8 @@
 package org.com.lix_.service;
 
 import org.com.lix_.Define;
-import org.com.lix_.enable.receiver.ShutdownReceiver;
-import org.com.lix_.enable.receiver.WapReceiver;
+import org.com.lix_.receiver.ShutdownReceiver;
+import org.com.lix_.receiver.WapReceiver;
 import org.com.lix_.util.Debug;
 
 import android.app.Service;

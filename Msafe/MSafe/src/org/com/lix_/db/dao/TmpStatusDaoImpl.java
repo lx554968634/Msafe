@@ -18,6 +18,11 @@ public class TmpStatusDaoImpl extends IDao {
 		return pList;
 	}
 
+	public void refresh() {
+		deleteAll();
+		insertData();
+	}
+
 	public void insertData() {
 		TmpStatusEntity p1 = new TmpStatusEntity();
 		p1.setStatus(TmpStatusEntity.WIFI_UNABLE);

@@ -1,6 +1,6 @@
 package org.com.lix_.enable;
 
-import org.com.lix_.enable.receiver.PowerReceiver;
+import org.com.lix_.receiver.PowerReceiver;
 import org.com.lix_.util.Debug;
 
 import android.content.Context;

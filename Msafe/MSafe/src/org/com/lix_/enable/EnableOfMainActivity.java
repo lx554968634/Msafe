@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.com.lix_.Define;
 import org.com.lix_.db.engine.LocalSharedpreferencesDB;
-import org.com.lix_.enable.receiver.WapReceiver;
+import org.com.lix_.receiver.WapReceiver;
 import org.com.lix_.service.BootService;
 import org.com.lix_.ui.R;
 import org.com.lix_.ui.SceneOfApkAdmin;

@@ -1,4 +1,4 @@
-package org.com.lix_.enable.receiver;
+package org.com.lix_.receiver;
 
 import org.com.lix_.enable.EnableOfPowerAdmin;
 import org.com.lix_.util.Debug;

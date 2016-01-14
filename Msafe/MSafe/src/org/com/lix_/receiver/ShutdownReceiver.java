@@ -1,4 +1,4 @@
-package org.com.lix_.enable.receiver;
+package org.com.lix_.receiver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import org.com.lix_.db.dao.WapRecordDaoImpl;
 import org.com.lix_.db.dao.WapuselogDaoImpl;
 import org.com.lix_.db.entity.TmpRecordWapEntity;
 import org.com.lix_.db.entity.TmpStatusEntity;
+import org.com.lix_.enable.EnableOfWapmonitor;
 import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.enable.engine.AppInfoEngine;
 import org.com.lix_.service.BootService;
@@ -30,6 +31,7 @@ import android.util.Log;
 public class ShutdownReceiver extends BroadcastReceiver {
 
 	private String TAG = "ShutdownReceiver";
+	EnableOfWapmonitor m_pEnable ;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -50,25 +52,36 @@ public class ShutdownReceiver extends BroadcastReceiver {
 			}
 		}
 		if (bFlag) {
+			m_pEnable = new EnableOfWapmonitor(context) ;
 			stoneWapInfo(context);
 		}
 	}
 
 	private void stoneWapInfo(final Context pContext) {
 		final InnerHandler pHandler = new InnerHandler();
-		final AppInfoEngine pEngine = new AppInfoEngine(pContext);
+		final AppInfoEngine pEngine1 = new AppInfoEngine(pContext);
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				List<AppInfo> pList = pEngine.getInstalledAppWithPermiss();
-				stoneInfo(pList, pContext);
+				List<AppInfo> pList = pEngine1.getInstalledAppWithPermiss();
+				stoneInfo(pList);
 				Message msg = Message.obtain();
 				msg.what = SCAN_OVER;
 				msg.obj = pContext;
 				pHandler.sendMessage(msg);
 			}
 		}).start();
+	}
+	
+	private void stoneInfo(List<AppInfo> pList)
+	{
+		if(pList == null || pList.size() == 0)
+			return ;
+		for(AppInfo pInfo : pList)
+		{
+			m_pEnable.saveAndCheckRecord(pInfo);
+		}
 	}
 
 	private final int SCAN_OVER = 2;
@@ -116,16 +129,17 @@ public class ShutdownReceiver extends BroadcastReceiver {
 					pStatusDao.deleteAll();
 					pStatusDao.insertData();
 				}
+				TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
+						pContext);
 				if (nSize == 0) {
 					// 需要填充数据 ,tag表中没有数据所以不需要记录数据了，直接return
 					Debug.i(TAG, "nSize == null : 直接关闭");
 					pStatusDao.insertData();
+					pTmpRecordDao.deleteAll();
 					IDao.finish();
 					// 读取
 					return;
 				} else {
-					TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
-							pContext);
 					TmpRecordWapEntity pTmp = new TmpRecordWapEntity(
 							pInfo.getUid(), pInfo.getPackageName());
 					pTmpRecordResult = pTmpRecordDao.queryByModel(pTmp);
@@ -149,19 +163,23 @@ public class ShutdownReceiver extends BroadcastReceiver {
 							pContext);
 					WapuselogDaoImpl pWapuseLog = new WapuselogDaoImpl(pContext);
 					// wifi gprs 同时enable记录是不共存的
+					TmpRecordWapEntity pTmpRecord = null;
 					if (pWifiStatus.getStatus() == TmpStatusEntity.WIFI_ENABLE) {
 						// 找到tmpRecord表中记录，并且同步到WapRecord表中
 						if (pTmpRecordResult == null
 								|| pTmpRecordResult.size() == 0) {
 						} else {
+							Debug.i(TAG, "此时wifiEnalbe开启，并且中间表中存在数据!");
 							// 需要把数据添加到wap_record_table , wapuselogentity ;
 							long rxData = TrafficStats.getUidRxBytes(pInfo
 									.getUid());
 							long tXData = TrafficStats.getUidTxBytes(pInfo
 									.getUid());
 							long max = rxData + tXData;
-							Debug.i(TAG, "pTmpRecordResult == null :"+(pTmpRecordResult == null ? -1 : pTmpRecordResult.size()));
-							TmpRecordWapEntity pTmpRecord = getWifiTmpRecord(pTmpRecordResult);
+							Debug.i(TAG, "pTmpRecordResult == null :"
+									+ (pTmpRecordResult == null ? -1
+											: pTmpRecordResult.size()));
+							pTmpRecord = getWifiTmpRecord(pTmpRecordResult);
 							if (pTmpRecord != null) {
 								long nWapdata = pTmpRecord.getNwapdata() - max;
 								Debug.i(TAG, "相差流量:" + nWapdata);
@@ -174,35 +192,102 @@ public class ShutdownReceiver extends BroadcastReceiver {
 									pTmpRecord.setNwapdata((int) nWapdata);
 									pWapRecorddao
 											.insertOrUpdateOtherModel(pTmpRecord);
-									pTmpRecordDao.deleteModelByStatus(pTmpRecord);
 								} else {
 									// 无效数据，继续下一个扫描
 								}
 							} else {
-								Debug.i(TAG, "pTmpRecord == null ");
+								Debug.i(TAG,
+										"在临时表中不存在uid=" + pInfo.getUid()
+												+ ": sPckName = "
+												+ pInfo.getPackageName()
+												+ " wifi开启的记录");
 							}
 						}
+						Debug.i(TAG, "tmp表中wifi开启记录还原");
 						pWifiStatus.setStatus(TmpStatusEntity.WIFI_UNABLE);
 						boolean nFlag = pStatusDao.insertOrUpdate(pWifiStatus,
 								TmpStatusEntity.getAllComlumn()[2]);
-					} else if (pGprsStatus.getStatus() == TmpStatusEntity.GPRS_ENABLE) {
+					} else if (pWifiStatus.getStatus() == TmpStatusEntity.WIFI_UNABLE) {
+					} else {
+						pStatusDao.insertData();
+						pTmpRecordDao.deleteAll();
+						IDao.finish();
+						// 读取
+						return;
+					}
+					if (pWifiStatus.getStatus() == TmpStatusEntity.WIFI_UNABLE) {
+						if (pTmpRecord == null) {
+							pTmpRecord = new TmpRecordWapEntity();
+							pTmpRecord.setUid(pInfo.getUid());
+							pTmpRecord.setsPckname(pInfo.getPackageName());
+						}
+						pTmpRecord.setStatus(0);
+						Debug.i(TAG, "wifi 临时表记录也已关闭 ,清除多余的tmpRecord记录:"
+								+ pInfo.getUid() + ":" + pInfo.getPackageName());
+						pTmpRecordDao.deleteModelByStatus(pTmpRecord);
+					}
+					if (pGprsStatus.getStatus() == TmpStatusEntity.GPRS_ENABLE) {
 
 						// 找到tmpRecord表中记录，并且同步到WapRecord表中
 						if (pTmpRecordResult == null
 								|| pTmpRecordResult.size() == 0) {
 						} else {
-
+							Debug.i(TAG, "此时GPRS开启，并且中间表中存在数据!");
+							long rxData = TrafficStats.getUidRxBytes(pInfo
+									.getUid());
+							long tXData = TrafficStats.getUidTxBytes(pInfo
+									.getUid());
+							long max = rxData + tXData;
+							Debug.i(TAG, "pTmpRecordResult == null :"
+									+ (pTmpRecordResult == null ? -1
+											: pTmpRecordResult.size()));
+							pTmpRecord = getGprsTmpRecrod(pTmpRecordResult);
+							if (pTmpRecord != null) {
+								long nWapdata = pTmpRecord.getNwapdata() - max;
+								Debug.i(TAG, "相差流量:" + nWapdata);
+								if (nWapdata > 0) {
+									// 有效数据
+									// 更新记录 waprecorddao 和log记录
+									long nTime = System.currentTimeMillis();
+									pWapuseLog.insert(nTime, nWapdata,
+											pTmpRecord);
+									pTmpRecord.setNwapdata((int) nWapdata);
+									pWapRecorddao
+											.insertOrUpdateOtherModel(pTmpRecord);
+								} else {
+									// 无效数据，继续下一个扫描
+								}
+							} else {
+								Debug.i(TAG,
+										"在临时表中不存在uid=" + pInfo.getUid()
+												+ ": sPckName = "
+												+ pInfo.getPackageName()
+												+ " wifi开启的记录");
+							}
 						}
+						Debug.i(TAG, "tmp表中GPRS开启记录还原");
 						pGprsStatus.setStatus(TmpStatusEntity.GPRS_UNABLE);
 						boolean nFlag = pStatusDao.insertOrUpdate(pGprsStatus,
 								TmpStatusEntity.getAllComlumn()[2]);
-					} else {
-						if (pWifiStatus.getStatus() == TmpStatusEntity.WIFI_UNABLE) {
-							Debug.i(TAG, "wifi 临时表记录也已关闭!");
+					} else if (pGprsStatus.getStatus() == TmpStatusEntity.GPRS_UNABLE) {
+					}else
+					{
+						pStatusDao.insertData();
+						pTmpRecordDao.deleteAll();
+						IDao.finish();
+						// 读取
+						return;
+					}
+					if (pGprsStatus.getStatus() == TmpStatusEntity.GPRS_UNABLE) {
+						if (pTmpRecord == null) {
+							pTmpRecord = new TmpRecordWapEntity();
+							pTmpRecord.setUid(pInfo.getUid());
+							pTmpRecord.setsPckname(pInfo.getPackageName());
 						}
-						if (pGprsStatus.getStatus() == TmpStatusEntity.GPRS_UNABLE) {
-							Debug.i(TAG, "gprs 临时记录表也已关闭");
-						}
+						pTmpRecord.setStatus(1);
+						Debug.i(TAG, "gprs 临时记录表也已关闭 ,清除多余的tmpRecord记录:"
+								+ pInfo.getUid() + ":" + pInfo.getPackageName());
+						pTmpRecordDao.deleteModelByStatus(pTmpRecord);
 					}
 				}
 				IDao.finish();
