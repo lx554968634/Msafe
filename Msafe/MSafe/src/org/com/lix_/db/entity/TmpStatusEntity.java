@@ -13,20 +13,21 @@ public class TmpStatusEntity {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	
+
 	public static TmpStatusEntity getWifiEntity() {
 		// TODO Auto-generated method stub
-		TmpStatusEntity pTMp = new TmpStatusEntity() ;
+		TmpStatusEntity pTMp = new TmpStatusEntity();
 		pTMp.setStatus(WIFI_ENABLE);
-		pTMp.setTimesmt(System.currentTimeMillis() );
+		pTMp.setTimesmt(System.currentTimeMillis());
 		pTMp.setType(0);
 		return pTMp;
 	}
+
 	public static TmpStatusEntity getGprsEntity() {
 		// TODO Auto-generated method stub
-		TmpStatusEntity pTMp = new TmpStatusEntity() ;
+		TmpStatusEntity pTMp = new TmpStatusEntity();
 		pTMp.setStatus(GPRS_ENABLE);
-		pTMp.setTimesmt(System.currentTimeMillis() );
+		pTMp.setTimesmt(System.currentTimeMillis());
 		pTMp.setType(1);
 		return pTMp;
 	}
@@ -62,7 +63,17 @@ public class TmpStatusEntity {
 
 	public static String[] getAllComlumn() {
 		// TODO Auto-generated method stub
-		return new String[] { "status", "timesmt" ,"type"};
+		return new String[] { "status", "timesmt", "type" };
+	}
+
+	public static TmpStatusEntity getStatusEntity(int nStatus) {
+		switch (nStatus) {
+		case 0:
+			return getWifiEntity();
+		case 1:
+			return getGprsEntity();
+		}
+		return null;
 	}
 
 }

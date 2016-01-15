@@ -24,4 +24,5 @@ public class Define {
 	};
 	public static final String  WAPSERVICE_PATH = "org.com.lix_.service.BootService";
 	public static final String TEST_ACTION = "org.com.lix_.test.receiver";
+	public static final boolean RUNSERVICE = false;
 }

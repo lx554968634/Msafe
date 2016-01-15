@@ -104,4 +104,11 @@
       <string name="setting_wap_title4">流量使用预警值</string>
       <string name="wapadmin_title0">移动网络</string>
       <string name="wapadmin_title1">WLAN网络</string>
+      <!-- wapadmin 列表 -->
+      <string name="wapadmin_netdetail_gprs_title">本月使用流量排行</string>
+      <string name="wapadmin_netdetail_gprs_btntitle">流量开关</string>
+      <string name="wapadmin_netdetail_wifi_title">本月使用流量排行</string>
+      <string name="wapadmin_netdetail_wifi_btntitle">流量开关</string>
+      <string name="wait_for_load">正在载入...</string>
+      <string name="wapadmin_scan_none">未扫描到有效数据</string>
 </resources>

@@ -23,12 +23,16 @@ public class TmpStatusDaoImpl extends IDao {
 		insertData();
 	}
 
-	public void insertData() {
+	public void insertWifiData() {
 		TmpStatusEntity p1 = new TmpStatusEntity();
 		p1.setStatus(TmpStatusEntity.WIFI_UNABLE);
 		p1.setType(0);
 		p1.setTimesmt(System.currentTimeMillis());
 		insert(p1);
+	}
+
+	public void insertGprsData() {
+		TmpStatusEntity p1 = null;
 		p1 = new TmpStatusEntity();
 		p1.setStatus(TmpStatusEntity.GPRS_UNABLE);
 		p1.setTimesmt(System.currentTimeMillis());
@@ -36,8 +40,20 @@ public class TmpStatusDaoImpl extends IDao {
 		insert(p1);
 	}
 
+	public void insertData() {
+		insertWifiData();
+		insertGprsData();
+	}
+
 	public void update(TmpStatusEntity pEntity) {
-		update(pEntity, pEntity.getAllComlumn()[2] +" = ? ",""+ pEntity.getType()) ;
+		insertOrUpdate(pEntity, pEntity.getAllComlumn()[2]);
+	}
+
+	public void refreshStatus(int nStatus) {
+		TmpStatusEntity pEntity = TmpStatusEntity.getStatusEntity(nStatus);
+		pEntity.setStatus(nStatus == 0 ? TmpStatusEntity.WIFI_UNABLE
+				: TmpStatusEntity.GPRS_UNABLE);
+		insertOrUpdate(pEntity, pEntity.getAllComlumn()[2]);
 	}
 
 }

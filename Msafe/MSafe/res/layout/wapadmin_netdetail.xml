@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_list"
+    android:paddingRight="@dimen/padding_list" >
+
+    <TextView
+        android:id="@+id/wapadmin_netdetail_scan_none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/wapadmin_scan_none"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/wapadmin_netdetail_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ProgressBar
+            android:id="@+id/apkadmin_tip_pro"
+            style="@style/progressbar_style2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_list"
+            android:indeterminateDuration="100" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/wait_for_load" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/wapadmin_netdetail_total"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_list"
+        android:visibility="invisible" >
+
+        <TextView
+            android:id="@+id/wapadmin_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_list_helf"
+            android:text="@string/wapadmin_netdetail_gprs_title"
+            android:textColor="@color/wapadmin_title_textcolor"
+            android:textSize="@dimen/wapadmin_netdetail_title_size" />
+
+        <TextView
+            android:id="@+id/wapadmin_list_titlebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_list_helf"
+            android:text="@string/wapadmin_netdetail_gprs_btntitle"
+            android:textColor="@color/wapadmin_title_textcolor"
+            android:textSize="@dimen/wapadmin_netdetail_title_size" />
+
+        <TextView
+            android:id="@+id/wapadmin_pup_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/padding_list_helf"
+            android:layout_marginRight="@dimen/padding_list2"
+            android:layout_toRightOf="@id/wapadmin_list_title"
+            android:background="@drawable/tribe"
+            android:padding="@dimen/padding_list_helf" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/wapadmin_netdetail_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_below="@id/wapadmin_netdetail_total"
+        android:layout_marginTop="@dimen/padding_list_helf"
+        android:background="@color/gray_mainactivity_btn_press"
+        android:visibility="invisible" />
+
+    <org.com.lix_.plugin.AListView
+        android:id="@+id/wapadmin_netdetail_list"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/wapadmin_netdetail_divider"
+        android:layout_marginTop="@dimen/padding_list_helf"
+        android:background="@color/white"
+        android:dividerHeight="@dimen/divider_height_half"
+        android:paddingLeft="@dimen/padding_list"
+        android:paddingRight="@dimen/padding_list"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+</RelativeLayout>

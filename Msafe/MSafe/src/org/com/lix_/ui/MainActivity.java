@@ -46,9 +46,11 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent();
-		intent.setAction(Define.TEST_ACTION);
-		sendOrderedBroadcast(intent, null);
+		if (Define.RUNSERVICE) {
+			Intent intent = new Intent();
+			intent.setAction(Define.TEST_ACTION);
+			sendOrderedBroadcast(intent, null);
+		}
 		super.onBackPressed();
 	}
 
@@ -122,6 +124,7 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 			UiUtils.setText(pView, getResources().getString(R.string.duihao));
 		}
 	}
+
 	EnableCallback m_pCallback = new EnableCallback() {
 		@Override
 		public void callback(Object... obj) {
@@ -176,6 +179,7 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		}
 	};
 	private LayoutAnimationController m_pLayAnControl;
+
 	private void initCheckList() {
 		if (m_pLayAnControl == null) {
 			Animation pAnimLayout = AnimationUtils.loadAnimation(this,
@@ -189,29 +193,37 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		m_pGridView.setVisibility(View.VISIBLE);
 		m_pGridView.setLayoutAnimation(m_pLayAnControl);
 	}
+
 	private void initGridView() {
 		m_pGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		m_pGridView.setAdapter(new Adapter());
 	}
+
 	private final int COUNT_GRID_ITEMS = 8;
+
 	class Adapter extends BaseAdapter {
 		public Adapter() {
 			super();
 			m_pInflater = LayoutInflater.from(MainActivity.this);
 		}
+
 		private LayoutInflater m_pInflater;
+
 		@Override
 		public int getCount() {
 			return COUNT_GRID_ITEMS;
 		}
+
 		@Override
 		public Object getItem(int position) {
 			return position;
 		}
+
 		@Override
 		public long getItemId(int position) {
 			return position;
 		}
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder pHolder;
@@ -239,11 +251,13 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 			pHolder.m_pTextView.setText(m_szGridTxt0[position]);
 			return convertView;
 		}
+
 		class ViewHolder {
 			public TextView m_pTextView;
 			public ImageView m_pImageView;
 		}
 	}
+
 	@Override
 	public void onClick(View v) {
 		int nId = v.getId();
@@ -276,7 +290,9 @@ public class MainActivity extends BaseActivity implements AnimationListener {
 		}
 		m_pEnable.onViewClick(m_nBtnType);
 	}
+
 	private int m_nLock = 0;
+
 	private void onTitleBtnClick() {
 		if (m_nLock != 0)
 			return;

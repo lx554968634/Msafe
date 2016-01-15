@@ -41,4 +41,6 @@
 	<color name="apkadmin_installed_time">#f06112</color>
 	<!-- wap管理 -->
 	<color name="wap_circle_background">#309b55</color>
+	<!-- wap列表 -->
+	<color name="wapadmin_title_textcolor">#7b7b7b</color>
 </resources>

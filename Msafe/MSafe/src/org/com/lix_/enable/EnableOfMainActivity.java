@@ -104,7 +104,8 @@ public class EnableOfMainActivity extends Enable {
 		case SURFCHECK:
 			break;
 		case SCANSERVICE:
-			CheckService();
+			if (Define.RUNSERVICE)
+				CheckService();
 			return;
 		}
 		sendOverMessage(nTag);

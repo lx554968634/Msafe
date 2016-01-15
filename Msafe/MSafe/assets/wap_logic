@@ -61,4 +61,15 @@ dao框架 摘抄http://git.oschina.net/yeguozhong/AndroidGenericDao/tree/master
 drop table t_wap_record_table ;
 drop table t_tmp_record_wap ;
 drop table t_tmp_wap ;
-		
+
+
+测试脚本：
+1、select * from t_tmp_status_wap;
+3、select * from t_tmp_record_wap;
+4、select * from t_wap_record_table;
+5、select * from t_use_log_wap;
+
+drop table  t_tmp_status_wap;
+drop table  t_tmp_record_wap;
+drop table  t_wap_record_table;
+drop table  t_use_log_wap;

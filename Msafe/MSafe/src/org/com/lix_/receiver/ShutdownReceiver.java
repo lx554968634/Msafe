@@ -73,8 +73,7 @@ public class ShutdownReceiver extends BroadcastReceiver {
 	}
 
 	private void stoneInfo() {
-		m_pEnable.stoneInfoWhenGprsDisconnected() ;
-		m_pEnable.stoneInfoWhenWifiDisconnected();
+		m_pEnable.stoneInfoWhenShutdown() ;
 	}
 
 	private final int SCAN_OVER = 2;

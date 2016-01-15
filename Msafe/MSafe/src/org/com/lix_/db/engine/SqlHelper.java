@@ -98,7 +98,6 @@ public class SqlHelper {
 						}
 					}
 				}
-				Debug.i(TAG,column.name()+ ":fieldType:"+fieldType.getName() +":"+field.get(model));
 				if (fieldType.equals(int.class)) {
 					contentValues.put(column.name(), field.getInt(model));
 				} else if (fieldType.equals(Integer.class)) {

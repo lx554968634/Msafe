@@ -25,9 +25,8 @@ public class DBManager {
 
 	public DBManager(Context context) {
 		m_pContext = context;
-		if (m_pDatabase != null)
-			m_pDatabase = context.openOrCreateDatabase(DB_define.DATABASE_NAME,
-					Context.MODE_PRIVATE, null);
+		m_pDatabase = context.openOrCreateDatabase(DB_define.DATABASE_NAME,
+				Context.MODE_PRIVATE, null);
 	}
 
 	/**

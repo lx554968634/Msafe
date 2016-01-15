@@ -53,12 +53,28 @@ public class EnableOfWapmonitor extends Enable {
 			TmpStatusDaoImpl pStatusDao) {
 		List<TmpStatusEntity> pStatuResult = pStatusDao.queryAll();
 		int nSize = pStatuResult == null ? -1 : pStatuResult.size();
-		if (nSize != 2 && nSize > 0) {
+		if (nSize == 1) {
+			int nStatus = pStatuResult.get(0).getType();
+			switch (nStatus) {
+			case 0:
+				pStatusDao.insertGprsData();
+				pStatuResult.add(TmpStatusEntity.getGprsEntity());
+				return pStatuResult;
+			case 1:
+				pStatusDao.insertWifiData();
+				pStatuResult.add(TmpStatusEntity.getWifiEntity());
+				return pStatuResult;
+			default:
+				pStatusDao.refresh();
+				TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
+						m_pContext);
+				pTmpRecordDao.deleteAll();
+				IDao.finish();
+				return null;
+			}
+		} else if (nSize > 2 || nSize == 0) {
 			// 删除表重新寄存数据
 			pStatusDao.refresh();
-			return null;
-		} else if (nSize == 0) {
-			pStatusDao.insertData();
 			TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
 					m_pContext);
 			pTmpRecordDao.deleteAll();
@@ -113,14 +129,15 @@ public class EnableOfWapmonitor extends Enable {
 		long rxData = TrafficStats.getUidRxBytes(pInfo.getUid());
 		long tXData = TrafficStats.getUidTxBytes(pInfo.getUid());
 		long max = rxData + tXData;
-		return max;
+		return max < 0 ? 0 : max;
 	}
 
 	private int checkWifiOrGprsWithTmpRecord(TmpRecordWapDaoImpl pTmpRecordDao,
-			WapRecordDaoImpl pWapRecorddao, TmpStatusDaoImpl pStatusDao,
-			TmpStatusEntity pTmpStatus,
+			TmpStatusDaoImpl pStatusDao, TmpStatusEntity pTmpStatus,
 			List<TmpRecordWapEntity> pTmpRecordResult, AppInfo pInfo,
 			int nStatus) {
+		WapRecordDaoImpl pWapRecorddao = new WapRecordDaoImpl(m_pContext);
+		Debug.e(TAG, "checkWifiOrGprsWithTmpRecord :" + pInfo.getAppName());
 		WapuselogDaoImpl pWapuseLog = new WapuselogDaoImpl(m_pContext);
 		TmpRecordWapEntity pTmpRecord = null;
 		int nenableStatus = -1;
@@ -139,18 +156,22 @@ public class EnableOfWapmonitor extends Enable {
 			// 找到tmpRecord表中记录，并且同步到WapRecord表中
 			if (pTmpRecordResult == null || pTmpRecordResult.size() == 0) {
 			} else {
-				Debug.i(TAG, "此时wifiEnalbe开启，并且中间表中存在数据!");
+				Debug.i(TAG, "此时" + (nStatus == 0 ? "wifi" : "gprs")
+						+ "开启，并且中间表中存在数据!");
 				// 需要把数据添加到wap_record_table , wapuselogentity ;
 				long max = getWapdataByUid(pInfo);
 				Debug.i(TAG,
 						"pTmpRecordResult == null :"
 								+ (pTmpRecordResult == null ? -1
 										: pTmpRecordResult.size()));
-				pTmpRecord = getWifiTmpRecord(pTmpRecordResult);
+				if (nStatus == 0)
+					pTmpRecord = getWifiTmpRecord(pTmpRecordResult);
+				else
+					pTmpRecord = getGprsTmpRecrod(pTmpRecordResult);
 				if (pTmpRecord != null) {
 					long nWapdata = pTmpRecord.getNwapdata() - max;
 					Debug.i(TAG, "相差流量:" + nWapdata);
-					if (nWapdata > 0) {
+					if (nWapdata >= 0) {
 						// 有效数据
 						// 更新记录 waprecorddao 和log记录
 						long nTime = System.currentTimeMillis();
@@ -167,9 +188,9 @@ public class EnableOfWapmonitor extends Enable {
 				}
 			}
 			Debug.i(TAG, "tmp表中wifi开启记录还原");
-			pTmpStatus.setStatus(unablestatus);
-			boolean nFlag = pStatusDao.insertOrUpdate(pTmpStatus,
-					TmpStatusEntity.getAllComlumn()[2]);
+			// pTmpStatus.setStatus(unablestatus);
+			// pStatusDao.insertOrUpdate(pTmpStatus,
+			// TmpStatusEntity.getAllComlumn()[2]);
 		} else if (pTmpStatus.getStatus() == unablestatus) {
 		} else {
 			pStatusDao.insertData();
@@ -177,15 +198,15 @@ public class EnableOfWapmonitor extends Enable {
 			IDao.finish();
 			return -1;
 		}
-		if (pTmpStatus.getStatus() == unablestatus) {
+		if (pTmpStatus.getStatus() == nenableStatus) {
 			if (pTmpRecord == null) {
 				pTmpRecord = new TmpRecordWapEntity();
 				pTmpRecord.setUid(pInfo.getUid());
 				pTmpRecord.setsPckname(pInfo.getPackageName());
 			}
 			pTmpRecord.setStatus(nStatus);
-			Debug.i(TAG, "wifi 临时表记录也已关闭 ,清除多余的tmpRecord记录:" + pInfo.getUid()
-					+ ":" + pInfo.getPackageName());
+			Debug.i(TAG, "wifi 临时表记录也已关闭 ,清除多余的tmpRecord记录:" + nStatus + ":"
+					+ pInfo.getUid() + ":" + pInfo.getPackageName());
 			pTmpRecordDao.deleteModelByStatus(pTmpRecord);
 		}
 		return 0;
@@ -229,18 +250,32 @@ public class EnableOfWapmonitor extends Enable {
 		pDao.update(pEntity);
 	}
 
+	public void updateWifiTmpUidwapdata() {
+		updateTmpUidwapdata(0);
+	}
+
+	public void updateGprsTmpUiswapdata() {
+		updateTmpUidwapdata(1);
+	}
+
 	/*
 	 * 根据uid插入临时数据 1、扫描数据
 	 */
 	public void updateTmpUidwapdata(int nStatus) {
 		List<AppInfo> szList = getAppInfoListWithPermission();
+		Debug.i(TAG, "获取所有应用的信息:" + szList.size());
+		boolean bTag = false;
 		for (AppInfo pInfo : szList) {
 			String[] szPermission = pInfo.getSzPermission();
 			boolean bFlag = checkPermission(szPermission,
 					Manifest.permission.INTERNET);
 			if (!bFlag) {
-				return;
+				continue;
 			} else {
+				bTag = true;
+				Debug.i(TAG,
+						"记录临时表信息:" + pInfo.getUid() + ":"
+								+ pInfo.getPackageName());
 				TmpRecordWapDaoImpl pTmpRecordDao = new TmpRecordWapDaoImpl(
 						m_pContext);
 				TmpRecordWapEntity pModel = new TmpRecordWapEntity();
@@ -252,6 +287,11 @@ public class EnableOfWapmonitor extends Enable {
 				pModel.setTimesmt(System.currentTimeMillis());
 				pTmpRecordDao.insertModel(pModel);
 			}
+		}
+		if (bTag) {
+			TmpStatusEntity pEntity = TmpStatusEntity.getStatusEntity(nStatus);
+			Debug.i(TAG, "改变tmpstatus数据");
+			updateStatusWap(pEntity);
 		}
 		IDao.finish();
 	}
@@ -268,6 +308,7 @@ public class EnableOfWapmonitor extends Enable {
 
 	/**
 	 * 核心函数里面有储存log，record，清空tmprecord，复位tmpStatus表的功能
+	 * 
 	 * @param pInfo
 	 * @param nStatus
 	 */
@@ -292,19 +333,44 @@ public class EnableOfWapmonitor extends Enable {
 			} else {
 				pTmpRecordResult = checkTmpRecord(pTmpRecordDao, pInfo);
 				if (pTmpRecordResult == null) {
-					Debug.i(TAG, "tmpRecord 数据格式不符:直接关闭");
+					Debug.i(TAG, "tmpRecord 数据格式不符:直接关闭 对比wapRecord里面看是否具有数据，如果没有就加入一条初始化数据");
+					WapRecordDaoImpl pDao = new WapRecordDaoImpl(m_pContext) ;
+					TmpRecordWapEntity pTmp = new TmpRecordWapEntity() ;
+					pTmp.setUid(pInfo.getUid());
+					pTmp.setsPckname(pInfo.getPackageName());
+					pTmp.setNwapdata(0);
+					switch(nStatus)
+					{
+					case 0:
+						pTmp.setStatus(TmpStatusEntity.WIFI_ENABLE);
+						break ;
+					case 1:
+						pTmp.setStatus(TmpStatusEntity.GPRS_ENABLE);
+						break ;
+					}
+					pDao.insertOrUpdateOtherModel(pTmp);
 					return;
 				}
-				TmpStatusEntity pStatusEntity = pStatuResult.get(nStatus);
-				WapRecordDaoImpl pWapRecorddao = new WapRecordDaoImpl(
-						m_pContext);
+				TmpStatusEntity pStatusEntity = getTargetWapStatus(
+						pStatuResult, nStatus);
 				// wifi gprs 同时enable记录是不共存的
 				int nTag = checkWifiOrGprsWithTmpRecord(pTmpRecordDao,
-						pWapRecorddao, pStatusDao, pStatusEntity,
-						pTmpRecordResult, pInfo, nStatus);
+						pStatusDao, pStatusEntity, pTmpRecordResult, pInfo,
+						nStatus);
 			}
 			IDao.finish();
 		}
+	}
+
+	private TmpStatusEntity getTargetWapStatus(List<TmpStatusEntity> szList,
+			int nStatus) {
+		TmpStatusEntity pmp = null;
+		for (TmpStatusEntity pc : szList) {
+			if (pc.getType() == nStatus) {
+				return pc;
+			}
+		}
+		return pmp;
 	}
 
 	private void stoneAllInfoWhenWapLinkDisconnected(int nStatus) {
@@ -314,7 +380,7 @@ public class EnableOfWapmonitor extends Enable {
 			boolean bFlag = checkPermission(szPermission,
 					Manifest.permission.INTERNET);
 			if (!bFlag) {
-				return;
+				continue;
 			} else {
 				saveAndCheckRecordWhenWapLinkDisconnected(pInfo, nStatus);
 			}
@@ -325,4 +391,19 @@ public class EnableOfWapmonitor extends Enable {
 		stoneAllInfoWhenWapLinkDisconnected(1);
 	}
 
+	public void refreshTmpStatus(int nStatue) {
+		TmpStatusDaoImpl pStatusDao = new TmpStatusDaoImpl(m_pContext);
+		pStatusDao.refreshStatus(nStatue);
+	}
+
+	public void stoneInfoWhenShutdown() {
+		Debug.i(TAG, "stoneInfoWhenShutdown");
+		stoneInfoWhenGprsDisconnected();
+		stoneInfoWhenWifiDisconnected();
+		Debug.i(TAG, "refreshTmpStatus:" + 0);
+		refreshTmpStatus(0);
+		Debug.i(TAG, "refreshTmpStatus:" + 1);
+		refreshTmpStatus(1);
+		IDao.finish();
+	}
 }

@@ -17,6 +17,8 @@ public class WapRecordEntity {
 
 	@Column(name = "status", type = Column.TYPE_INTEGER)
 	private Integer status;
+	
+	
 
 	public Integer getUid() {
 		return uid;

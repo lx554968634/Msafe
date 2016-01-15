@@ -46,7 +46,7 @@ public class TmpRecordWapDaoImpl extends IDao {
 	public void deleteModelByStatus(TmpRecordWapEntity tmpRecordWapEntity) {
 		delete(TmpRecordWapEntity.getAllComlumn()[0] + " = ? AND "
 				+ TmpRecordWapEntity.getAllComlumn()[1] + " = ? AND "
-				+ TmpRecordWapEntity.getAllComlumn()[4] + "=?",
+				+ TmpRecordWapEntity.getAllComlumn()[4] + " = ? ",
 				tmpRecordWapEntity.getUid() + "",
 				tmpRecordWapEntity.getsPckname(),
 				tmpRecordWapEntity.getStatus() + "");
