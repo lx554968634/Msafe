@@ -20,11 +20,13 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 public class SceneOfWapAdmin_listview {
-	private String TAG = "SceneOfWapAdmin_listview" ;
+	private String TAG = "SceneOfWapAdmin_listview";
 	Context m_pContext;
+
 	public SceneOfWapAdmin_listview(Context pContext) {
 		m_pContext = pContext;
 	}
+
 	private TabHost m_pTabHost;
 	private ViewPager m_pViewPager;
 	private PagerAdapter m_pPagerAdapter;
@@ -42,12 +44,14 @@ public class SceneOfWapAdmin_listview {
 		View pView = null;
 		m_pTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		m_pTabHost.setup();
-		pView = LayoutInflater.from(m_pContext).inflate(R.layout.tab_indicator, null);
+		pView = LayoutInflater.from(m_pContext).inflate(R.layout.tab_indicator,
+				null);
 		((TextView) pView.findViewById(R.id.title)).setText(getResources()
 				.getString(R.string.wapadmin_title0));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("one").setIndicator(pView)
 				.setContent(R.id.wap_viewPager));
-		pView = LayoutInflater.from(m_pContext).inflate(R.layout.tab_indicator, null);
+		pView = LayoutInflater.from(m_pContext).inflate(R.layout.tab_indicator,
+				null);
 		((TextView) pView.findViewById(R.id.title)).setText(getResources()
 				.getString(R.string.wapadmin_title1));
 		m_pTabHost.addTab(m_pTabHost.newTabSpec("two").setIndicator(pView)
@@ -116,7 +120,8 @@ public class SceneOfWapAdmin_listview {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-		m_pPagerAdapter = new MyPagerAdapter(((FragmentActivity)m_pContext).getSupportFragmentManager());
+		m_pPagerAdapter = new MyPagerAdapter(
+				((FragmentActivity) m_pContext).getSupportFragmentManager());
 		m_pViewPager.setAdapter(m_pPagerAdapter);
 		if (m_pViewPager != null)
 			m_pViewPager.setCurrentItem(1);
@@ -131,11 +136,11 @@ public class SceneOfWapAdmin_listview {
 		switch (position) {
 		case 0:
 			if (m_pNetFragment == null)
-				m_pNetFragment = new FragmentOfWapadmin_net(1);
+				m_pNetFragment = new FragmentOfWapadmin_net(1, m_pContext);
 			return m_pNetFragment;
 		default:
 			if (m_pWlanFragment == null)
-				m_pWlanFragment = new FragmentOfWapadmin_net(0);
+				m_pWlanFragment = new FragmentOfWapadmin_net(0, m_pContext);
 			return m_pWlanFragment;
 		}
 	}

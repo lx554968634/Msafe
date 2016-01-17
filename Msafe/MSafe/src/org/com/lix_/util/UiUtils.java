@@ -222,8 +222,17 @@ public class UiUtils {
 			return null;
 		}
 	}
+
 	public static boolean isNum(String str) {
 		return !str.equals("")
 				&& str.matches("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
+	}
+
+	public static void inVisiable(View findViewById) {
+		if (findViewById == null) {
+			Debug.e(TAG, "inVisiable:¶ÔÏóÎªnull :");
+		} else {
+			findViewById.setVisibility(View.INVISIBLE);
+		}
 	}
 }

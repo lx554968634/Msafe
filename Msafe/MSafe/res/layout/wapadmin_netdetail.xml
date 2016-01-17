@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="horizontal"
-        android:visibility="invisible" >
+        android:visibility="visible" >
 
         <ProgressBar
             android:id="@+id/apkadmin_tip_pro"
