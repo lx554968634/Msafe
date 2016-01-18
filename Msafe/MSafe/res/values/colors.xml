@@ -1,5 +1,4 @@
 <resources>
-
     <!-- MainActivity.java需要的颜色 -->
     <color name="white">#fafafa</color>
     <color name="green_mainlayout_background">#10A75A</color>
@@ -9,14 +8,13 @@
     <color name="green_breathecircleview_background_apha">#00000000</color>
     <color name="gray_mainactivity_btn_press">#d7d7d7</color>
     <color name="rubbishclear_bg">#10C866</color>
-    <color name="radar_outcircle_color">#D1FFD4</color>
-    <color name="radar_inner_color">#C9FFCC</color>
+    <color name="radar_outcircle_color">#2bc66b</color>
+    <color name="radar_inner_color">#56d48d</color>
     <color name="black">#000000</color>
     <color name="tab_textcolor_selected">#3fb36a</color>
     <color name="white_apha">#99fafafa</color>
     <color name="red">#FF0000</color>
     <color name="rubbish_clear_bg_start">#99C5E8D0</color>
-
     <!-- 垃圾清理设置 -->
     <color name="rubbish_setting_tag_bg">#ededed</color>
     <color name="rubbish_setting_content_txtcolor">#7b7b7b</color>

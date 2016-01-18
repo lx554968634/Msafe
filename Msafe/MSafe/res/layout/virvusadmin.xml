@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/green_breathecircleview_background"
+        android:background="@drawable/virvusadmin_bg"
         android:orientation="vertical" >
 
         <TextView
@@ -63,14 +63,12 @@
         android:paddingLeft="@dimen/padding_list"
         android:paddingRight="@dimen/padding_list"
             android:layout_weight="1" >
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/main_scan_wow" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,14 +76,12 @@
                 android:layout_marginLeft="10dp"
                 android:text="@string/virus_check_txt1" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
         android:paddingLeft="@dimen/padding_list"
         android:paddingRight="@dimen/padding_list"
             android:layout_weight="1" >
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,14 +96,12 @@
                 android:layout_marginLeft="10dp"
                 android:text="@string/virus_check_txt2" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
         android:paddingLeft="@dimen/padding_list"
         android:paddingRight="@dimen/padding_list"
             android:layout_weight="1" >
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,20 +116,17 @@
                 android:layout_marginLeft="10dp"
                 android:text="@string/virus_check_txt3" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1" >
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
             android:layout_weight="1" >
             <View android:layout_width="fill_parent" android:layout_height="1dp" android:background="@color/gray_mainactivity_btn_press"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
