@@ -5,10 +5,11 @@ import org.com.lix_.ui.R;
 import org.com.lix_.util.UiUtils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
@@ -58,7 +59,7 @@ public class RadarCircleView extends View {
 				R.color.radar_inner_color));
 
 		m_pWaterPaint = new Paint();
-
+		m_pWaterPaint.setAntiAlias(true);
 		SweepGradient mRadialGradient = new SweepGradient(
 				m_nWidth,
 				m_nHeight,
@@ -68,6 +69,9 @@ public class RadarCircleView extends View {
 		m_pWaterPaint.setShader(mRadialGradient);
 	}
 
+	private Bitmap mScaledBitmap;
+	private Bitmap mBitmap;
+
 	private void drawSector(Canvas pCanvas, float radius, float nStart,
 			float nEnd) {
 		RectF pRect = new RectF(m_nWidth - radius, m_nHeight - radius, m_nWidth
@@ -76,19 +80,34 @@ public class RadarCircleView extends View {
 		pCanvas.drawArc(pRect, nStart, nEnd, true, m_pWaterPaint);
 	}
 
+	private void drawMap(Canvas canvas) {
+		if (mScaledBitmap == null) {
+			mBitmap = BitmapFactory.decodeResource(getContext().getResources(),
+					R.drawable.radar);
+			if (mBitmap != null) {
+				mScaledBitmap = Bitmap.createScaledBitmap(mBitmap,
+						m_nRadio * 2, m_nRadio * 2, false);
+				mBitmap.recycle();
+			}
+		}
+		canvas.drawBitmap(mScaledBitmap, m_nWidth - m_nRadio, m_nHeight
+				- m_nRadio, m_pRadarCircle);
+	}
+
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
 		canvas.drawCircle(m_nWidth, m_nHeight, m_nRadio, m_pOutterCircle);
 		canvas.drawCircle(m_nWidth, m_nHeight, m_nRadio / 2, m_pRadarCircle);
 		canvas.save();
-		canvas.rotate(m_nRotate -= 4, m_nWidth, m_nHeight);
-		drawSector(canvas, m_nRadio, 0, 60);
+		canvas.rotate(m_nRotate -= 2, m_nWidth, m_nHeight);
+//		drawSector(canvas, m_nRadio, 0, 60);
+		drawMap(canvas) ;
 		canvas.restore();
 		if (m_nRotate == 0) {
 			m_nRotate = 360;
 		}
-		postInvalidateDelayed(20);
+		postInvalidateDelayed(10);
 	}
 
 }
