@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_selector"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/padding_list"
+    android:paddingTop="@dimen/padding_list" >
+
+    <ImageView
+        android:id="@+id/wapadmin_detailnet_item_image"
+        android:layout_width="@dimen/all_item_app_icon_size"
+        android:layout_height="@dimen/all_item_app_icon_size"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_list_helf"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/fileadmin_item_default" />
+
+    <RelativeLayout
+        android:id="@+id/filemadin_item_rubbish_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_list"
+        android:layout_toRightOf="@id/wapadmin_detailnet_item_image"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/wapadmin_detailnetitem_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grid_item_check0"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rubbish_setting_title_size" />
+
+        <TextView
+            android:id="@+id/wapadmin_detailnetitem_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wapadmin_detailnetitem_name"
+            android:layout_marginTop="@dimen/padding_list_helf"
+            android:background="@color/item_cache_bg"
+            android:visibility="gone"
+            android:text="60M"
+            android:textColor="@color/detail_rubbish_scan_txtcolor"
+            android:textSize="@dimen/rubbish_setting_des_size" />
+
+        <TextView
+            android:id="@+id/wapadmin_detailnetitem_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wapadmin_detailnetitem_name"
+            android:layout_marginLeft="@dimen/padding_list_helf"
+            android:layout_marginTop="@dimen/padding_list_helf"
+            android:layout_toRightOf="@id/wapadmin_detailnetitem_cache"
+            android:text="60M"
+            android:textColor="@color/detail_rubbish_scan_txtcolor"
+            android:textSize="@dimen/rubbish_setting_des_size" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/wapadmin_detailnet_rubbish_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/padding_list_helf"
+        android:background="@drawable/removecheck"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center"
+        android:paddingRight="0dp"
+        android:text="@string/duihao"
+        android:textColor="@android:color/transparent"
+        android:textSize="@dimen/txt_title_rubbish" />
+
+</RelativeLayout>

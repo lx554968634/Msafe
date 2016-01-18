@@ -1,5 +1,7 @@
 package org.com.lix_.db.dao;
 
+import java.util.List;
+
 import org.com.lix_.db.entity.TmpRecordWapEntity;
 import org.com.lix_.db.entity.WapRecordEntity;
 
@@ -16,18 +18,16 @@ public class WapRecordDaoImpl extends IDao {
 		pObj.setsPckname(pTmpRecord.getsPckname());
 		pObj.setStatus(pTmpRecord.getStatus());
 		pObj.setUid(pTmpRecord.getUid());
-		
-		pObj = queryByModel(pObj) ;
-		if(pObj == null)
-		{
-			pObj = new WapRecordEntity() ;
+
+		pObj = queryByModel(pObj);
+		if (pObj == null) {
+			pObj = new WapRecordEntity();
 			pObj.setsPckname(pTmpRecord.getsPckname());
 			pObj.setStatus(pTmpRecord.getStatus());
 			pObj.setUid(pTmpRecord.getUid());
 			pObj.setNwapdata(pTmpRecord.getNwapdata());
-		}else
-		{
-			pObj.setNwapdata(pObj.getNwapdata()+pTmpRecord.getNwapdata());
+		} else {
+			pObj.setNwapdata(pObj.getNwapdata() + pTmpRecord.getNwapdata());
 		}
 		insertOrUpdate(pObj, pObj.getAllComlumn()[0], pObj.getAllComlumn()[1],
 				pObj.getAllComlumn()[3] + "");
@@ -39,6 +39,12 @@ public class WapRecordDaoImpl extends IDao {
 						+ " = ? AND " + pObj.getAllComlumn()[3] + " = ? ",
 				pObj.getUid() + "", "" + pObj.getsPckname(),
 				"" + pObj.getStatus());
+	}
+
+	public List<WapRecordEntity> getWapdetailInfo(int m_nType) {
+		List<WapRecordEntity> pList = (List<WapRecordEntity>) (queryByCondition(
+				WapRecordEntity.getAllComlumn()[3] + " = ? ",""+ m_nType));
+		return pList;
 	}
 
 }

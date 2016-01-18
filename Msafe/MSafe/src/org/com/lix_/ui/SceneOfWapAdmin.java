@@ -77,16 +77,12 @@ public class SceneOfWapAdmin extends FragmentActivity implements
 		case 0:
 			if (findViewById(R.id.wap_tag0).getVisibility() == View.VISIBLE)
 				return;
-			findViewById(R.id.wap_tag0).setVisibility(View.VISIBLE);
-			findViewById(R.id.wap_title_des).setVisibility(View.VISIBLE);
-			findViewById(android.R.id.tabhost).setVisibility(View.GONE);
+			m_pInnerView.setVisiable(false) ;
 			break;
 		case 1:
 			if (findViewById(android.R.id.tabhost).getVisibility() == View.VISIBLE)
 				return;
-			findViewById(R.id.wap_tag0).setVisibility(View.GONE);
-			findViewById(R.id.wap_title_des).setVisibility(View.GONE);
-			findViewById(android.R.id.tabhost).setVisibility(View.VISIBLE);
+			m_pInnerView.setVisiable(true) ;
 			break;
 		}
 	}

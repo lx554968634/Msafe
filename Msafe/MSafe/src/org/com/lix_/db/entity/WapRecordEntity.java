@@ -6,19 +6,27 @@ import org.com.lix_.db.engine.Table.Column;
 @Table(name = "t_wap_record_table")
 public class WapRecordEntity {
 
+	public String getSappname() {
+		return sappname;
+	}
+
+	public void setSappname(String sappname) {
+		this.sappname = sappname;
+	}
+
 	@Column(name = "uid", type = Column.TYPE_INTEGER)
 	private Integer uid;
 
 	@Column(name = "sPckname", type = Column.TYPE_STRING)
 	private String sPckname;
+	@Column(name = "sappname", type = Column.TYPE_STRING)
+	private String sappname;
 
 	@Column(name = "nwapdata", type = Column.TYPE_DOUBLE)
 	private Integer nwapdata;
 
 	@Column(name = "status", type = Column.TYPE_INTEGER)
 	private Integer status;
-	
-	
 
 	public Integer getUid() {
 		return uid;

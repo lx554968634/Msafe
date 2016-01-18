@@ -9,6 +9,7 @@ import org.com.lix_.db.dao.WapRecordDaoImpl;
 import org.com.lix_.db.dao.WapuselogDaoImpl;
 import org.com.lix_.db.entity.TmpRecordWapEntity;
 import org.com.lix_.db.entity.TmpStatusEntity;
+import org.com.lix_.db.entity.WapRecordEntity;
 import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.enable.engine.AppInfoEngine;
 import org.com.lix_.util.Debug;
@@ -24,7 +25,6 @@ public class EnableOfWapmonitor extends Enable {
 	public EnableOfWapmonitor(Context pContext) {
 		super(pContext);
 	}
-
 	/**
 	 * 对比权限
 	 * 
@@ -406,4 +406,11 @@ public class EnableOfWapmonitor extends Enable {
 		refreshTmpStatus(1);
 		IDao.finish();
 	}
+	
+	public List<WapRecordEntity> getWapDetail(int m_nType)
+	{
+		WapRecordDaoImpl pDao = new WapRecordDaoImpl(m_pContext) ;
+		return pDao.getWapdetailInfo(m_nType) ;
+	}
+	
 }

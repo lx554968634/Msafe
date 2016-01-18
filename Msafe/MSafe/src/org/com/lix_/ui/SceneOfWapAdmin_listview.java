@@ -169,4 +169,32 @@ public class SceneOfWapAdmin_listview {
 		if (m_pViewPager != null)
 			m_pViewPager.setCurrentItem(0);
 	}
+
+	public void setVisiable(boolean b) {
+		if (b) {
+			setChildListVisiable();
+		} else {
+			setChildListDisVisiable();
+		}
+	}
+
+	private void setChildListVisiable() {
+		findViewById(R.id.wap_tag0).setVisibility(View.GONE);
+		findViewById(R.id.wap_title_des).setVisibility(View.GONE);
+		findViewById(android.R.id.tabhost).setVisibility(View.VISIBLE);
+		if (m_pNetFragment != null)
+			m_pNetFragment.setVisiable();
+		if (m_pWlanFragment != null)
+			m_pWlanFragment.setVisiable();
+	}
+
+	private void setChildListDisVisiable() {
+		findViewById(R.id.wap_tag0).setVisibility(View.VISIBLE);
+		findViewById(R.id.wap_title_des).setVisibility(View.VISIBLE);
+		findViewById(android.R.id.tabhost).setVisibility(View.GONE);
+		if (m_pNetFragment != null)
+			m_pNetFragment.setDisVisiable();
+		if (m_pWlanFragment != null)
+			m_pWlanFragment.setDisVisiable();
+	}
 }

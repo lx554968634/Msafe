@@ -58,7 +58,7 @@ public abstract class Enable {
 		m_pAsyHandler.sendMessage(msg);
 	}
 
-	public void reStartThread() {
+	public void reStartThread(final Object... params) {
 		m_pAsyTask = new AsyncTask() {
 			@Override
 			protected Object doInBackground(Object... params) {
@@ -66,7 +66,7 @@ public abstract class Enable {
 				return null;
 			}
 
-		};
+		} ;
 	}
 
 	protected void doSynchrWork(Message pMsg) {

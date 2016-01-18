@@ -235,4 +235,12 @@ public class UiUtils {
 			findViewById.setVisibility(View.INVISIBLE);
 		}
 	}
+
+	public static void visiable(View findViewById) {
+		if (findViewById == null) {
+			Debug.e(TAG, "visiable :¶ÔÏóÎªnull ");
+		} else {
+			findViewById.setVisibility(View.VISIBLE);
+		}
+	}
 }
