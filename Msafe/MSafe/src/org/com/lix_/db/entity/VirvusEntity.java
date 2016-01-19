@@ -16,14 +16,18 @@ public class VirvusEntity {
 
 	@Column(name = "md5", type = Column.TYPE_STRING)
 	private String md5;
-	@Column(name = "name", type = Column.TYPE_STRING)
-	private String name;
+	@Column(name = "spckname", type = Column.TYPE_STRING)
+	private String spckname;
 	@Column(name = "des", type = Column.TYPE_STRING)
 	private String des;
 	@Column(name = "type", type = Column.TYPE_INTEGER)
 	private int type;
 	@Column(name = "timeSmt", type = Column.TYPE_STRING)
 	private String timeSmt;
+
+	public static String[] getColumns() {
+		return new String[] { "md5", "spckname", "des", "type", "timeSmt" };
+	}
 
 	public String getMd5() {
 		return md5;
@@ -33,12 +37,12 @@ public class VirvusEntity {
 		this.md5 = md5;
 	}
 
-	public String getName() {
-		return name;
+	public String getSpckname() {
+		return spckname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSpckname(String spckname) {
+		this.spckname = spckname;
 	}
 
 	public String getDes() {

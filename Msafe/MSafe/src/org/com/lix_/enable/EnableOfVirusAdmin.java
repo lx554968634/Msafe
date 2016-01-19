@@ -1,5 +1,7 @@
 package org.com.lix_.enable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.com.lix_.db.dao.VirusDaoImpl;
@@ -11,6 +13,8 @@ import android.os.Message;
 
 public class EnableOfVirusAdmin extends Enable {
 
+	private String TAG = "EnableOfVirusAdmin";
+
 	/**
 	 * 初始化病毒扫描引擎
 	 */
@@ -21,9 +25,20 @@ public class EnableOfVirusAdmin extends Enable {
 	public static final int VIRVUS_SHIT_HAPPEN = 2;
 
 	/**
+	 * 扫描到病毒
+	 */
+	public static final int SCAN_ONE_VIRVUS = 3;
+	/**
+	 * 扫描完毕
+	 */
+	public static final int SCAN_OVER = 4;
+
+	/**
 	 * 扫描某个程序
 	 */
-	public static final int SCAN_ITEM = 3;
+	public static final int SCAN_ITEM = 5;
+
+	private HashMap<String, ArrayList<AppInfo>> m_szVirvusList = new HashMap();
 
 	@Override
 	protected void doSynchrWork(Message pMsg) {
@@ -36,7 +51,27 @@ public class EnableOfVirusAdmin extends Enable {
 		case VIRVUS_SHIT_HAPPEN:
 			m_pCallback.callback(nTag, pMsg.arg1);
 			break;
+		case SCAN_ONE_VIRVUS:
+			AppInfo pInfo = (AppInfo) (pMsg.obj);
+			addItem(pInfo);
+			m_pCallback.callback(nTag, pInfo.getM_nVirvusType());
+			break;
+		case SCAN_OVER:
+			m_pCallback.callback(nTag);
+			break;
+		case SCAN_ITEM:
+			m_pCallback.callback(nTag,pMsg.obj);
+			break ;
 		}
+	}
+
+	private void addItem(AppInfo pInfo) {
+		ArrayList<AppInfo> list = m_szVirvusList.get(TAG
+				+ pInfo.getM_nVirvusType());
+		if (list == null) {
+			m_szVirvusList.put(TAG + pInfo.getM_nVirvusType(), list);
+		}
+		list.add(pInfo);
 	}
 
 	@Override
@@ -58,13 +93,28 @@ public class EnableOfVirusAdmin extends Enable {
 			sendMessage(msg);
 			return;
 		}
-		boolean bFlag = false ;
+		boolean bFlag = false;
 		for (AppInfo pInfo : pList) {
 			Message msg = Message.obtain();
 			msg.what = SCAN_ITEM;
 			msg.obj = pInfo.getAppName();
 			sendMessage(msg);
-			bFlag = m_pDao.queryApp(pInfo) ;
+			int nType = -1;
+			nType = m_pDao.queryApp(pInfo);
+			if (nType != -1) {
+				// 存在，这个是病毒
+				msg = Message.obtain();
+				msg.what = SCAN_ONE_VIRVUS;
+				pInfo.setM_nVirvusType(nType);
+				msg.obj = pInfo;
+				sendMessage(msg);
+			} else {
+				// 不存在。这个不是病毒
+				continue;
+			}
+			msg = Message.obtain();
+			msg.what = SCAN_OVER;
+			sendMessage(msg);
 		}
 	}
 

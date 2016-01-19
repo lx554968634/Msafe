@@ -23,6 +23,15 @@ public class SceneOfVirusAdmin extends BaseActivity {
 			UiUtils.setText(findViewById(R.id.virvus_des_pro), getResources()
 					.getString(R.string.virvus_engine_shithapped)+":"+obj[1]);
 			break;
+		case EnableOfVirusAdmin.SCAN_ITEM:
+			UiUtils.setText(findViewById(R.id.virvus_des_pro), obj[1].toString());
+			break ;
+		case EnableOfVirusAdmin.SCAN_ONE_VIRVUS:
+			int nType = Integer.parseInt(obj[1].toString()) ;
+			break ;
+		case EnableOfVirusAdmin.SCAN_OVER:
+			//…®√ËÕÍ±œ
+			break ;
 		}
 	}
 

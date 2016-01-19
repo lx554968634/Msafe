@@ -10,6 +10,16 @@ import android.os.Parcelable;
 
 public class AppInfo implements Serializable {
 
+	private int m_nVirvusType;
+
+	public int getM_nVirvusType() {
+		return m_nVirvusType;
+	}
+
+	public void setM_nVirvusType(int m_nVirvusType) {
+		this.m_nVirvusType = m_nVirvusType;
+	}
+
 	public String getVirvusMd5() {
 		return virvusMd5;
 	}
