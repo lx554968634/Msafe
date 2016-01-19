@@ -25,7 +25,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 
 public class ButtonPlugin extends View {
-	private final int INVALIDATE_DURATION = 1; // 每次刷新的时间间隔
+	private final int INVALIDATE_DURATION = 0; // 每次刷新的时间间隔
 	private int DIFFUSE_GAP = 10; // 扩散半径增量
 	private int TAP_TIMEOUT; // 判断点击和长按的时间
 	private String TAG = "ButtonPlugin";

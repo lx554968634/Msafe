@@ -7,6 +7,7 @@ import java.util.List;
 import org.com.lix_.enable.EnableOfApkAdmin;
 import org.com.lix_.enable.EnableOfRootAdmin;
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.Md5Utils;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
@@ -147,5 +148,28 @@ public class AppInfoEngine {
 	public List<AppInfo> getInstalledApp() {
 		return getInstalledApp(false, EnableOfApkAdmin.STARTSCAN,
 				EnableOfApkAdmin.SCAN_ITEM);
+	}
+
+	/**
+	 * 只储存了md5.name,pckname
+	 * @return
+	 */
+	public List<AppInfo> getVirvusCheckApp() {
+		List<AppInfo> pList = new ArrayList<AppInfo>() ;
+		// 获取应用程序的特征码。
+		PackageManager pm = m_pContext.getPackageManager();
+		// 获取所有的应用程序 包括哪些被卸载的但是没有卸载干净 （保留的有数据的应用）
+		List<PackageInfo> packinfos = pm
+				.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES
+						+ PackageManager.GET_SIGNATURES);
+		for (PackageInfo packinfo : packinfos) {
+			AppInfo pInfo = new AppInfo() ;
+			pInfo.setAppName(packinfo.applicationInfo.loadLabel(pm)+"");
+			pInfo.setPackageName(packinfo.packageName);
+			pInfo.setVirvusMd5(Md5Utils.encode(packinfo.signatures[0]
+							.toCharsString()));
+			pList.add(pInfo) ;
+		}
+		return null;
 	}
 }

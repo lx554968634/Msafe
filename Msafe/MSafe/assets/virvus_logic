@@ -1,0 +1,34 @@
+病毒扫描
+
+1、病毒库:病毒库的石化，刷新
+
+	本地病毒列表 
+	@Table(name = "virvus_datainfo")
+	@Column(name = "md5", type = Column.TYPE_STRING)
+	@Column(name = "name", type = Column.TYPE_STRING)
+	@Column(name = "des", type = Column.TYPE_STRING)
+	@Column(name = "type", type = Column.TYPE_INTEGER)
+	@Column(name = "timeSmt", type = Column.TYPE_STRING)
+	
+	
+	服务器数据:
+	@Table(name = "virvus_datainfo")
+	@Column(name = "nid",isPrimaryKey=true, type = Column.TYPE_STRING)
+	@Column(name = "md5", type = Column.TYPE_STRING)
+	@Column(name = "name", type = Column.TYPE_STRING)
+	@Column(name = "des", type = Column.TYPE_STRING)
+	@Column(name = "type", type = Column.TYPE_INTEGER)
+	@Column(name = "timeSmt", type = Column.TYPE_STRING)
+	
+	partA
+		如何更新或者说什么时候去更新：程序本身需要存档一些数据
+	partB
+		当wifi联通时，将访问web服务，更新本地病毒库
+
+2、病毒引擎:病毒扫描的逻辑
+	1、扫描
+		a、扫描所有安装应用 .对比数据库virvus_datainfo 中MD5字段，相同则列出，否则就无视
+		b、文件夹扫描
+	2、善后
+		a、对于安装目录中的程序病毒，直接显示删除列表
+		b、文件也是如此

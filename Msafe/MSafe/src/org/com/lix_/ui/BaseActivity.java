@@ -57,11 +57,16 @@ public abstract class BaseActivity extends Activity implements
 	protected void callback(Object... obj) {
 
 	}
+	
+	protected void onCallback(Object... obj)
+	{
+		
+	}
 
 	EnableCallback m_pCallback = new EnableCallback() {
 		@Override
 		public void callback(Object... obj) {
-			callback(obj);
+			onCallback(obj) ;
 		}
 	};
 }

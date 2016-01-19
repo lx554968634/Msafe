@@ -11,4 +11,5 @@ public class DB_define {
 
 	// 流量使用table
 	public static final String WAP_TABLE_NAME = "wap_table";
+	public static final String DB_VIRVUS_NAME = "org_com.lix_virvus.db";
 }

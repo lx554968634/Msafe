@@ -31,6 +31,14 @@ public class IDao {
 		if (m_pDb != null)
 			m_pDb.closeDB();
 	}
+	
+	public IDao(Context pContext, Class pClass,String DbName) {
+		m_pOriginClass = pClass;
+		m_sTableName = SqlHelper.getTableName(pClass);
+		if (m_pDb == null) {
+			m_pDb = new DBManager(pContext,DbName);
+		}createTable(); 
+	}
 
 	public IDao(Context pContext, Class pClass) {
 		m_pOriginClass = pClass;

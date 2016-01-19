@@ -9,6 +9,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class AppInfo implements Serializable {
+
+	public String getVirvusMd5() {
+		return virvusMd5;
+	}
+
+	public void setVirvusMd5(String virvusMd5) {
+		this.virvusMd5 = virvusMd5;
+	}
+
+	private String virvusMd5;
+
 	public int getUid() {
 		return uid;
 	}

@@ -8,132 +8,311 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:background="@drawable/virvusadmin_bg"
         android:orientation="vertical" >
 
-        <TextView
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/title_clearrubbish_btn_mainlayout"
-            android:textColor="@color/white_textcolor"
-            android:textSize="@dimen/textsize_mainactiviy_top" />
-
-        <org.com.lix_.plugin.RadarCircleView
-            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:stokeSize="10dp" />
+            android:layout_weight="1"
+            android:background="@drawable/virvusadmin_bg"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/padding_list"
+                android:text="@string/title_virusclear_btn_mainlayout"
+                android:textColor="@color/white_textcolor"
+                android:textSize="@dimen/textsize_mainactiviy_top" />
+
+            <ImageView
+                android:id="@+id/ui_tag1"
+                android:layout_width="@dimen/padding_list2_tagimg"
+                android:layout_height="@dimen/padding_list2_tagimg"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:paddingTop="@dimen/padding_list_helf_tri"
+                android:paddingRight="@dimen/padding_list3"
+                android:src="@drawable/setting" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/ui_tag1"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7" >
+
+                    <org.com.lix_.plugin.RadarCircleView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:stokeSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/virvus_des_pro"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/virvus_des_pro" 
+                        android:textSize="@dimen/padding_list"
+                        android:layout_marginBottom="@dimen/padding_list_helf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@null" >
+
+                        <ImageView
+                            android:id="@+id/virvusadmin_scan_item0_image"
+                            android:layout_width="@dimen/padding_list1_tagimg"
+                            android:layout_height="@dimen/padding_list1_tagimg"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/padding_list_helf"
+                            android:layout_marginLeft="@dimen/padding_list1"
+                            android:layout_marginTop="@dimen/padding_list_helf"
+                            android:contentDescription="@string/app_name"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:src="@drawable/vivus_tag0" />
+                        <!-- 扫描说明 -->
+
+                        <TextView
+                            android:id="@+id/scan_rubbish_des"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_list"
+                            android:layout_toRightOf="@id/virvusadmin_scan_item0_image"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text="@string/virus_check_txt0"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_title_rubbish" />
+
+                        <!-- 扫描数据 -->
+
+                        <TextView
+                            android:id="@+id/scan_rubbish_res"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/padding_list2"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text=".." />
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/divider_height_half"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="@dimen/padding_list"
+                            android:layout_marginRight="@dimen/padding_list"
+                            android:background="@color/gray_mainactivity_btn_press" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@null" >
+
+                        <ImageView
+                            android:id="@+id/virvusadmin_scan_item1_image"
+                            android:layout_width="@dimen/padding_list1_tagimg"
+                            android:layout_height="@dimen/padding_list1_tagimg"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/padding_list_helf"
+                            android:layout_marginLeft="@dimen/padding_list1"
+                            android:layout_marginTop="@dimen/padding_list_helf"
+                            android:contentDescription="@string/app_name"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:src="@drawable/vivus_tag1" />
+                        <!-- 扫描说明 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_list"
+                            android:layout_toRightOf="@id/virvusadmin_scan_item1_image"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text="@string/virus_check_txt1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_title_rubbish" />
+
+                        <!-- 扫描数据 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/padding_list2"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text=".." />
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/divider_height_half"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="@dimen/padding_list"
+                            android:layout_marginRight="@dimen/padding_list"
+                            android:background="@color/gray_mainactivity_btn_press" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@null" >
+
+                        <ImageView
+                            android:id="@+id/virvusadmin_scan_item2_image"
+                            android:layout_width="@dimen/padding_list1_tagimg"
+                            android:layout_height="@dimen/padding_list1_tagimg"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/padding_list_helf"
+                            android:layout_marginLeft="@dimen/padding_list1"
+                            android:layout_marginTop="@dimen/padding_list_helf"
+                            android:contentDescription="@string/app_name"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:src="@drawable/vivus_tag2" />
+                        <!-- 扫描说明 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_list"
+                            android:layout_toRightOf="@id/virvusadmin_scan_item2_image"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text="@string/virus_check_txt2"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_title_rubbish" />
+
+                        <!-- 扫描数据 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/padding_list2"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text=".." />
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/divider_height_half"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="@dimen/padding_list"
+                            android:layout_marginRight="@dimen/padding_list"
+                            android:background="@color/gray_mainactivity_btn_press" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@null" >
+
+                        <ImageView
+                            android:id="@+id/virvusadmin_scan_item3_image"
+                            android:layout_width="@dimen/padding_list1_tagimg"
+                            android:layout_height="@dimen/padding_list1_tagimg"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/padding_list_helf"
+                            android:layout_marginLeft="@dimen/padding_list1"
+                            android:layout_marginTop="@dimen/padding_list_helf"
+                            android:contentDescription="@string/app_name"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:src="@drawable/vivus_tag3" />
+                        <!-- 扫描说明 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/padding_list"
+                            android:layout_toRightOf="@id/virvusadmin_scan_item3_image"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text="@string/virus_check_txt3"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_title_rubbish" />
+
+                        <!-- 扫描数据 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/padding_list2"
+                            android:paddingBottom="@dimen/padding_list_helf"
+                            android:paddingTop="@dimen/padding_list_helf"
+                            android:text=".." />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/grid_item_divi"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@null"
-        android:orientation="vertical"
-        android:visibility="visible" >
+        android:layout_weight="11"
+        android:background="@color/white" >
 
-        <LinearLayout
+        <View
+            android:id="@+id/virvus_button_divider"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/gray_mainactivity_btn_press"
+            android:visibility="visible" />
+
+        <org.com.lix_.plugin.ButtonPlugin
+            android:id="@+id/virvus_clear_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-        android:paddingLeft="@dimen/padding_list"
-        android:paddingRight="@dimen/padding_list"
-            android:layout_weight="1" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/main_scan_wow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="@string/virus_check_txt0" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-        android:paddingLeft="@dimen/padding_list"
-        android:paddingRight="@dimen/padding_list"
-            android:layout_weight="1" >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/main_scan_wow" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="@string/virus_check_txt1" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-        android:paddingLeft="@dimen/padding_list"
-        android:paddingRight="@dimen/padding_list"
-            android:layout_weight="1" >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/main_scan_wow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="@string/virus_check_txt2" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-        android:paddingLeft="@dimen/padding_list"
-        android:paddingRight="@dimen/padding_list"
-            android:layout_weight="1" >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/main_scan_wow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="@string/virus_check_txt3" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1" >
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:layout_weight="1" >
-            <View android:layout_width="fill_parent" android:layout_height="1dp" android:background="@color/gray_mainactivity_btn_press"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:text="@string/finish" />
-        </LinearLayout>
-    </LinearLayout>
+            android:clickable="true"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingLeft="@dimen/padding_list4"
+            android:paddingRight="@dimen/padding_list4"
+            android:paddingTop="@dimen/padding_list"
+            android:textColor="@color/red"
+            android:visibility="visible"
+            app:title_str="@string/clear" />
+    </RelativeLayout>
 
 </LinearLayout>

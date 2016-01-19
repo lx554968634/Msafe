@@ -75,7 +75,7 @@
     <string name="setting_rubbish_title4">扫描间隔</string>
     <string name="setting_rubbish_title5">扫描时间</string>
     <string name="setting_rubbish_jiantou">></string>
-    
+
     <!-- 文件管理 -->
     <string name="fileadmin_none_sdcard">未插入sdcard，轻稍后再试!</string>
     <!-- 文件管理弹出框 -->
@@ -86,29 +86,40 @@
     <string name="fileadmin_pop_filetype4">文档</string>
     <string name="fileadmin_pop_filetype5">其他</string>
     <string name="cancel">取消</string>
-     <string name="delete">删除</string>
-     <string name="source_str">来源 :</string>
-     <string name="modify_time_str">修改时间:</string>
-      <string name="filepath_str">文件路径:</string>
-      <!-- apk管理 -->
-      <string name="apk_installed_time_str">已安装</string>
-      <string name="zhanyong">占用</string>
-      <string name="apktype_title0">时间排序</string>
-      <string name="apktype_title1">大小排序</string>
-      <!-- wap Settings设置 -->
-      <string name="wap_setting_title">流量设置</string>
-      <string name="setting_wap_title0">流量监控</string>
-      <string name="setting_wap_title1">基础设置</string>
-      <string name="setting_wap_title2">包月流量</string>
-      <string name="setting_wap_title3">已用流量</string>
-      <string name="setting_wap_title4">流量使用预警值</string>
-      <string name="wapadmin_title0">移动网络</string>
-      <string name="wapadmin_title1">WLAN网络</string>
-      <!-- wapadmin 列表 -->
-      <string name="wapadmin_netdetail_gprs_title">本月使用流量排行</string>
-      <string name="wapadmin_netdetail_gprs_btntitle">流量开关</string>
-      <string name="wapadmin_netdetail_wifi_title">本月使用流量排行</string>
-      <string name="wapadmin_netdetail_wifi_btntitle">流量开关</string>
-      <string name="wait_for_load">正在载入...</string>
-      <string name="wapadmin_scan_none">未扫描到有效数据</string>
+    <string name="delete">删除</string>
+    <string name="source_str">来源 :</string>
+    <string name="modify_time_str">修改时间:</string>
+    <string name="filepath_str">文件路径:</string>
+    <!-- apk管理 -->
+    <string name="apk_installed_time_str">已安装</string>
+    <string name="zhanyong">占用</string>
+    <string name="apktype_title0">时间排序</string>
+    <string name="apktype_title1">大小排序</string>
+    <!-- wap Settings设置 -->
+    <string name="wap_setting_title">流量设置</string>
+    <string name="setting_wap_title0">流量监控</string>
+    <string name="setting_wap_title1">基础设置</string>
+    <string name="setting_wap_title2">包月流量</string>
+    <string name="setting_wap_title3">已用流量</string>
+    <string name="setting_wap_title4">流量使用预警值</string>
+    <string name="wapadmin_title0">移动网络</string>
+    <string name="wapadmin_title1">WLAN网络</string>
+    <!-- wapadmin 列表 -->
+    <string name="wapadmin_netdetail_gprs_title">本月使用流量排行</string>
+    <string name="wapadmin_netdetail_gprs_btntitle">流量开关</string>
+    <string name="wapadmin_netdetail_wifi_title">本月使用流量排行</string>
+    <string name="wapadmin_netdetail_wifi_btntitle">流量开关</string>
+    <string name="wait_for_load">正在载入...</string>
+    <string name="wapadmin_scan_none">未扫描到有效数据</string>
+
+    <!-- virvussetting -->
+    <string name="setting_virvus_title0">扫描未安装应用</string>
+    <string name="setting_virvus_title1">受信任应用</string>
+    <string name="setting_virvus_title2">云查杀</string>
+    <string name="setting_virvus_title3">WLAN自动更新病毒库</string>
+    <string name="setting_virvus_title4">病毒库更新</string>
+    <string name="setting_virvus_title5">检查更新</string>
+    <string name="setting_virvus_test">上次更新:今天</string>
+    <string name="virvus_init_engine">正在初始化128位病毒引擎</string>
+	<string name="virvus_engine_shithapped">草泥马，傻逼玩意，老子病毒引擎崩溃了</string>
 </resources>

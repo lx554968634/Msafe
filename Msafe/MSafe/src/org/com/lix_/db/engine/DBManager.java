@@ -23,6 +23,12 @@ public class DBManager {
 
 	private SQLiteDatabase m_pDatabase;
 
+	public DBManager(Context context, String dbName) {
+		m_pContext = context;
+		m_pDatabase = context.openOrCreateDatabase(dbName,
+				Context.MODE_PRIVATE, null);
+	}
+
 	public DBManager(Context context) {
 		m_pContext = context;
 		m_pDatabase = context.openOrCreateDatabase(DB_define.DATABASE_NAME,

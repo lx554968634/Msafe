@@ -51,20 +51,6 @@ public class UiUtils {
 		}
 	}
 
-	static public Paint decoratePaint(int nColor, boolean bAntiAlias,
-			Paint.Style pStyle, Paint pPaint, Shader pShade) {
-		if (pPaint == null)
-			pPaint = new Paint();
-		if (nColor == -1)
-			pPaint.setColor(nColor);
-		pPaint.setAntiAlias(bAntiAlias);
-		if (pStyle != null)
-			pPaint.setStyle(pStyle);
-		if (pShade != null)
-			pPaint.setShader(pShade);
-		return pPaint;
-	}
-
 	public static float sin(int i) {
 		// TODO Auto-generated method stub
 		return (float) (Math.sin(i * Math.PI * 2 / 360));

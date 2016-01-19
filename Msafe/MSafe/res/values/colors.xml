@@ -8,8 +8,8 @@
     <color name="green_breathecircleview_background_apha">#00000000</color>
     <color name="gray_mainactivity_btn_press">#d7d7d7</color>
     <color name="rubbishclear_bg">#10C866</color>
-    <color name="radar_outcircle_color">#2bc66b</color>
-    <color name="radar_inner_color">#56d48d</color>
+    <color name="radar_outcircle_color">#ffffff</color>
+    <color name="radar_inner_color">#ffffff</color>
     <color name="black">#000000</color>
     <color name="tab_textcolor_selected">#3fb36a</color>
     <color name="white_apha">#99fafafa</color>
@@ -41,4 +41,6 @@
 	<color name="wap_circle_background">#309b55</color>
 	<!-- wap列表 -->
 	<color name="wapadmin_title_textcolor">#7b7b7b</color>
+	<!-- virvus文字描述 -->
+	<color name="virvus_des_pro">#aafafafa</color>
 </resources>
