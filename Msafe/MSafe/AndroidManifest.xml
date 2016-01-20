@@ -62,6 +62,8 @@
             android:label="@string/app_name" />
         <activity android:name="org.com.lix_.ui.SceneOfSettingWapAdmin" >
         </activity>
+        <activity android:name="org.com.lix_.ui.SceneOfSettingVirvus" >
+        </activity>
         <activity
             android:name="org.com.lix_.ui.TabChildSceneOfRootStart"
             android:label="@string/app_name"

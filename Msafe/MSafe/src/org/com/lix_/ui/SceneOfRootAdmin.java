@@ -49,6 +49,8 @@ public class SceneOfRootAdmin extends FragmentActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.rootadmin);
 		init();
+		m_pCallback = new CallbackOfRootadmin();
+		m_pTotalEnable = new EnableOfRootAdmin(this, m_pCallback);
 	}
 
 	private class MyPagerAdapter extends FragmentStatePagerAdapter {
@@ -155,9 +157,6 @@ public class SceneOfRootAdmin extends FragmentActivity {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-
-		m_pCallback = new CallbackOfRootadmin();
-		m_pTotalEnable = new EnableOfRootAdmin(this, m_pCallback);
 	}
 
 	private FragmentOfRootStart m_pFragmentOfRootStart;
@@ -168,45 +167,55 @@ public class SceneOfRootAdmin extends FragmentActivity {
 
 	private FragmentOfPhonePermission m_pFragmentOfPhonePermission;
 
+	private void initFragment() {
+		if (m_pFragmentOfRootStart == null)
+			m_pFragmentOfRootStart = new FragmentOfRootStart(
+					SceneOfRootAdmin.this,
+					m_pTotalEnable.getInstalledAppInfo(),
+					m_pTotalEnable.getRunningServers());
+		if (m_pFragmentOfAboveshow == null)
+			m_pFragmentOfAboveshow = new FragmentOfAboveshow(
+					SceneOfRootAdmin.this);
+		if (m_pFragmentOfPhoneSeacure == null)
+			m_pFragmentOfPhoneSeacure = new FragmentOfPhoneSeacure(
+					SceneOfRootAdmin.this);
+		if (m_pFragmentOfPhonePermission == null)
+			m_pFragmentOfPhonePermission = new FragmentOfPhonePermission(
+					SceneOfRootAdmin.this);
+	}
+
 	public Fragment getFragment(int position) {
 		switch (position) {
 		case 0:
-			if (m_pFragmentOfRootStart == null)
-				m_pFragmentOfRootStart = new FragmentOfRootStart(
-						m_pTotalEnable.getRunningServers(),
-						SceneOfRootAdmin.this);
 			return m_pFragmentOfRootStart;
 		case 1:
-			if (m_pFragmentOfAboveshow == null)
-				m_pFragmentOfAboveshow = new FragmentOfAboveshow(
-						m_pTotalEnable.getInstalledAppInfo(),
-						SceneOfRootAdmin.this);
 			return m_pFragmentOfAboveshow;
 		case 2:
-			if (m_pFragmentOfPhoneSeacure == null)
-				m_pFragmentOfPhoneSeacure = new FragmentOfPhoneSeacure(m_pTotalEnable.getInstalledAppInfo(),SceneOfRootAdmin.this);
 			return m_pFragmentOfPhoneSeacure;
 		case 3:
-			if (m_pFragmentOfPhonePermission == null)
-				m_pFragmentOfPhonePermission = new FragmentOfPhonePermission(
-						m_pTotalEnable.getInstalledAppInfo(),SceneOfRootAdmin.this);
 			return m_pFragmentOfPhonePermission;
 		}
-		return new FragmentOfRootStart(null, SceneOfRootAdmin.this);
+		return new FragmentOfRootStart(SceneOfRootAdmin.this);
 	}
 
+	/**
+	 * m_pTotalView == null in showList ~!
+	 * 
+	 * @author Administrator
+	 *
+	 */
 	class CallbackOfRootadmin implements EnableCallback {
-
 		@Override
 		public void callback(Object... obj) {
 			switch (Integer.parseInt(obj[0].toString())) {
 			case EnableOfRootAdmin.SCAN_FINISH:
-				Debug.e(TAG, "scan finish-------");
+				findViewById(R.id.rootadmin_loading).setVisibility(
+						View.GONE);
+				findViewById(R.id.viewPager1).setVisibility(View.VISIBLE);
+				initFragment();
 				m_pPagerAdapter = new MyPagerAdapter(
 						getSupportFragmentManager());
-				findViewById(R.id.wait_for_scan).setVisibility(View.INVISIBLE);
 				m_pViewPager.setAdapter(m_pPagerAdapter);
-				findViewById(R.id.viewPager1).setVisibility(View.VISIBLE);
 				if (m_pViewPager != null)
 					m_pViewPager.setCurrentItem(1);
 				if (m_pViewPager != null)

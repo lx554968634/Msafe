@@ -19,11 +19,10 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity{
 	private Context m_pContext ;
 	private View m_pView ;
 	
-	public FragmentOfPhoneSeacure(List<AppInfo> szList,Context pContext) {
+	public FragmentOfPhoneSeacure(Context pContext) {
 		super();
 		m_pEnable = new EnableOfPhoneSeacure(pContext, m_pCallback) ;
 		m_pContext = pContext ;
-		m_pEnable.setList(szList) ;
 	}
 
 	@Override
@@ -49,5 +48,10 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity{
 			m_pView.findViewById(R.id.total).setVisibility(View.INVISIBLE);
 			break ;
 		}
+	}
+
+	public void setData(List<AppInfo> installedAppInfo) {
+		// TODO Auto-generated method stub
+		
 	}
 }

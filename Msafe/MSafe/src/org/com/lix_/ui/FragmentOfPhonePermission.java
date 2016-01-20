@@ -20,11 +20,9 @@ public class FragmentOfPhonePermission extends BaseFragActivity{
 	private EnableOfPhonePermission m_pEnable;
 	private Context m_pContext ;
 
-	public FragmentOfPhonePermission(List<AppInfo> szList,Context pContext) {
+	public FragmentOfPhonePermission(Context pContext) {
 		super();
 		m_pContext = pContext ;
-		m_pEnable = new EnableOfPhonePermission(pContext, m_pCallback) ;
-		m_pEnable.setList(szList);
 	}
 
 	private View m_pView ;
@@ -52,5 +50,9 @@ public class FragmentOfPhonePermission extends BaseFragActivity{
 			m_pView.findViewById(R.id.total).setVisibility(View.INVISIBLE);
 			break ;
 		}
+	}
+
+	public void setData(List<AppInfo> installedAppInfo) {
+		m_pEnable = new EnableOfPhonePermission(m_pContext, m_pCallback) ;		
 	}
 }

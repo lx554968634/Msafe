@@ -40,19 +40,22 @@ public class AppInfoEngine {
 
 	private String TAG = "AppInfoEngine";
 
+	private final int SCAN_START = 1;
+
+	private final int SCAN_ITEM = 2;
+
 	/*
 	 * 因为权限是很长的字段，所以我专门∑出一个函数处理
 	 */
 	public List<AppInfo> getInstalledAppWithPermiss() {
-		return getInstalledApp(true, EnableOfRootAdmin.SCAN_START,
-				EnableOfRootAdmin.SCAN_ITEM);
+		return getInstalledApp(true, SCAN_START, SCAN_ITEM, true);
 	}
 
 	/*
 	 * 安装程序的大小包括 1:本身程序包的大小+如果运行了就存在运行程序大小
 	 */
 	private List<AppInfo> getInstalledApp(boolean nFlag, int nScanStart,
-			int nScanItem) {
+			int nScanItem, boolean bNeedUser) {
 		if (m_pContext == null) {
 			Debug.e(TAG, m_pContext == null);
 		} else {
@@ -138,7 +141,10 @@ public class AppInfoEngine {
 				if (m_pHandler != null)
 					m_pHandler.sendMessage(msg);
 				appInfo.setPackageName(packname);
-				appinfos.add(appInfo);
+				if (bNeedUser && (bNeedUser == appInfo.isSystemApp()))
+					appinfos.add(appInfo);
+				if (!bNeedUser)
+					appinfos.add(appInfo);
 			}
 			return appinfos;
 		}
@@ -147,15 +153,16 @@ public class AppInfoEngine {
 
 	public List<AppInfo> getInstalledApp() {
 		return getInstalledApp(false, EnableOfApkAdmin.STARTSCAN,
-				EnableOfApkAdmin.SCAN_ITEM);
+				EnableOfApkAdmin.SCAN_ITEM, true);
 	}
 
 	/**
 	 * 只储存了md5.name,pckname
+	 * 
 	 * @return
 	 */
 	public List<AppInfo> getVirvusCheckApp() {
-		List<AppInfo> pList = new ArrayList<AppInfo>() ;
+		List<AppInfo> pList = new ArrayList<AppInfo>();
 		// 获取应用程序的特征码。
 		PackageManager pm = m_pContext.getPackageManager();
 		// 获取所有的应用程序 包括哪些被卸载的但是没有卸载干净 （保留的有数据的应用）
@@ -163,12 +170,12 @@ public class AppInfoEngine {
 				.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES
 						+ PackageManager.GET_SIGNATURES);
 		for (PackageInfo packinfo : packinfos) {
-			AppInfo pInfo = new AppInfo() ;
-			pInfo.setAppName(packinfo.applicationInfo.loadLabel(pm)+"");
+			AppInfo pInfo = new AppInfo();
+			pInfo.setAppName(packinfo.applicationInfo.loadLabel(pm) + "");
 			pInfo.setPackageName(packinfo.packageName);
 			pInfo.setVirvusMd5(Md5Utils.encode(packinfo.signatures[0]
-							.toCharsString()));
-			pList.add(pInfo) ;
+					.toCharsString()));
+			pList.add(pInfo);
 		}
 		return null;
 	}

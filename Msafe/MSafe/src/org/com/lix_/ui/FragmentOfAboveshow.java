@@ -25,9 +25,9 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 
 	private LayoutInflater m_pInFlater;
 
-	public FragmentOfAboveshow(List<AppInfo> szList, Context pContext) {
+	public FragmentOfAboveshow(Context pContext) {
 		super();
-		m_pEnable = new EnableOfAboveshow(pContext, szList, m_pCallback);
+		m_pEnable = new EnableOfAboveshow(pContext, m_pCallback);
 		m_pInFlater = LayoutInflater.from(pContext);
 	}
 
@@ -58,12 +58,12 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 			return;
 		}
 		if (m_pTotalView == null) {
-			Debug.e(TAG, "m_pTotalView == null in showList ~!");
 		} else {
 			for (int i = 0; i < m_pEnable.getListCount(); i++) {
 				View pTmpView = m_pInFlater.inflate(R.layout.item1_child_tab1,
 						null);
-				pTmpView.findViewById(R.id.no_list).setVisibility(View.INVISIBLE );
+				pTmpView.findViewById(R.id.no_list).setVisibility(
+						View.INVISIBLE);
 				((ViewGroup) m_pTotalView).addView(pTmpView);
 			}
 		}
@@ -71,13 +71,17 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 
 	private void showNoList() {
 		if (m_pTotalView == null) {
-			Debug.e(TAG, "m_pTotalView == null in showList ~!");
 		} else {
 			View pTmpView = m_pInFlater
 					.inflate(R.layout.item1_child_tab1, null);
-			pTmpView.findViewById(R.id.init_list).setVisibility(View.INVISIBLE );
+			pTmpView.findViewById(R.id.init_list).setVisibility(View.INVISIBLE);
 			((ViewGroup) m_pTotalView).addView(pTmpView);
 		}
+	}
+
+	public void setData(List<AppInfo> installedAppInfo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

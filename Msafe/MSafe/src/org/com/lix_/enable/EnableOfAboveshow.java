@@ -19,11 +19,10 @@ public class EnableOfAboveshow extends Enable {
 
 	public static final int FINISH_NOLIST = 2;
 
-	public EnableOfAboveshow(Context pContext, List<AppInfo> szList,
+	public EnableOfAboveshow(Context pContext, 
 			EnableCallback pCalback) {
 		super(pContext);
 		m_pCallback = pCalback;
-		m_szList = szList;
 		doAsyWork(); 
 	}
 

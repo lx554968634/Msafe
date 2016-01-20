@@ -3,13 +3,13 @@ package org.com.lix_.plugin;
 import org.com.lix_.Define;
 import org.com.lix_.ui.R;
 import org.com.lix_.util.Debug;
-import org.com.lix_.util.UiUtils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -35,6 +35,8 @@ public class RadarCircleView extends View {
 	private int m_nRadio;
 
 	private Paint m_pSmallPaint;
+	
+	private Paint m_pSimpleCirclePaint ;
 
 	public RadarCircleView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -42,6 +44,14 @@ public class RadarCircleView extends View {
 	}
 
 	private void init() {
+		m_pSimpleCirclePaint = new Paint() ;
+		m_pSimpleCirclePaint.setColor(getResources().getColor(R.color.white));
+		m_pSimpleCirclePaint.setAntiAlias(true);
+		m_pSimpleCirclePaint.setStyle(Style.STROKE); 
+		m_pSimpleCirclePaint.setStrokeJoin(Paint.Join.ROUND);    
+		m_pSimpleCirclePaint.setStrokeCap(Paint.Cap.ROUND);    
+		m_pSimpleCirclePaint.setStrokeWidth(3);    
+		
 		m_pSmallPaint = new Paint();
 		m_pSmallPaint.setColor(getResources().getColor(R.color.white));
 		m_pSmallPaint.setAntiAlias(true);
@@ -56,10 +66,10 @@ public class RadarCircleView extends View {
 		m_pOutCircle.setAntiAlias(true);
 		m_pOutCircle.setAlpha(40);
 		m_nWidth = Define.WIDTH / 2;
-		m_nHeight = Define.HEIGHT / 4 / 100 * 65;
+		m_nHeight = (int) (Define.HEIGHT / 4 / 100 * 65 );
 		m_nRadio = m_nWidth > m_nHeight ? m_nHeight : m_nWidth;
 		m_nRadio -= 1;
-		m_nHeight += 30;
+		m_nHeight+= getResources().getDimension(R.dimen.padding_list2_tagimg);
 		m_pRadarCircle = new Paint();
 		m_pRadarCircle.setColor(getResources().getColor(
 				R.color.radar_outcircle_color));
@@ -84,17 +94,15 @@ public class RadarCircleView extends View {
 			if (mBitmap != null) {
 				mScaledBitmap = Bitmap.createScaledBitmap(mBitmap,
 						m_nRadio * 2, m_nRadio * 2, false);
-//				 mBitmap.recycle();
+				 mBitmap.recycle();
 			}
 		}
-		Debug.i(TAG, "draw map");
 		canvas.drawBitmap(mScaledBitmap, m_nWidth - m_nRadio, m_nHeight
 				- m_nRadio, m_pRadarCircle); 
 	}
-
-	@Override
-	public void draw(Canvas canvas) {
-		super.draw(canvas);
+	
+	private void drawRadar(Canvas canvas)
+	{
 		canvas.drawCircle(m_nWidth, m_nHeight, m_nRadio, m_pOutCircle);
 		canvas.drawCircle(m_nWidth, m_nHeight, m_nRadio / 2, m_pInnerCircle);
 		canvas.drawCircle(m_nWidth, m_nHeight, m_nRadio / 10, m_pSmallPaint);
@@ -106,6 +114,30 @@ public class RadarCircleView extends View {
 			m_nRotate = 360;
 		}
 		postInvalidateDelayed(0);
+	}
+	
+	private void drawSimpleCircle(Canvas canvas)
+	{
+		canvas.drawCircle(m_nWidth, m_nHeight, m_nRadio, m_pSimpleCirclePaint);
+	}
+	
+	boolean bDrawRadar = true ;
+
+	@Override
+	public void draw(Canvas canvas) {
+		super.draw(canvas);
+		if(bDrawRadar)
+		{
+			drawRadar(canvas) ;
+		}else
+		{
+			drawSimpleCircle(canvas) ;
+		}
+	}
+
+	public void showResult() {
+		bDrawRadar = false ;	
+		postInvalidateDelayed(0);	
 	}
 
 }

@@ -21,7 +21,7 @@
     <string name="totalsize_des_exp_fileadmin">共323M</string>
     <string name="finish">完成</string>
     <string name="null_rubbish_txt">没有垃圾占用</string>
-    <string name="scan_txt">正在扫描</string>
+    <string name="scan_txt">正在扫描...</string>
     <string name="virus_check_txt0">恶意应用</string>
     <string name="virus_check_txt1">隐患应用</string>
     <string name="virus_check_txt2">支付风险</string>
@@ -50,8 +50,8 @@
     <string name="tab_child0_root_">没有需要优化的项目</string>
     <string name="tab_child0_tip1">款应用禁用自启动</string>
     <string name="tab_child0_tip0">款应用允许自启动</string>
-    <string name="tab_child0_tip11">禁用自启动应用</string>
-    <string name="tab_child0_tip00">允许自启动应用</string>
+    <string name="tab_child0_tip11">无自启动应用</string>
+    <string name="tab_child0_tip00">自启动应用</string>
     <string name="powerdes">剩余可用时间</string>
     <string name="power_str0">智能省电模式</string>
     <string name="power_str1">极限省电模式</string>
@@ -122,4 +122,5 @@
     <string name="setting_virvus_test">上次更新:今天</string>
     <string name="virvus_init_engine">正在初始化128位病毒引擎</string>
 	<string name="virvus_engine_shithapped">草泥马，傻逼玩意，老子病毒引擎崩溃了</string>
+	<string name="virvus_scan_over">扫描完毕</string>
 </resources>

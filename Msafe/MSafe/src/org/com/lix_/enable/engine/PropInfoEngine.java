@@ -235,7 +235,6 @@ public class PropInfoEngine {
 	}
 
 	public void deleteTaskOrService(String sPackName) {
-		Debug.i(TAG, "执行一次强制清除垃圾进程:" + sPackName);
 		ActivityManager am = (ActivityManager) m_pContext
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		try {

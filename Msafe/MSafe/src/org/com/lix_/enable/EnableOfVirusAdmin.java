@@ -38,6 +38,22 @@ public class EnableOfVirusAdmin extends Enable {
 	 */
 	public static final int SCAN_ITEM = 5;
 
+	/**
+	 * 恶意应用类型
+	 */
+	public static final int VIRVUS_TYPE1 = 1;
+	/**
+	 * 隐患应用类型
+	 */
+	public static final int VIRVUS_TYPE2 = 2;
+	/**
+	 * 支付风险类型
+	 */
+	public static final int VIRVUS_TYPE3 = 3;
+	/**
+	 * 盗号风险类型
+	 */
+	public static final int VIRVUS_TYPE4 = 4;
 	private HashMap<String, ArrayList<AppInfo>> m_szVirvusList = new HashMap();
 
 	@Override
@@ -60,8 +76,8 @@ public class EnableOfVirusAdmin extends Enable {
 			m_pCallback.callback(nTag);
 			break;
 		case SCAN_ITEM:
-			m_pCallback.callback(nTag,pMsg.obj);
-			break ;
+			m_pCallback.callback(nTag, pMsg.obj);
+			break;
 		}
 	}
 
@@ -91,57 +107,59 @@ public class EnableOfVirusAdmin extends Enable {
 			msg.what = VIRVUS_SHIT_HAPPEN;
 			msg.arg1 = 0;
 			sendMessage(msg);
-			return;
+			// return;
 		}
 		boolean bFlag = false;
-		for (AppInfo pInfo : pList) {
-			Message msg = Message.obtain();
-			msg.what = SCAN_ITEM;
-			msg.obj = pInfo.getAppName();
-			sendMessage(msg);
-			int nType = -1;
-			nType = m_pDao.queryApp(pInfo);
-			if (nType != -1) {
-				// 存在，这个是病毒
+		Message msg = null;
+		if (pList != null)
+			for (AppInfo pInfo : pList) {
 				msg = Message.obtain();
-				msg.what = SCAN_ONE_VIRVUS;
-				pInfo.setM_nVirvusType(nType);
-				msg.obj = pInfo;
+				msg.what = SCAN_ITEM;
+				msg.obj = pInfo.getAppName();
 				sendMessage(msg);
-			} else {
-				// 不存在。这个不是病毒
-				continue;
+				int nType = -1;
+				nType = m_pDao.queryApp(pInfo);
+				if (nType != -1) {
+					// 存在，这个是病毒
+					msg = Message.obtain();
+					msg.what = SCAN_ONE_VIRVUS;
+					pInfo.setM_nVirvusType(nType);
+					msg.obj = pInfo;
+					sendMessage(msg);
+				} else {
+					// 不存在。这个不是病毒
+					continue;
+				}
 			}
-			msg = Message.obtain();
-			msg.what = SCAN_OVER;
-			sendMessage(msg);
-		}
+		msg = Message.obtain();
+		msg.what = SCAN_OVER;
+		sendMessage(msg);
 	}
-
 	private AppInfoEngine m_pAppInfoEngine;
 	private VirusDaoImpl m_pDao;
-
 	public EnableOfVirusAdmin(Context pContext, EnableCallback pCallback) {
 		super(pContext);
 		setCallback(pCallback);
 		m_pAppInfoEngine = new AppInfoEngine(pContext);
 		m_pDao = new VirusDaoImpl(m_pContext);
 	}
-
 	@Override
 	public void finish() {
-
 	}
-
 	@Override
 	public void onViewClick(int nId) {
 	}
-
 	/**
 	 * 扫描病毒开始
 	 */
 	public void startScanVirvus() {
 		doAsyWork();
+	}
+	public int getVirvusTypeSize(int i) {
+		ArrayList pList = m_szVirvusList.get(TAG + i);
+		if (pList != null)
+			return pList.size();
+		return 0;
 	}
 
 }

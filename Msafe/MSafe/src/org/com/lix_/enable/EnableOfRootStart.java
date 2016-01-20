@@ -3,11 +3,13 @@ package org.com.lix_.enable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.util.Debug;
 
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Message;
 
 public class EnableOfRootStart extends Enable {
@@ -16,23 +18,26 @@ public class EnableOfRootStart extends Enable {
 
 	private EnableCallback m_pCallback;
 
-	private List<RunningServiceInfo> m_szRunningAutoStartService;
+	private List<AppInfo> m_szRunningAutoStartService;
 
-	private List<RunningServiceInfo> m_szRunningCloseAutoStartService;
+	private List<AppInfo> m_szRunningCloseAutoStartService;
 
 	private List<RunningServiceInfo> m_szTmpList;
 
+	private List<AppInfo> m_szTmpList2;
+
 	public static final int FINISH_DIVIDE_LIST = 1;
 
-	public EnableOfRootStart(Context pContext,EnableCallback pCallback,
-			List<RunningServiceInfo> szList) {
-		m_pContext = pContext ;
+	public EnableOfRootStart(Context pContext, EnableCallback pCallback,
+			List szList, List szList2) {
+		m_pContext = pContext;
 		m_pCallback = pCallback;
-		m_szTmpList = szList;
-		init();
+		m_szTmpList = szList2;
+		m_szTmpList2 = szList;
 	}
 
-	private void init() {
+	public void init() {
+		int a = 0;
 		doAsyWork();
 	}
 
@@ -42,13 +47,6 @@ public class EnableOfRootStart extends Enable {
 		int nWhat = pMsg.what;
 		switch (nWhat) {
 		case FINISH_DIVIDE_LIST:
-			if (m_szTmpList != null && m_szTmpList.size() == 0) {
-				m_szTmpList.clear();
-				m_szTmpList = null;
-				System.gc();
-			} else {
-				Debug.e(TAG, "root start 基础list为null");
-			}
 			m_pCallback.callback(nWhat);
 			break;
 		}
@@ -57,7 +55,7 @@ public class EnableOfRootStart extends Enable {
 	@Override
 	protected void doAsyWorkInTask(Object... szObj) {
 		super.doAsyWorkInTask(szObj);
-		divideList(m_szTmpList);
+		divideList();
 		Message pMsg = Message.obtain();
 		pMsg.what = FINISH_DIVIDE_LIST;
 		m_pAsyHandler.sendMessage(pMsg);
@@ -75,45 +73,39 @@ public class EnableOfRootStart extends Enable {
 
 	}
 
-	private void divideList(List<RunningServiceInfo> szList) {
-		int nStatue = 0;
-		if (szList == null || szList.size() == 0) {
+	private void divideList() {
+		if (m_szTmpList == null || m_szTmpList.size() == 0
+				|| m_szTmpList2 == null || m_szTmpList2.size() == 0) {
 			Debug.e(TAG, "麻痹,没有正在运行的服务");
 		} else {
-			m_szRunningAutoStartService = new ArrayList<RunningServiceInfo>();
-			m_szRunningCloseAutoStartService = new ArrayList<RunningServiceInfo>();
-			for (RunningServiceInfo pInfo : szList) {
-				nStatue = m_pContext.getPackageManager()
-						.getComponentEnabledSetting(pInfo.service);
-				switch (nStatue) {
-				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
-					m_szRunningAutoStartService.add(pInfo);
-					break;
-				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED:
-					m_szRunningCloseAutoStartService.add(pInfo);
-					break;
-				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
-					m_szRunningCloseAutoStartService.add(pInfo);
-					break;
-				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
-			 		m_szRunningAutoStartService.add(pInfo);
-					break;
-				default:
-					break;
+			m_szRunningAutoStartService = new ArrayList<AppInfo>();
+			m_szRunningCloseAutoStartService = new ArrayList<AppInfo>();
+			for (AppInfo pInfo : m_szTmpList2) {
+				boolean bFlag = false;
+				for (RunningServiceInfo running : m_szTmpList) {
+					if (pInfo.getPackageName().equals(
+							running.service.getPackageName())) {
+						// 这两者拥有同样的包名
+						m_szRunningAutoStartService.add(pInfo);
+						bFlag = true;
+						break;
+					}
 				}
-				Debug.i(TAG, "pInfo:" + pInfo.service.getPackageName() + ":"
-						+ nStatue);
+				if (!bFlag) {
+					m_szRunningCloseAutoStartService.add(pInfo);
+				}
 			}
 		}
 	}
 
-	public List<RunningServiceInfo> getAutoCloseStartList() {
+	public List<AppInfo> getAutoStartList() {
+		// TODO Auto-generated method stub
+		return m_szRunningAutoStartService;
+	}
+
+	public List<AppInfo> getAutoCloseStartList() {
 		// TODO Auto-generated method stub
 		return m_szRunningCloseAutoStartService;
 	}
 
-	public List<RunningServiceInfo> getAutoStartList() {
-		// TODO Auto-generated method stub
-		return m_szRunningAutoStartService;
-	}
 }

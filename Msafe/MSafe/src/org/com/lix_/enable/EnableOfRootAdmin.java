@@ -33,50 +33,48 @@ public class EnableOfRootAdmin extends Enable{
 	
 	private void init()
 	{
-		m_pEngine = new AppInfoEngine(m_pContext,m_pHandler) ;
-		m_pEngine2 = new PropInfoEngine(m_pContext, m_pHandler) ;
-		m_pTask.execute(0) ;
+		m_pEngine = new AppInfoEngine(m_pContext,m_pAsyHandler) ;
+		m_pEngine2 = new PropInfoEngine(m_pContext,m_pAsyHandler) ;
+		doAsyWork();
+	}
+	
+	@Override
+	protected void doSynchrWork(Message pMsg) {
+		super.doSynchrWork(pMsg);
+		int nTag = pMsg.what ;
+		switch(nTag)
+		{
+		case SCAN_ITEM:
+			break ;
+		case SCAN_START :
+			break ;
+		case SCAN_FINISH:
+			for(AppInfo pInfo : m_szAppInfo)
+			{
+				System.out.println("pckName:"+pInfo.getPackageName());
+			}
+			for(RunningServiceInfo pInfo : m_szRunningService)
+			{
+				System.out.println("pInfo:"+pInfo.service.getPackageName());
+			}
+			m_pCallback.callback(nTag);
+			break ;
+		}
+	}
+
+	@Override
+	protected void doAsyWorkInTask(Object... szObj) {
+		super.doAsyWorkInTask(szObj);
+		m_szAppInfo = m_pEngine.getInstalledAppWithPermiss() ;
+		m_szRunningService = m_pEngine2.getRunningService() ;
+		Message msg = Message.obtain() ;
+		msg.what = SCAN_FINISH ;
+		sendMessage(msg) ;
 	}
 	
 	private List<AppInfo> m_szAppInfo = null ;
 	
 	private List<RunningServiceInfo> m_szRunningService = null ;
-	
-	AsyncTask m_pTask = new AsyncTask()
-	{
-
-		@Override
-		protected Object doInBackground(Object... params) {
-			m_szAppInfo = m_pEngine.getInstalledAppWithPermiss() ;
-			m_szRunningService = m_pEngine2.getRunningService() ;
-			Message msg = Message.obtain() ;
-			msg.what = SCAN_FINISH ;
-			m_pHandler.sendMessage(msg) ;
-			return null;
-		}
-		
-	} ;
-
-	Handler m_pHandler = new Handler() 
-	{
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			int nTag = msg.what ;
-			switch(nTag)
-			{
-			case SCAN_ITEM:
-				break ;
-			case SCAN_START :
-				break ;
-			case SCAN_FINISH:
-				m_pCallback.callback(nTag);
-				break ;
-			}
-		}
-		
-	} ;
 	
 	@Override
 	public void finish() {
