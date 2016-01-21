@@ -19,15 +19,37 @@ import android.view.ViewGroup;
  */
 public class FragmentOfAboveshow extends BaseFragActivity {
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (m_bShow) {
+			if (!m_bInit) {
+				m_bInit = true;
+				m_pEnable.init();
+			}
+		}
+	}
+
+	private boolean m_bInit = false;
+
+	private boolean m_bShow = false;
+
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
+		super.setUserVisibleHint(isVisibleToUser);
+		m_bShow = isVisibleToUser;
+	}
+
 	private EnableOfAboveshow m_pEnable;
 
 	private View m_pTotalView;
 
 	private LayoutInflater m_pInFlater;
 
-	public FragmentOfAboveshow(Context pContext) {
+	public FragmentOfAboveshow(List<AppInfo> list, Context pContext) {
 		super();
-		m_pEnable = new EnableOfAboveshow(pContext, m_pCallback);
+		m_pEnable = new EnableOfAboveshow(pContext, list, m_pCallback);
 		m_pInFlater = LayoutInflater.from(pContext);
 	}
 
@@ -64,9 +86,14 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 						null);
 				pTmpView.findViewById(R.id.no_list).setVisibility(
 						View.INVISIBLE);
+				decorateView(pTmpView,i) ;
 				((ViewGroup) m_pTotalView).addView(pTmpView);
 			}
 		}
+	}
+
+	private void decorateView(View pTmpView, int i) {
+		
 	}
 
 	private void showNoList() {
@@ -77,11 +104,6 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 			pTmpView.findViewById(R.id.init_list).setVisibility(View.INVISIBLE);
 			((ViewGroup) m_pTotalView).addView(pTmpView);
 		}
-	}
-
-	public void setData(List<AppInfo> installedAppInfo) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

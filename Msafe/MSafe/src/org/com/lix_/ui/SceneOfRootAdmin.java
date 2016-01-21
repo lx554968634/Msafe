@@ -174,14 +174,14 @@ public class SceneOfRootAdmin extends FragmentActivity {
 					m_pTotalEnable.getInstalledAppInfo(),
 					m_pTotalEnable.getRunningServers());
 		if (m_pFragmentOfAboveshow == null)
-			m_pFragmentOfAboveshow = new FragmentOfAboveshow(
+			m_pFragmentOfAboveshow = new FragmentOfAboveshow(m_pTotalEnable.getInstalledAppInfo(),
 					SceneOfRootAdmin.this);
 		if (m_pFragmentOfPhoneSeacure == null)
 			m_pFragmentOfPhoneSeacure = new FragmentOfPhoneSeacure(
-					SceneOfRootAdmin.this);
+					SceneOfRootAdmin.this,m_pTotalEnable.getInstalledAppInfo());
 		if (m_pFragmentOfPhonePermission == null)
 			m_pFragmentOfPhonePermission = new FragmentOfPhonePermission(
-					SceneOfRootAdmin.this);
+					SceneOfRootAdmin.this,m_pTotalEnable.getInstalledAppInfo());
 	}
 
 	public Fragment getFragment(int position) {

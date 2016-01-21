@@ -20,9 +20,14 @@ public class EnableOfAboveshow extends Enable {
 	public static final int FINISH_NOLIST = 2;
 
 	public EnableOfAboveshow(Context pContext, 
-			EnableCallback pCalback) {
+			List<AppInfo> list, EnableCallback pCalback) {
 		super(pContext);
+		m_szList = list ;
 		m_pCallback = pCalback;
+	}
+	
+	public void init()
+	{
 		doAsyWork(); 
 	}
 
@@ -56,7 +61,6 @@ public class EnableOfAboveshow extends Enable {
 		if (m_szList != null) {
 			pMsg.what = FINISH_SCAN;
 		} else {
-
 			pMsg.what = FINISH_NOLIST;
 		}
 		m_pAsyHandler.sendMessage(pMsg);

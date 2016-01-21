@@ -10,6 +10,7 @@ import org.com.lix_.util.UiUtils;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfRootStart;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,9 +41,11 @@ public class FragmentOfRootStart extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		Debug.i(TAG, "onResume:" + m_bShow);
-		if (m_bShow) {
+		if (!m_bShow) {
 			if (View.VISIBLE == m_pTotalView.findViewById(
-					R.id.root_start_loading).getVisibility()) {
+					R.id.root_start_loading).getVisibility()
+					&& !m_bInit) {
+				m_bInit = true;
 				m_pTotalView.findViewById(R.id.root_start_loading)
 						.setVisibility(View.INVISIBLE);
 				m_pEnable.init();
@@ -51,19 +55,12 @@ public class FragmentOfRootStart extends Fragment {
 
 	private String TAG = "FragmentOfRootStart";
 
-	private ListView m_pAutoStartListView;
-	private ListView m_pNoStartListView;
-
 	private EnableOfRootStart m_pEnable;
 
 	private RootStartCallback m_pCallback;
-
 	private Context m_pContext;
-
 	private View m_pViewTitle;
-
 	private View m_pViewContent;
-
 	private LayoutInflater m_pInflater;
 
 	public FragmentOfRootStart(Context pContext) {
@@ -93,6 +90,8 @@ public class FragmentOfRootStart extends Fragment {
 				+ (m_pTotalView == null) + ":" + (m_pViewTitle == null));
 		return pView;
 	}
+
+	private boolean m_bInit = false;
 
 	private boolean m_bShow = false;
 
@@ -159,12 +158,54 @@ public class FragmentOfRootStart extends Fragment {
 
 	private View getAutoStartView(int nIndex) {
 		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null);
+		decorateAutoStartView(m_pViewContent, nIndex);
 		return m_pViewContent;
+	}
+
+	private void decorateAutoStartView(View pView, int position) {
+		AppInfo pInfo = m_pEnable.getAutoStartList().get(position);
+		UiUtils.setText(pView.findViewById(R.id.root_startitem_name),
+				pInfo.getAppName());
+		try {
+			((ImageView) pView.findViewById(R.id.root_start_image_title))
+					.setImageDrawable(m_pContext
+							.getPackageManager()
+							.getApplicationIcon(
+									m_pContext
+											.getPackageManager()
+											.getApplicationInfo(
+													pInfo.getPackageName(),
+													PackageManager.GET_META_DATA)));
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+			Debug.i(TAG, ":图片找不到" + pInfo.getPackageName());
+		}
 	}
 
 	private View getAutoCloseStartView(int nIndex) {
 		m_pViewContent = m_pInflater.inflate(R.layout.root_child0_item, null);
+		decorateAutoCloseStartView(m_pViewContent, nIndex);
 		return m_pViewContent;
+	}
+
+	private void decorateAutoCloseStartView(View pView, int nIndex) {
+		AppInfo pInfo = m_pEnable.getAutoCloseStartList().get(nIndex);
+		UiUtils.setText(pView.findViewById(R.id.root_startitem_name),
+				pInfo.getAppName());
+		try {
+			((ImageView) pView.findViewById(R.id.root_start_image_title))
+					.setImageDrawable(m_pContext
+							.getPackageManager()
+							.getApplicationIcon(
+									m_pContext
+											.getPackageManager()
+											.getApplicationInfo(
+													pInfo.getPackageName(),
+													PackageManager.GET_META_DATA)));
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+			Debug.i(TAG, ":图片找不到" + pInfo.getPackageName());
+		}
 	}
 
 	class RootStartCallback implements EnableCallback {
@@ -174,7 +215,6 @@ public class FragmentOfRootStart extends Fragment {
 			int nWhat = Integer.parseInt(obj[0].toString());
 			switch (nWhat) {
 			case EnableOfRootStart.FINISH_DIVIDE_LIST:
-				Debug.i(TAG, "结束分割list!~~~");
 				initList();
 				break;
 			}

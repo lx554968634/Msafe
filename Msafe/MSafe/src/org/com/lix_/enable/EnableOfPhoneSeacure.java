@@ -27,8 +27,10 @@ public class EnableOfPhoneSeacure extends Enable {
 
 	private List<AppInfo> m_szList;
 
-	public EnableOfPhoneSeacure(Context pContext, EnableCallback pCallback) {
+	public EnableOfPhoneSeacure(Context pContext, List<AppInfo> pList,
+			EnableCallback pCallback) {
 		super(pContext);
+		m_szList = pList;
 		setCallback(pCallback);
 	}
 
@@ -39,21 +41,20 @@ public class EnableOfPhoneSeacure extends Enable {
 	@Override
 	protected void doSynchrWork(Message pMsg) {
 		super.doSynchrWork(pMsg);
-		int nTag = pMsg.what ;
-		switch(nTag)
-		{
+		int nTag = pMsg.what;
+		switch (nTag) {
 		case LIST_NONE:
 			Debug.i(TAG, "list is none ");
-			break ;
+			break;
 		case START_SCAN:
 			Debug.i(TAG, "¿ªÊ¼É¨Ãè");
-			break ;
+			break;
 		case START_ITEM:
-			Debug.i(TAG, "START_ITEM:"+pMsg.obj.toString());
-			break ;
+			Debug.i(TAG, "START_ITEM:" + pMsg.obj.toString());
+			break;
 		case SCAN_OVER:
 			Debug.i(TAG, "É¨Ãè½áÊø");
-			break ;
+			break;
 		}
 		m_pCallback.callback(nTag);
 	}
@@ -74,7 +75,7 @@ public class EnableOfPhoneSeacure extends Enable {
 					continue;
 				} else {
 					msg = Message.obtain();
-					msg.what = START_SCAN;  
+					msg.what = START_SCAN;
 					m_pAsyHandler.sendMessage(msg);
 					msg = Message.obtain();
 					msg.what = START_ITEM;
@@ -136,10 +137,9 @@ public class EnableOfPhoneSeacure extends Enable {
 		// TODO Auto-generated method stub
 
 	}
-
-	public void setList(List<AppInfo> szList) {
-		m_szList = szList;
+	
+	public void init()
+	{
 		doAsyWork();
 	}
-
 }

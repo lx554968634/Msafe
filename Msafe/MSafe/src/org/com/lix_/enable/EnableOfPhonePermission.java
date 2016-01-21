@@ -22,13 +22,13 @@ public class EnableOfPhonePermission extends Enable {
 
 	public static final int SCAN_OVER = 4;
 
-	public EnableOfPhonePermission(Context pContext, EnableCallback pCallback) {
+	public EnableOfPhonePermission(Context pContext, List<AppInfo> list, EnableCallback pCallback) {
 		super(pContext);
 		setCallback(pCallback);
 	}
 
-	public void setList(List<AppInfo> szList) {
-		m_szList = szList;
+	public void init()
+	{
 		doAsyWork();
 	}
 

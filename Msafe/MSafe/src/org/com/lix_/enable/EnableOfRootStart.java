@@ -37,7 +37,6 @@ public class EnableOfRootStart extends Enable {
 	}
 
 	public void init() {
-		int a = 0;
 		doAsyWork();
 	}
 
@@ -63,14 +62,10 @@ public class EnableOfRootStart extends Enable {
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onViewClick(int nId) {
-		// TODO Auto-generated method stub
-
 	}
 
 	private void divideList() {
@@ -99,12 +94,10 @@ public class EnableOfRootStart extends Enable {
 	}
 
 	public List<AppInfo> getAutoStartList() {
-		// TODO Auto-generated method stub
 		return m_szRunningAutoStartService;
 	}
 
 	public List<AppInfo> getAutoCloseStartList() {
-		// TODO Auto-generated method stub
 		return m_szRunningCloseAutoStartService;
 	}
 
