@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 public class FragmentOfPhonePermission extends BaseFragActivity {
 
-	
+	private String TAG = "FragmentOfPhonePermission" ;
 
 	private EnableOfPhonePermission m_pEnable;
 	private Context m_pContext;
@@ -28,7 +28,14 @@ public class FragmentOfPhonePermission extends BaseFragActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(m_bShow)
+	}
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
+		super.setUserVisibleHint(isVisibleToUser);
+		m_bShow = isVisibleToUser;
+		Debug.i(TAG, "getView == null :" +(getView() == null));
+		if(m_bShow && getView() != null)
 		{
 			if(!m_bInit)
 			{
@@ -36,12 +43,6 @@ public class FragmentOfPhonePermission extends BaseFragActivity {
 				m_pEnable.init() ;
 			}
 		}
-	}
-	@Override
-	public void setUserVisibleHint(boolean isVisibleToUser) {
-		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
-		super.setUserVisibleHint(isVisibleToUser);
-		m_bShow = isVisibleToUser;
 	}
 	
 	

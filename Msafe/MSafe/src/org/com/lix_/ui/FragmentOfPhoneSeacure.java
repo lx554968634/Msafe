@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentOfPhoneSeacure extends BaseFragActivity {
+	
+	private String TAG = "FragmentOfPhoneSeacure" ;
 	private boolean m_bInit = false;
 
 	private boolean m_bShow = false;
@@ -23,12 +25,6 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (m_bShow) {
-			if (!m_bInit) {
-				m_bInit = true;
-				m_pEnable.init();
-			}
-		}
 	}
 
 	@Override
@@ -36,6 +32,12 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity {
 		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
 		super.setUserVisibleHint(isVisibleToUser);
 		m_bShow = isVisibleToUser;
+		if (m_bShow && getView() != null ) {
+			if (!m_bInit) {
+				m_bInit = true;
+				m_pEnable.init();
+			}
+		}
 	}
 
 	private EnableOfPhoneSeacure m_pEnable;

@@ -41,10 +41,14 @@ public class FragmentOfRootStart extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		Debug.i(TAG, "onResume:" + m_bShow);
-		if (!m_bShow) {
-			if (View.VISIBLE == m_pTotalView.findViewById(
-					R.id.root_start_loading).getVisibility()
+		Debug.i(TAG, "onResume:" + m_bInit);
+		Debug.i(TAG, "onResume:" + (m_pTotalView == null));
+		if (m_bShow) {
+			if (m_pTotalView != null
+					&& View.VISIBLE == m_pTotalView.findViewById(
+							R.id.root_start_loading).getVisibility()
 					&& !m_bInit) {
+				Debug.i(TAG, "获取数据！~");
 				m_bInit = true;
 				m_pTotalView.findViewById(R.id.root_start_loading)
 						.setVisibility(View.INVISIBLE);

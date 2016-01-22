@@ -18,16 +18,12 @@ import android.view.ViewGroup;
  * 屏蔽 悬浮窗和通知窗口
  */
 public class FragmentOfAboveshow extends BaseFragActivity {
+	
+	private String TAG = "FragmentOfAboveshow" ;
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (m_bShow) {
-			if (!m_bInit) {
-				m_bInit = true;
-				m_pEnable.init();
-			}
-		}
 	}
 
 	private boolean m_bInit = false;
@@ -39,6 +35,13 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
 		super.setUserVisibleHint(isVisibleToUser);
 		m_bShow = isVisibleToUser;
+		if (m_bShow && getView() != null) {
+			if (!m_bInit) {
+				Debug.i(TAG, "获取数据!");
+				m_bInit = true;
+				m_pEnable.init();
+			}
+		}
 	}
 
 	private EnableOfAboveshow m_pEnable;
@@ -64,11 +67,14 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 	@Override
 	public void doCallback(Object... szObj) {
 		int nTag = Integer.parseInt(szObj[0].toString());
+		
 		switch (nTag) {
 		case EnableOfAboveshow.FINISH_NOLIST:
+			Debug.i(TAG, "回调数据:没有数据");
 			showNoList();
 			break;
 		case EnableOfAboveshow.FINISH_SCAN:
+			Debug.i(TAG, "回调数据:存在数据");
 			showList();
 			break;
 		}
