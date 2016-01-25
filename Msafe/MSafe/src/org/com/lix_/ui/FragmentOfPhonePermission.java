@@ -18,34 +18,40 @@ import android.view.ViewGroup;
 
 public class FragmentOfPhonePermission extends BaseFragActivity {
 
-	private String TAG = "FragmentOfPhonePermission" ;
+	private String TAG = "FragmentOfPhonePermission";
 
 	private EnableOfPhonePermission m_pEnable;
 	private Context m_pContext;
 	private boolean m_bInit = false;
 
 	private boolean m_bShow = false;
+
 	@Override
 	public void onResume() {
 		super.onResume();
+		Debug.i(TAG, "onResume:" + m_bShow);
+		Debug.i(TAG, "onResume:" + m_bInit);
+		if (m_bShow && m_pView != null) {
+			if (!m_bInit) {
+				m_bInit = true;
+				m_pEnable.init();
+			}
+		}
 	}
+
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
 		super.setUserVisibleHint(isVisibleToUser);
 		m_bShow = isVisibleToUser;
-		Debug.i(TAG, "getView == null :" +(getView() == null));
-		if(m_bShow && getView() != null)
-		{
-			if(!m_bInit)
-			{
-				m_bInit = true ;
-				m_pEnable.init() ;
+		if (m_bShow && m_pView != null) {
+			if (!m_bInit) {
+				m_bInit = true;
+				m_pEnable.init();
 			}
 		}
 	}
-	
-	
+
 	public FragmentOfPhonePermission(Context pContext, List<AppInfo> list) {
 		super();
 		m_pContext = pContext;
@@ -57,6 +63,7 @@ public class FragmentOfPhonePermission extends BaseFragActivity {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		m_bInit = false ;
 		View v = inflater.inflate(R.layout.tabchild_phonepermission, null);
 		m_pView = v;
 		return v;
@@ -64,10 +71,14 @@ public class FragmentOfPhonePermission extends BaseFragActivity {
 
 	@Override
 	public void doCallback(Object... szObj) {
+		if (!m_bShow) {
+			m_bInit = false;
+			return;
+		}
 		int nTag = Integer.parseInt(szObj[0].toString());
 		switch (nTag) {
 		case EnableOfPhonePermission.SCAN_OVER:
-			m_pView.findViewById(R.id.des).setVisibility(View.INVISIBLE);
+			m_pView.findViewById(R.id.des).setVisibility(View.GONE);
 			m_pView.findViewById(R.id.total).setVisibility(View.VISIBLE);
 			break;
 		case EnableOfPhonePermission.LIST_NONE:

@@ -148,11 +148,9 @@ public class SceneOfRootAdmin extends FragmentActivity {
 				m_pTabHost.setCurrentTab(arg0);
 				Debug.e(TAG, "当前点击选项--:" + arg0);
 			}
-
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 			}
-
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 			}
@@ -168,6 +166,7 @@ public class SceneOfRootAdmin extends FragmentActivity {
 	private FragmentOfPhonePermission m_pFragmentOfPhonePermission;
 
 	private void initFragment() {
+		Debug.i(TAG, "创建了");
 		if (m_pFragmentOfRootStart == null)
 			m_pFragmentOfRootStart = new FragmentOfRootStart(
 					SceneOfRootAdmin.this,
@@ -195,7 +194,7 @@ public class SceneOfRootAdmin extends FragmentActivity {
 		case 3:
 			return m_pFragmentOfPhonePermission;
 		}
-		return new FragmentOfRootStart(SceneOfRootAdmin.this);
+		return null;
 	}
 
 	/**
@@ -216,8 +215,6 @@ public class SceneOfRootAdmin extends FragmentActivity {
 				m_pPagerAdapter = new MyPagerAdapter(
 						getSupportFragmentManager());
 				m_pViewPager.setAdapter(m_pPagerAdapter);
-				if (m_pViewPager != null)
-					m_pViewPager.setCurrentItem(1);
 				if (m_pViewPager != null)
 					m_pViewPager.setCurrentItem(0);
 				break;

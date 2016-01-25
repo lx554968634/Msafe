@@ -1,8 +1,11 @@
 package org.com.lix_.util;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.com.lix_.enable.engine.AppInfo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -227,6 +230,30 @@ public class UiUtils {
 			Debug.e(TAG, "visiable :¶ÔÏóÎªnull ");
 		} else {
 			findViewById.setVisibility(View.VISIBLE);
+		}
+	}
+
+	public static void log(HashMap<String, ArrayList<AppInfo>> m_szTargetList) {
+		ArrayList pArr = null;
+		int nCount = 0;
+		StringBuffer sb = new StringBuffer();
+		for (String sInfo : m_szTargetList.keySet()) {
+			pArr = m_szTargetList.get(sInfo);
+			nCount = pArr.size();
+			if (pArr == null) {
+				Debug.i(TAG,
+						"sInfo : " + sInfo + "----------------->" + pArr == null);
+			} else if (pArr.size() == 0) {
+				Debug.i(TAG, "sInfo : " + sInfo
+						+ "---------pArr.size() == 0--------->"
+						+ (pArr.size() == 0));
+			} else {
+				sb = new StringBuffer();
+				for (int i = 0; i < nCount; i++) {
+					sb.append(pArr.get(i) + ":");
+				}
+			}
+			Debug.i(TAG, "sInfo:" + sInfo + ":--------------:" + sb.toString());
 		}
 	}
 }

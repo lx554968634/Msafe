@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/padding_list"
-    android:paddingRight="@dimen/padding_list" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/root_notification_loading"
@@ -55,7 +53,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title1"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerInParent="true"
                     android:background="@drawable/checked"
                     android:gravity="center"
                     android:text="5"
@@ -82,7 +79,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title0"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerInParent="true"
                     android:background="@drawable/checked"
                     android:gravity="center"
                     android:text="5"

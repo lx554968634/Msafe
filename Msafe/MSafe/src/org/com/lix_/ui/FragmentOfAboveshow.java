@@ -18,12 +18,21 @@ import android.view.ViewGroup;
  * 屏蔽 悬浮窗和通知窗口
  */
 public class FragmentOfAboveshow extends BaseFragActivity {
-	
-	private String TAG = "FragmentOfAboveshow" ;
+
+	private String TAG = "FragmentOfAboveshow";
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		Debug.i(TAG, "onResume:" + m_bShow);
+		Debug.i(TAG, "onResume:" + m_bInit);
+		if (m_bShow && m_pTitleDividerView != null) {
+			if (!m_bInit) {
+				Debug.i(TAG, "获取数据!");
+				m_bInit = true;
+				m_pEnable.init();
+			}
+		}
 	}
 
 	private boolean m_bInit = false;
@@ -35,7 +44,7 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
 		super.setUserVisibleHint(isVisibleToUser);
 		m_bShow = isVisibleToUser;
-		if (m_bShow && getView() != null) {
+		if (m_bShow && m_pTitleDividerView != null) {
 			if (!m_bInit) {
 				Debug.i(TAG, "获取数据!");
 				m_bInit = true;
@@ -50,6 +59,12 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 
 	private LayoutInflater m_pInFlater;
 
+	private View m_pTitleView;
+
+	private View m_pLoadingView;
+
+	private View m_pTitleDividerView;
+
 	public FragmentOfAboveshow(List<AppInfo> list, Context pContext) {
 		super();
 		m_pEnable = new EnableOfAboveshow(pContext, list, m_pCallback);
@@ -59,15 +74,23 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		m_bInit = false ;
 		View v = inflater.inflate(R.layout.tabchild_root_notification, null);
+		m_pLoadingView = v.findViewById(R.id.root_notification_loading);
 		m_pTotalView = v.findViewById(R.id.root_notification_content);
+		m_pTitleView = v.findViewById(R.id.root_notification_total);
+		m_pTitleDividerView = v.findViewById(R.id.root_notification_liview);
 		return v;
 	}
 
 	@Override
 	public void doCallback(Object... szObj) {
+		if (!m_bShow) {
+			m_bInit = false;
+			return;
+		}
 		int nTag = Integer.parseInt(szObj[0].toString());
-		
+		m_pLoadingView.setVisibility(View.GONE);
 		switch (nTag) {
 		case EnableOfAboveshow.FINISH_NOLIST:
 			Debug.i(TAG, "回调数据:没有数据");
@@ -87,19 +110,20 @@ public class FragmentOfAboveshow extends BaseFragActivity {
 		}
 		if (m_pTotalView == null) {
 		} else {
+			m_pTitleView.setVisibility(View.VISIBLE);
+			m_pTitleDividerView.setVisibility(View.VISIBLE);
 			for (int i = 0; i < m_pEnable.getListCount(); i++) {
 				View pTmpView = m_pInFlater.inflate(R.layout.item1_child_tab1,
 						null);
 				pTmpView.findViewById(R.id.no_list).setVisibility(
 						View.INVISIBLE);
-				decorateView(pTmpView,i) ;
+				decorateView(pTmpView, i);
 				((ViewGroup) m_pTotalView).addView(pTmpView);
 			}
 		}
 	}
 
 	private void decorateView(View pTmpView, int i) {
-		
 	}
 
 	private void showNoList() {

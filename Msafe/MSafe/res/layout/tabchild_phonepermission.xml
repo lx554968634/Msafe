@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/padding_list"
     android:paddingRight="@dimen/padding_list" >
 
     <TextView
         android:id="@+id/des"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
         android:text="@string/scan_txt" />
 
     <LinearLayout
@@ -26,6 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"
@@ -54,6 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"
@@ -82,6 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"
@@ -110,6 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"
@@ -138,6 +143,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"
@@ -167,6 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/padding_list"
+                android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"
                 android:text="@string/tab_child3_root_titles5" />
@@ -194,6 +201,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingLeft="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"
@@ -231,6 +239,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:paddingBottom="@dimen/padding_list"
                 android:paddingRight="@dimen/padding_list_helf"
                 android:paddingTop="@dimen/padding_list"

@@ -36,28 +36,22 @@ import android.widget.TextView;
  */
 public class FragmentOfRootStart extends Fragment {
 
+	private String TAG = "FragmentOfRootStart";
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		Debug.i(TAG, "onResume:" + m_bShow);
 		Debug.i(TAG, "onResume:" + m_bInit);
-		Debug.i(TAG, "onResume:" + (m_pTotalView == null));
 		if (m_bShow) {
 			if (m_pTotalView != null
-					&& View.VISIBLE == m_pTotalView.findViewById(
-							R.id.root_start_loading).getVisibility()
-					&& !m_bInit) {
-				Debug.i(TAG, "获取数据！~");
+					&& View.VISIBLE == m_pLoadTxt.getVisibility() && !m_bInit) {
 				m_bInit = true;
-				m_pTotalView.findViewById(R.id.root_start_loading)
-						.setVisibility(View.INVISIBLE);
 				m_pEnable.init();
 			}
 		}
 	}
-
-	private String TAG = "FragmentOfRootStart";
 
 	private EnableOfRootStart m_pEnable;
 
@@ -76,19 +70,22 @@ public class FragmentOfRootStart extends Fragment {
 	public FragmentOfRootStart(SceneOfRootAdmin sceneOfRootAdmin,
 			List<AppInfo> installedAppInfo,
 			List<RunningServiceInfo> runningServers) {
-		Debug.i(TAG, "构造器");
 		m_pContext = sceneOfRootAdmin;
 		m_pCallback = new RootStartCallback();
 		m_pEnable = new EnableOfRootStart(sceneOfRootAdmin, m_pCallback,
 				installedAppInfo, runningServers);
 	}
 
+	private View m_pLoadTxt;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		m_bInit = false ;
 		View pView = inflater.inflate(R.layout.tabchild_rootstart, null);
 		m_pTotalView = pView.findViewById(R.id.tab_child_tab);
 		m_pInflater = inflater;
+		m_pLoadTxt = pView.findViewById(R.id.root_start_loading);
 		m_pViewTitle = inflater.inflate(R.layout.item0_child_tab0, null);
 		Debug.i(TAG, "oncreate View FragmentOfRootStart : "
 				+ (m_pTotalView == null) + ":" + (m_pViewTitle == null));
@@ -104,6 +101,13 @@ public class FragmentOfRootStart extends Fragment {
 		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
 		super.setUserVisibleHint(isVisibleToUser);
 		m_bShow = isVisibleToUser;
+		if (m_bShow) {
+			if (m_pTotalView != null
+					&& View.VISIBLE == m_pLoadTxt.getVisibility() && !m_bInit) {
+				m_bInit = true;
+				m_pEnable.init();
+			}
+		}
 	}
 
 	private View m_pTotalView;
@@ -111,8 +115,7 @@ public class FragmentOfRootStart extends Fragment {
 	private void initList() {
 		int nCount = 0;
 		int nIndex = 0;
-		m_pTotalView.findViewById(R.id.root_start_loading).setVisibility(
-				View.GONE);
+		m_pLoadTxt.setVisibility(View.GONE);
 		// 测试添加
 		if (m_pEnable.getAutoStartList() == null)
 			return;
@@ -216,6 +219,10 @@ public class FragmentOfRootStart extends Fragment {
 
 		@Override
 		public void callback(Object... obj) {
+			if (!m_bShow) {
+				m_bInit = false;
+				return;
+			}
 			int nWhat = Integer.parseInt(obj[0].toString());
 			switch (nWhat) {
 			case EnableOfRootStart.FINISH_DIVIDE_LIST:

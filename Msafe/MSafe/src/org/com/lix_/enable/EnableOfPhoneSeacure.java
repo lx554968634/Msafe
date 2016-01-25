@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.com.lix_.enable.engine.AppInfo;
 import org.com.lix_.util.Debug;
+import org.com.lix_.util.UiUtils;
 
 import android.Manifest.permission;
 import android.content.Context;
@@ -47,7 +48,7 @@ public class EnableOfPhoneSeacure extends Enable {
 			Debug.i(TAG, "list is none ");
 			break;
 		case START_SCAN:
-			Debug.i(TAG, "开始扫描");
+			Debug.i(TAG, "开始扫描下一个");
 			break;
 		case START_ITEM:
 			Debug.i(TAG, "START_ITEM:" + pMsg.obj.toString());
@@ -112,10 +113,10 @@ public class EnableOfPhoneSeacure extends Enable {
 						}
 					}
 				}
-				msg = Message.obtain();
-				msg.what = SCAN_OVER;
-				m_pAsyHandler.sendMessage(msg);
 			}
+			msg = Message.obtain();
+			msg.what = SCAN_OVER;
+			sendMessage(msg);
 		}
 	}
 
@@ -137,9 +138,21 @@ public class EnableOfPhoneSeacure extends Enable {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public void init()
-	{
+
+	public void init() {
 		doAsyWork();
+	}
+
+	public int getSize() {
+
+		if (m_szTargetList == null) {
+			Debug.i(TAG, "m_szTargetList : " + (m_szTargetList == null));
+		} else if (m_szTargetList.size() == 0) {
+			Debug.i(TAG, "m_szTargetSize : 0 ");
+		} else {
+			UiUtils.log(m_szTargetList);
+		}
+
+		return m_szTargetList.keySet().size();
 	}
 }

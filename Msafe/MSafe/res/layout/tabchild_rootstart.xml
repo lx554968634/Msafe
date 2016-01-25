@@ -8,7 +8,6 @@
     android:paddingRight="@dimen/padding_list" >
 
     <LinearLayout
-        android:id="@+id/tab_child_tab"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
@@ -20,6 +19,13 @@
             android:layout_marginTop="@dimen/padding_list2_tagimg"
             android:gravity="center"
             android:text="@string/scan_txt" />
+
+        <LinearLayout
+            android:id="@+id/tab_child_tab"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

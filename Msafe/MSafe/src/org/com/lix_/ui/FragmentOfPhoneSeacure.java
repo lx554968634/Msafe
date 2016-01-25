@@ -16,8 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentOfPhoneSeacure extends BaseFragActivity {
-	
-	private String TAG = "FragmentOfPhoneSeacure" ;
+
+	private String TAG = "FragmentOfPhoneSeacure";
 	private boolean m_bInit = false;
 
 	private boolean m_bShow = false;
@@ -25,6 +25,14 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		Debug.i(TAG, "onResume:" + m_bShow);
+		Debug.i(TAG, "onResume:" + m_bInit);
+		if (m_bShow && m_pView != null) {
+			if (!m_bInit) {
+				m_bInit = true;
+				m_pEnable.init();
+			}
+		}
 	}
 
 	@Override
@@ -32,7 +40,7 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity {
 		Debug.i(TAG, "setUserVisibleHint:" + isVisibleToUser);
 		super.setUserVisibleHint(isVisibleToUser);
 		m_bShow = isVisibleToUser;
-		if (m_bShow && getView() != null ) {
+		if (m_bShow && m_pView != null) {
 			if (!m_bInit) {
 				m_bInit = true;
 				m_pEnable.init();
@@ -46,6 +54,7 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity {
 
 	public FragmentOfPhoneSeacure(Context pContext, List<AppInfo> pList) {
 		super();
+		m_bInit = false ;
 		m_pEnable = new EnableOfPhoneSeacure(pContext, pList, m_pCallback);
 		m_pContext = pContext;
 	}
@@ -60,17 +69,23 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity {
 
 	@Override
 	public void doCallback(Object... szObj) {
+		if (!m_bShow) {
+			m_bInit = false;
+			return;
+		}
 		int nTag = Integer.parseInt(szObj[0].toString());
 		switch (nTag) {
 		case EnableOfPhoneSeacure.SCAN_OVER:
-			m_pView.findViewById(R.id.des).setVisibility(View.INVISIBLE);
+			Debug.i(TAG, "É¨Ãè:" + m_pEnable.getSize());
+			m_pView.findViewById(R.id.des).setVisibility(View.GONE);
 			m_pView.findViewById(R.id.total).setVisibility(View.VISIBLE);
 			break;
 		case EnableOfPhoneSeacure.LIST_NONE:
-			m_pView.findViewById(R.id.des).setVisibility(View.VISIBLE);
+			m_pView.findViewById(R.id.des).setVisibility(View.GONE);
 			UiUtils.setText(m_pView, R.id.des, m_pContext.getResources()
 					.getString(R.string.tab_child0_root_));
 			m_pView.findViewById(R.id.total).setVisibility(View.INVISIBLE);
+			Debug.i(TAG, "listÎªnull");
 			break;
 		}
 	}

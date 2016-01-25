@@ -22,13 +22,14 @@ public class EnableOfPhonePermission extends Enable {
 
 	public static final int SCAN_OVER = 4;
 
-	public EnableOfPhonePermission(Context pContext, List<AppInfo> list, EnableCallback pCallback) {
+	public EnableOfPhonePermission(Context pContext, List<AppInfo> list,
+			EnableCallback pCallback) {
 		super(pContext);
+		m_szList = list;
 		setCallback(pCallback);
 	}
 
-	public void init()
-	{
+	public void init() {
 		doAsyWork();
 	}
 
@@ -82,7 +83,7 @@ public class EnableOfPhonePermission extends Enable {
 					msg.obj = pInfo.getAppName();
 					m_pAsyHandler.sendMessage(msg);
 					for (String sInfo : szPermission) {
-						if(sInfo.equals(permission.CHANGE_CONFIGURATION)) //修改系统设置
+						if (sInfo.equals(permission.CHANGE_CONFIGURATION)) // 修改系统设置
 						{
 							addItem(permission.CHANGE_CONFIGURATION, pInfo);
 						}
@@ -111,7 +112,7 @@ public class EnableOfPhonePermission extends Enable {
 						{
 							addItem(permission.CAMERA, pInfo);
 						}
-						if(sInfo.equals(permission.READ_PHONE_STATE))//手机识别码
+						if (sInfo.equals(permission.READ_PHONE_STATE))// 手机识别码
 						{
 							addItem(permission.READ_PHONE_STATE, pInfo);
 						}
@@ -119,7 +120,7 @@ public class EnableOfPhonePermission extends Enable {
 				}
 				msg = Message.obtain();
 				msg.what = SCAN_OVER;
-				m_pAsyHandler.sendMessage(msg);
+				sendMessage(msg);
 			}
 		}
 

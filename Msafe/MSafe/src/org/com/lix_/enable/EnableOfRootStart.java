@@ -101,4 +101,18 @@ public class EnableOfRootStart extends Enable {
 		return m_szRunningCloseAutoStartService;
 	}
 
+	public int getTotalSize() {
+		return getListSize(m_szRunningAutoStartService)
+				+ getListSize(m_szRunningCloseAutoStartService);
+	}
+
+	private int getListSize(List pList) {
+		int nX = 0;
+		if (pList == null || pList.size() == 0) {
+			nX = 0;
+		} else {
+			nX = 1 + pList.size();
+		}
+		return nX;
+	}
 }

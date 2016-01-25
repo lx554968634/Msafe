@@ -2,26 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/padding_list"
-    android:paddingRight="@dimen/padding_list" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/no_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="扫描不到可用应用"
-        android:visibility="invisible" />
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/init_list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:orientation="horizontal" >
 
@@ -29,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
+                android:paddingLeft="@dimen/padding_list_helf"
                 android:src="@drawable/doc_icon" />
 
             <TextView
@@ -55,7 +55,6 @@
                     android:id="@+id/num1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
                     android:background="@drawable/checked"
                     android:gravity="center"
@@ -74,8 +73,7 @@
                     android:id="@+id/num0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:background="@drawable/checked"
                     android:gravity="center"
                     android:text="5"
@@ -83,5 +81,10 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/divider_height_half"
+        android:background="@color/gray_mainactivity_btn_press" />
 
 </LinearLayout>
