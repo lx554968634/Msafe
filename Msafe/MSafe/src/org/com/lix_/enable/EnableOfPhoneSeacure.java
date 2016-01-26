@@ -140,7 +140,7 @@ public class EnableOfPhoneSeacure extends Enable {
 	}
 
 	public void init() {
-		doAsyWork();
+		doRestartWork();
 	}
 
 	public int getSize() {

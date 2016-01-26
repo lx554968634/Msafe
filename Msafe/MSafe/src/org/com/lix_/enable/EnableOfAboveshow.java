@@ -28,7 +28,7 @@ public class EnableOfAboveshow extends Enable {
 	
 	public void init()
 	{
-		doAsyWork(); 
+		doRestartWork(); 
 	}
 
 	@Override

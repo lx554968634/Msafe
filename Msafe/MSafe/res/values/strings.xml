@@ -123,4 +123,19 @@
     <string name="virvus_init_engine">正在初始化128位病毒引擎</string>
 	<string name="virvus_engine_shithapped">草泥马，傻逼玩意，老子病毒引擎崩溃了</string>
 	<string name="virvus_scan_over">扫描完毕</string>
+	
+	<!-- PowerSetting -->
+	<string name="power_admin_settings">设置</string>
+	<string name="power_admin_title0">自动省电</string>
+	<string name="power_admin_title1">低电量省电提示</string>
+	<string name="power_admin_title2">低电量时提醒进入极省电模式</string>
+	<string name="power_admin_title3">低电量值</string>
+	<string name="power_admin_title4">定时开启</string>
+	<string name="power_admin_title5">定时开启省电模式</string>
+	<string name="power_admin_title6">模式选择</string>
+	<string name="power_admin_title7">极限省电模式</string>
+	<string name="power_admin_title8">开启时间</string>
+	<string name="power_admin_title9">关闭时间</string>
+	<string name="power_admin_title10">23:00</string>
+	<string name="power_admin_title11">05:00</string>
 </resources>

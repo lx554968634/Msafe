@@ -30,7 +30,7 @@ public class EnableOfPhonePermission extends Enable {
 	}
 
 	public void init() {
-		doAsyWork();
+		doRestartWork();
 	}
 
 	@Override

@@ -120,9 +120,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int rubbishclear_bg=0x7f060007;
         public static final int shadowcolor=0x7f060017;
         public static final int tab_textcolor_selected=0x7f06000b;
+        /**  virvus文字描述 
+         */
+        public static final int virvus_des_pro=0x7f060020;
         /**  wap管理 
          */
         public static final int wap_circle_background=0x7f06001e;
+        /**  wap列表 
+         */
+        public static final int wapadmin_title_textcolor=0x7f06001f;
         /**  MainActivity.java需要的颜色 
          */
         public static final int white=0x7f060000;
@@ -186,6 +192,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int textsize_title_num=0x7f070016;
         public static final int txt_title_rubbish=0x7f070021;
         public static final int txtpaddingbottom_mainactivity_grid=0x7f070007;
+        /**  wap列表 
+         */
+        public static final int wapadmin_netdetail_title_size=0x7f070029;
     }
     public static final class drawable {
         public static final int apkadmin_typebtn=0x7f020000;
@@ -251,15 +260,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title=0x7f02003c;
         public static final int tribe=0x7f02003d;
         public static final int uncheck=0x7f02003e;
-        public static final int wap_title_btn=0x7f02003f;
-        public static final int wapadmin_drawableview0=0x7f020040;
-        public static final int wapadmin_drawableview1=0x7f020041;
-        public static final int wapadmin_txtview0=0x7f020042;
-        public static final int wapadmin_txtview1=0x7f020043;
-        public static final int wave2=0x7f020044;
+        public static final int virvusadmin_bg=0x7f02003f;
+        public static final int vivus_tag0=0x7f020040;
+        public static final int vivus_tag1=0x7f020041;
+        public static final int vivus_tag2=0x7f020042;
+        public static final int vivus_tag3=0x7f020043;
+        public static final int wap_title_btn=0x7f020044;
+        public static final int wapadmin_drawableview0=0x7f020045;
+        public static final int wapadmin_drawableview1=0x7f020046;
+        public static final int wapadmin_txtview0=0x7f020047;
+        public static final int wapadmin_txtview1=0x7f020048;
+        public static final int wave2=0x7f020049;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b009e;
+        public static final int action_settings=0x7f0b00c6;
         public static final int apk_admin_div=0x7f0b0028;
         public static final int apkadmin_btn_clear=0x7f0b002a;
         public static final int apkadmin_clear_button_divider=0x7f0b0029;
@@ -291,9 +305,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int btns_mainactivity=0x7f0b0003;
         public static final int child_tab_abovedig_title0=0x7f0b005e;
         public static final int child_tab_abovedig_title1=0x7f0b005c;
-        public static final int circle=0x7f0b006d;
+        public static final int circle=0x7f0b0072;
         public static final int circle_target=0x7f0b0015;
-        public static final int des=0x7f0b006f;
+        public static final int des=0x7f0b0074;
         public static final int dialog_apktype_title0=0x7f0b002c;
         public static final int dialog_apktype_title0_value=0x7f0b002d;
         public static final int dialog_apktype_title1=0x7f0b002e;
@@ -303,13 +317,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dialog_fileadmin_item_filepathlayout=0x7f0b003c;
         public static final int dialog_fileadmin_item_filetype=0x7f0b003b;
         public static final int dialog_fileadmin_item_modifytime=0x7f0b003e;
-        public static final int divde_line=0x7f0b0077;
+        public static final int divde_line=0x7f0b008c;
         public static final int filadmin_tip_des=0x7f0b0046;
         public static final int filadmin_tip_pro=0x7f0b0047;
         public static final int file_admin_div=0x7f0b0049;
         public static final int fileadmin_btn_clear=0x7f0b004b;
-        public static final int fileadmin_btn_clear0=0x7f0b009c;
-        public static final int fileadmin_btn_clear1=0x7f0b009d;
+        public static final int fileadmin_btn_clear0=0x7f0b00bc;
+        public static final int fileadmin_btn_clear1=0x7f0b00bd;
         public static final int fileadmin_clear_button_divider=0x7f0b004a;
         public static final int fileadmin_item_image=0x7f0b0067;
         public static final int fileadmin_itemclick_image=0x7f0b0037;
@@ -337,65 +351,80 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int grid_item_rubbish_des=0x7f0b0053;
         public static final int grid_item_size=0x7f0b004f;
         public static final int grid_rubbish_checkbox=0x7f0b0056;
-        public static final int grid_show_rubbish_total=0x7f0b007a;
-        public static final int grid_view=0x7f0b007b;
+        public static final int grid_show_rubbish_total=0x7f0b0092;
+        public static final int grid_view=0x7f0b0093;
         public static final int init_list=0x7f0b005b;
         public static final int itemImage=0x7f0b004c;
         public static final int item_desc=0x7f0b0055;
         public static final int item_name=0x7f0b0054;
-        public static final int layout_0=0x7f0b0070;
-        public static final int layout_1=0x7f0b0072;
-        public static final int line0=0x7f0b0075;
+        public static final int layout_0=0x7f0b0075;
+        public static final int layout_1=0x7f0b0077;
         public static final int line_view=0x7f0b0026;
         public static final int list_mainactivity=0x7f0b0002;
         public static final int list_rubbishactivity=0x7f0b0019;
         public static final int no_list=0x7f0b005a;
-        public static final int no_rubbish_txt=0x7f0b007c;
+        public static final int no_rubbish_txt=0x7f0b0094;
         public static final int num0=0x7f0b005f;
         public static final int num1=0x7f0b005d;
         public static final int percent_scan=0x7f0b0001;
         public static final int pop_dialog_fileadmin_item=0x7f0b0036;
         public static final int pop_dialog_fileadmin_types=0x7f0b002b;
-        public static final int root_notification_content=0x7f0b0094;
-        public static final int rubbish_btn_clear=0x7f0b007d;
+        public static final int poweradmin_title=0x7f0b0071;
+        public static final int root_notification_content=0x7f0b00a9;
+        public static final int root_notification_liview=0x7f0b00a7;
+        public static final int root_notification_loading=0x7f0b00a3;
+        public static final int root_notification_scrollview=0x7f0b00a8;
+        public static final int root_notification_total=0x7f0b00a4;
+        public static final int root_start_image_title=0x7f0b0087;
+        public static final int root_start_item_rubbish_des=0x7f0b0088;
+        public static final int root_start_loading=0x7f0b00aa;
+        public static final int root_start_switch_tag0=0x7f0b008a;
+        public static final int root_start_switch_tag1=0x7f0b008b;
+        public static final int root_startitem_name=0x7f0b0089;
+        public static final int rootadmin_btn_clear0=0x7f0b0090;
+        public static final int rootadmin_btn_clear1=0x7f0b0091;
+        public static final int rootadmin_loading=0x7f0b008d;
+        public static final int rubbish_btn_clear=0x7f0b0095;
         public static final int rubbish_clear_button=0x7f0b001c;
         public static final int rubbish_clear_button_divider=0x7f0b001b;
-        public static final int rubbish_setting_tag0=0x7f0b007e;
-        public static final int rubbish_setting_tag1=0x7f0b0082;
-        public static final int rubbish_setting_tag2=0x7f0b0083;
-        public static final int rubbish_setting_tag3=0x7f0b0087;
-        public static final int rubbish_setting_tag4=0x7f0b0088;
-        public static final int rubbish_setting_tag5=0x7f0b0089;
-        public static final int rubbish_switch_0=0x7f0b007f;
-        public static final int rubbish_switch_1=0x7f0b0084;
-        public static final int rubbish_switch_tag0=0x7f0b0080;
-        public static final int rubbish_switch_tag00=0x7f0b0085;
-        public static final int rubbish_switch_tag01=0x7f0b0086;
-        public static final int rubbish_switch_tag1=0x7f0b0081;
+        public static final int rubbish_setting_tag0=0x7f0b007c;
+        public static final int rubbish_setting_tag1=0x7f0b0096;
+        public static final int rubbish_setting_tag2=0x7f0b0097;
+        public static final int rubbish_setting_tag3=0x7f0b0086;
+        public static final int rubbish_setting_tag4=0x7f0b009b;
+        public static final int rubbish_setting_tag5=0x7f0b0080;
+        public static final int rubbish_switch_0=0x7f0b007d;
+        public static final int rubbish_switch_1=0x7f0b0098;
+        public static final int rubbish_switch_2=0x7f0b009c;
+        public static final int rubbish_switch_tag0=0x7f0b007e;
+        public static final int rubbish_switch_tag00=0x7f0b0099;
+        public static final int rubbish_switch_tag01=0x7f0b009a;
+        public static final int rubbish_switch_tag1=0x7f0b007f;
+        public static final int rubbish_switch_tag10=0x7f0b009d;
+        public static final int rubbish_switch_tag11=0x7f0b009e;
         public static final int rubbish_text_0=0x7f0b0016;
         public static final int rubbish_text_1=0x7f0b0017;
         public static final int rubbish_text_2=0x7f0b0018;
         public static final int scan_rubbish_des=0x7f0b0051;
         public static final int scan_rubbish_res=0x7f0b0052;
         public static final int scan_rubbish_title_img=0x7f0b0050;
-        public static final int setting_wap_limit=0x7f0b008d;
-        public static final int setting_wap_limit_btn=0x7f0b008f;
-        public static final int setting_wap_progress=0x7f0b008e;
-        public static final int setting_wap_progress_data=0x7f0b008c;
-        public static final int setting_wap_progress_percent=0x7f0b008b;
+        public static final int setting_wap_limit=0x7f0b0083;
+        public static final int setting_wap_limit_btn=0x7f0b0085;
+        public static final int setting_wap_progress=0x7f0b0084;
+        public static final int setting_wap_progress_data=0x7f0b009f;
+        public static final int setting_wap_progress_percent=0x7f0b0082;
         public static final int show_title=0x7f0b0040;
-        public static final int stoke_line_indito=0x7f0b0090;
-        public static final int switch1=0x7f0b0076;
+        public static final int stoke_line_indito=0x7f0b00a1;
         public static final int tab_child0_tip0=0x7f0b0059;
         public static final int tab_child_tab=0x7f0b0057;
-        public static final int tag0=0x7f0b0071;
-        public static final int tag1=0x7f0b0074;
-        public static final int tag2=0x7f0b0073;
-        public static final int time=0x7f0b006e;
+        public static final int tag0=0x7f0b0076;
+        public static final int tag1=0x7f0b0079;
+        public static final int tag2=0x7f0b0078;
+        public static final int time=0x7f0b0073;
         public static final int tip_child0_tab=0x7f0b0058;
-        public static final int title=0x7f0b006c;
-        public static final int title0=0x7f0b0093;
-        public static final int title1=0x7f0b0092;
+        public static final int title=0x7f0b00a0;
+        public static final int title0=0x7f0b00a6;
+        public static final int title1=0x7f0b00a5;
         public static final int title_btn_mainlayout=0x7f0b0000;
         public static final int title_tag0=0x7f0b0005;
         public static final int title_tag1=0x7f0b0007;
@@ -404,20 +433,45 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_tag4=0x7f0b000d;
         public static final int title_tag5=0x7f0b000f;
         public static final int title_tag6=0x7f0b0011;
-        public static final int total=0x7f0b0091;
+        public static final int total=0x7f0b00a2;
         public static final int total_rubbish_clickitems=0x7f0b0041;
         public static final int total_runbishclear=0x7f0b0013;
         public static final int ui_tag1=0x7f0b0014;
-        public static final int viewPager1=0x7f0b0079;
-        public static final int wait_for_scan=0x7f0b0078;
-        public static final int wap_admin_div=0x7f0b009b;
-        public static final int wap_settings_progress_title=0x7f0b008a;
-        public static final int wap_show_title=0x7f0b0097;
-        public static final int wap_sinking=0x7f0b009a;
-        public static final int wap_tag0=0x7f0b0099;
-        public static final int wap_title_btn=0x7f0b0098;
-        public static final int wap_title_des=0x7f0b0096;
-        public static final int wap_viewPager=0x7f0b0095;
+        public static final int viewPager1=0x7f0b008e;
+        public static final int virvus_button_divider=0x7f0b007a;
+        public static final int virvus_clear_button=0x7f0b007b;
+        public static final int virvus_des_pro=0x7f0b00ad;
+        public static final int virvus_radar=0x7f0b00ac;
+        public static final int virvus_scan_result_txt=0x7f0b00ab;
+        public static final int virvus_scan_type0=0x7f0b00af;
+        public static final int virvus_scan_type1=0x7f0b00b1;
+        public static final int virvus_scan_type2=0x7f0b00b3;
+        public static final int virvus_scan_type3=0x7f0b00b5;
+        public static final int virvusadmin_scan_item0_image=0x7f0b00ae;
+        public static final int virvusadmin_scan_item1_image=0x7f0b00b0;
+        public static final int virvusadmin_scan_item2_image=0x7f0b00b2;
+        public static final int virvusadmin_scan_item3_image=0x7f0b00b4;
+        public static final int wap_admin_div=0x7f0b008f;
+        public static final int wap_settings_progress_title=0x7f0b0081;
+        public static final int wap_show_title=0x7f0b00b8;
+        public static final int wap_sinking=0x7f0b00bb;
+        public static final int wap_tag0=0x7f0b00ba;
+        public static final int wap_title_btn=0x7f0b00b9;
+        public static final int wap_title_des=0x7f0b00b7;
+        public static final int wap_viewPager=0x7f0b00b6;
+        public static final int wapadmin_detailnet_item_image=0x7f0b006c;
+        public static final int wapadmin_detailnet_rubbish_checkbox=0x7f0b0070;
+        public static final int wapadmin_detailnetitem_cache=0x7f0b006e;
+        public static final int wapadmin_detailnetitem_desc=0x7f0b006f;
+        public static final int wapadmin_detailnetitem_name=0x7f0b006d;
+        public static final int wapadmin_list_title=0x7f0b00c1;
+        public static final int wapadmin_list_titlebtn=0x7f0b00c2;
+        public static final int wapadmin_netdetail_divider=0x7f0b00c4;
+        public static final int wapadmin_netdetail_list=0x7f0b00c5;
+        public static final int wapadmin_netdetail_loading=0x7f0b00bf;
+        public static final int wapadmin_netdetail_scan_none=0x7f0b00be;
+        public static final int wapadmin_netdetail_total=0x7f0b00c0;
+        public static final int wapadmin_pup_btn=0x7f0b00c3;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -435,20 +489,24 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int item1_child_tab1=0x7f03000c;
         public static final int item_apkadmin=0x7f03000d;
         public static final int item_fileadmin=0x7f03000e;
-        public static final int poweradmin=0x7f03000f;
-        public static final int root_child0_item=0x7f030010;
-        public static final int rootadmin=0x7f030011;
-        public static final int rubbish_show_itemlayout=0x7f030012;
-        public static final int setting_rubbishclear=0x7f030013;
-        public static final int setting_wapadmin=0x7f030014;
-        public static final int tab_indicator=0x7f030015;
-        public static final int tabchild_phonepermission=0x7f030016;
-        public static final int tabchild_root_notification=0x7f030017;
-        public static final int tabchild_root_phoneseacure=0x7f030018;
-        public static final int tabchild_rootstart=0x7f030019;
-        public static final int testview=0x7f03001a;
-        public static final int virvusadmin=0x7f03001b;
-        public static final int wapadmin=0x7f03001c;
+        public static final int item_wapdetail=0x7f03000f;
+        public static final int poweradmin=0x7f030010;
+        public static final int poweradmin_setting=0x7f030011;
+        public static final int root_child0_item=0x7f030012;
+        public static final int rootadmin=0x7f030013;
+        public static final int rubbish_show_itemlayout=0x7f030014;
+        public static final int setting_rubbishclear=0x7f030015;
+        public static final int setting_virvus=0x7f030016;
+        public static final int setting_wapadmin=0x7f030017;
+        public static final int tab_indicator=0x7f030018;
+        public static final int tabchild_phonepermission=0x7f030019;
+        public static final int tabchild_root_notification=0x7f03001a;
+        public static final int tabchild_root_phoneseacure=0x7f03001b;
+        public static final int tabchild_rootstart=0x7f03001c;
+        public static final int testview=0x7f03001d;
+        public static final int virvusadmin=0x7f03001e;
+        public static final int wapadmin=0x7f03001f;
+        public static final int wapadmin_netdetail=0x7f030020;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
@@ -484,6 +542,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int juhao=0x7f08003b;
         public static final int modify_time_str=0x7f080051;
         public static final int null_rubbish_txt=0x7f080012;
+        /**  PowerSetting 
+         */
+        public static final int power_admin_settings=0x7f08006f;
+        public static final int power_admin_title0=0x7f080070;
+        public static final int power_admin_title1=0x7f080071;
+        public static final int power_admin_title10=0x7f08007a;
+        public static final int power_admin_title11=0x7f08007b;
+        public static final int power_admin_title2=0x7f080072;
+        public static final int power_admin_title3=0x7f080073;
+        public static final int power_admin_title4=0x7f080074;
+        public static final int power_admin_title5=0x7f080075;
+        public static final int power_admin_title6=0x7f080076;
+        public static final int power_admin_title7=0x7f080077;
+        public static final int power_admin_title8=0x7f080078;
+        public static final int power_admin_title9=0x7f080079;
         public static final int power_button_str=0x7f080036;
         public static final int power_str0=0x7f080033;
         public static final int power_str1=0x7f080034;
@@ -511,6 +584,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int setting_rubbish_title6=0x7f080040;
         public static final int setting_rubbish_title7=0x7f080041;
         public static final int setting_rubbish_title8=0x7f080042;
+        public static final int setting_virvus_test=0x7f08006b;
+        /**  virvussetting 
+         */
+        public static final int setting_virvus_title0=0x7f080065;
+        public static final int setting_virvus_title1=0x7f080066;
+        public static final int setting_virvus_title2=0x7f080067;
+        public static final int setting_virvus_title3=0x7f080068;
+        public static final int setting_virvus_title4=0x7f080069;
+        public static final int setting_virvus_title5=0x7f08006a;
         public static final int setting_wap_title0=0x7f080058;
         public static final int setting_wap_title1=0x7f080059;
         public static final int setting_wap_title2=0x7f08005a;
@@ -555,9 +637,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int virus_check_txt1=0x7f080015;
         public static final int virus_check_txt2=0x7f080016;
         public static final int virus_check_txt3=0x7f080017;
+        public static final int virvus_engine_shithapped=0x7f08006d;
+        public static final int virvus_init_engine=0x7f08006c;
+        public static final int virvus_scan_over=0x7f08006e;
+        public static final int wait_for_load=0x7f080063;
         /**  wap Settings设置 
          */
         public static final int wap_setting_title=0x7f080057;
+        public static final int wapadmin_netdetail_gprs_btntitle=0x7f080060;
+        /**  wapadmin 列表 
+         */
+        public static final int wapadmin_netdetail_gprs_title=0x7f08005f;
+        public static final int wapadmin_netdetail_wifi_btntitle=0x7f080062;
+        public static final int wapadmin_netdetail_wifi_title=0x7f080061;
+        public static final int wapadmin_scan_none=0x7f080064;
         public static final int wapadmin_title0=0x7f08005d;
         public static final int wapadmin_title1=0x7f08005e;
         public static final int zhanyong=0x7f080054;

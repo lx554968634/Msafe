@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 public class FragmentOfPhoneSeacure extends BaseFragActivity {
 
 	private String TAG = "FragmentOfPhoneSeacure";
+	
 	private boolean m_bInit = false;
 
 	private boolean m_bShow = false;
@@ -62,6 +63,7 @@ public class FragmentOfPhoneSeacure extends BaseFragActivity {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		m_bInit = false ;
 		View v = inflater.inflate(R.layout.tabchild_root_phoneseacure, null);
 		m_pView = v;
 		return v;

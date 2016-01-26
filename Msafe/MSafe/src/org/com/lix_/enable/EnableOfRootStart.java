@@ -37,7 +37,7 @@ public class EnableOfRootStart extends Enable {
 	}
 
 	public void init() {
-		doAsyWork();
+		doRestartWork();
 	}
 
 	@Override

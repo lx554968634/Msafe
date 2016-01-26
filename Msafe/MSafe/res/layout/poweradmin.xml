@@ -6,197 +6,220 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/green_breathecircleview_background"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_list"
-        android:paddingRight="@dimen/padding_list" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/title_clearrubbish_btn_mainlayout"
-            android:textColor="@color/white_textcolor"
-            android:textSize="@dimen/textsize_mainactiviy_top" />
-
-        <org.com.lix_.plugin.Circle2LineView
-            android:id="@+id/circle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_below="@id/title"
-            android:layout_centerInParent="true" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="21小时30分 "
-            android:textColor="@color/white"
-            android:textSize="@dimen/textsize_mainactiviy_top" />
-
-        <TextView
-            android:id="@+id/des"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/time"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/padding_list_helf"
-            android:text="@string/powerdes"
-            android:textColor="@color/white"
-            android:textSize="@dimen/gird_item_down_textsize" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@null"
         android:orientation="vertical"
         android:visibility="visible" >
 
         <RelativeLayout
-            android:id="@+id/layout_0"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@color/green_breathecircleview_background"
             android:paddingLeft="@dimen/padding_list"
-            android:paddingRight="@dimen/padding_list"
-            android:paddingTop="@dimen/padding_list" >
+            android:paddingRight="@dimen/padding_list" >
 
             <TextView
+                android:id="@+id/poweradmin_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_list_helf"
-                android:paddingLeft="@dimen/padding_list"
-                android:paddingRight="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list_helf"
-                android:text="@string/power_str0" />
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/padding_list"
+                android:text="@string/title_lowpower_btn_mainlayout"
+                android:textColor="@color/white_textcolor"
+                android:textSize="@dimen/textsize_mainactiviy_top" />
 
-            <TextView
-                android:id="@+id/tag0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/ui_tag1"
+                android:layout_width="@dimen/padding_list2_tagimg"
+                android:layout_height="@dimen/padding_list2_tagimg"
                 android:layout_alignParentRight="true"
-                android:background="@color/green_breathecircleview_background"
-                android:gravity="center"
-                android:paddingBottom="@dimen/padding_list_helf"
-                android:paddingLeft="@dimen/padding_list"
-                android:paddingRight="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list_helf"
-                android:text="@string/power_button_str" />
+                android:clickable="true"
+                android:paddingRight="@dimen/padding_list3"
+                android:paddingTop="@dimen/padding_list_helf_tri"
+                android:src="@drawable/setting" />
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/tag0"
-                android:layout_marginTop="@dimen/padding_list"
-                android:background="@color/gray_mainactivity_btn_press" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout_1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_0"
-            android:paddingLeft="@dimen/padding_list"
-            android:paddingRight="@dimen/padding_list"
-            android:paddingTop="@dimen/padding_list" >
-
-            <TextView
+            <org.com.lix_.plugin.Circle2LineView
+                android:id="@+id/circle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_list_helf"
-                android:paddingLeft="@dimen/padding_list"
-                android:paddingRight="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list_helf"
-                android:text="@string/power_str1" />
+                android:layout_height="match_parent"
+                android:layout_below="@id/poweradmin_title"
+                android:layout_centerInParent="true" />
 
             <TextView
-                android:id="@+id/tag2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@color/green_breathecircleview_background"
-                android:gravity="center"
-                android:paddingBottom="@dimen/padding_list_helf"
-                android:paddingLeft="@dimen/padding_list"
-                android:paddingRight="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list_helf"
-                android:text="@string/power_button_str" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/tag2"
-                android:layout_marginTop="@dimen/padding_list"
-                android:background="@color/gray_mainactivity_btn_press" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_1"
-            android:paddingLeft="@dimen/padding_list"
-            android:paddingRight="@dimen/padding_list"
-            android:paddingTop="@dimen/padding_list" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_list_helf"
-                android:paddingLeft="@dimen/padding_list"
-                android:paddingRight="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list_helf"
-                android:text="@string/power_str2" />
-
-            <TextView
-                android:id="@+id/tag1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@color/green_breathecircleview_background"
-                android:gravity="center"
-                android:paddingBottom="@dimen/padding_list_helf"
-                android:paddingLeft="@dimen/padding_list"
-                android:paddingRight="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list_helf"
-                android:text="@string/power_button_str" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/tag1"
-                android:layout_marginTop="@dimen/padding_list"
-                android:background="@color/gray_mainactivity_btn_press" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="@dimen/padding_list" >
-
-            <View
-                android:id="@+id/line0"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_mainactivity_btn_press" />
-
-            <TextView
-                android:layout_below="@id/line0"
+                android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:text="21小时30分 "
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_mainactiviy_top" />
+
+            <TextView
+                android:id="@+id/des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/padding_list_helf"
+                android:text="@string/powerdes"
+                android:textColor="@color/white"
+                android:textSize="@dimen/gird_item_down_textsize" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@null"
+            android:visibility="visible" >
+
+            <RelativeLayout
+                android:id="@+id/layout_0"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/padding_list"
                 android:paddingRight="@dimen/padding_list"
-                android:paddingTop="@dimen/padding_list_helf"
-                android:text="@string/power_str2" />
+                android:paddingTop="@dimen/padding_list" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/padding_list_helf"
+                    android:paddingLeft="@dimen/padding_list"
+                    android:paddingRight="@dimen/padding_list"
+                    android:paddingTop="@dimen/padding_list_helf"
+                    android:text="@string/power_str0" />
+
+                <TextView
+                    android:id="@+id/tag0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/green_breathecircleview_background"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/padding_list_helf"
+                    android:paddingLeft="@dimen/padding_list"
+                    android:paddingRight="@dimen/padding_list"
+                    android:paddingTop="@dimen/padding_list_helf"
+                    android:text="@string/power_button_str" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tag0"
+                    android:layout_marginTop="@dimen/padding_list"
+                    android:background="@color/gray_mainactivity_btn_press" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_0"
+                android:paddingLeft="@dimen/padding_list"
+                android:paddingRight="@dimen/padding_list"
+                android:paddingTop="@dimen/padding_list" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/padding_list_helf"
+                    android:paddingLeft="@dimen/padding_list"
+                    android:paddingRight="@dimen/padding_list"
+                    android:paddingTop="@dimen/padding_list_helf"
+                    android:text="@string/power_str1" />
+
+                <TextView
+                    android:id="@+id/tag2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/green_breathecircleview_background"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/padding_list_helf"
+                    android:paddingLeft="@dimen/padding_list"
+                    android:paddingRight="@dimen/padding_list"
+                    android:paddingTop="@dimen/padding_list_helf"
+                    android:text="@string/power_button_str" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tag2"
+                    android:layout_marginTop="@dimen/padding_list"
+                    android:background="@color/gray_mainactivity_btn_press" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_1"
+                android:paddingLeft="@dimen/padding_list"
+                android:paddingRight="@dimen/padding_list"
+                android:paddingTop="@dimen/padding_list" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/padding_list_helf"
+                    android:paddingLeft="@dimen/padding_list"
+                    android:paddingRight="@dimen/padding_list"
+                    android:paddingTop="@dimen/padding_list_helf"
+                    android:text="@string/power_str2" />
+
+                <TextView
+                    android:id="@+id/tag1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/green_breathecircleview_background"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/padding_list_helf"
+                    android:paddingLeft="@dimen/padding_list"
+                    android:paddingRight="@dimen/padding_list"
+                    android:paddingTop="@dimen/padding_list_helf"
+                    android:text="@string/power_button_str" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tag1"
+                    android:layout_marginTop="@dimen/padding_list"
+                    android:background="@color/gray_mainactivity_btn_press" />
+            </RelativeLayout>
         </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/grid_item_divi"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="11"
+        android:background="@color/white" >
+
+        <View
+            android:id="@+id/virvus_button_divider"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/gray_mainactivity_btn_press"
+            android:visibility="visible" />
+
+        <org.com.lix_.plugin.ButtonPlugin
+            android:id="@+id/virvus_clear_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true"
+            android:paddingBottom="@dimen/padding_list"
+            android:paddingLeft="@dimen/padding_list4"
+            android:paddingRight="@dimen/padding_list4"
+            android:paddingTop="@dimen/padding_list"
+            android:textColor="@color/red"
+            android:visibility="visible"
+            app:title_str="@string/clear" />
     </RelativeLayout>
 
 </LinearLayout>

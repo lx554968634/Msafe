@@ -18,7 +18,7 @@
     <dimen name="padding_list">10dp</dimen>
     <dimen name="padding_list1">15dp</dimen>
     <dimen name="padding_list1_tagimg">43dp</dimen>
-    <dimen name="padding_list2_tagimg">40dp</dimen>
+    <dimen name="padding_list2_tagimg">30dp</dimen>
     <dimen name="padding_list_helf">5dp</dimen>
     <dimen name="padding_list3">7dp</dimen>
     <dimen name="line_height">1dp</dimen>
