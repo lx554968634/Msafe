@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/org.com.lix_.ui"
     android:id="@+id/total_runbishclear"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/test_show_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="产生widget" />
+     <Button
+        android:id="@+id/test_dis_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="取消 widget" />
+    
 
 </LinearLayout>

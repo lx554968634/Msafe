@@ -1,37 +1,15 @@
 package org.com.lix_.ui;
 
-import java.util.Currency;
-
-import org.com.lix_.db.entity.TmpRecordWapEntity;
-import org.com.lix_.db.entity.TmpStatusEntity;
-import org.com.lix_.db.entity.WapRecordEntity;
-import org.com.lix_.util.Debug;
-
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
-import android.widget.TabHost;
-import android.widget.TabWidget;
-import android.widget.TextView;
-import android.widget.TabHost.OnTabChangeListener;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
-public class TestView extends FragmentActivity {
+/*
+ * 一个按钮，控制产生wiget
+ */
+public class TestView extends Activity{
 	private static final String TAG = "TestView";
 
 	@Override
