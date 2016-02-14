@@ -16,8 +16,14 @@ import android.view.animation.AnimationUtils;
  *
  */
 public class SwitchBtn {
-
 	
+	public static void Enable(Context pContext,final View view,int rubbishSwitchTag0, int rubbishSwitchTag1)
+	{
+		view.findViewById(rubbishSwitchTag0).setVisibility(View.INVISIBLE);
+		view.findViewById(rubbishSwitchTag1).setVisibility(View.VISIBLE);
+		view.setBackgroundDrawable(pContext.getResources()
+				.getDrawable(R.drawable.switch_blue));
+	}
 
 	public static void Enable(final Context pContext, final View view,
 			int rubbishSwitchTag0, int rubbishSwitchTag1,

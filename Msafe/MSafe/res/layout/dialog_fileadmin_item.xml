@@ -108,8 +108,8 @@
             android:clickable="true"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="@dimen/padding_list2"
-            android:paddingTop="@dimen/padding_list2"
+            android:paddingBottom="@dimen/padding_list1"
+            android:paddingTop="@dimen/padding_list1"
             android:text="@string/cancel"
             android:textColor="@color/dialog_fileadmin_item_cancelcolor"
             android:textSize="@dimen/textsize_breathecircle" />
@@ -125,8 +125,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="@dimen/padding_list2"
-            android:paddingTop="@dimen/padding_list2"
+            android:paddingBottom="@dimen/padding_list1"
+            android:paddingTop="@dimen/padding_list1"
             android:text="@string/delete"
             android:textColor="@color/dialog_fileadmin_item_deletecolor"
             android:textSize="@dimen/textsize_breathecircle" />

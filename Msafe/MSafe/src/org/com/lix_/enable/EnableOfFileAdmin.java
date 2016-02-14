@@ -165,7 +165,8 @@ public class EnableOfFileAdmin extends Enable {
 			System.gc(); 
 			break ;
 		case GET_MEDIA_IMAGE:
-			m_pCallback.callback(msg.what,msg.obj,msg.arg1);
+			ArrayList pList = (ArrayList) msg.obj ;
+			m_pCallback.callback(msg.what,pList.get(0),pList.get(1),msg.arg1);
 			break ;
 		}
 	}
@@ -200,7 +201,6 @@ public class EnableOfFileAdmin extends Enable {
 
 	public void getMediaImage(final int position,final String sPath ) {
 		new Thread(new Runnable() {
-			
 			@Override
 			public void run() {
 				Debug.i(TAG, "ªÒ»°Õº∆¨:"+sPath);
@@ -208,7 +208,10 @@ public class EnableOfFileAdmin extends Enable {
 				Message msg = Message.obtain() ;
 				msg.what = GET_MEDIA_IMAGE ;
 				msg.arg1 = position ;
-				msg.obj = pBitmp;
+				ArrayList pList = new ArrayList() ;
+				pList.add(sPath) ;
+				pList.add(pBitmp) ;
+				msg.obj = pList;
 				sendMessage(msg);
 			}
 		}).start(); 

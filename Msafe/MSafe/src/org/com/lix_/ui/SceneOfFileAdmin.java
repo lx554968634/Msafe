@@ -7,6 +7,7 @@ import org.com.lix_.enable.EnableCallback;
 import org.com.lix_.enable.EnableOfFileAdmin;
 import org.com.lix_.enable.engine.FileInfo;
 import org.com.lix_.plugin.AListView;
+import org.com.lix_.plugin.Rect;
 import org.com.lix_.ui.dialog.DialogOfFileAdminTypes;
 import org.com.lix_.ui.dialog.DialogOfFileItemClick;
 import org.com.lix_.util.Debug;
@@ -28,6 +29,8 @@ import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -59,8 +62,8 @@ public class SceneOfFileAdmin extends BaseActivity {
 		case R.id.fileadmin_list_type:
 			Debug.i(TAG, "监听 了 信息弹出对话框");
 			if (findViewById(R.id.fileadmin_list_type).getVisibility() == View.VISIBLE) {
-				// dialogShowOK();
-				dialogShowFileItem();
+				 dialogShowOK();
+//				dialogShowFileItem();
 			}
 			break;
 		}
@@ -153,7 +156,20 @@ public class SceneOfFileAdmin extends BaseActivity {
 		m_pListView.setAutoScroll();
 		m_pAdapter = new Adapter();
 		m_pListView.setAdapter(m_pAdapter);
+		ItemClickListener pListener = new ItemClickListener() ;
+		m_pListView.setOnItemClickListener(pListener);
 		m_pEnable.init(m_pCallback);
+	}
+	
+	class ItemClickListener implements OnItemClickListener
+	{
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			dialogShowFileItem() ;
+		}
+		
 	}
 
 	class Callback implements EnableCallback {
@@ -188,18 +204,21 @@ public class SceneOfFileAdmin extends BaseActivity {
 			case EnableOfFileAdmin.GET_MEDIA_IMAGE:
 				if (obj[1] == null)
 					return;
-				int nPos = Integer.parseInt(obj[2].toString());
+				int nPos = Integer.parseInt(obj[3].toString());
 				if (m_pListView.getChildAtC(nPos) == null)
 					return;
 				if (Integer.parseInt(m_pListView.getChildAtC(nPos).getTag()
 						.toString()) == nPos) {
-					Bitmap pTmp = (Bitmap) obj[1];
-					if (pTmp != null) {
-						if (m_pListView.getChildAtC(nPos) == null)
-							return;
-						((ImageView) m_pListView.getChildAtC(nPos)
-								.findViewById(R.id.fileadmin_item_image))
-								.setImageBitmap(pTmp);
+					if (m_szItemHolder.get(TAG + nPos).m_pFileInfo.m_sAbFilePath
+							.equals(obj[1].toString())) {
+						Bitmap pTmp = (Bitmap) obj[2];
+						if (pTmp != null) {
+							if (m_pListView.getChildAtC(nPos) == null)
+								return;
+							((ImageView) m_pListView.getChildAtC(nPos)
+									.findViewById(R.id.fileadmin_item_image))
+									.setImageBitmap(pTmp);
+						}
 					}
 				}
 				break;
@@ -286,6 +305,11 @@ public class SceneOfFileAdmin extends BaseActivity {
 			final FileInfo pFile = pViewHolder.m_pFileInfo;
 			if (MediaUtils.checkMediaName(pFile.m_sAbFilePath)) {
 				m_pEnable.getMediaImage(position, pFile.m_sAbFilePath);
+			} else {
+				((ImageView) convertView
+						.findViewById(R.id.fileadmin_item_image))
+						.setImageDrawable(getResources().getDrawable(
+								R.drawable.fileadmin_item_default));
 			}
 			if (v != null) {
 				v.findViewById(R.id.fileadmin_rubbish_checkbox)
@@ -454,24 +478,6 @@ public class SceneOfFileAdmin extends BaseActivity {
 		m_pFileTypePopRect = new Rect(nX, nY, nWidth, nHeight);
 	}
 
-	class Rect {
-		float m_nX;
-		float m_nY;
-		int m_nWidth;
-		int m_nHeight;
 
-		public Rect(float nX, float nY, int width, int height) {
-			this.m_nHeight = height;
-			this.m_nWidth = width;
-			this.m_nX = nX;
-			m_nY = nY;
-		}
-
-		@Override
-		public String toString() {
-			return m_nX + ":" + m_nY + ":" + m_nWidth + ":" + m_nHeight;
-		}
-
-	}
 
 }

@@ -53,7 +53,7 @@ public class EnableOfSettingRubbishClear extends Enable {
 		pTargetIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, pIntent);
 		pTargetIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
 				Intent.ShortcutIconResource.fromContext(m_pContext,
-						R.drawable.ic_launcher));
+						R.drawable.icon_11));
 		pTargetIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME,
 				m_pContext.getString(R.string.app_name));
 		return pTargetIntent;

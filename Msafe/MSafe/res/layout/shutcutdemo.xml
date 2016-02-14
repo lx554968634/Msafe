@@ -1,18 +1,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/total"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <RelativeLayout
         android:id="@+id/shutcutdemo_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
- 
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/rubbishclear_bg" />
+
+        <TextView
+            android:id="@+id/rubbishclear_shutcut_txt"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/padding_list1"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/rubbishclear_shutcut_obj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rubbishclear_obj" />
+
+        <ImageView
+            android:id="@+id/rubbishclear_shutcut_bgcircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rubbishclear_bgcircle" />
+
+        <ImageView
+            android:id="@+id/rubbish_shutcut_penqi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rubbishclear_penqi0" />
     </RelativeLayout>
 
 </RelativeLayout>
