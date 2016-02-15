@@ -58,4 +58,14 @@ public class EnableOfSettingRubbishClear extends Enable {
 				m_pContext.getString(R.string.app_name));
 		return pTargetIntent;
 	}
+
+	public void onSetTimeClearRubbish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onStopTimeClearRubbish() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -138,4 +138,10 @@
 	<string name="power_admin_title9">关闭时间</string>
 	<string name="power_admin_title10">23:00</string>
 	<string name="power_admin_title11">05:00</string>
+	
+	<!-- rubbishSetting -->
+	<string name="rubbish_setting_scan_time0">每天一次</string>
+	<string name="rubbish_setting_scan_time1">三天一次</string>
+	<string name="rubbish_setting_scan_time2">一周一次</string>
+	<string name="rubbish_setting_scan_time3">一月一次</string>
 </resources>

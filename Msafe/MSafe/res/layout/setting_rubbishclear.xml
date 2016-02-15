@@ -186,7 +186,6 @@
                 android:text="@string/setting_rubbish_title3"
                 android:textColor="@color/black"
                 android:textSize="@dimen/rubbish_setting_title_size" />
-
         </LinearLayout>
 
         <!-- 扫描数据 -->
@@ -265,14 +264,15 @@
         <!-- 扫描数据 -->
 
         <TextView
+            android:id="@+id/setting_rubbish_scan_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/padding_list2"
-            android:padding="@dimen/padding_list_helf"
-            android:background="@drawable/tribe" />
+            android:background="@drawable/tribe"
+            android:padding="@dimen/padding_list_helf" />
 
         <View
             android:layout_width="fill_parent"
@@ -309,6 +309,7 @@
                 android:textSize="@dimen/rubbish_setting_title_size" />
 
             <TextView
+                android:id="@+id/setting_rubbish_set_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/setting_rubbish_title8"
@@ -319,14 +320,16 @@
         <!-- 扫描数据 -->
 
         <TextView
+            android:id="@+id/setting_rubbishclear_detail_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/padding_list2"
-            android:padding="@dimen/padding_list_helf"
-            android:background="@drawable/tribe" />
+            android:background="@drawable/tribe"
+            android:clickable="true"
+            android:padding="@dimen/padding_list_helf" />
     </RelativeLayout>
 
 </LinearLayout>

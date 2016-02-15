@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -62,8 +63,8 @@ public class SceneOfFileAdmin extends BaseActivity {
 		case R.id.fileadmin_list_type:
 			Debug.i(TAG, "监听 了 信息弹出对话框");
 			if (findViewById(R.id.fileadmin_list_type).getVisibility() == View.VISIBLE) {
-				 dialogShowOK();
-//				dialogShowFileItem();
+				dialogShowOK();
+				// dialogShowFileItem();
 			}
 			break;
 		}
@@ -113,21 +114,18 @@ public class SceneOfFileAdmin extends BaseActivity {
 			m_pFileItemClickDialog.show();
 		}
 	}
-
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		releaseDialog(m_pFileItemClickDialog);
 		releaseDialog(m_pPopFileTypeDialog);
 	}
-
 	private void releaseDialog(Dialog pDialog) {
 		if (pDialog != null) {
 			pDialog.dismiss();
 			pDialog = null;
 		}
 	}
-
 	@Override
 	public void init() {
 		m_pScanProgress = (ProgressBar) findViewById(R.id.fileadmin_progress);
@@ -156,22 +154,15 @@ public class SceneOfFileAdmin extends BaseActivity {
 		m_pListView.setAutoScroll();
 		m_pAdapter = new Adapter();
 		m_pListView.setAdapter(m_pAdapter);
-		ItemClickListener pListener = new ItemClickListener() ;
-		m_pListView.setOnItemClickListener(pListener);
 		m_pEnable.init(m_pCallback);
 	}
-	
-	class ItemClickListener implements OnItemClickListener
-	{
-
+	class ItemClickListener implements View.OnClickListener {
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			dialogShowFileItem() ;
-		}
-		
-	}
+		public void onClick(View v) {
+			dialogShowFileItem();
 
+		}
+	}
 	class Callback implements EnableCallback {
 
 		@Override
@@ -225,14 +216,12 @@ public class SceneOfFileAdmin extends BaseActivity {
 			}
 		}
 	}
-
 	private void setProgressBar(int nValue) {
 		Debug.i(TAG, nValue + "更新进度:" + (m_pScanProgress == null));
 		if (m_pScanProgress != null) {
 			m_pScanProgress.setProgress(nValue);
 		}
 	}
-
 	private void finishScan(int nStatus) {
 		findViewById(R.id.filadmin_tip_pro).setVisibility(View.INVISIBLE);
 		switch (nStatus) {
@@ -253,9 +242,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 			break;
 		}
 	}
-
 	private Adapter m_pAdapter;
-
 	// ebebeb f5f5f5 fafafa
 	class Adapter extends BaseAdapter {
 
@@ -311,6 +298,11 @@ public class SceneOfFileAdmin extends BaseActivity {
 						.setImageDrawable(getResources().getDrawable(
 								R.drawable.fileadmin_item_default));
 			}
+			ItemClickListener pLis = new ItemClickListener();
+			convertView.findViewById(R.id.fileadmin_item_image)
+					.setOnClickListener(pLis);
+			convertView.findViewById(R.id.filemadin_item_rubbish_des)
+					.setOnClickListener(pLis);
 			if (v != null) {
 				v.findViewById(R.id.fileadmin_rubbish_checkbox)
 						.setOnTouchListener(new TouchListener(position));
@@ -477,7 +469,5 @@ public class SceneOfFileAdmin extends BaseActivity {
 	private void getPopFileTypeRect(float nX, float nY, int nWidth, int nHeight) {
 		m_pFileTypePopRect = new Rect(nX, nY, nWidth, nHeight);
 	}
-
-
 
 }
