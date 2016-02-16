@@ -114,18 +114,21 @@ public class SceneOfFileAdmin extends BaseActivity {
 			m_pFileItemClickDialog.show();
 		}
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		releaseDialog(m_pFileItemClickDialog);
 		releaseDialog(m_pPopFileTypeDialog);
 	}
+
 	private void releaseDialog(Dialog pDialog) {
 		if (pDialog != null) {
 			pDialog.dismiss();
 			pDialog = null;
 		}
 	}
+
 	@Override
 	public void init() {
 		m_pScanProgress = (ProgressBar) findViewById(R.id.fileadmin_progress);
@@ -156,6 +159,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 		m_pListView.setAdapter(m_pAdapter);
 		m_pEnable.init(m_pCallback);
 	}
+	
 	class ItemClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -163,6 +167,7 @@ public class SceneOfFileAdmin extends BaseActivity {
 
 		}
 	}
+	
 	class Callback implements EnableCallback {
 
 		@Override
@@ -300,8 +305,6 @@ public class SceneOfFileAdmin extends BaseActivity {
 			}
 			ItemClickListener pLis = new ItemClickListener();
 			convertView.findViewById(R.id.fileadmin_item_image)
-					.setOnClickListener(pLis);
-			convertView.findViewById(R.id.filemadin_item_rubbish_des)
 					.setOnClickListener(pLis);
 			if (v != null) {
 				v.findViewById(R.id.fileadmin_rubbish_checkbox)

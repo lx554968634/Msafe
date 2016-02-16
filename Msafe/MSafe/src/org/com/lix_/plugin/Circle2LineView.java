@@ -30,8 +30,8 @@ public class Circle2LineView extends View {
 	private int m_nBorder;
 
 	private void init() {
-		m_nWidth = Define.WIDTH / 2;
-		m_nHeight = Define.HEIGHT / 4 - 25;
+		m_nWidth = Define.WIDTH / 2 - 15;
+		m_nHeight = Define.HEIGHT / 4 - 35;
 		m_nRadio = m_nWidth > m_nHeight / 4 * 3 ? m_nHeight / 4 * 3 : m_nWidth;
 		m_nOffset = (int) getResources().getDimension(R.dimen.padding_list);
 		m_pInnerPaint = new Paint();

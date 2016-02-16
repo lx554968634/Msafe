@@ -39,10 +39,11 @@ public class SceneOfPowerAdmin extends BaseActivity {
 			switch (nTag) {
 			case EnableOfPowerAdmin.GET_POWERSTATE:
 				Debug.i(TAG, "获取电量时间:" + obj[1].toString());
+				String str = "70" ;
 				m_pTimeView.setText(UiUtils.getTime(
 						getResources().getString(R.string.total_time),
 						obj[1].toString()));
-				m_pCircle.m_nPercent = Integer.parseInt(obj[1].toString());
+				m_pCircle.m_nPercent = Integer.parseInt(str);
 				break;
 			}
 		}

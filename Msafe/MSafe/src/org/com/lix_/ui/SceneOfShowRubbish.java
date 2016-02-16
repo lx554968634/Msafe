@@ -217,12 +217,11 @@ public class SceneOfShowRubbish extends BaseActivity {
 				return getRubbishPropView(position, convertView, parent,
 						pHolder);
 			case 1:
-				return getApkCacheView(position, convertView, parent, pHolder);
+				return getApkCacheView(position, convertView, parent, pHolder,m_szTargetHashMap0);
 			case 2:
-				return getRubbishPropView(position, convertView, parent,
-						pHolder);
+				return getRubbishFileView(position, convertView, parent);
 			case 3:
-				return getApkCacheView(position, convertView, parent, pHolder);
+				return getApkFileView(position, convertView, parent);
 			case 4:
 				return getBlankFileView(position, convertView, parent, pHolder);
 			}
@@ -254,6 +253,11 @@ public class SceneOfShowRubbish extends BaseActivity {
 		return convertView;
 	}
 
+	public View getFileCacheView(int position, View convertView,
+			ViewGroup parent, ViewHolder pHolder) {
+		return null;
+	}
+
 	public View getRubbishFileView(int position, View convertView,
 			ViewGroup parent) {
 		if (convertView == null) {
@@ -278,7 +282,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 	}
 
 	public View getApkCacheView(int position, View convertView,
-			ViewGroup parent, ViewHolder pHolder) {
+			ViewGroup parent, ViewHolder pHolder,HashMap<String, AppInfo> szTargetMap) {
 		if (convertView == null) {
 			convertView = m_pInflater.inflate(
 					R.layout.grid_item_rubbishactivity, null);
@@ -295,7 +299,7 @@ public class SceneOfShowRubbish extends BaseActivity {
 		String sName = "";
 		if(pHolder == null)
 		{
-			AppInfo pInfo = (AppInfo) m_szTargetHashMap0.values().toArray()[position];
+			AppInfo pInfo = (AppInfo) szTargetMap.values().toArray()[position];
 			sPckName = pInfo.getPackageName() ;
 			nRam = pInfo.getmCache();
 			sName = pInfo.getAppName();
